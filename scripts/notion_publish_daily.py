@@ -8,6 +8,8 @@ import os
 from pathlib import Path
 import re
 import sys
+from zoneinfo import ZoneInfo
+from datetime import timezone
 from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
 
@@ -183,7 +185,7 @@ def eligible(item):
 
 def stage():
     verify_site_registry()
-    today = datetime.now().astimezone(__import__("zoneinfo").ZoneInfo("Asia/Seoul")).date().isoformat()
+    today = datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
     history = []
     if LEDGER.exists():
         history = [json.loads(x) for x in LEDGER.read_text().splitlines() if x.strip()]
@@ -222,7 +224,7 @@ def stage():
         "title": title, "description": description,
         "slug": slug, "category": category, "tags": tags,
         "publishedDate": today, "updatedDate": today,
-        "sources": [{"title": urlsplit(url).netloc + " — official reference", "url": url} for url in sources],
+        "sources": [{"title": urlsplit(url).netloc + " — reference", "url": url} for url in sources],
         "draft": False, "author": "GuideHollow Editorial", "featured": False,
     }
     head = "\n".join(k + ": " + json.dumps(v, ensure_ascii=False)
@@ -258,7 +260,7 @@ def finalize(page_id, url):
     notion("PATCH", "/pages/" + page_id,
            {"properties": {"상태": {"select": {"name": "발행완료"}},
                            "게시 URL": {"url": url},
-                           "발행일시": {"date": {"start": datetime.now(__import__("datetime").timezone.utc).isoformat()}}}})
+                           "발행일시": {"date": {"start": datetime.now(timezone.utc).isoformat()}}}})
     return {"status": "PUBLISHED", "url": url}
 
 
