@@ -8,7 +8,7 @@ export const site = {
   contactEmail: '',
   verification: { google: '', bing: '' },
   ads: {
-    publisherId: '',
+    publisherId: 'ca-pub-8830524482034754',
     // Keep ad requests off until a certified CMP and the updated privacy notice are live.
     servingEnabled: false,
     consentReady: false,
