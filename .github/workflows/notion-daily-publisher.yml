@@ -1,0 +1,143 @@
+name: Notion daily GuideHollow publisher
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: guidehollow-notion-daily-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'emfls/guidehollow'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      TZ: Asia/Seoul
+      NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Run isolated publisher self-test
+        run: python scripts/notion_publish_daily.py selftest
+
+      - name: Validate ready Notion article and stage source
+        id: stage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/notion_publish_daily.py stage > /tmp/notion-result.json
+          cat /tmp/notion-result.json
+          python - <<'PY'
+          import json, os
+          row=json.load(open('/tmp/notion-result.json'))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              for field in ['status', 'file', 'url', 'page_id']:
+                  out.write(f"{field}={row.get(field, '')}\n")
+          PY
+
+      - name: Full site regression
+        if: steps.stage.outputs.status == 'STAGED'
+        run: |
+          npm ci
+          npm test
+          npm run check
+          npm run build
+
+      - name: Create and merge one content PR
+        if: steps.stage.outputs.status == 'STAGED'
+        env:
+          ARTICLE_FILE: ${{ steps.stage.outputs.file }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$ARTICLE_FILE"
+          git add -f data/guidehollow-publication-ledger.jsonl
+          git diff --cached --check
+          git commit -m "content: publish one approved GuideHollow Notion article"
+          branch="notion/daily-${{ github.run_id }}-${{ github.run_attempt }}"
+          git push origin "HEAD:refs/heads/$branch"
+          gh pr create --head "$branch" --base main \
+            --title "content: one verified GuideHollow article" \
+            --body "Automated release from the private approved Notion queue. Build and content verification passed."
+          # Fail closed if protected main requires human approval. Do not bypass policy.
+          gh pr merge "$branch" --squash --delete-branch || {
+            echo "::error::PR is open but cannot be automatically merged. Review branch-protection requirements."
+            exit 1
+          }
+
+      - name: Explicitly dispatch Pages deploy
+        if: steps.stage.outputs.status == 'STAGED'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # GITHUB_TOKEN pushes do not reliably initiate push workflows. workflow_dispatch does.
+          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/dispatches" \
+            -f ref=main
+
+      - name: Verify real published URL
+        if: steps.stage.outputs.status == 'STAGED'
+        env:
+          PUBLIC_URL: ${{ steps.stage.outputs.url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,sys,time
+          from html import escape
+          from urllib.request import Request,urlopen
+          from urllib.error import HTTPError,URLError
+          url=os.environ['PUBLIC_URL']
+          for i in range(60):
+              try:
+                  req=Request(url+'?published-check='+str(i),headers={'Cache-Control':'no-cache'})
+                  with urlopen(req,timeout=15) as response:
+                      html=response.read().decode('utf-8',errors='replace')
+                      if response.status==200 and 'Official sources' in html and '<meta name="google-adsense-account"' in html:
+                          if 'rel="canonical" href="'+url+'"' in html:
+                              print('PUBLICATION_LIVE:',url)
+                              sys.exit(0)
+              except (HTTPError,URLError,TimeoutError):
+                  pass
+              time.sleep(15)
+          raise SystemExit('NOT_LIVE: public page failed 200/canonical/content checks')
+          PY
+
+      - name: Finalize Notion only after live check
+        if: steps.stage.outputs.status == 'STAGED'
+        env:
+          NOTION_PAGE_ID: ${{ steps.stage.outputs.page_id }}
+          PUBLIC_URL: ${{ steps.stage.outputs.url }}
+        run: |
+          python scripts/notion_publish_daily.py finalize --page-id "$NOTION_PAGE_ID" --url "$PUBLIC_URL"
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/notion-result.json ]; then cat /tmp/notion-result.json; fi
+          echo "Dry/no-queue runs are not publication. Verify both Pages and Notion status."
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notion-daily-publish-${{ github.run_id }}
+          path: /tmp/notion-result.json
+          if-no-files-found: ignore
