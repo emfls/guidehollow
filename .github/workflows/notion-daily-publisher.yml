@@ -1,6 +1,12 @@
 name: Notion daily GuideHollow publisher
 on:
   workflow_dispatch:
+  # One-time bootstrap, only when merge commit explicitly contains [notion-first-publish].
+  # Later edits cannot silently publish articles.
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/notion-daily-publisher.yml
 
 permissions:
   contents: write
@@ -13,7 +19,7 @@ concurrency:
 
 jobs:
   publish:
-    if: github.repository == 'emfls/guidehollow'
+    if: github.repository == 'emfls/guidehollow' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[notion-first-publish]')))
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
@@ -34,7 +40,9 @@ jobs:
           cache: npm
 
       - name: Run isolated publisher self-test
-        run: python scripts/notion_publish_daily.py selftest
+        run: |
+          python scripts/notion_publish_daily.py selftest
+          python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
 
       - name: Validate ready Notion article and stage source
         id: stage
