@@ -13,3 +13,4 @@ form.addEventListener('submit', event => {
 form.addEventListener('reset', () => { output.value = ''; status.textContent = 'Inputs and prompt cleared.'; copyStatus.textContent = ''; copy.disabled = download.disabled = true; });
 copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(output.value); copyStatus.textContent = 'Prompt copied.'; } catch { output.focus(); output.select(); copyStatus.textContent = 'Copy unavailable. Your prompt is selected; use your device’s copy command.'; } });
 download.addEventListener('click', () => { const url = URL.createObjectURL(new Blob([output.value], {type:'text/plain;charset=utf-8'})); const link = document.createElement('a'); link.href = url; link.download = 'guidehollow-prompt.txt'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); copyStatus.textContent = 'TXT download requested.'; });
+form.querySelector<HTMLFieldSetElement>('fieldset')!.disabled = false;

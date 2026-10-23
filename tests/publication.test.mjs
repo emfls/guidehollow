@@ -32,6 +32,8 @@ test('new publication, missing start article, drafts and future content build sa
     assert.equal(index.length,15,'13 articles and 2 tools');
     const home = await readFile(path.join(fixture,'dist/index.html'),'utf8');
     assert(!home.includes('href="/guides/what-is-generative-ai/"'));
+    const promptPage = await readFile(path.join(fixture,'dist/tools/ai-prompt-builder/index.html'),'utf8');
+    assert.match(promptPage,/<fieldset[^>]*\bdisabled(?:\s|>)/,'Prompt inputs must be inert until the local script is ready, preventing no-JS GET submission');
     async function checkOutput(dir) {
       for(const entry of await readdir(dir,{withFileTypes:true})) {
         const file = path.join(dir,entry.name);

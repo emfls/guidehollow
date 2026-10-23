@@ -28,6 +28,7 @@ Ego Lite Chromium, local static preview at `http://127.0.0.1:4321`.
 - Homepage search submission and full-text results (query: spreadsheet).
 - Ctrl/Cmd+K focuses search; unmatched and HTML-like search input remain text.
 - Prompt Builder: required empty goal, all five fields, output, copy success, TXT downloaded and content checked, reset clears inputs/output and disables actions.
+- A final static-output regression ensures prompt inputs start inside a disabled fieldset, preventing native GET submission when JavaScript is unavailable. The local script enables it only after handlers are registered.
 - Response checklist: all six checks set progress to 6; reset returns to zero and removes every check.
 - Article prompt copy button reports successful clipboard write.
 - System light theme, explicit dark theme, preference after reload, and storage-denial resilience.

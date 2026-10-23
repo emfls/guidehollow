@@ -1,6 +1,6 @@
 @layer reset, base, layout, components;
 @layer reset {
-  *,*::before,*::after{box-sizing:border-box}body,h1,h2,h3,p,ol,ul{margin:0}button,input,textarea,select{font:inherit}button,a,input,textarea{touch-action:manipulation}img,svg{max-width:100%}button{cursor:pointer}a{color:inherit}html{scroll-padding-top:6rem}
+  *,*::before,*::after{box-sizing:border-box}body,h1,h2,h3,p,ol,ul{margin:0}button,input,textarea,select{font:inherit}button,a,input,textarea{touch-action:manipulation}img,svg{max-width:100%}button{cursor:pointer}fieldset{border:0;padding:0;margin:0;min-width:0}a{color:inherit}html{scroll-padding-top:6rem}
 }
 @layer base {
   :root{color-scheme:dark;--bg:#0c1214;--surface:#131c1f;--surface2:#1a2529;--text:#e7eeeb;--muted:#a0b1b4;--accent:#78e8b3;--line:#2a383d;--strong:#0c1214;--mono:'SFMono-Regular',Consolas,'Liberation Mono',monospace;--code:#d1e5dd}
