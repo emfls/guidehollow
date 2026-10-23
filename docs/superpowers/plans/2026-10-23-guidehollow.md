@@ -32,12 +32,12 @@
 - Custom domain, valid HTTPS and www redirect require external verification.
 
 ## Tasks
-- [ ] Write and run failing behavior tests for prompt formatting, input validation and checklist summary.
-- [ ] Implement the two tools and shared navigation/theme/copy/search behavior.
-- [ ] Build validated article collection, all required pages, tags and full-content static search.
-- [ ] Research official sources and write 12 distinct guides with actionable examples and limitations.
-- [ ] Add semantic metadata, source attribution, feeds, sitemap, robots, gated ads configuration and policies.
-- [ ] Run install, tests, type check, build and comprehensive output/link checks.
-- [ ] Inspect desktop/mobile in browser and exercise search, copy, download, reset, checklist, theme and menu.
-- [ ] Commit and push; enable Pages Actions and custom domain where authorized; inspect workflow and public responses.
-- [ ] Record verified results and remaining owner actions in Korean.
+- [x] Write and run failing behavior tests for prompt formatting, input validation and checklist summary.
+- [x] Implement the two tools and shared navigation/theme/copy/search behavior.
+- [x] Build validated article collection, all required pages, tags and full-content static search.
+- [x] Research official sources and write 12 distinct guides with actionable examples and limitations.
+- [x] Add semantic metadata, source attribution, feeds, sitemap, robots, gated ads configuration and policies.
+- [x] Run install, tests, type check, build and comprehensive output/link checks.
+- [x] Inspect desktop/mobile in browser and exercise search, copy, download, reset, checklist, theme and menu.
+- [x] Commit and push; enable Pages Actions and custom domain where authorized; inspect workflow and public responses.
+- [x] Record verified results and remaining owner actions in Korean.
