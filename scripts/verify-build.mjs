@@ -31,10 +31,29 @@ for (const file of htmlFiles) {
   if (relative === '404.html') assert(canonical?.startsWith('https://guidehollow.com/404'), '404 canonical must use public domain');
   else assert.equal(canonical,current.href,`${relative}: canonical must match public domain and route`);
   assert.equal(html.includes('pagead2.googlesyndication.com'),site.ads.servingEnabled && site.ads.consentReady,`${relative}: ad requests must match consent and serving gates`);
-  assert(!html.includes('ca-pub-0000'),`${relative}: no fabricated publisher ID`);
+  const publisherMeta = html.match(/name="google-adsense-account" content="([^"]+)"/)?.[1];
+  assert.equal(publisherMeta,site.ads.publisherId || undefined,`${relative}: verification must match the configured publisher`);
+  const noindex = html.includes('content="noindex, follow"');
+  const listed = sitemap.includes(`<loc>${current.href}</loc>`);
+  assert.equal(listed,!noindex,`${relative}: sitemap and robots indexing policy must agree`);
+  if(relative.startsWith('tags/')) {
+    const count = (html.match(/class="article-row"/g)||[]).length;
+    assert.equal(noindex,count < 2,`${relative}: singleton tag index policy`);
+  }
   const jsonld = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)];
   assert(jsonld.length,`${relative}: structured data`);
-  jsonld.forEach(match => { const data = JSON.parse(match[1]); assert.equal(data['@context'],'https://schema.org'); if(data['@graph'].some(item => item['@type']==='BlogPosting')) articlePaths.push(current.pathname); });
+  jsonld.forEach(match => {
+    const data = JSON.parse(match[1]); assert.equal(data['@context'],'https://schema.org');
+    const article = data['@graph'].find(item => item['@type']==='BlogPosting');
+    if(article) {
+      articlePaths.push(current.pathname);
+      const expectedHeadline = article.headline.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll("'",'&#39;').replaceAll('"','&quot;');
+      assert.equal(html.match(/<h1\b[^>]*>(.*?)<\/h1>/s)?.[1],expectedHeadline,`${relative}: article headline matches visible h1`);
+      assert.equal(article.author.name,'GuideHollow Editorial',`${relative}: honest attribution`);
+      assert(html.includes(`datetime="${article.datePublished}"`) && html.includes(`datetime="${article.dateModified}"`),`${relative}: schema dates match displayed dates`);
+      assert.equal(article.mainEntityOfPage,current.href);
+    }
+  });
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
     const raw = match[1].replaceAll('&amp;','&');
     if (/^(?:mailto:|tel:|data:|javascript:)/.test(raw)) continue;

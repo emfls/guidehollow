@@ -47,6 +47,22 @@ Microsoft documents `SUMIFS` as summing a range using multiple criteria. For thi
 
 The sum range is C2:C5. The two criteria ranges are A2:A5 and B2:B5. The ranges refer to the same four data rows. This explanation and arithmetic were reviewed against the documented function syntax; the formula was not executed in a live Excel workbook for this guide.
 
+## Download the input and use a test oracle
+
+[Download the four-row CSV](/examples/ai-spreadsheet-sample.csv). It contains only the fictional table above. Open it in a disposable sheet and confirm A1:C5 before entering the formula; do not overwrite a real workbook.
+
+| Check, starting from the original data each time | Expected East/Paid total | What it detects |
+| --- | --- | --- |
+| Original rows | 150 | Baseline criteria and sum range |
+| Change West/Paid amount from 80 to 800 | 150 | Wrong-region rows leaking into the sum |
+| Change East/Pending status to Paid | 200 | Second criterion being ignored |
+| Change the final East/Paid amount from 30 to 0 | 120 | Incorrect row boundaries or stale references |
+| Change both East/Paid statuses to Pending | 0 | No-match behavior |
+
+GuideHollow checked these arithmetic expectations with an automated Node.js assertion against the downloadable CSV on October 23, 2026. That verifies the dataset and expected totals; it does **not** execute Excel's SUMIFS engine or establish locale-specific spreadsheet behavior. Run the checks in your app before using the formula on real data.
+
+If the baseline is 230, the formula probably included the West row. If it is 200, the Pending row may have been included. Those are diagnostic clues rather than proof: inspect the exact formula and source cells before changing anything.
+
 ## Prompt for explanation and tests
 
 ```text

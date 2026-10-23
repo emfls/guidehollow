@@ -36,28 +36,40 @@ For a fictional community event, the blank might be: “assign the next five pre
 
 Not every task needs all five. A simple rewrite may only need the text, audience, and tone. The point is to resolve important ambiguity, not to make every prompt long.
 
-## Compare two requests
+## Compare a failed prompt with a bounded one
 
-Weak request:
+Suppose these fictional release notes are all you know:
+
+> Version 3.2 fixes export filenames. Offline mode is a proposal, not an approved feature. No release date has been agreed.
+
+A weak request is “Write an exciting launch announcement.” A deliberately bad, hand-written example would be: “Version 3.2 launches Monday with offline mode for everyone.” It invents a date and promotes a proposal into a shipped feature. This is an illustrative failure, not a captured model response.
+
+Try this bounded request instead:
 
 ```text
-Write something about our book swap. Make it engaging.
+Draft a release-note paragraph for users from the supplied notes.
+Keep it under 80 words. Use plain language, not promotional claims.
+Separate the confirmed fix from the proposed feature.
+Write [RELEASE DATE NOT CONFIRMED] instead of adding a date.
+Do not invent plan availability, prices, approval, or performance results.
+
+Notes:
+Version 3.2 fixes export filenames.
+Offline mode is a proposal, not an approved feature.
+No release date has been agreed.
 ```
 
-More useful request:
+One acceptable editorial example is: “Version 3.2 fixes export filenames. [RELEASE DATE NOT CONFIRMED] Offline mode remains a proposal and is not an approved feature.” Different wording is fine if it preserves those boundaries; this sample is not a claim of product testing.
 
-```text
-Draft a 100-word invitation to a fictional neighborhood book swap.
-Audience: neighbors who have never attended.
-Confirmed facts: two volunteers, a two-hour event, books exchanged for free.
-Date and location: not decided.
-Tone: welcoming and straightforward.
-Use [DATE] and [LOCATION] for missing details.
-Do not invent sponsors, refreshments, attendance, or accessibility features.
-Return a subject line and one paragraph.
-```
+### Check the result before calling the prompt better
 
-The second version gives you a review checklist. Count the words, check the known facts, verify the placeholders, and look for invented details. You can now explain what is wrong if the answer misses the mark.
+- Does it state the filename fix without promising an unmeasured speed improvement?
+- Does it keep offline mode proposed, rather than shipped?
+- Is the date placeholder intact?
+- Does it avoid inventing subscription or pricing details?
+- Is it within 80 words and understandable without the original notes?
+
+A result fails if any of the first four checks fails, even if its tone is excellent. Revise the failed requirement, then rerun the same input so you can compare like with like.
 
 ## Add an example when style is hard to describe
 
@@ -72,8 +84,8 @@ After the first response, choose the most important defect. A precise follow-up 
 ```text
 Keep the confirmed facts and placeholders.
 Remove promotional language such as “unmissable.”
-Make the invitation sound like one neighbor writing to another.
-Keep the subject line and one-paragraph format.
+Make the release note sound factual and useful.
+Keep the one-paragraph format and the release-date placeholder.
 ```
 
 Read the whole revision afterward. A request to change tone can still alter facts or omit a required detail. Do not assume that a narrow instruction creates a perfect edit boundary.

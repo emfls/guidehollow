@@ -1,0 +1,113 @@
+{
+  "checked_at": "2026-10-23T20:57:38.524598+09:00",
+  "method": "Public HTTPS GET with certificate verification; source relevance assessed separately",
+  "results": [
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+      "status": 200,
+      "final_url": "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+      "title": "Prompt design strategies &nbsp;|&nbsp; Gemini API &nbsp;|&nbsp; Google AI for Developers"
+    },
+    {
+      "url": "https://developers.google.com/machine-learning/crash-course/llm",
+      "status": 200,
+      "final_url": "https://developers.google.com/machine-learning/crash-course/llm",
+      "title": "Introduction to Large Language Models &nbsp;|&nbsp; Machine Learning &nbsp;|&nbsp; Google for Developers"
+    },
+    {
+      "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+      "status": 200,
+      "final_url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+      "title": "GitHub General Privacy Statement - GitHub Docs"
+    },
+    {
+      "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Prompt engineering best practices for ChatGPT",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Data controls in ChatGPT",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Does ChatGPT tell the truth?",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Uploading files and audio to ChatGPT",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "The ChatGPT home page",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Searching the web with ChatGPT",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden",
+      "secondary_check": {
+        "method": "Web tool: official page content or full official search result read on 2026-10-23",
+        "title": "Network recommendations for ChatGPT errors on web and apps",
+        "result": "readable and relevant; direct GET remains 403"
+      }
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
+      "status": 200,
+      "final_url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
+      "title": "SUMIFS function | Microsoft Support"
+    },
+    {
+      "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+      "status": 200,
+      "final_url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+      "title": "Effective context engineering for AI agents \\ Anthropic"
+    }
+  ],
+  "initial_audit": {
+    "articles": 12,
+    "unique_sources": 10,
+    "direct_200": 5,
+    "direct_403": 5,
+    "replaced_source": "6783457-what-is-chatgpt contains outdated capability statements; replaced with current home-page documentation"
+  }
+}

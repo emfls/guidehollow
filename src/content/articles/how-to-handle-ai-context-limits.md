@@ -24,6 +24,33 @@ You may see a size error, a truncated answer, repeated questions about establish
 
 Anthropic's context engineering guidance treats context as a finite resource and discusses selecting the information most relevant to the task. The practical takeaway is to curate what the next step needs instead of repeatedly appending the whole history.
 
+## Run a controlled diagnostic before blaming context size
+
+Use a fictional instruction conflict that you can check without a model benchmark:
+
+```text
+Current task: write the handoff for a three-page brochure.
+Current approved page count: 3.
+Superseded proposal: 6 pages, rejected.
+Required footer: “Draft — dates not confirmed.”
+
+Return only:
+- approved page count
+- footer text
+- unresolved decisions
+Do not reactivate the rejected proposal.
+```
+
+The acceptance criteria are explicit: the page count must be 3, the footer must keep its wording, and an unknown print date must remain unresolved. The example is a diagnostic input, not a claim that a specific model failed it.
+
+1. Save the problematic answer and identify the exact violated criterion.
+2. In a fresh conversation, submit just this compact input and compare against the criteria.
+3. If the compact task works but the old conversation does not, review obsolete instructions and missing source passages in the old context. This suggests a context-management issue; it does not measure a context-window limit.
+4. If both fail, first inspect ambiguity, contradictory constraints, or product capability. Do not keep appending more history to fix an unclear task.
+5. If the product reports an explicit size limit, reduce the input according to that product's current limits rather than guessing a universal token count.
+
+Record input version, product/client, date, the expected properties, and the observed result. Until you have run it yourself, leave “observed result” empty. A new chat can help isolate the input; it cannot supply missing evidence.
+
 ## Make a working brief
 
 Include six elements:

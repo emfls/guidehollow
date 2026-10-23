@@ -88,3 +88,11 @@ Build and upload `dist/` to a static host. Keep the domain in config and Astro a
 ## Licensing
 
 Public repository visibility does not grant a general reuse license. The site terms permit adapting practical prompt examples; broader code/content licensing remains an owner decision.
+
+## AdSense readiness follow-up
+
+See `docs/adsense-readiness-report.ko.md` for the current follow-up report, `docs/content-audit.ko.md` for the original 12-article review and five substantial updates, and `docs/adsense-setup.ko.md` for account verification, CMP/privacy release checks, contact setup, and Search Console steps. The library now contains 14 guides.
+
+Set `site.contactEmail` only to an owner-confirmed public email. While it is empty, the site keeps the public GitHub issue route and clearly states its login/publication limits. A configured email reveals a mailto contact route and matching email-provider processing information in the privacy notice. This does not add a form or promise a response time.
+
+Tag archives with fewer than two published articles remain usable and retain their URLs, but use `noindex, follow` and are omitted from the sitemap. This is an editorial threshold, not a Google rule. Tests cover the boundary and output consistency.

@@ -44,6 +44,27 @@ The distinction matters. A suggestion can be worth considering without being “
 
 Keep links and a short note about the relevant section. A bookmark alone may not remind you why a page was useful.
 
+## Copy a ledger you can actually maintain
+
+Paste this tab-separated header into a blank spreadsheet or text file. Keep the exact claim and the decision separate so a later correction remains traceable.
+
+```text
+Claim ID	Exact claim	Primary source URL	Section or passage	Source date/version	Checked on	Status	Decision
+C01	[one checkable claim]	[URL or not found]	[section]	[date or unknown]	[date]	[supported/contradicted/unresolved]	[keep/rewrite/omit]
+```
+
+For the fictional room example, the completed decisions should be:
+
+| ID | Evidence found | Status | Publication decision |
+| --- | --- | --- | --- |
+| C01: room holds 40 people | Fictional official specification says seated capacity 32 | Contradicted | Rewrite to 32; preserve “seated” |
+| C02: tomorrow is bookable | No booking lead-time evidence | Unresolved | Omit the promise and ask the venue |
+| C03: morning is best | No team preference recorded | Unresolved suggestion | Present as an option, not a fact |
+
+The venue and specification are illustrative; they are not real citations. For your own ledger, the URL must lead to a source you opened. A blank source date remains “unknown,” not today's date. A source that merely mentions the topic leaves the claim unresolved.
+
+Stop publication when an unresolved claim changes the reader's action. Less consequential uncertainty can stay visible as an open question. This is a decision rule for your review, not an automated truth score.
+
 ## Use AI to prepare the review
 
 An assistant can help organize claims without serving as the evidence. Try this on an answer you are allowed to share:
