@@ -63,7 +63,7 @@ class PublisherTests(unittest.TestCase):
                   block("Separate paragraph", "paragraph")]
         with patch.object(publisher, "children", return_value=blocks):
             output = publisher.markdown("id")
-        self.assertIn("- One\\n- Two\\n\\nSeparate paragraph", output)
+        self.assertIn("- One\n- Two\n\nSeparate paragraph", output)
 
     def test_notion_normalized_internal_links_restore_site_paths(self):
         item = {"plain_text": "Prompt Builder",
