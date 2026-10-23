@@ -1,0 +1,50 @@
+{
+  "engine": "LibreOfficeDev 26.8.0.0.alpha0",
+  "checkedOn": "2026-10-23",
+  "checks": [
+    {
+      "label": "Original",
+      "cell": "E2",
+      "formula": "=SUMIFS(C2:C5,A2:A5,\"East\",B2:B5,\"Paid\")",
+      "expected": 150,
+      "observed": 150
+    },
+    {
+      "label": "West amount 800",
+      "cell": "E10",
+      "formula": "=SUMIFS(C10:C13,A10:A13,\"East\",B10:B13,\"Paid\")",
+      "expected": 150,
+      "observed": 150
+    },
+    {
+      "label": "Pending becomes Paid",
+      "cell": "E18",
+      "formula": "=SUMIFS(C18:C21,A18:A21,\"East\",B18:B21,\"Paid\")",
+      "expected": 200,
+      "observed": 200
+    },
+    {
+      "label": "Final amount zero",
+      "cell": "E26",
+      "formula": "=SUMIFS(C26:C29,A26:A29,\"East\",B26:B29,\"Paid\")",
+      "expected": 120,
+      "observed": 120
+    },
+    {
+      "label": "No East/Paid rows",
+      "cell": "E34",
+      "formula": "=SUMIFS(C34:C37,A34:A37,\"East\",B34:B37,\"Paid\")",
+      "expected": 0,
+      "observed": 0
+    }
+  ],
+  "recalculationProbe": {
+    "inputBefore": 120,
+    "inputAfter": 121,
+    "cachedResultBefore": 150,
+    "recalculatedResult": 151
+  },
+  "recalculation": "OOXMLRecalcMode=0 in an isolated temporary Calc profile",
+  "documentLanguage": "ko-KR (workbook metadata); Excel-invariant English formula names in XLSX",
+  "localeScope": "Other app/locale behavior was not verified"
+}

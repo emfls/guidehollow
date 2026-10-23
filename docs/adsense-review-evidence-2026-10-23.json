@@ -1,0 +1,457 @@
+{
+  "checkedAt": "2026-10-23T12:35:52.293232+00:00",
+  "pages": [
+    {
+      "url": "https://guidehollow.com/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/404.html",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/contact/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tools/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tools/ai-prompt-builder/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tools/ai-response-checklist/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/privacy-policy/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/terms/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/about/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/why-ai-gives-wrong-answers/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/chatgpt-file-upload-problems/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/how-to-handle-ai-context-limits/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/research/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/privacy/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/ai-basics/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/prompting/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/spreadsheets/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/workflows/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/troubleshooting/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/verification/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/getting-started/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/templates/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/documents/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/chatgpt/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/productivity/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/tags/writing/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/search/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/getting-started-with-chatgpt/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/how-to-use-chatgpt-search/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-draft-emails-with-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/ai-privacy-basics/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-verify-ai-generated-information/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/what-is-generative-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-use-ai-for-spreadsheet-tasks/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-summarize-long-documents-with-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/editorial-policy/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/prompts/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/prompts/how-to-write-better-ai-prompts/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/prompts/how-to-build-reusable-prompt-templates/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/prompts/a-practical-ai-prompt-framework/",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": 1,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/ads.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/robots.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/sitemap.xml",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/search-index.json",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/rss.xml",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    },
+    {
+      "url": "https://guidehollow.com/examples/ai-spreadsheet-sample.csv",
+      "status": 200,
+      "matchesBuild": true,
+      "xRobotsTag": null,
+      "publisherMetas": null,
+      "adScripts": false,
+      "attempts": 1
+    }
+  ],
+  "extra": [
+    {
+      "url": "https://guidehollow.com/adsense-audit-missing-20261023/",
+      "status": 404
+    },
+    {
+      "url": "https://www.guidehollow.com/",
+      "status": 200,
+      "finalUrl": "https://guidehollow.com/"
+    }
+  ]
+}

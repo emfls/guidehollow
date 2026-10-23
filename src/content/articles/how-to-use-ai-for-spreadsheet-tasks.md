@@ -59,7 +59,13 @@ The sum range is C2:C5. The two criteria ranges are A2:A5 and B2:B5. The ranges 
 | Change the final East/Paid amount from 30 to 0 | 120 | Incorrect row boundaries or stale references |
 | Change both East/Paid statuses to Pending | 0 | No-match behavior |
 
-GuideHollow checked these arithmetic expectations with an automated Node.js assertion against the downloadable CSV on October 23, 2026. That verifies the dataset and expected totals; it does **not** execute Excel's SUMIFS engine or establish locale-specific spreadsheet behavior. Run the checks in your app before using the formula on real data.
+GuideHollow checked these arithmetic expectations against the downloadable CSV, then executed the five SUMIFS formulas in **LibreOfficeDev Calc 26.8.0.0.alpha0** on October 23, 2026. The observed results were **150, 150, 200, 120, and 0**, matching all five expectations. This is a development build of Calc, not a Microsoft Excel test or a guarantee about your app or locale.
+
+[Download the formula workbook](/examples/ai-spreadsheet-checks.xlsx) and [the recorded results](/examples/ai-spreadsheet-checks-results.json). The workbook has five separately labeled input blocks; each starts from the original four rows, with its stated change applied. The first block retains the A1:C5 layout and formula shown above.
+
+We also tested whether Calc was actually recalculating rather than displaying saved values. A temporary copy changed the first East/Paid amount from 120 to 121 while retaining a cached total of 150. With recalculation forced on load in an isolated test profile, Calc saved a result of **151**. The distributed workbook retains the original 120 input and 150 result. This extra probe establishes recalculation for this file; it does not validate every spreadsheet feature.
+
+When you open the workbook, recalculate it in your app and check the formula bar as well as the displayed value. If your locale uses semicolon argument separators, use the syntax your app expects. Do not change global spreadsheet settings merely to reproduce this example.
 
 If the baseline is 230, the formula probably included the West row. If it is 200, the Pending row may have been included. Those are diagnostic clues rather than proof: inspect the exact formula and source cells before changing anything.
 
@@ -95,7 +101,7 @@ Review both the formula and the explanation. If one says 150 and the other inclu
 6. Test a row with a blank amount and inspect what your app does.
 7. Only then adapt the ranges to your real, authorized data.
 
-These are instructions for your own verification, not a claim of completed application testing. Record the app and locale if the formula will be shared with others.
+These steps let you repeat the checks in your own app; our recorded Calc run does not establish behavior in Excel or your locale. Record your app and locale if the formula will be shared with others.
 
 ## Common spreadsheet traps
 

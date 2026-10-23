@@ -56,7 +56,7 @@ test('new publication, missing start article, drafts and future content build sa
     const config = await readFile(configFile,'utf8');
     // Synthetic ID/email exist only in this deleted test fixture, never in production configuration.
     const publisher = 'ca-pub-' + '1'.repeat(16);
-    await writeFile(configFile,config.replace(/publisherId: '[^']*'/,`publisherId: '${publisher}'`).replace("contactEmail: ''","contactEmail: 'contact@example.invalid'"));
+    await writeFile(configFile,config.replace(/publisherId: '[^']*'/,`publisherId: '${publisher}'`).replace(/contactEmail: '[^']*'/,"contactEmail: 'contact@example.invalid'"));
     const verificationBuild = spawnSync(process.execPath,[path.resolve('node_modules/astro',astroPackage.bin.astro),'build'],{cwd:fixture,encoding:'utf8',timeout:20000});
     assert.equal(verificationBuild.status,0,verificationBuild.stderr);
     const verificationHome = await readFile(path.join(fixture,'dist/index.html'),'utf8');

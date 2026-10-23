@@ -5,7 +5,7 @@ export const site = {
   description: 'Practical AI guides, reusable prompts, and free tools. Understand the basics, build better workflows, and check what AI gets wrong.',
   repository: 'https://github.com/emfls/guidehollow',
   contact: 'https://github.com/emfls/guidehollow/issues/new',
-  contactEmail: '',
+  contactEmail: 'emfls24777@daum.net',
   verification: { google: '', bing: '' },
   ads: {
     publisherId: 'ca-pub-8830524482034754',

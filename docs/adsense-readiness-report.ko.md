@@ -1,5 +1,7 @@
 # GuideHollow 애드센스 심사 전 보완 결과
 
+> 이 문서는 1차 작업 당시의 기록입니다. 실제 Publisher ID·문의 이메일 설정과 콘텐츠 실행 증거 추가 후 상태는 [재검수 후속 조치](content-evidence-remediation.ko.md)를 참고합니다.
+
 작업일: 2026-10-23 (KST). 지시 원본: [Notion 통합 지시서](https://app.notion.com/p/402db4c0a99181c78dfbca077ddccd32), 전체 본문과 1번 섹션의 A~G 우선순위를 확인했습니다.
 
 ## 범위와 기준선
