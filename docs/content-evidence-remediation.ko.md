@@ -46,4 +46,10 @@ CMP·개인정보 고지의 광고용 데이터 처리 설정은 실제 광고�
 
 ## 병합·운영 검증
 
-PR·커밋·배포 완료 후 실제 결과를 추가합니다.
+- [PR #2](https://github.com/emfls/guidehollow/pull/2), 작업 커밋 `866a38173a2914771e0e15d1b929f8c9503b38f8`, main 병합 `18bd0edb9aca9e50b0c8cf1d1788f223fa342c35`.
+- [PR CI](https://github.com/emfls/guidehollow/actions/runs/39956947447) 통과 후 사용자 승인 범위에 따라 병합. [운영 배포](https://github.com/emfls/guidehollow/actions/runs/39957053811)의 build/deploy 성공.
+- 2026-10-23 21:57:10 KST: 공개 파일 62개(HTML 43개 포함) 전부 실제 HTTPS 200 및 로컬 빌드 바이트 일치. 각 파일 URL·SHA-256은 `content-evidence-production-check.json`.
+- 실제 운영 브라우저: 문의 mailto 일치, Calc 실행 증거와 다운로드 노출, 검색 observed 6개 결과와 템플릿 글 노출 확인.
+- ads.txt는 일반/광고 크롤러 User-Agent의 세 요청 모두 200 및 동일 ID. 이는 Google 서버가 실제 재크롤링했다는 증거와 구분.
+- 테스트용 이메일을 발송하지 않았으며 정상 수신은 사용자 확인을 근거로 기록. Notion의 실행 결과 및 소통 로그에 별도 기록.
+- 후속 문서 커밋은 이 배포 증거를 저장하며 런타임 변경을 포함하지 않습니다.

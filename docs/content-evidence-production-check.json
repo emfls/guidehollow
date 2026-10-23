@@ -1,0 +1,380 @@
+{
+  "verifiedAt": "2026-10-23T12:57:10.400255+00:00",
+  "mergeCommit": "18bd0edb9aca9e50b0c8cf1d1788f223fa342c35",
+  "workflow": "https://github.com/emfls/guidehollow/actions/runs/39957053811",
+  "htmlPages": 43,
+  "results": [
+    {
+      "url": "https://guidehollow.com/rss.xml",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "e16b373d2542b147e224a035074cc7f178fdf093b119f2c30b3c19669edc2c76"
+    },
+    {
+      "url": "https://guidehollow.com/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "764495f54e65eb4624b60bdf867b0c8033ec123716513299b5bf0f0feebc1870"
+    },
+    {
+      "url": "https://guidehollow.com/ads.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "958f366780f09b8fcd319a8b43be218efbf8c93d21f2be3c29ad1fb5c0078432"
+    },
+    {
+      "url": "https://guidehollow.com/404.html",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "ebc8b26dde92410c436d28a12836b29ca892d656e36e7e097e005aac3a66aeb2"
+    },
+    {
+      "url": "https://guidehollow.com/search-index.json",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "63b1aedb16d6c187e7815d5f73bf8a567d03e4e696578229a3578df099227af0"
+    },
+    {
+      "url": "https://guidehollow.com/social.svg",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "385812ac5da156405f013907a39c84f8256b38ee596af57f77e705515b53b4c2"
+    },
+    {
+      "url": "https://guidehollow.com/sitemap.xml",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "f57b11545d0f1743c66f87b01203354fef7df853288a065b54dabb5cfc8973d0"
+    },
+    {
+      "url": "https://guidehollow.com/robots.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "8949a125a8769bf745c7f867d1344d338428f840b475541bba1c07737133f96c"
+    },
+    {
+      "url": "https://guidehollow.com/favicon.svg",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "7e55ed7a9c8b237aa6c97a08a57a0b5112649cc96f77d780d30899799350e3c6"
+    },
+    {
+      "url": "https://guidehollow.com/social.png",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "7f64bc7239f67764a67dabcdd9eb47a39e99e63974de55740fb636f896d5191d"
+    },
+    {
+      "url": "https://guidehollow.com/contact/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "ade5ae442a025a8532a990019b6b2888ec60026d2d7179e445c589186f7ba10f"
+    },
+    {
+      "url": "https://guidehollow.com/tools/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "075bf9be6db4c32f40b1a7f66b62fde74333bdd0af00e0ca112171a951036bdb"
+    },
+    {
+      "url": "https://guidehollow.com/tools/ai-prompt-builder/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "278514f24ca50c5ad8ef542018b824e3bcda45abfe73d1ce2ced0e0e4b4990de"
+    },
+    {
+      "url": "https://guidehollow.com/tools/ai-response-checklist/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "c33cd889624b8138c1965095dc5a9f7ff14422a804de7dd116b1274568799fe0"
+    },
+    {
+      "url": "https://guidehollow.com/privacy-policy/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "512ccf493cecbaf6119e3dae30bd500bd2546ce3868ccebaa3c915c9506b66ed"
+    },
+    {
+      "url": "https://guidehollow.com/terms/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "881c9f8defd067b1af2de54cfa1dede2daddaabccfe3fd8abc7d8edc11670df0"
+    },
+    {
+      "url": "https://guidehollow.com/about/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "222cb6cabae76fb77938e6b5b641f22241d55f8fd3d5b4644fa892f037c44d6a"
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "72e593eb4ab48ebd12bfe207af8e98fb15ee0a01293d314efeca8a527de6ec1d"
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/why-ai-gives-wrong-answers/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "dc97fcb03eff9e52a7319763787235bd2cfcb3341cc477ace7cc1bfb71f8b703"
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/chatgpt-file-upload-problems/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "c30dc81efe71141038f2324a5eaa9af6c3c85b604639651b99145251107a3276"
+    },
+    {
+      "url": "https://guidehollow.com/troubleshooting/how-to-handle-ai-context-limits/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "65912d42b9c47c8c3370220b3d75522e6ab16195b09ba2553b3d34676bf2713f"
+    },
+    {
+      "url": "https://guidehollow.com/tags/research/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "0f3c834076e38c7d48b64629724b7b83f9e6c74ad9eccb1cd321b2341048a1b2"
+    },
+    {
+      "url": "https://guidehollow.com/tags/privacy/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "afdfe5235e78efa26210a8a7210888183671968877794b0f50334130591a32aa"
+    },
+    {
+      "url": "https://guidehollow.com/tags/ai-basics/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "8267ff34169c1bc479ad59b76db9fe48ace9a31be4060a1e824c3cdfb4b7b53a"
+    },
+    {
+      "url": "https://guidehollow.com/tags/prompting/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "4163ae75d8e023c07af347d55a3752692ee6e98f5838b111a500aec9066a19e6"
+    },
+    {
+      "url": "https://guidehollow.com/tags/spreadsheets/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "e06fbfa659faf4cac73a245982b627f2efb08ae3f5218e0e7231664b76d03f27"
+    },
+    {
+      "url": "https://guidehollow.com/tags/workflows/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "0903aa9db4f0540ad5400531b87f0d5a4451830aee77f68fcf4b8a76a524576f"
+    },
+    {
+      "url": "https://guidehollow.com/tags/troubleshooting/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "a6d1fc3cec8eb7528a6be7089bec23ccbeea5443ccfda9afc0a0b14304a49e12"
+    },
+    {
+      "url": "https://guidehollow.com/tags/verification/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "349fb508e83b486eb93ab61314c88ade68409a69a593cfd5a7e7c7cb2fd4d0d3"
+    },
+    {
+      "url": "https://guidehollow.com/tags/getting-started/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "77bccf35990de2a653ecfd413a75a33219746cf1670964909e3db50bc875834d"
+    },
+    {
+      "url": "https://guidehollow.com/tags/templates/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "b4cdbd544cd58728cd930c3da85db2b66d9e600aa56dbaccec1d79a7620fb4eb"
+    },
+    {
+      "url": "https://guidehollow.com/tags/documents/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "4da8632fb9e4ede9b10ea87b107d9d023c1d358cba25eba0ef0e9e07aa741a4f"
+    },
+    {
+      "url": "https://guidehollow.com/tags/chatgpt/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "6c99330269bb1b603b93fba908447b9152db702b5c5ffe67d11a97de453baba2"
+    },
+    {
+      "url": "https://guidehollow.com/tags/productivity/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "e69434279bd8bae216eeb8e03dfe48715b2d71d9c8ea353281f25217a91143ed"
+    },
+    {
+      "url": "https://guidehollow.com/tags/writing/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "869d978ce480995c985d32684bfad65b8d9e9ba59279029a4a2bc9dd5bc95d04"
+    },
+    {
+      "url": "https://guidehollow.com/search/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "127b1750ca8330d2f579bdb757f6cf1e994dbc4fadf78a76e1ba4d60c72b12b7"
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "1e3bb3f729fe3dcac7feb88ac25c1fcd0c1cffc5ecb0a0d8e5d6d183db4301a8"
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/getting-started-with-chatgpt/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "5f2774a27ed5af973f6d21c75a7fa0664a02a15cb436bc49e01a32db69706e06"
+    },
+    {
+      "url": "https://guidehollow.com/ai-tools/how-to-use-chatgpt-search/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "b1e38084e8fee70f2bee79b4220d64b62f8d00b9a38b3d0c25133f6e1539575b"
+    },
+    {
+      "url": "https://guidehollow.com/guides/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "1010fd3773cd2d617e4005586637264cb2a27f4592f65afa19c65346adf0bc1d"
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-draft-emails-with-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "16aca8f65ee64fa09c305a3b30bb3a9935cb39c3d5d351cf58c36a6e5d768562"
+    },
+    {
+      "url": "https://guidehollow.com/guides/ai-privacy-basics/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "d6bdbf4dedadcdd19e9d3084a3f1c87cbdc27e83ae4667065f73e6e6912bc02a"
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-verify-ai-generated-information/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "4218a16c0931422c935388093d12ca40a657005d7eba0cad7c575d254df7b361"
+    },
+    {
+      "url": "https://guidehollow.com/guides/what-is-generative-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "e38d5ffd17b6615f294d76311f49079cfb64aaecb185a82d5bde2cdb8beedc75"
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-use-ai-for-spreadsheet-tasks/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "b83d02ee7a236a200912a8894bc21a623db2f6af7ad59fc1988b40959e7fdb36"
+    },
+    {
+      "url": "https://guidehollow.com/guides/how-to-summarize-long-documents-with-ai/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "892ca06b89967f61a70d9dd04ac742c3fc8a329684f9f1b4c7d35268faab8bb0"
+    },
+    {
+      "url": "https://guidehollow.com/editorial-policy/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "0fea287ebafafebfabeb89568b7a45b5e5e9113c3a0e4d12f0b756009b732c4b"
+    },
+    {
+      "url": "https://guidehollow.com/examples/ai-spreadsheet-checks.xlsx",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "c437b9c7210889c6ff442ffa918d8658ded840a166f8887d799a00e4f0f8772f"
+    },
+    {
+      "url": "https://guidehollow.com/examples/venue-policy-sample.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "d1b26eab184f33262b62aa233391e03b45fa033046b5bf94989a1e2551fd671f"
+    },
+    {
+      "url": "https://guidehollow.com/examples/chatgpt-search-evidence.json",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "c2bd1e0b12f6a8a175ddf34bc2d000d5d0dfb77b5e1ea48ac320de08c2fff0e4"
+    },
+    {
+      "url": "https://guidehollow.com/examples/document-summary-run.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "f7854965f963d67fdbe9cbd6096f8f148b4d22d69250dc03dd7457c74b51630b"
+    },
+    {
+      "url": "https://guidehollow.com/examples/ai-spreadsheet-sample.csv",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "15171bf4cb1a3704a065ff252458af067332d926f3ddd17797f15261043bb2a4"
+    },
+    {
+      "url": "https://guidehollow.com/examples/prompt-template-run.txt",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "83c0a9f339afdbf46d758b1ee09358ba026528abb31109752012d5f74bc384a4"
+    },
+    {
+      "url": "https://guidehollow.com/examples/ai-spreadsheet-checks-results.json",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "234ae9df6a53d224f2a29036a4a8fb79c9bb2116bb0aa199294d29e77b119fef"
+    },
+    {
+      "url": "https://guidehollow.com/_astro/ai-prompt-builder.astro_astro_type_script_index_0_lang.BvrmHh-r.js",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "b4201515f6a48ae495f579bd1096ec551803d071a32919c56cfa957862feb43e"
+    },
+    {
+      "url": "https://guidehollow.com/_astro/Base.CXr3FT-g.css",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "ed8045a85906fc0c390442d964533dd5746a92dfe546b57328f4c1ba1b3f4352"
+    },
+    {
+      "url": "https://guidehollow.com/_astro/tools.CinuJ9Fd.js",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "967dfbe865ba89428255bfe9721b36097b5d825c72a451976225c439f68e661b"
+    },
+    {
+      "url": "https://guidehollow.com/_astro/ai-response-checklist.astro_astro_type_script_index_0_lang.4vayJgEX.js",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "e27bad985bde5d444ddf458d5757ae63d79bc1d71e4a6dc831546b2958728bb5"
+    },
+    {
+      "url": "https://guidehollow.com/prompts/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "1647fbb171c885a0730078719d733b73b4ebf3dec1f37bf981c6095182849280"
+    },
+    {
+      "url": "https://guidehollow.com/prompts/how-to-write-better-ai-prompts/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "afb2c826a13fc2c6f5d71c351a087d67a3c9d38e1f7099f5528addab6fcc7a8a"
+    },
+    {
+      "url": "https://guidehollow.com/prompts/how-to-build-reusable-prompt-templates/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "57ff7edf454f5f044c5af17da580121c334ddd966ec6527f42d38068bc613a7f"
+    },
+    {
+      "url": "https://guidehollow.com/prompts/a-practical-ai-prompt-framework/",
+      "status": 200,
+      "matchesBuild": true,
+      "sha256": "0683164ff7472a5ee83676c09da55d0b668e807943b4d9b79e2e0f3b8254173b"
+    }
+  ]
+}
