@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import ArticleList from '../../components/ArticleList.astro';
 import { publishedArticles } from '../../lib/content';
+import { isIndexableTag } from '../../lib/seo';
 export async function getStaticPaths() { const posts = await publishedArticles(); return [...new Set(posts.flatMap(p => p.data.tags))].map(tag => ({params:{tag}, props:{tag,posts:posts.filter(p => p.data.tags.includes(tag))}})); }
 const { tag, posts } = Astro.props;
 ---
-<Base title={`${tag.replaceAll('-',' ')} guides`} description={`Browse GuideHollow articles about ${tag.replaceAll('-',' ')}. Practical explanations, useful examples, and official references.`} breadcrumbs={[{name:`#${tag}`,url:`/tags/${tag}/`}]}><header class="page-heading"><p class="eyebrow mint">/ topics</p><h1>#{tag}</h1><p>{posts.length} guides to help you explore this topic.</p></header><ArticleList posts={posts} /></Base>
+<Base title={`${tag.replaceAll('-',' ')} guides`} description={`Browse GuideHollow articles about ${tag.replaceAll('-',' ')}. Practical explanations, useful examples, and official references.`} noindex={!isIndexableTag(posts.length)} breadcrumbs={[{name:`#${tag}`,url:`/tags/${tag}/`}]}><header class="page-heading"><p class="eyebrow mint">/ topics</p><h1>#{tag}</h1><p>{posts.length} {posts.length === 1 ? 'guide' : 'guides'} to help you explore this topic.</p></header><ArticleList posts={posts} /></Base>

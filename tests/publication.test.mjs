@@ -28,8 +28,15 @@ test('new publication, missing start article, drafts and future content build sa
     assert.equal(build.status,0,`${build.stdout}\n${build.stderr}`);
     const verify = spawnSync(process.execPath,['scripts/verify-build.mjs'],{cwd:fixture,encoding:'utf8'});
     assert.equal(verify.status,0,`${verify.stdout}\n${verify.stderr}`);
+    const articleOutput = path.join(fixture,'dist/guides/additional-public-guide/index.html');
+    const articleHtml = await readFile(articleOutput,'utf8');
+    await writeFile(articleOutput,articleHtml.replace(/<h1\b[^>]*>.*?<\/h1>/s,'<h1>Incorrect visible title</h1>'));
+    const mismatch = spawnSync(process.execPath,['scripts/verify-build.mjs'],{cwd:fixture,encoding:'utf8'});
+    assert.notEqual(mismatch.status,0,'Visible title mismatch must fail even when JSON-LD remains correct');
+    assert(mismatch.stderr.includes('matches visible h1'));
+    await writeFile(articleOutput,articleHtml);
     const index = JSON.parse(await readFile(path.join(fixture,'dist/search-index.json'),'utf8'));
-    assert.equal(index.length,15,'13 articles and 2 tools');
+    assert(index.some(entry => entry.url === '/guides/additional-public-guide/'),'New publications must enter search');
     const home = await readFile(path.join(fixture,'dist/index.html'),'utf8');
     assert(!home.includes('href="/guides/what-is-generative-ai/"'));
     const promptPage = await readFile(path.join(fixture,'dist/tools/ai-prompt-builder/index.html'),'utf8');
@@ -45,5 +52,25 @@ test('new publication, missing start article, drafts and future content build sa
       }
     }
     await checkOutput(path.join(fixture,'dist'));
+    const configFile = path.join(fixture,'src/config.ts');
+    const config = await readFile(configFile,'utf8');
+    // Synthetic ID/email exist only in this deleted test fixture, never in production configuration.
+    const publisher = 'ca-pub-' + '1'.repeat(16);
+    await writeFile(configFile,config.replace("publisherId: ''",`publisherId: '${publisher}'`).replace("contactEmail: ''","contactEmail: 'contact@example.invalid'"));
+    const verificationBuild = spawnSync(process.execPath,[path.resolve('node_modules/astro',astroPackage.bin.astro),'build'],{cwd:fixture,encoding:'utf8',timeout:20000});
+    assert.equal(verificationBuild.status,0,verificationBuild.stderr);
+    const verificationHome = await readFile(path.join(fixture,'dist/index.html'),'utf8');
+    assert(verificationHome.includes(`name="google-adsense-account" content="${publisher}"`));
+    assert(!verificationHome.includes('pagead2.googlesyndication.com'),'Ownership verification must not make ad requests');
+    assert.equal((await readFile(path.join(fixture,'dist/ads.txt'),'utf8')).trim(),`google.com, ${publisher.replace('ca-','')}, DIRECT, f08c47fec0942fa0`);
+    const configuredContact = await readFile(path.join(fixture,'dist/contact/index.html'),'utf8');
+    assert(configuredContact.includes('mailto:contact@example.invalid'),'Configured private email must be usable');
+    assert(!configuredContact.includes('We do not currently publish a private email'));
+    const configuredPrivacy = await readFile(path.join(fixture,'dist/privacy-policy/index.html'),'utf8');
+    assert(configuredPrivacy.includes('your chosen email provider'));
+    await writeFile(configFile,(await readFile(configFile,'utf8')).replace('servingEnabled: false','servingEnabled: true'));
+    const unsafe = spawnSync(process.execPath,[configFile],{cwd:fixture,encoding:'utf8'});
+    assert.notEqual(unsafe.status,0,'Serving without consent readiness must fail closed');
+    assert(unsafe.stderr.includes('completed consent setup'));
   } finally { await rm(fixture,{recursive:true,force:true}); }
 });

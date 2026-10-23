@@ -5,6 +5,7 @@ export const site = {
   description: 'Practical AI guides, reusable prompts, and free tools. Understand the basics, build better workflows, and check what AI gets wrong.',
   repository: 'https://github.com/emfls/guidehollow',
   contact: 'https://github.com/emfls/guidehollow/issues/new',
+  contactEmail: '',
   verification: { google: '', bing: '' },
   ads: {
     publisherId: '',
@@ -24,4 +25,5 @@ export const categories = [
 
 export function validPublisherId(value: string) { return /^ca-pub-\d{16}$/.test(value); }
 if (site.ads.publisherId && !validPublisherId(site.ads.publisherId)) throw new Error('Invalid AdSense Publisher ID');
+if (site.contactEmail && !/^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(site.contactEmail)) throw new Error('Invalid contact email');
 if (site.ads.servingEnabled && (!site.ads.consentReady || !site.ads.publisherId)) throw new Error('Ads require a publisher ID and a completed consent setup');

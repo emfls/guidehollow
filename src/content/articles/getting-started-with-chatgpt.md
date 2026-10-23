@@ -6,7 +6,7 @@ category: "ai-tools"
 tags: ["chatgpt", "getting-started", "privacy"]
 publishedDate: "2026-10-23"
 updatedDate: "2026-10-23"
-sources: [{"title": "OpenAI: What is ChatGPT?", "url": "https://help.openai.com/en/articles/6783457-what-is-chatgpt"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+sources: [{"title": "OpenAI: The ChatGPT home page", "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -28,45 +28,58 @@ This guide does not require a paid subscription, file upload, web search, or any
 
 ## Run a useful first conversation
 
-1. Open the official service and follow its available access flow.
-2. Start a conversation about one task, with a specific output.
-3. Provide a short, non-sensitive input.
-4. Read the response against your requirements, not just for writing quality.
-5. Ask for one targeted revision rather than repeating the entire vague request.
-6. Save the final version somewhere you control after reviewing it.
+1. Open [chatgpt.com](https://chatgpt.com/). The current home-page documentation says access without an account depends on supported location and access conditions; follow the available sign-in flow if required.
+2. Select **New chat** when you want a fresh task. Do not paste unrelated old conversation history.
+3. Enter the small practice prompt below in the message box and send it.
+4. Compare the result with the expected facts before requesting a revision.
+5. Save the reviewed text somewhere you control. The official home-page guide explains that logged-out history is limited to the current session; do not rely on it as your only copy.
 
-Use a new conversation when you change to an unrelated task. That makes it easier to understand which instructions and facts belong to the current request.
+These steps were checked against official documentation, not tested in a personal ChatGPT account for this article. Button placement can differ between clients.
 
-## A first prompt worth trying
+## A first prompt with a visible pass condition
+
+Use this fictional support note rather than real customer data:
 
 ```text
-Help me create a checklist for a fictional neighborhood book swap.
-Known facts: one table, two volunteers, a two-hour event.
-The location and date are not confirmed.
+Extract facts from this fictional support note.
+Return exactly three bullets labeled Problem, Confirmed facts, Missing details.
+Use only the note. Do not invent a fix, refund, or delivery date.
 
-Return:
-1. Five planning tasks, in a sensible order.
-2. The missing decisions I need to make.
-3. One risk we should discuss.
-
-Do not invent dates, permissions, costs, or contact details.
-Keep the answer under 250 words.
+Note:
+A customer says the download link shows an error.
+They have tried it once. No error code or browser version was provided.
 ```
 
-The result should separate known facts from missing decisions. A proposed risk such as rain may be reasonable, but an assertion that the event is outdoors is not established by the prompt. This distinction helps you review suggestions without accepting new “facts.”
+An acceptable hand-written reference answer is:
+
+- **Problem:** the customer reports a download-link error.
+- **Confirmed facts:** the customer tried the link once.
+- **Missing details:** the error code and browser version were not provided.
+
+This is a teaching reference, not a captured ChatGPT output. Pass means all three labels are present, no extra facts appear, and the answer does not claim the issue was fixed. Asking the same question twice need not produce identical wording.
 
 ## Follow up precisely
 
-If the checklist is too broad, identify the problem directly:
+If the response jumps to a solution, request a narrow correction:
 
 ```text
-Revise only the five planning tasks.
-Make each task something one volunteer can complete in under an hour.
-Leave the date and location unresolved.
-Keep the missing-decisions section unchanged.
+Keep the Problem and Confirmed facts bullets unchanged.
+Revise Missing details into two questions asking for the error code
+and browser version. Do not say that the download has been repaired.
 ```
 
-This is easier to evaluate than “try again.” After the revision, verify that unchanged sections really remained unchanged. A conversational request is not a guarantee that the service will preserve every sentence.
+Check that the two preserved bullets really remain unchanged. If a later answer promises a refund, remove the unsupported promise; adding a helpful tone does not authorize a commitment.
+
+## Distinguish the text task from optional features
+
+| What you want | What to check first | Safe fallback |
+| --- | --- | --- |
+| Practice drafting or extraction | You can enter text and send a message | Use a short, fictional input |
+| Ask about a file | Upload availability and your file's handling rules | Paste an authorized short excerpt |
+| Ask about current information | Whether Search is available and used | Open an official source yourself |
+| Review data settings | Settings → Data controls in the intended account/workspace | Do not upload sensitive material while uncertain |
+
+This exercise does not require uploading, Search, a paid plan, or a named model. Avoid upgrading or changing account settings merely to reproduce the text example. For a separate Search walkthrough, see [ChatGPT Search and its sources](/ai-tools/how-to-use-chatgpt-search/).
 
 ## Mistakes to avoid
 
