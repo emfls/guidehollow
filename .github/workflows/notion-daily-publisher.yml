@@ -1,16 +1,9 @@
 name: Notion daily GuideHollow publisher
 on:
   workflow_dispatch:
-  # One-time bootstrap, only when merge commit explicitly contains [notion-first-publish].
-  # Later edits cannot silently publish articles.
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/notion-daily-publisher.yml
 
 permissions:
   contents: write
-  pull-requests: write
   actions: write
 
 concurrency:
@@ -19,7 +12,7 @@ concurrency:
 
 jobs:
   publish:
-    if: github.repository == 'emfls/guidehollow' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[notion-first-publish]')))
+    if: github.repository == 'emfls/guidehollow' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
@@ -67,7 +60,7 @@ jobs:
           npm run check
           npm run build
 
-      - name: Create and merge one content PR
+      - name: Commit verified article to unprotected main (no force)
         if: steps.stage.outputs.status == 'STAGED'
         env:
           ARTICLE_FILE: ${{ steps.stage.outputs.file }}
@@ -80,16 +73,15 @@ jobs:
           git add -f data/guidehollow-publication-ledger.jsonl
           git diff --cached --check
           git commit -m "content: publish one approved GuideHollow Notion article"
-          branch="notion/daily-${{ github.run_id }}-${{ github.run_attempt }}"
-          git push origin "HEAD:refs/heads/$branch"
-          gh pr create --head "$branch" --base main \
-            --title "content: one verified GuideHollow article" \
-            --body "Automated release from the private approved Notion queue. Build and content verification passed."
-          # Fail closed if protected main requires human approval. Do not bypass policy.
-          gh pr merge "$branch" --squash --delete-branch || {
-            echo "::error::PR is open but cannot be automatically merged. Review branch-protection requirements."
+          # Never overwrite another editor's changes or circumvent future branch protection.
+          git fetch origin main
+          expected_base="$(git rev-parse HEAD^)"
+          current_main="$(git rev-parse origin/main)"
+          if [ "$expected_base" != "$current_main" ]; then
+            echo "::error::Main advanced while publishing; stopping safely without force-push."
             exit 1
-          }
+          fi
+          git push origin HEAD:refs/heads/main
 
       - name: Explicitly dispatch Pages deploy
         if: steps.stage.outputs.status == 'STAGED'

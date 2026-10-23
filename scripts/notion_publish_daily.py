@@ -79,8 +79,17 @@ def safe_inline(items):
             t = "*" + t + "*"
         url = item.get("href")
         if url:
-            if urlsplit(url).scheme != "https":
+            parsed = urlsplit(url)
+            if parsed.scheme != "https":
                 raise ValueError("Non-HTTPS inline link")
+            # Notion normalizes originally relative GuideHollow links against app.notion.com.
+            # Restore only recognized site paths. Genuine Notion page URLs are unchanged.
+            if parsed.hostname == "app.notion.com" and re.match(
+                r"^/(?:guides|ai-tools|prompts|troubleshooting|tools)/", parsed.path
+            ):
+                url = parsed.path + (("?" + parsed.query) if parsed.query else "") + (
+                    ("#" + parsed.fragment) if parsed.fragment else ""
+                )
             t = "[" + t + "](" + url.replace(")", "%29") + ")"
         result.append(t)
     return "".join(result)
@@ -88,8 +97,13 @@ def safe_inline(items):
 
 def markdown(block_id):
     out = []
+    previous_list = None
     for block in children(block_id):
         kind = block["type"]
+        list_kind = kind if kind in ("bulleted_list_item", "numbered_list_item") else None
+        if previous_list and previous_list != list_kind:
+            out.append("")  # prevent following prose from becoming the final list item
+        previous_list = list_kind
         data = block[kind]
         if kind == "table":
             if not block.get("has_children"):

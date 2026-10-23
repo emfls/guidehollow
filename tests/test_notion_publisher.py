@@ -58,6 +58,20 @@ class PublisherTests(unittest.TestCase):
         self.assertIn("| Action | Owner |", output)
         self.assertIn("| Draft | Not specified |", output)
 
+    def test_lists_do_not_absorb_following_paragraphs(self):
+        blocks = [block("One", "bulleted_list_item"), block("Two", "bulleted_list_item"),
+                  block("Separate paragraph", "paragraph")]
+        with patch.object(publisher, "children", return_value=blocks):
+            output = publisher.markdown("id")
+        self.assertIn("- One\n- Two\n\nSeparate paragraph", output)
+
+    def test_notion_normalized_internal_links_restore_site_paths(self):
+        item = {"plain_text": "Prompt Builder",
+                "href": "https://app.notion.com/tools/ai-prompt-builder/",
+                "annotations": {}}
+        self.assertEqual(publisher.safe_inline([item]),
+                         "[Prompt Builder](/tools/ai-prompt-builder/)")
+
     def test_unrecognized_blocks_fail_closed(self):
         with patch.object(publisher, "children", return_value=[{"type":"child_page", "child_page":{}, "has_children":False}]):
             with self.assertRaisesRegex(ValueError, "Unsupported block"):

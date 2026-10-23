@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
       - run: npm ci
       - run: npm test
       - run: npm run check
