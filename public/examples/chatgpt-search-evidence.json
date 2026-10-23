@@ -1,0 +1,13 @@
+{
+  "checkedOn": "2026-10-23",
+  "client": "Signed-in ChatGPT web; displayed mode High; underlying model version not established",
+  "question": "Find official OpenAI documentation about deleting a file separately saved in ChatGPT Library. Distinguish documentation from account actions.",
+  "returnedPrimarySource": "https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt",
+  "section": "How do I delete a saved file?",
+  "manualVerification": {
+    "supported": "Deleting the conversation does not delete a separate Library file; that saved file must be removed from Library.",
+    "notEstablished": "Whether any particular account file exists or has been deleted.",
+    "actionsTaken": "Research and source reading only; no Library file accessed or deleted."
+  },
+  "scope": "One observed search and one primary-source passage check, not a ranking or model benchmark."
+}

@@ -24,7 +24,7 @@ Choose a question with a clear owner and scope. “How does everything about fil
 
 Before searching, write down what you need to establish: the relevant feature, the current rule, any exception, and what remains unknown. Stop when you have adequate primary evidence. More generated explanation is not automatically more evidence.
 
-This guide was checked against official documentation on October 23, 2026. It does not report a signed-in account test, a controlled search ranking experiment, or guaranteed access in every workspace.
+This guide was checked against official documentation on October 23, 2026. The worked source check below includes one signed-in ChatGPT web search. It is not a controlled ranking experiment or a guarantee of access in every workspace.
 
 ## Find the Search option
 
@@ -69,6 +69,25 @@ Next action, if any:
 ```
 
 If a citation is missing or irrelevant, leave the answer unresolved. Ask for a narrower search or locate the document yourself. Do not repair the appearance of evidence by guessing a URL.
+
+## A completed source check
+
+On October 23, 2026, we submitted the documentation-finding question above to signed-in ChatGPT on the web. The interface displayed High; we did not establish the underlying model version. The answer linked to OpenAI's [Using Library to manage files in ChatGPT](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt).
+
+We opened that original page and inspected **“How do I delete a saved file?”** rather than treating the generated explanation as proof.
+
+| Evidence field | What we recorded |
+| --- | --- |
+| Question | Does deleting a conversation remove a separate saved Library file? |
+| Primary source | The official Library article linked above |
+| Relevant section | How do I delete a saved file? |
+| Supported conclusion | A separately saved Library file remains after chat deletion; remove that file from Library separately |
+| Not established | Whether any particular file in our account exists or has been deleted |
+| Action taken | Research and source reading only; no account file was opened or deleted |
+
+[Download the concise evidence record](/examples/chatgpt-search-evidence.json). The important result is the match between a specific claim and a specific original passage. A general chat-deletion article alone would not settle the Library-copy question.
+
+This one observation establishes neither search ranking quality nor every retention detail. Read the current page for exceptions and connected-service behavior, and keep account-specific deletion actions separate from documentation research.
 
 ## Troubleshoot missing or weak results
 

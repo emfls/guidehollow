@@ -68,7 +68,19 @@ Before using it, replace every placeholder. Do not let “[APPROVED_NOTES]” be
 
 **Conflicting notes:** include a draft proposal and a later rejection. Make the status of each explicit in the input. The output should not present the rejected proposal as a confirmed action.
 
-These are suggested checks for your template. They are not a report of model tests performed by GuideHollow. Your own product, model, and input may behave differently.
+### An observed three-case run
+
+On October 23, 2026, we submitted three fictional cases to signed-in **ChatGPT on the web**, using the template rules above. The interface displayed **High**; we did not independently establish the underlying model version. All three cases were included in one request, so this is not three isolated trials or a reliability benchmark.
+
+| Case and supplied facts | Observed action rows | Editorial check |
+| --- | --- | --- |
+| Ordinary: two-page flyer approved; Mira drafts by November 2; Jo proofreads by November 3 | Draft → Mira → 2026-11-02; proofread → Jo → 2026-11-03 | Both owners and dates preserved |
+| Sparse: same approved flyer and two actions, but no owners or dates | Both actions had “not specified” for owner and due date | No invented assignment or deadline |
+| Conflicting: a six-page booklet and Mira's November 1 proposal were superseded; Jo was later approved to draft a two-page flyer without a deadline | Draft the two-page flyer → Jo → “not specified” | Rejected booklet and old deadline did not become active work |
+
+[Download the exact request and observed response](/examples/prompt-template-run.txt). The first case is a normal-path check; the other two target specific failure modes. We compared each action row against the supplied notes rather than accepting the assistant's own claim that it followed the rules.
+
+All three cases met these limited criteria in this run. We did not measure repeatability, compare models, or test the no-notes branch. If you adapt the template, rerun these inputs separately in your own account and add a genuinely empty-input case. A passed example does not certify a future answer.
 
 ## Keep a short change record
 

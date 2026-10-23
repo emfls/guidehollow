@@ -1,0 +1,159 @@
+GuideHollow editorial run — 2026-10-23
+Client: signed-in ChatGPT web. Displayed mode: High. Underlying model version not established.
+Fictional input. One observed response, not a performance benchmark.
+
+REQUEST:
+This is a public, fictional GuideHollow editorial reproducibility test. Follow the template exactly for each of the three separately labeled cases; do not add people, dates or tasks.
+
+TEMPLATE
+Turn approved meeting notes into a concise action summary.
+Use only source material. Do not turn a suggestion into an approved action. If an action lacks an owner or due date, write "not specified". If no notes are supplied, ask for notes instead of drafting.
+Return for each case: Confirmed decisions; Action table with Action | Owner | Due date; Open questions.
+
+CASE ordinary
+Approved notes: The group approved a two-page flyer. Mira will draft the flyer by 2026-11-02. Jo will proofread it by 2026-11-03.
+
+CASE sparse
+Approved notes: The group approved a two-page flyer. Draft the flyer, then proofread it. No owner or due date is recorded.
+
+CASE conflicting
+Draft proposal, superseded: create a six-page booklet; Mira would draft it by 2026-11-01.
+Approved decision, later: reject the booklet and create a two-page flyer. Jo will draft the flyer. No due date was approved.
+
+Answer in English.
+OBSERVED CHATGPT RESPONSE:
+CASE ordinary
+Confirmed decisions
+
+- The group approved a two-page flyer.
+
+Action table
+
+Action
+
+	
+
+Owner
+
+	
+
+Due date
+
+
+
+
+Draft the two-page flyer
+
+	
+
+Mira
+
+	
+
+2026-11-02
+
+
+
+
+Proofread the flyer
+
+	
+
+Jo
+
+	
+
+2026-11-03
+
+Open questions
+
+- None recorded.
+
+CASE sparse
+Confirmed decisions
+
+- The group approved a two-page flyer.
+
+Action table
+
+Action
+
+	
+
+Owner
+
+	
+
+Due date
+
+
+
+
+Draft the two-page flyer
+
+	
+
+not specified
+
+	
+
+not specified
+
+
+
+
+Proofread the flyer
+
+	
+
+not specified
+
+	
+
+not specified
+
+Open questions
+
+Who will draft the flyer?
+
+Who will proofread the flyer?
+
+What are the due dates for drafting and proofreading?
+
+CASE conflicting
+Confirmed decisions
+
+The six-page booklet proposal was rejected.
+
+The later approved decision is to create a two-page flyer.
+
+The superseded booklet proposal and its proposed drafting deadline are not approved actions.
+
+Action table
+
+Action
+
+	
+
+Owner
+
+	
+
+Due date
+
+
+
+
+Draft the two-page flyer
+
+	
+
+Jo
+
+	
+
+not specified
+
+Open questions
+
+- What is the approved due date for drafting the flyer?

@@ -1,0 +1,104 @@
+GuideHollow editorial run — 2026-10-23
+Client: signed-in ChatGPT web. Displayed mode: High. Underlying model version not established.
+Fictional input. One observed response, not a performance benchmark.
+
+REQUEST:
+GuideHollow public teaching example. Answer in English. Check this deliberately flawed editorial draft against the fictional source excerpts, list the errors, and return a corrected summary with an A/B/C reference on every factual bullet. Do not invent missing fees or confirmations.
+
+SOURCE A — venue conditions: The room holds at most 32 seated people. Weekend bookings are allowed except public holidays.
+SOURCE B — booking procedure: Submit the request at least seven calendar days before the event. The venue is not reserved until written confirmation is issued.
+SOURCE C — costs: A refundable deposit of 50 credits is required. The rental fee is not stated in these excerpts.
+
+DELIBERATELY FLAWED EDITORIAL DRAFT: The hall holds 40 people and is available every weekend. You can reserve it tomorrow for a total cost of 50 credits.
+
+Return (1) errors in the draft; (2) a corrected summary; (3) questions that remain unresolved.
+OBSERVED CHATGPT RESPONSE:
+1. Errors in the Draft
+
+Draft claim
+
+	
+
+Error
+
+	
+
+Source
+
+
+
+
+“The hall holds 40 people”
+
+	
+
+Incorrect. Maximum capacity is 32 seated people.
+
+	
+
+A
+
+
+
+
+“Available every weekend”
+
+	
+
+Incorrect. Weekend bookings are permitted except on public holidays.
+
+	
+
+A
+
+
+
+
+“You can reserve it tomorrow”
+
+	
+
+Unsupported. Requests must be submitted at least seven calendar days before the event, and reservations require written confirmation.
+
+	
+
+B
+
+
+
+
+“Total cost of 50 credits”
+
+	
+
+Incorrect. The 50 credits represent a refundable deposit, not the total rental cost. The rental fee is unspecified.
+
+	
+
+C
+
+2. Corrected Summary
+
+[A] Capacity: The venue accommodates a maximum of 32 seated people.
+
+[A] Availability: Weekend bookings are permitted, except on public holidays.
+
+[B] Advance notice: Booking requests must be submitted at least seven calendar days before the event.
+
+[B] Reservation confirmation: Submitting a request does not secure the venue. The reservation is confirmed only when written confirmation is issued.
+
+[C] Deposit: A refundable deposit of 50 credits is required.
+
+[C] Rental fee: The rental fee is not specified in the provided excerpts. Therefore, the total cost cannot be determined.
+
+3. Unresolved Questions
+
+[C] What is the rental fee, and what is the total amount payable?
+
+[C] Under what conditions is the 50-credit deposit refunded?
+
+[B] What is the procedure and expected timeframe for receiving written confirmation?
+
+[A] Is the venue available on the specific proposed event date, assuming it is not a public holiday?
+
+Editorial conclusion: The original draft contains four material inaccuracies or unsupported claims involving capacity, availability, booking requirements, and pricing. The corrected summary distinguishes documented conditions from information that remains unconfirmed.

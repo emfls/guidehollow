@@ -64,6 +64,27 @@ If the excerpts do not cover a topic, write "not covered."
 
 The output is now an evidence-linked working note rather than a free-standing authority. You can follow each bullet to its source and see where coverage is incomplete.
 
+## Compare a flawed draft with an observed correction
+
+[Download the complete fictional venue excerpts](/examples/venue-policy-sample.txt). They establish a 32-person seated limit, allow weekends **except public holidays**, require seven calendar days' notice and written confirmation, and specify a refundable 50-credit deposit without stating a rental fee.
+
+We deliberately wrote this flawed editorial draft; it is **not** presented as an AI-generated failure:
+
+> The hall holds 40 people and is available every weekend. You can reserve it tomorrow for a total cost of 50 credits.
+
+On October 23, 2026, we supplied the excerpts and draft to signed-in ChatGPT on the web and requested errors, a corrected summary with A/B/C references, and unresolved questions. The interface displayed High; the underlying model version was not independently established.
+
+| Draft problem | Observed correction | Our source check |
+| --- | --- | --- |
+| 40 people | Maximum 32 seated people | A: number and seated qualifier preserved |
+| Every weekend | Weekends except public holidays | A: exception restored |
+| Reserve tomorrow | At least seven calendar days' notice; written confirmation required | B: no next-day reservation promise |
+| Total cost 50 credits | Refundable deposit 50; rental fee unspecified | C: deposit separated from total cost |
+
+The response also left the refund conditions and the actual event-date availability unresolved. Those are useful questions, not answers the source established. [Read the exact request and observed correction](/examples/document-summary-run.txt).
+
+Our editorial review found all four draft problems addressed in this one response. This is a short-text correction exercise, **not** a long-document coverage test, file-upload test, or evidence that ChatGPT always preserves exceptions. For a real long document, repeat the section-map and omission checks above; do not extrapolate from this small sample.
+
 ## Check the information most likely to disappear
 
 Short summaries can lose qualifiers. “Available on weekends except public holidays” must not become “available on weekends.” Review every sentence containing conditions, thresholds, deadlines, exclusions, or units.
