@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { publishedArticles } from '../../lib/content';
+import { categories } from '../../config';
+export function getStaticPaths() { return categories.map(category => ({ params: { category: category.slug }, props: { category } })); }
+const { category } = Astro.props;
+const posts = (await publishedArticles()).filter(p => p.data.category === category.slug);
+---
+<Base title={category.name} description={category.description} breadcrumbs={[{name:category.name,url:`/${category.slug}/`}]}>
+<header class="page-heading"><p class="eyebrow mint">/ {category.command}</p><h1>{category.name}</h1><p>{category.description}</p></header>
+{category.slug === 'tools' ? <div class="tools-grid"><a class="tool-card" href="/tools/ai-prompt-builder/"><span class="eyebrow mint">Compose / no AI required</span><h2>AI Prompt Builder ↗</h2><p>Combine your goal, context, audience, constraints, and output format into a prompt you can copy or download.</p></a><a class="tool-card" href="/tools/ai-response-checklist/"><span class="eyebrow mint">Review / use your judgment</span><h2>AI Response Quality Checklist ↗</h2><p>Work through six practical checks before relying on an AI response. Track your review without sending us your data.</p></a></div> : <><p class="small muted mono">{posts.length} {posts.length === 1 ? 'guide' : 'guides'} / open a guide to get started</p><ArticleList posts={posts} /></>}
+</Base>

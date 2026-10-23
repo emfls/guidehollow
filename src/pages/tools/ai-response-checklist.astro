@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+const checks = [
+['Check the facts', 'Identify the important factual claims. Independently verify names, numbers, calculations, and quotations.'],
+['Open the original sources', 'Follow citations to official documents or primary research. Check that the source actually supports the claim.'],
+['Check the date and context', 'Confirm that dates, product versions, location, and assumptions match your situation.'],
+['Review privacy and safety', 'Remove personal details, secrets, and confidential data. Check whether your intended use needs expert review.'],
+['Match the requirements', 'Compare the answer against your original task. Look for missing steps, limits, formats, and exceptions.'],
+['Make the final decision', 'Consider uncertainty and consequences. Revise, ask for clarification, or reject the answer if it is not reliable enough.'],
+];
+---
+<Base title="AI Response Quality Checklist" description="Review an AI answer for facts, sources, freshness, privacy, and missing requirements with a free checklist that runs entirely in your browser." breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:'Response Quality Checklist',url:'/tools/ai-response-checklist/'}]}>
+<header class="page-heading"><p class="eyebrow mint">/ tools / review</p><h1>A second look<br />before you use it.</h1><p>An AI answer can sound convincing and still be wrong. Work through these checks using your own judgment.</p></header>
+<noscript><p>You can use the checklist below without JavaScript. Automatic progress and reset require JavaScript.</p></noscript>
+<section class="checklist-panel" aria-label="Response review checklist"><progress id="check-progress" value="0" max={checks.length} aria-label="Checks completed"></progress><p id="check-summary" class="tool-status" role="status" aria-live="polite">0 of {checks.length} checks completed. Review each item before using the response.</p><form id="checklist-form">{checks.map(([title,description],i) => <label class="checklist-item"><input type="checkbox" name={`check-${i}`} /><span><strong>{title}</strong><small>{description}</small></span></label>)}<div class="tool-actions"><button type="reset">Reset checklist</button></div></form><p class="tool-footnote">Checkmarks record your review, not a score for truth. Nothing is saved or sent to us; reloading clears the checklist.</p></section>
+<section class="section prose info-content"><h2>What to do when a check fails</h2><p>If a citation does not exist, remove the claim until you find evidence. If the answer misses a requirement, state that requirement again and ask for a targeted revision. For decisions with serious consequences, pause and consult the relevant qualified professional.</p><p>Read <a href="/guides/how-to-verify-ai-generated-information/">how to verify AI-generated information</a> for a complete worked example.</p></section>
+<script>
+import { checklistSummary } from '../../lib/tools';
+const form = document.querySelector<HTMLFormElement>('#checklist-form')!;
+const boxes = [...form.querySelectorAll<HTMLInputElement>('input[type=checkbox]')];
+const update = () => { const completed = boxes.filter(box => box.checked).length; document.querySelector<HTMLProgressElement>('#check-progress')!.value = completed; document.querySelector('#check-summary')!.textContent = checklistSummary(completed, boxes.length); };
+form.addEventListener('change', update);
+form.addEventListener('reset', () => { boxes.forEach(box => { box.checked = false; }); update(); });
+update();
+</script>
+</Base>

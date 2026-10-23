@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search Guides" description="Search GuideHollow articles, prompts, tools, and troubleshooting guides. Find a clear next step for your AI questions." noindex breadcrumbs={[{name:'Search',url:'/search/'}]}>
+<header class="page-heading"><p class="eyebrow mint">/ search</p><h1>What are you working on?</h1><p>Search the full text of our guides, plus our two free tools.</p></header><section class="search-band"><form id="search-form" role="search" action="/search/"><label for="search-query">Search GuideHollow</label><div class="search-input-wrap"><span aria-hidden="true" class="mint mono">$</span><input id="search-query" type="search" name="q" maxlength="200" autocomplete="off" placeholder="Try “verify sources” or “email”…" autofocus /><button type="submit">Search</button></div></form></section><p id="search-status" class="search-status" role="status" aria-live="polite">Enter a word or phrase to get started.</p><div id="search-results" class="search-results"></div><noscript><p>Search needs JavaScript. Browse the <a href="/guides/">guides</a>, <a href="/prompts/">prompt library</a>, or <a href="/troubleshooting/">troubleshooting articles</a> instead.</p></noscript>
+<script>import '../scripts/search';</script>
+</Base>
