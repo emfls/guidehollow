@@ -27,6 +27,7 @@ Make three categories:
 - **Confirmed decisions:** outcomes explicitly approved in the source.
 - **Action items:** tasks explicitly assigned or adopted, with an owner and due date only when recorded.
 - **Open questions:** information the approved notes leave unresolved.
+
 A suggestion is not automatically an action. An expected delivery date is not a confirmed deadline. An attendee's name does not make that person the owner.
 
 ## Use a source-bounded prompt
@@ -66,6 +67,7 @@ A source-faithful summary is:
 - **Action:** Draft the flyer | **Owner:** Mira | **Due date:** 2026-11-02
 - **Action:** Proofread the flyer | **Owner:** Jo | **Due date:** 2026-11-03
 - **Open questions:** None explicitly recorded.
+
 What should not appear? A printing deadline, a distribution plan, and a design approval step. Those might be useful future work, but they were not in the approved notes.
 
 ## Example 2: The tasks are real, but metadata is missing
@@ -103,6 +105,7 @@ Correct extraction:
 - **Confirmed decisions:** Reject the six-page booklet; create a two-page flyer.
 - **Action:** Draft the two-page flyer | **Owner:** Jo | **Due date:** not specified.
 - **Open question:** When is Jo's draft due?
+
 The earlier November 1 date belongs to the rejected booklet proposal. Copying it onto Jo's flyer task would fabricate an approved commitment. The same rule applies when a meeting record contains older versions of a plan, tentative responsibilities, or tasks listed only as suggestions.
 
 ## Five checks before you share the result
@@ -112,6 +115,7 @@ The earlier November 1 date belongs to the rejected booklet proposal. Copying it
 1. **Owner check:** Does the source explicitly assign the task to that person? If not, use "not specified".
 1. **Date check:** Is the date attached to this exact approved task, with the same year and any conditions preserved?
 1. **Conflict check:** Were rejected proposals, superseded drafts, and unresolved questions kept separate?
+
 For important items, add a fourth column in your private working copy called **Source sentence** and paste the short supporting passage. This makes review fast and exposes gaps. Remove unnecessary names or details before sharing a public example.
 
 ## What to do when the notes are ambiguous
@@ -129,6 +133,7 @@ An assistant may:
 - Present a reasonable suggestion as a confirmed decision.
 - Generate a confident "No open questions" despite missing owners.
 - Rewrite a conditional task as an unconditional commitment.
+
 If any of these happens, quote the exact incorrect row and request a narrow correction. Then re-check the entire table, because a local edit can introduce another mismatch.
 
 ## A reusable review pass
@@ -160,6 +165,6 @@ The assistant's audit is only another draft; you still need to open the original
 
 Before sending the action summary, give the meeting owner a chance to confirm the decision list, task owners, and deadlines. Save the confirmed version as the authoritative record. If assignments change later, record the change as a new decision rather than silently editing the original meeting history.
 
-You can use the [AI Prompt Builder](https://app.notion.com/tools/ai-prompt-builder/) to adapt the extraction instructions and the [response quality checklist](https://app.notion.com/tools/ai-response-checklist/) for a final review. For a broader claim-by-claim method, read [how to verify AI-generated information](https://app.notion.com/guides/how-to-verify-ai-generated-information/).
+You can use the [AI Prompt Builder](/tools/ai-prompt-builder/) to adapt the extraction instructions and the [response quality checklist](/tools/ai-response-checklist/) for a final review. For a broader claim-by-claim method, read [how to verify AI-generated information](/guides/how-to-verify-ai-generated-information/).
 
 These scenarios are fictional teaching examples. They show what a careful summary should contain, not the results of a tested AI model.
