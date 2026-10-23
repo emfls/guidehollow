@@ -30,7 +30,7 @@
 | `src/content/articles/how-to-use-chatgpt-search.md` | 독립적인 AI Tools 안내 추가 |
 | `src/content/articles/chatgpt-file-upload-problems.md` | 파일 문제의 단계별 진단 안내 추가 |
 | `README.md`, `docs/adsense-setup.ko.md` | 현재 14편 구조·연락처 설정·AdSense/동의/소유권 운영 절차 |
-| `docs/content-audit.ko.md`, `docs/source-url-checks.json` | 12편 전수 검수표·출처별 실제 확인 방법과 한계 |
+| `docs/content-audit.ko.md`, `docs/source-url-checks.json`, `docs/production-readiness-check.json` | 12편 전수 검수표·출처별 실제 확인 방법과 한계 |
 | `docs/adsense-readiness-plan.ko.md`, 이 보고서 | 작업 범위·체크리스트·검증과 외부 미완료 사항 기록 |
 
 ## 콘텐츠 품질
@@ -105,7 +105,16 @@ Lighthouse, 전체 WCAG/스크린리더, 실제 휴대기기/타 브라우저, �
 
 ## 병합·배포 기록
 
-PR·커밋·Actions·운영 파일 대조 결과는 실제 확인 후 이 절에 추가합니다. 병합 전 확인을 운영 배포 성공으로 간주하지 않습니다.
+- PR: https://github.com/emfls/guidehollow/pull/1 — CI 통과 후 사용자 승인에 따라 병합.
+- 작업 코드 커밋: `735ffb108ed0dcfd49268ea9f9d32bf3ba434281`.
+- main 병합 커밋: `6bc4ce9357d9062c716ee04a3144fa1e6f44aa2c`.
+- PR 검사: https://github.com/emfls/guidehollow/actions/runs/39950647598 — build 성공, deploy는 PR에서 의도적으로 제외.
+- 운영 배포: https://github.com/emfls/guidehollow/actions/runs/39950741425 — build 및 deploy 성공.
+- 실제 확인: 2026-10-23 21:07 KST. HTTPS로 받은 55개 파일(HTML 43개 포함)이 로컬 빌드와 바이트 단위로 일치했습니다. 상세 경로/결과는 `production-readiness-check.json`.
+- `https://guidehollow.com/` 및 새 글·CSV·사이트맵·RSS·JS/CSS 200, `www` → 정규 HTTPS 301. 없는 경로는 전용 페이지와 HTTP 404. ID 없는 `/ads.txt`도 의도대로 404.
+- 운영 브라우저: upload 검색 7개 결과에서 새 글 확인, 문의 CTA 정상 표시/공개 게시 경고 유지, 새 Search 글의 canonical 정상, 광고 스크립트 요청 0.
+- Google 색인·AdSense 승인·실제 이메일 수신·CMP 동의 처리는 검증하지 않았습니다. 외부 계정/DNS는 변경하지 않았습니다.
+- 최종 배포 증거와 작업 완료 문서는 후속 문서 커밋으로 기록합니다. 사이트 런타임 변경은 포함하지 않습니다.
 
 ## 남은 작업과 우선순위
 
