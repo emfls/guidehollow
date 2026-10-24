@@ -5,7 +5,7 @@ slug: "how-to-draft-emails-with-ai"
 category: "guides"
 tags: ["productivity", "writing", "privacy"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -53,6 +53,33 @@ Do not say that a meeting is confirmed or an invitation has been sent.
 ```
 
 A useful draft should ask a clear question and preserve the proposed status of the options. If it says “See you at [OPTION A],” it has turned a choice into a decision. Correct the meaning before adjusting the tone.
+
+## A complete reference email, with a fact check
+
+Here is an **editor-written reference**, not a captured ChatGPT response or a message that was sent. Compare your own generated draft against it rather than expecting identical wording.
+
+```text
+Subject: Which planning meeting window works?
+
+Hi,
+
+Would [OPTION A] or [OPTION B] work better for a planning meeting?
+The proposed agenda is to review the draft volunteer checklist.
+
+Neither time has been confirmed, and the venue is not booked.
+Please let me know which window you prefer.
+
+Thanks
+```
+
+**Check the draft against the brief:**
+
+- **Both choices remain options.** The email asks for a preference; it does not assign a time or claim an invitation was sent.
+- **The agenda remains a draft.** It says "proposed" and does not treat the volunteer checklist as approved.
+- **The venue remains unbooked.** It explicitly says so, rather than implying a reservation.
+- **The placeholders are unchanged.** Replace [OPTION A] and [OPTION B] with real, verified details in your own mail application only when ready.
+
+A sentence such as **"I've booked the room for [OPTION A]"** would fail this check even if it sounds helpful. No booking was authorized in the input. A draft that fails should be corrected before any recipient or attachment is selected.
 
 ## Improve an existing email narrowly
 
