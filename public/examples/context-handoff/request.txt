@@ -1,0 +1,9 @@
+This is a fictional source-record handoff exercise. Use no tools or web search. Respond in English. Write a handoff brief under 180 words with these headings: Goal, Current decisions, Completed work, Constraints, Open questions, Sources. Preserve exact labels and distinguish proposed work from completed work. Do not start drafting the deliverable.
+
+SOURCE RECORD
+H1 — Initial proposal: draft a six-page volunteer induction booklet. A provisional print date of November 6, 2026 was discussed; it was never approved.
+H2 — Later approved decision: replace the booklet with a three-page quick-start guide. Keep the footer exactly “Draft — dates not confirmed.” No print date is approved.
+H3 — Work log: an outline has been written. No page layout, print-ready PDF, order, or mailing has been created or sent.
+H4 — Scope: the guide covers opening the desk, checking a returned kit, and recording an unresolved issue. It does not cover repair instructions.
+H5 — Constraint: do not send files to a printer or contact volunteers. Prepare text only until the coordinator explicitly approves a next action.
+H6 — Next request: identify the information still needed before drafting the three-page guide. Volunteer names and opening hours have not been supplied. Approval of the outline is also unresolved.

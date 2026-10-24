@@ -5,7 +5,7 @@ slug: "how-to-verify-ai-generated-information"
 category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -99,6 +99,20 @@ Suppose the generated room-booking answer says, “The hall fits 40 people and c
 The corrected result is: “The published seated capacity is 32. The earliest booking date is not established by the source; confirm it with the venue.” Do not replace the unknown booking rule with another plausible number.
 
 This example is fictional. Its purpose is to show how a supported correction and an unresolved detail can coexist in the same conclusion.
+
+## A completed check against real public documentation
+
+On October 24, 2026, we read two Google Search Central documents and checked the statements below. These are editor-constructed claims for this exercise, not a captured AI mistake. The sources are real; the earlier venue example is fictional.
+
+| Claim | Primary evidence | Verdict and action |
+| --- | --- | --- |
+| Blocking a web page in robots.txt guarantees it cannot appear in Google Search | [Introduction to robots.txt](https://developers.google.com/search/docs/crawling-indexing/robots/intro), “What is a robots.txt file used for?” | Contradicted: a blocked page's URL can still appear. Remove the guarantee. |
+| Googlebot needs access to read a page's noindex rule | [Block Search indexing with noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing), introductory “Important” note | Supported: keep the crawl-access condition. |
+| Adding noindex means a particular URL will disappear tomorrow | The same noindex guide, “Debugging noindex issues” | Unresolved for a specific URL: do not promise a removal date. |
+
+A corrected conclusion is: **robots.txt controls crawling, and is not a reliable way to exclude a web page URL from Google Search. For Google to process a page's noindex rule, it must be able to crawl the page. These sources do not establish when a particular URL will disappear.**
+
+[Download the completed claim ledger](/examples/verification-ledger-robots.json), including the relevant sections and short supporting excerpts. We did not change a website's settings or run an indexing experiment. This example verifies documentation claims, not the current status of any URL. Notice that the third claim stays unresolved even after finding a relevant official source.
 
 ## When sources disagree or are missing
 

@@ -5,7 +5,7 @@ slug: "how-to-summarize-long-documents-with-ai"
 category: "guides"
 tags: ["productivity", "documents", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "Anthropic: Effective context engineering for AI agents", "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -100,6 +100,27 @@ A summary can get every included sentence right while leaving out an entire sect
 For a longer document, create a row for every section before asking for the final summary. Mark each as reviewed and included, reviewed and excluded with a reason, or not yet reviewed. If an appendix qualifies a rule in the main text, link the two rows and review them together.
 
 Do not label a whole document complete while any relevant section remains unreviewed. If you deliberately exclude background material, state that scope in the summary. This ledger illustrates the review method on a short source; it adds no claim of measured long-document performance.
+
+## A ten-section document run, including a correction we caught
+
+On October 25, 2026, we pasted an original fictional **1,439-word, ten-section equipment-library handbook** into signed-in ChatGPT on the web. The interface showed High; we did not independently establish the underlying model version. This was plain text, not a PDF upload or a test of a model's maximum context length.
+
+The source spreads related conditions across sections: ordinary notice in S3, opening dependencies in S8, and a narrow emergency exception in S9. We recorded [12 review criteria before the run](/examples/document-coverage/criteria.json), then asked for a map of every section, a decision summary under 250 words, cross-section exceptions, and unresolved questions.
+
+| Check | What the response did | Editorial verdict |
+| --- | --- | --- |
+| Section coverage | Mapped S1 through S10 and listed unresolved questions | Met this check; a section map alone does not prove every detail was preserved |
+| Opening versus approval | Kept storage confirmation and checklist approval outstanding | Did not turn committee approval into an opening date |
+| Emergency exception | Preserved stock, written confirmation, deposit, opening, and collection-window requirements | Did not turn short-notice permission into a booking |
+| Date-specific stock | Distinguished two planned kits from actual availability | Did not promise a kit next week |
+| Money | Kept the 40-credit deposit and unknown charges, but wrote “The deposit is not the total cost.” | Needs correction: the source does not establish the total, rather than proving it differs |
+| Requested summary length | The extracted decision-summary block contained 210 whitespace-separated words, including its heading text | Within the 250-word limit |
+
+The money sentence is a useful example of why fluent summaries still need review. Our editorial replacement is: **“The total cost is not established; 40 credits is the refundable deposit, and any additional charges remain unspecified.”** The original response remains unchanged in the download so you can compare it with this correction.
+
+Download the [full fictional source](/examples/document-coverage/source.txt), [exact request](/examples/document-coverage/request.txt), [observed response](/examples/document-coverage/response.txt), and [criterion-by-criterion review](/examples/document-coverage/review.json). Eleven of the twelve content criteria were met in this response; the money criterion required the correction above. That is a bounded editorial review, not an exhaustive accuracy certificate or a success rate across repeated runs.
+
+Try the same source yourself before using confidential material. Compare section coverage and exceptions, then inspect each decision-changing sentence. A 1,439-word text exercise does not establish performance on a hundred-page report, scanned document, or different product configuration.
 
 ## Check the information most likely to disappear
 

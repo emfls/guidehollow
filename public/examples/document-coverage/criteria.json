@@ -1,0 +1,55 @@
+{
+  "source_words_whitespace": 1439,
+  "source_sha256": "fc6402ea211d1151c6ef209c330f5d380f282c8a36accf59a4805e78f6778311",
+  "criteria_written_before_run": true,
+  "checks": [
+    {
+      "id": "scope",
+      "expected": "Fictional six-week pilot, indoor community-group use"
+    },
+    {
+      "id": "eligibility",
+      "expected": "Accepted registration; application alone is insufficient"
+    },
+    {
+      "id": "lead_time",
+      "expected": "Five calendar days normally; S9 narrow exception"
+    },
+    {
+      "id": "confirmation",
+      "expected": "Written confirmation; acknowledgment is insufficient"
+    },
+    {
+      "id": "hours",
+      "expected": "Tuesday/Thursday 16:00\u201318:00, excluding public holidays"
+    },
+    {
+      "id": "loan",
+      "expected": "Three calendar days normally; agreed return appointment, no unilateral extension"
+    },
+    {
+      "id": "money",
+      "expected": "40-credit refundable deposit, not total cost; other charges unknown"
+    },
+    {
+      "id": "inspection",
+      "expected": "Inspection precedes deposit review; refund timing unknown"
+    },
+    {
+      "id": "opening",
+      "expected": "Both storage confirmation and checklist approval pending"
+    },
+    {
+      "id": "exception",
+      "expected": "Emergency approval does not waive stock, written confirmation, opening, deposit, or window"
+    },
+    {
+      "id": "availability",
+      "expected": "Two planned kits do not establish date-specific availability"
+    },
+    {
+      "id": "coverage",
+      "expected": "All S1\u2013S10 accounted for and unknowns preserved"
+    }
+  ]
+}

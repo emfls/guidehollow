@@ -1,0 +1,128 @@
+Item
+
+	
+
+Status / Details
+
+	
+
+Source
+
+
+
+
+Approved page count
+
+	
+
+3 pages
+
+	
+
+H2
+
+
+
+
+Deliverable
+
+	
+
+Volunteer quick-start guide, replacing the proposed six-page induction booklet
+
+	
+
+H1, H2
+
+
+
+
+Exact footer
+
+	
+
+“Draft — dates not confirmed.”
+
+	
+
+H2
+
+
+
+
+Print-date status
+
+	
+
+No approved print date. November 6, 2026 was provisional only.
+
+	
+
+H1, H2
+
+
+
+
+Completed work
+
+	
+
+Outline written. No page layout, print-ready PDF, order, or mailing completed.
+
+	
+
+H3
+
+
+
+
+Required scope
+
+	
+
+Opening the desk, checking a returned kit, and recording an unresolved issue
+
+	
+
+H4
+
+
+
+
+Excluded scope
+
+	
+
+Repair instructions
+
+	
+
+H4
+
+
+
+
+Prohibited external actions
+
+	
+
+Do not contact volunteers or send files to a printer without explicit coordinator approval. Prepare text only.
+
+	
+
+H5
+
+
+
+
+Missing information
+
+	
+
+Coordinator's outline approval; opening hours; whether volunteer names are required and, if so, the names; operational details for all three procedures; authorization for the next action
+
+	
+
+H4, H5, H6
+
+Next permitted task: Identify and organize the outstanding information and decisions needed before drafting the three-page quick-start guide. Do not begin drafting, create production files, contact volunteers, or initiate printing. Await explicit coordinator approval for any next action requiring authorization.
