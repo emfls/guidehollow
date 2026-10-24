@@ -32,15 +32,15 @@ test('AI spreadsheet guide points to worked formula examples rather than implyin
 
 test('email drafting reference stays within the approved scheduling brief',()=>{
  const article=read('how-to-draft-emails-with-ai');
- const match=article.match(/## A complete reference email[\\s\\S]*?```text\\n([\\s\\S]*?)\\n```/);
+ const match=article.match(/## A complete reference email[\s\S]*?```text\n([\s\S]*?)\n```/);
  assert.ok(match,'The article needs a copyable complete editorial example');
  const email=match[1];
- assert.match(email,/Subject: Which planning meeting window works\\?/);
- assert.match(email,/\\[OPTION A\\] or \\[OPTION B\\]/);
+ assert.match(email,/Subject: Which planning meeting window works\?/);
+ assert.match(email,/\[OPTION A\] or \[OPTION B\]/);
  assert.match(email,/proposed agenda is to review the draft volunteer checklist/);
- assert.match(email,/Neither time has been confirmed, and the venue is not booked\\./);
+ assert.match(email,/Neither time has been confirmed, and the venue is not booked\./);
  assert.doesNotMatch(email,/I booked|invitation has been sent|meeting is confirmed/i);
- assert.ok(email.trim().split(/\\s+/).length<130,'Email reference must match the brief word limit');
+ assert.ok(email.trim().split(/\s+/).length<130,'Email reference must match the brief word limit');
  assert.match(article,/editor-written reference.*not a captured ChatGPT response/);
  assert.match(article,/updatedDate: "2026-10-24"/);
 });
