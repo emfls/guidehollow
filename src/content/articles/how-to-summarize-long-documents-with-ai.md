@@ -1,11 +1,11 @@
 ---
-title: "How to Summarize Long Documents with AI"
+title: "How to Summarize Documents with AI and Check What Was Omitted"
 description: "Create an evidence-linked summary by defining the reader\u2019s decision, preserving section references, and checking omissions against the original document."
 slug: "how-to-summarize-long-documents-with-ai"
 category: "guides"
 tags: ["productivity", "documents", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "Anthropic: Effective context engineering for AI agents", "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -84,6 +84,22 @@ On October 23, 2026, we supplied the excerpts and draft to signed-in ChatGPT on 
 The response also left the refund conditions and the actual event-date availability unresolved. Those are useful questions, not answers the source established. [Read the exact request and observed correction](/examples/document-summary-run.txt).
 
 Our editorial review found all four draft problems addressed in this one response. This is a short-text correction exercise, **not** a long-document coverage test, file-upload test, or evidence that ChatGPT always preserves exceptions. For a real long document, repeat the section-map and omission checks above; do not extrapolate from this small sample.
+
+## Keep a coverage ledger beside the summary
+
+A summary can get every included sentence right while leaving out an entire section. Track coverage separately from factual correctness. For the downloadable A/B/C source above, this editor-written ledger provides a small reference:
+
+| Source | Required detail | What the summary must preserve | Coverage decision |
+| --- | --- | --- | --- |
+| A | Seated capacity | 32 people, not an unqualified capacity | Include |
+| A | Availability exception | Weekends except public holidays | Include both rule and exception |
+| B | Reservation conditions | Seven calendar days and written confirmation | Include both; notice alone is not a booking |
+| C | Money | Refundable 50-credit deposit; rental fee unspecified | Separate deposit from unknown total cost |
+| A–C | Availability for the desired date | Not established by these excerpts | Ask the venue; do not infer availability |
+
+For a longer document, create a row for every section before asking for the final summary. Mark each as reviewed and included, reviewed and excluded with a reason, or not yet reviewed. If an appendix qualifies a rule in the main text, link the two rows and review them together.
+
+Do not label a whole document complete while any relevant section remains unreviewed. If you deliberately exclude background material, state that scope in the summary. This ledger illustrates the review method on a short source; it adds no claim of measured long-document performance.
 
 ## Check the information most likely to disappear
 

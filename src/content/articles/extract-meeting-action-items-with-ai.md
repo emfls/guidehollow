@@ -5,8 +5,8 @@ slug: "extract-meeting-action-items-with-ai"
 category: "guides"
 tags: ["productivity", "verification", "prompting"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+updatedDate: "2026-10-24"
+sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -41,11 +41,12 @@ Use only facts explicitly contained in the source.
 Do not invent people, dates, decisions, or tasks.
 Do not turn suggestions or superseded proposals into approved actions.
 If an action has no owner or due date, write "not specified".
+Preserve conditions and unresolved relative dates. An offer is not an assignment.
 If no notes are supplied, ask for the notes rather than drafting.
 
 Return:
 1. Confirmed decisions
-2. Action table with columns Action | Owner | Due date
+2. Action table with columns Action | Owner | Due date | Condition/source
 3. Open questions
 
 If notes conflict, prefer the clearly identified later approved decision.
@@ -57,56 +58,43 @@ APPROVED NOTES:
 
 This prompt defines the task, source boundary, missing-value rule, and output format. OpenAI's prompting guidance recommends clear, specific instructions and relevant context; it does not guarantee that every model response will obey them. Always check the output against the original notes.
 
-## Example 1: Complete notes with named owners
+## Example 1: An offer is not an assignment
 
-**Fictional approved notes:** The group approved a two-page flyer. Mira will draft the flyer by November 2, 2026. Jo will proofread it by November 3, 2026.
+**Fictional approved notes:** The library committee approved a trial equipment-loan desk. Mira was assigned to draft checkout instructions by November 4, 2026. During discussion, Arun said, “I could help with weekend coverage.” No coverage assignment was approved.
 
-A source-faithful summary is:
+An editor-written reference extraction is:
 
-- **Confirmed decision:** Produce a two-page flyer.
-- **Action:** Draft the flyer | **Owner:** Mira | **Due date:** 2026-11-02
-- **Action:** Proofread the flyer | **Owner:** Jo | **Due date:** 2026-11-03
-- **Open questions:** None explicitly recorded.
+| Action | Owner | Due date | Source basis |
+| --- | --- | --- | --- |
+| Draft checkout instructions | Mira | 2026-11-04 | Explicit assignment in the approved notes |
 
-What should not appear? A printing deadline, a distribution plan, and a design approval step. Those might be useful future work, but they were not in the approved notes.
+**Confirmed decision:** Run a trial equipment-loan desk. **Open question:** Who will cover weekends?
 
-## Example 2: The tasks are real, but metadata is missing
+Arun's offer belongs in the unresolved staffing discussion, not the action table. The trial approval does not establish an opening date or authorize buying equipment. This is different from merely filling a blank owner field: the notes contain a name, but not an assignment.
 
-**Fictional approved notes:** The group approved a two-page flyer. Draft the flyer, then proofread it. No owner or due date is recorded.
+## Example 2: Keep the condition attached to the task
 
-The action table should be:
+**Fictional approved notes:** If the facilities team confirms a lockable storage area, Lena will schedule volunteer training. No training date was selected. The storage decision is still pending.
 
-| Action | Owner | Due date |
-| --- | --- | --- |
-| Draft the two-page flyer | not specified | not specified |
-| Proofread the two-page flyer | not specified | not specified |
+A faithful working tracker is:
 
-The confirmed decision remains the two-page flyer. The open questions are who will draft and proofread it, and when those actions are due. Do not assign these tasks to the meeting chair or insert tomorrow's date simply to make the table look complete.
+| Action | Owner | Due date | Condition and current state |
+| --- | --- | --- | --- |
+| Schedule volunteer training | Lena | not specified | Only after lockable storage is confirmed; waiting for confirmation |
 
-A useful second prompt is not "fill the blanks." Ask the assistant to create **questions for the organizer to resolve**, keeping them outside the approved action table.
+Do not convert this to “Lena will hold training next week.” The approved action is to **schedule** training, and it is conditional. A tracker without a condition column should keep the condition inside the action text. The notes do not assign someone to obtain the facilities decision, so that missing responsibility remains an open question.
 
-## Example 3: A superseded proposal is not the final decision
+## Example 3: Preserve an unresolved relative deadline
 
-**Fictional source:**
+**Fictional excerpt:** “Noor will compare two label printers by next Friday.” The excerpt has no meeting date, and no approved calendar date appears elsewhere in the supplied material.
 
-```plain
-Draft proposal, superseded:
-Create a six-page booklet.
-Mira would draft it by 2026-11-01.
+| Action | Owner | Due date | Follow-up needed |
+| --- | --- | --- | --- |
+| Compare two label printers | Noor | “next Friday” — calendar date unresolved | Confirm the intended date with the meeting owner |
 
-Approved decision, later:
-Reject the booklet and create a two-page flyer.
-Jo will draft the flyer.
-No due date was approved.
-```
+Do not calculate the deadline from the day you happen to run the prompt. Preserve the original wording until its reference date and intended meaning are confirmed. Comparing printers also does not approve a purchase or establish a budget.
 
-Correct extraction:
-
-- **Confirmed decisions:** Reject the six-page booklet; create a two-page flyer.
-- **Action:** Draft the two-page flyer | **Owner:** Jo | **Due date:** not specified.
-- **Open question:** When is Jo's draft due?
-
-The earlier November 1 date belongs to the rejected booklet proposal. Copying it onto Jo's flyer task would fabricate an approved commitment. The same rule applies when a meeting record contains older versions of a plan, tentative responsibilities, or tasks listed only as suggestions.
+These three reference results were written for teaching; they are not observed model outputs. For repeatable prompt testing across normal, sparse, and conflicting inputs, use the separate [template testing guide](/prompts/how-to-build-reusable-prompt-templates/). This article focuses on interpreting meeting commitments before putting them into a tracker.
 
 ## Five checks before you share the result
 
@@ -116,7 +104,7 @@ The earlier November 1 date belongs to the rejected booklet proposal. Copying it
 1. **Date check:** Is the date attached to this exact approved task, with the same year and any conditions preserved?
 1. **Conflict check:** Were rejected proposals, superseded drafts, and unresolved questions kept separate?
 
-For important items, add a fourth column in your private working copy called **Source sentence** and paste the short supporting passage. This makes review fast and exposes gaps. Remove unnecessary names or details before sharing a public example.
+For important items, add a column in your private working copy called **Source sentence** and paste the short supporting passage. This makes review fast and exposes gaps. Remove unnecessary names or details before sharing a public example.
 
 ## What to do when the notes are ambiguous
 

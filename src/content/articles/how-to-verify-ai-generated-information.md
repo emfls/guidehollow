@@ -5,7 +5,7 @@ slug: "how-to-verify-ai-generated-information"
 category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -108,4 +108,4 @@ If you cannot find adequate evidence, omit the claim, label it unresolved, or de
 
 ## Finish with an explicit decision
 
-Write one sentence about what you can safely conclude and one about what still needs checking. Use our [response checklist](/tools/ai-response-checklist/) for a quick review, or read [why AI gives wrong answers](/troubleshooting/why-ai-gives-wrong-answers/) to understand the failure patterns behind the process.
+Write one sentence about what you can safely conclude and one about what still needs checking. Use our [response checklist](/tools/ai-response-checklist/) for a quick review, or read [diagnosing and correcting a wrong AI answer](/troubleshooting/why-ai-gives-wrong-answers/) to understand the failure patterns behind the process.

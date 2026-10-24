@@ -5,7 +5,7 @@ slug: "a-practical-ai-prompt-framework"
 category: "prompts"
 tags: ["prompting", "workflows"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "Google: Prompt design strategies", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -72,6 +72,27 @@ Keep the whole response under 300 words.
 ```
 
 A successful answer will mark the room as suggested rather than booked. It will not give a volunteer an invented deadline. The three questions should address real gaps in the notes instead of asking about already confirmed facts.
+
+## Compare with a complete reference handoff
+
+The following is an editor-written answer to the fictional prompt above, not a captured model response. The next actions are suggestions for resolving gaps, not assignments already approved by the group.
+
+| Item | Status | Next action (proposed) | Missing information |
+| --- | --- | --- | --- |
+| Volunteers | Two people agreed to help | Ask what responsibilities each can accept | Names, roles, availability not specified |
+| Room | Suggested; not booked | Check availability after a date is chosen | Room identity, booking owner, availability not specified |
+| Invitation | Draft exists | Review it before deciding whether to send | Draft location, reviewer, approval not specified |
+| Event date | No date approved | Ask the group to choose a date | Candidate dates and decision owner not specified |
+
+Three questions for the next volunteer:
+
+1. Which date should the group approve?
+2. Which room was suggested, and who can check its availability?
+3. Where is the draft invitation, and who should review it?
+
+**Check each part of the framework:** Goal is met because the handoff identifies the next decisions. Inputs are preserved: two volunteers, a suggested room, an existing draft, and no approved date. Boundaries are respected because no booking, owner, or deadline is invented. Output is a four-column table and three questions, within 300 words.
+
+A table that labels the room “reserved” fails even if the other rows are correct. A table that calls every item “unknown” also fails: it discards the confirmed volunteer count and the existence of the draft. Compare meaning, not identical wording.
 
 ## Review the framework in reverse
 
