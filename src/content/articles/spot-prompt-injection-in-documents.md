@@ -6,7 +6,7 @@ category: "guides"
 tags: ["ai-security", "prompt-injection", "document-review"]
 publishedDate: "2026-10-24"
 updatedDate: "2026-10-24"
-sources: [{"title": "genai.owasp.org — reference", "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"}, {"title": "openai.com — reference", "url": "https://openai.com/index/prompt-injections/"}, {"title": "openai.com — reference", "url": "https://openai.com/index/designing-agents-to-resist-prompt-injection/"}]
+sources: [{"title": "OWASP: LLM01:2025 Prompt Injection", "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"}, {"title": "OpenAI: Understanding prompt injections: a frontier security challenge", "url": "https://openai.com/index/prompt-injections/"}, {"title": "OpenAI: Designing AI agents to resist prompt injection", "url": "https://openai.com/index/designing-agents-to-resist-prompt-injection/"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
