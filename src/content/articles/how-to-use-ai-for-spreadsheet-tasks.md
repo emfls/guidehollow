@@ -5,7 +5,7 @@ slug: "how-to-use-ai-for-spreadsheet-tasks"
 category: "guides"
 tags: ["productivity", "spreadsheets", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "Microsoft: SUMIFS function", "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -46,6 +46,8 @@ Microsoft documents `SUMIFS` as summing a range using multiple criteria. For thi
 ```
 
 The sum range is C2:C5. The two criteria ranges are A2:A5 and B2:B5. The ranges refer to the same four data rows. This explanation and arithmetic were reviewed against the documented function syntax; the formula was not executed in a live Excel workbook for this guide.
+
+For a step-by-step version with dates and boundary cases in **both Excel and Google Sheets**, use the [SUMIFS with dates tutorial](https://sheets.guidehollow.com/formulas/sumifs-with-dates/). It builds on the same function but checks how timestamps change a monthly total. The separate [Formula Finder](https://sheets.guidehollow.com/tools/formula-finder/) can help choose a function when you know the task but not its name; it is a reference, not a spreadsheet execution engine.
 
 ## Download the input and use a test oracle
 
