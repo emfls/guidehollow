@@ -5,7 +5,7 @@ slug: "what-is-generative-ai"
 category: "guides"
 tags: ["ai-basics", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "Google Machine Learning Crash Course: Introduction to LLMs", "url": "https://developers.google.com/machine-learning/crash-course/llm"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -50,6 +50,12 @@ Notes:
 Garden planning meeting: Saturday at 10 a.m. Bring a notebook.
 We will choose a planting schedule. Location is not confirmed.
 ```
+
+Here is one **editor-written example of an acceptable answer**, not a transcript of a live AI test:
+
+> You're invited to a community garden planning meeting on Saturday at 10 a.m. We'll choose a planting schedule together. Please bring a notebook. **Location: [TO CONFIRM].**
+
+Compare it with the notes: Saturday at 10 a.m. is preserved, the planting schedule and notebook are included, and the unknown location remains marked for confirmation. There is **no invented address, organizer, or promise**. You do not need the model to write these exact words; you need its answer to keep the same facts.
 
 A usable response should preserve the time, purpose, and notebook request while leaving the location unresolved. If it adds refreshments, a street address, or an organizer's phone number, those are defects—even if the invitation sounds better.
 

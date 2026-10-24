@@ -8,6 +8,11 @@ import { categories, site } from '../../config';
 export async function getStaticPaths() { return (await publishedArticles()).map(post => ({params: { category: post.data.category, slug: post.data.slug }, props: {post} })); }
 const { post } = Astro.props;
 const visualBySlug: Record<string,{ src:string; alt:string; caption:string }> = {
+  'what-is-generative-ai': {
+    src: '/visuals/first-ai-task-source-check.svg',
+    alt: 'Three steps for a first AI task: provide fictional notes, ask for a draft, then verify details and mark the unknown location rather than making one up.',
+    caption: 'Your first AI task is a simple loop: give the notes, draft, and check every important detail. Diagram from a fictional example, not a native AI test.',
+  },
   'extract-meeting-action-items-with-ai': {
     src: '/visuals/meeting-notes-approval-boundary.svg',
     alt: 'Approved meeting notes move through three verification questions to a factual action summary, while unapproved suggestions remain excluded.',

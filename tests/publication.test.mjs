@@ -20,7 +20,12 @@ test('new publication, missing start article, drafts and future content build sa
     for (const [slug,extra] of [['additional-public-guide',''],['private-draft-sentinel','draft'],['future-guide-sentinel','future']]) {
       let content = original.replaceAll('what-is-generative-ai',slug).replace(/^title:.*$/m,`title: ${JSON.stringify(slug)}`);
       if(extra==='draft') content=content.replace('draft: false','draft: true');
-      if(extra==='future') content=content.replaceAll('2026-10-23','2999-01-01');
+      if(extra==='future') {
+        // Keep synthetic future-article metadata valid regardless of how often
+        // the original beginner article is revised.
+        content=content.replace(/^publishedDate:.*$/m,'publishedDate: "2999-01-01"')
+                       .replace(/^updatedDate:.*$/m,'updatedDate: "2999-01-01"');
+      }
       await writeFile(path.join(collection,`${slug}.md`),content);
     }
     const astroPackage = JSON.parse(await readFile('node_modules/astro/package.json','utf8'));
