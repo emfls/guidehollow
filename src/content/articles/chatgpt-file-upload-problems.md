@@ -5,8 +5,8 @@ slug: "chatgpt-file-upload-problems"
 category: "troubleshooting"
 tags: ["chatgpt", "documents", "troubleshooting"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
-sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "OpenAI: Network recommendations for ChatGPT errors on web and apps", "url": "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"}]
+updatedDate: "2026-10-24"
+sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "OpenAI: Using Library to manage files in ChatGPT", "url": "https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt"}, {"title": "OpenAI: Network recommendations for ChatGPT errors on web and apps", "url": "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -60,6 +60,14 @@ Do not place real personal information in a disposable test file. Do not overwri
 Read the current official upload page for the limit that matches the error. Per-file restrictions, rolling upload limits, and saved storage address different resources. A smaller attachment may help a per-file problem while doing nothing for a rate limit.
 
 If the error gives a retry time, wait for it. Repeated retries are not a neutral experiment: the current documentation notes that failed attempts may count toward upload limits. Do not delete saved files merely to “reset” a rolling limit without understanding which resource is full.
+
+### Check the actual limit without deleting anything
+
+An **upload-rate limit** counts attachment attempts over a time window; **Library storage** counts saved files. They are different problems. On the web, open **Settings → Storage** to inspect the available Library storage information, as described in [OpenAI's upload troubleshooting guide](https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt). The [Library guide](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) also explains how to view saved files and manage them.
+
+**Important:** a storage display does **not** tell you how much of a rolling upload-rate allowance remains. If you recently reached the rate limit, deleting files does not establish that the rate limit has reset. If saved storage is the actual problem, review which files are no longer needed before taking any removal action. Deleting a conversation alone does **not** delete a separate file that remains saved in Library; those are distinct objects. Files from connected services may have different management rules.
+
+Do not remove irreplaceable files to troubleshoot an unclear message. First record whether the error mentions a retry time, a per-file size limit, or saved storage; then make the least destructive change consistent with that evidence.
 
 ## Check service and network conditions safely
 
