@@ -92,7 +92,8 @@ def safe_inline(items):
                 )
             t = "[" + t + "](" + url.replace(")", "%29") + ")"
         result.append(t)
-    return "".join(result)
+    # Adjacent bold text/code spans must remain one valid Markdown emphasis run.
+    return "".join(result).replace("****", "")
 
 
 def markdown(block_id):

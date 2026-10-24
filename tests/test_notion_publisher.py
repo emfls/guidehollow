@@ -37,6 +37,15 @@ def row(page_id="approved-page"):
 
 
 class PublisherTests(unittest.TestCase):
+    def test_adjacent_bold_code_spans_render_as_one_markdown_run(self):
+        items = [
+            {"plain_text": "Use ", "annotations": {"bold": True}},
+            {"plain_text": "IFNA", "annotations": {"bold": True, "code": True}},
+            {"plain_text": " for missing keys", "annotations": {"bold": True}},
+        ]
+        self.assertEqual(publisher.safe_inline(items), "**Use `IFNA` for missing keys**")
+        self.assertNotIn("****", publisher.safe_inline(items))
+
     def test_inline_escapes_html_and_preserves_bold(self):
         self.assertEqual(publisher.safe_inline(rich("<script>")), "&lt;script&gt;")
         self.assertEqual(publisher.safe_inline([{"plain_text": "Important", "annotations": {"bold": True}}]), "**Important**")
