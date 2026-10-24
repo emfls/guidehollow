@@ -21,3 +21,12 @@ document.querySelectorAll('pre').forEach(pre => {
   const button = document.createElement('button'); button.type = 'button'; button.className = 'copy-button'; button.textContent = 'Copy'; button.setAttribute('aria-label', 'Copy code or prompt'); button.setAttribute('aria-live', 'polite');
   button.addEventListener('click', () => copyText(pre.querySelector('code')?.textContent ?? '', button)); pre.append(button);
 });
+
+// Keep the article visible sooner on phones; desktop readers retain the full contents list.
+const articleToc = document.querySelector<HTMLDetailsElement>('.toc details');
+if (articleToc) {
+  const wideScreen = window.matchMedia('(min-width: 801px)');
+  const updateTocForWidth = () => { articleToc.open = wideScreen.matches; };
+  updateTocForWidth();
+  wideScreen.addEventListener('change', updateTocForWidth);
+}
