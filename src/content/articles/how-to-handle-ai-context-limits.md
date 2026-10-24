@@ -5,7 +5,7 @@ slug: "how-to-handle-ai-context-limits"
 category: "troubleshooting"
 tags: ["troubleshooting", "documents", "workflows"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "Anthropic: Effective context engineering for AI agents", "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -80,6 +80,31 @@ Keep the brief under 700 words.
 
 Read the brief against the actual work. Remove invented approvals and restore omitted constraints. A generated summary can repeat the same errors you are trying to escape, so do not use it as an unchecked memory transfer.
 
+## A completed handoff you can inspect
+
+Here is a fictional editing history with source labels:
+
+- **H1, initial request:** Prepare a six-page brochure; printing might be on November 6.
+- **H2, later approved change:** Use three pages instead. No print date is confirmed. Every draft must include “Draft — dates not confirmed.”
+- **H3, work record:** An outline is written. No layout file has been created and nothing has been sent to a printer.
+
+An editor-written handoff, not an observed model output, is:
+
+```text
+Goal: Prepare the next brochure draft.
+Confirmed facts: The approved length is three pages (H2).
+Active constraints: Include “Draft — dates not confirmed.” (H2).
+Decisions: The three-page decision supersedes six pages (H1 → H2).
+Completed work: Outline written only (H3).
+Proposed next steps: Review the outline, then draft the page text.
+Open questions: Print date and layout approval are unresolved (H2, H3).
+Source references: H1 initial request; H2 approved change; H3 work record.
+```
+
+Start the next conversation with that brief and the source lines, then ask: “List the approved page count, exact footer, and completed deliverable. Do not begin new work.” A reference answer is **three pages; “Draft — dates not confirmed.”; outline only**.
+
+Check three potential regressions: six pages must not return, November 6 must not become a deadline, and the outline must not become a completed layout or a printer submission. These checks demonstrate what to inspect; no fresh-chat run or context-capacity measurement is claimed here. If your own run fails, keep the failed response and the exact input with the handoff so you can investigate the specific mismatch.
+
 ## Resume in a clean conversation
 
 Paste the checked brief and only the source material required for the next step. Start with a bounded request such as “identify the missing booking details,” rather than “continue everything.”
@@ -94,7 +119,7 @@ Create a section map and assign stable labels. Process complete logical sections
 
 When combining summaries, check cross-section conflicts. A general policy in one section may have a special exception in another. If you only combine short summaries, the exception may disappear. Return to the original before treating the combined result as complete.
 
-See [summarizing long documents](/guides/how-to-summarize-long-documents-with-ai/) for an evidence-linked workflow.
+See [document summaries and omission checks](/guides/how-to-summarize-long-documents-with-ai/) for an evidence-linked workflow.
 
 ## Common recovery mistakes
 

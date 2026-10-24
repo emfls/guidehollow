@@ -1,11 +1,11 @@
 ---
-title: "Why AI Sometimes Gives Wrong Answers"
+title: "How to Diagnose and Correct a Wrong AI Answer"
 description: "Distinguish missing facts, ambiguous instructions, unsupported citations, and context problems so you can correct an AI answer without trusting a second guess."
 slug: "why-ai-gives-wrong-answers"
 category: "troubleshooting"
 tags: ["verification", "troubleshooting", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}, {"title": "Google Machine Learning Crash Course: Introduction to LLMs", "url": "https://developers.google.com/machine-learning/crash-course/llm"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -63,6 +63,21 @@ The date has not been selected.
 ```
 
 After the correction, compare the output with the notes yourself. The assistant can miss its own additions or introduce another one while revising.
+
+## Keep a correction record instead of accepting a rewrite
+
+For the fictional event example, an editor-written reference record is:
+
+| Draft claim | Source comparison | Correction |
+| --- | --- | --- |
+| Two-hour event | Duration is supplied, but the event is proposed | Keep “proposed two-hour event” |
+| Confirmed event | No confirmation is supplied | Remove “confirmed” |
+| Reserved room | Source says suggested, not reserved | Say the room is suggested and unreserved |
+| Next Saturday | Source says no date selected | Say the date has not been selected |
+
+A corrected sentence is: **“The proposed event is two hours long. The room is suggested but not reserved, and the date has not been selected.”** This is a teaching answer, not a captured model correction.
+
+The record separates detection from repair: first identify the unsupported claims, then change only those claims and compare the full result again. It diagnoses visible errors, not the model's hidden reason for producing them. For checking claims against external documents rather than supplied notes, use the [claim verification guide](/guides/how-to-verify-ai-generated-information/).
 
 ## Why asking again is not enough
 
