@@ -1,3 +1,4 @@
+import {verifyApprovedVisuals} from './verify-approved-visuals.mjs';
 import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -85,3 +86,6 @@ for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
 assert((await readFile(path.join(root,'robots.txt'),'utf8')).includes('https://guidehollow.com/sitemap.xml'));
 assert.equal(((await readFile(path.join(root,'rss.xml'),'utf8')).match(/<item>/g)||[]).length,publicArticles.length);
 console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 2 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
+
+const approvedVisualCount = await verifyApprovedVisuals();
+console.log('Verified ' + approvedVisualCount + ' approved Notion figure(s) against SVG bytes and generated HTML.');
