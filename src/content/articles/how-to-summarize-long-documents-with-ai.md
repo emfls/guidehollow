@@ -107,14 +107,14 @@ On October 25, 2026, we pasted an original fictional **1,439-word, ten-section e
 
 The source spreads related conditions across sections: ordinary notice in S3, opening dependencies in S8, and a narrow emergency exception in S9. We recorded [12 review criteria before the run](/examples/document-coverage/criteria.json), then asked for a map of every section, a decision summary under 250 words, cross-section exceptions, and unresolved questions.
 
-| Check | What the response did | Editorial verdict |
-| --- | --- | --- |
-| Section coverage | Mapped S1 through S10 and listed unresolved questions | Met this check; a section map alone does not prove every detail was preserved |
-| Opening versus approval | Kept storage confirmation and checklist approval outstanding | Did not turn committee approval into an opening date |
-| Emergency exception | Preserved stock, written confirmation, deposit, opening, and collection-window requirements | Did not turn short-notice permission into a booking |
-| Date-specific stock | Distinguished two planned kits from actual availability | Did not promise a kit next week |
-| Money | Kept the 40-credit deposit and unknown charges, but wrote “The deposit is not the total cost.” | Needs correction: the source does not establish the total, rather than proving it differs |
-| Requested summary length | The extracted decision-summary block contained 210 whitespace-separated words, including its heading text | Within the 250-word limit |
+| Observed result | Review |
+| --- | --- |
+| **Section coverage** — Mapped S1 through S10 and listed unresolved questions | Met this check; a section map alone does not prove every detail was preserved |
+| **Opening versus approval** — Kept storage confirmation and checklist approval outstanding | Did not turn committee approval into an opening date |
+| **Emergency exception** — Preserved stock, written confirmation, deposit, opening, and collection-window requirements | Did not turn short-notice permission into a booking |
+| **Date-specific stock** — Distinguished two planned kits from actual availability | Did not promise a kit next week |
+| **Money** — Kept the 40-credit deposit and unknown charges, but wrote “The deposit is not the total cost.” | Needs correction: the source does not establish the total, rather than proving it differs |
+| **Requested summary length** — The extracted decision-summary block contained 210 whitespace-separated words, including its heading text | Within the 250-word limit |
 
 The money sentence is a useful example of why fluent summaries still need review. Our editorial replacement is: **“The total cost is not established; 40 credits is the refundable deposit, and any additional charges remain unspecified.”** The original response remains unchanged in the download so you can compare it with this correction.
 
