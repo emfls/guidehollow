@@ -1,0 +1,94 @@
+{
+  "observed_on": "2026-10-25",
+  "product": "Signed-in ChatGPT web",
+  "displayed_mode": "High at submission; underlying model version not independently established",
+  "input_method": "Pasted plain text, not a file upload",
+  "source_words": 1439,
+  "decision_summary_block_words": 210,
+  "word_count_method": "Whitespace splitting, including heading text within extracted block",
+  "checks": [
+    {
+      "id": "scope",
+      "expected": "Fictional six-week pilot, indoor community-group use",
+      "status": "met_in_this_response",
+      "review": "Source map S1 retains fictional pilot scope."
+    },
+    {
+      "id": "eligibility",
+      "expected": "Accepted registration; application alone is insufficient",
+      "status": "met_in_this_response",
+      "review": "S2 and decision summary require accepted registration."
+    },
+    {
+      "id": "lead_time",
+      "expected": "Five calendar days normally; S9 narrow exception",
+      "status": "met_in_this_response",
+      "review": "S3 and S9 joined in exceptions table."
+    },
+    {
+      "id": "confirmation",
+      "expected": "Written confirmation; acknowledgment is insufficient",
+      "status": "met_in_this_response",
+      "review": "S3 says acknowledgment alone is insufficient."
+    },
+    {
+      "id": "hours",
+      "expected": "Tuesday/Thursday 16:00\u201318:00, excluding public holidays",
+      "status": "met_in_this_response",
+      "review": "S4 retains Tuesday/Thursday and public-holiday exclusion."
+    },
+    {
+      "id": "loan",
+      "expected": "Three calendar days normally; agreed return appointment, no unilateral extension",
+      "status": "met_in_this_response",
+      "review": "Exceptions table rejects independent extensions."
+    },
+    {
+      "id": "money",
+      "expected": "40-credit refundable deposit, not total cost; other charges unknown",
+      "status": "needs_editorial_correction",
+      "review": "Numbers and unknown charges retained, but summary says \"The deposit is not the total cost.\" Source only establishes that total cost is unknown. Editorial correction required."
+    },
+    {
+      "id": "inspection",
+      "expected": "Inspection precedes deposit review; refund timing unknown",
+      "status": "met_in_this_response",
+      "review": "S5/S7 preserve inspection and unknown refund timing."
+    },
+    {
+      "id": "opening",
+      "expected": "Both storage confirmation and checklist approval pending",
+      "status": "met_in_this_response",
+      "review": "S8 preserves both outstanding opening conditions."
+    },
+    {
+      "id": "exception",
+      "expected": "Emergency approval does not waive stock, written confirmation, opening, deposit, or window",
+      "status": "met_in_this_response",
+      "review": "Exceptions table preserves approval, stock, confirmation, registration, deposit, opening, window."
+    },
+    {
+      "id": "availability",
+      "expected": "Two planned kits do not establish date-specific availability",
+      "status": "met_in_this_response",
+      "review": "S8 and conclusion do not promise a particular date."
+    },
+    {
+      "id": "coverage",
+      "expected": "All S1\u2013S10 accounted for and unknowns preserved",
+      "status": "met_in_this_response",
+      "review": "Source map has S1\u2013S10; unresolved questions remain visible."
+    }
+  ],
+  "overall": "Useful draft with one material precision correction; not an all-pass result.",
+  "correction": {
+    "observed": "The deposit is not the total cost.",
+    "editorial_replacement": "The total cost is not established; 40 credits is the refundable deposit, and any additional charges remain unspecified."
+  },
+  "limits": [
+    "One recorded response; no reliability estimate",
+    "No exhaustive fact-by-fact accuracy certification",
+    "Not a large-file, PDF, OCR, or context-window benchmark",
+    "Earlier October 24 run not included in this evidence bundle"
+  ]
+}

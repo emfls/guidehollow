@@ -1,0 +1,28 @@
+{
+  "observed_on": "2026-10-25",
+  "product": "Signed-in ChatGPT web",
+  "displayed_mode": "High; underlying model version not independently established",
+  "procedure": "Submitted H1\u2013H6 in a fresh chat, inspected the returned handoff, then pasted that handoff unchanged with a fixed extraction request into another fresh chat.",
+  "handoff_word_count": 186,
+  "word_count_method": "Whitespace splitting including headings and source labels",
+  "length_requirement": "under 180 words",
+  "length_result": "not_met",
+  "content_results": {
+    "page_count": "retained_in_handoff_and_resumed_response",
+    "deliverable": "retained_in_handoff_and_resumed_response",
+    "footer": "retained_in_handoff_and_resumed_response",
+    "print_date": "retained_in_handoff_and_resumed_response",
+    "completed": "retained_in_handoff_and_resumed_response",
+    "external_actions": "retained_in_handoff_and_resumed_response",
+    "unknowns": "retained_in_handoff_and_resumed_response",
+    "excluded_scope": "retained_in_handoff_and_resumed_response"
+  },
+  "overall": "Eight content criteria retained in this one handoff pair; first response exceeded the length instruction.",
+  "limitations": [
+    "Short synthetic history, not a naturally exhausted conversation",
+    "Same signed-in account; personalization and memory settings not controlled",
+    "One recorded pair, no repeatability or model comparison",
+    "No context-window/token-capacity measurement",
+    "Source labels in resumed response refer to carried labels, not independently reopened originals"
+  ]
+}

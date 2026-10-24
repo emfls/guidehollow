@@ -5,7 +5,7 @@ slug: "how-to-handle-ai-context-limits"
 category: "troubleshooting"
 tags: ["troubleshooting", "documents", "workflows"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "Anthropic: Effective context engineering for AI agents", "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -104,6 +104,31 @@ Source references: H1 initial request; H2 approved change; H3 work record.
 Start the next conversation with that brief and the source lines, then ask: “List the approved page count, exact footer, and completed deliverable. Do not begin new work.” A reference answer is **three pages; “Draft — dates not confirmed.”; outline only**.
 
 Check three potential regressions: six pages must not return, November 6 must not become a deadline, and the outline must not become a completed layout or a printer submission. These checks demonstrate what to inspect; no fresh-chat run or context-capacity measurement is claimed here. If your own run fails, keep the failed response and the exact input with the handoff so you can investigate the specific mismatch.
+
+## An observed handoff across two fresh chats
+
+On October 25, 2026, we ran a short synthetic handoff exercise in signed-in ChatGPT on the web. The interface showed High; the underlying model version was not independently established. We supplied [six labeled source records and a fixed request](/examples/context-handoff/request.txt), with [eight content criteria recorded beforehand](/examples/context-handoff/criteria.json).
+
+The records replace a six-page proposal with an approved three-page quick-start guide. They also separate an outline from a completed layout, preserve an exact footer, exclude repair instructions, and prohibit contacting volunteers or sending printer files. The next task is to identify missing information, not start production.
+
+We inspected the returned brief and pasted it **unchanged** into a second fresh chat with a request to extract the current state. The observed results were:
+
+| Criterion | Result after the handoff |
+| --- | --- |
+| Page count and deliverable | Three-page quick-start guide; six-page booklet remained superseded |
+| Footer | “Draft — dates not confirmed.” preserved |
+| Print date | No approved date; November 6 remained provisional |
+| Completed work | Outline only; no layout, print-ready PDF, order, or mailing |
+| Scope | Repair instructions remained excluded |
+| External actions | No contacting volunteers or sending printer files without approval |
+| Missing information | Names, opening hours, and outline approval remained unresolved |
+| Next step | Identify missing information before drafting |
+
+There was also a failure: the first brief contained **186 whitespace-separated words including headings and source labels**, despite an instruction to stay under 180 words. We kept that response intact rather than silently shortening the evidence. If a handoff must fit a strict limit, check its length separately from its meaning and verify that shortening preserves every active condition.
+
+Download the [first observed brief](/examples/context-handoff/response.txt), [second-chat request](/examples/context-handoff/resume-request.txt), [second response](/examples/context-handoff/resume-response.txt), and [review record](/examples/context-handoff/review.json). All eight preselected content criteria survived this one pair; the word-limit instruction did not.
+
+This demonstrates a checked state transfer, not recovery from an actually exhausted context window. Both chats used the same account; memory and personalization settings were not controlled. Source labels carried into the second reply do not mean that chat reopened the original records. Keep those records available for your own comparison.
 
 ## Resume in a clean conversation
 

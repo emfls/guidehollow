@@ -1,0 +1,14 @@
+{
+ "written_before_run": true,
+ "expected": {
+  "page_count": 3,
+  "deliverable": "quick-start guide",
+  "footer": "Draft — dates not confirmed.",
+  "print_date": "not approved",
+  "completed": "outline only",
+  "external_actions": "none; do not send files or contact volunteers",
+  "unknowns": ["volunteer names", "opening hours", "outline approval"],
+  "excluded_scope": "repair instructions"
+ },
+ "limits": "One short source-record handoff across two fresh chats, not an exhausted-context or token-limit benchmark."
+}

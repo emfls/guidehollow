@@ -1,0 +1,561 @@
+Fieldstone Equipment Library — Fictional Pilot Handbook Analysis
+
+Source: Teaching fixture 1.0, October 24, 2026
+Scope: Sections S1–S10 only
+Document status: Fictional pilot proposal, not an operational lending service
+
+1. Source Map
+
+Section
+
+	
+
+Subject
+
+	
+
+Key rules, conditions, and limitations
+
+
+
+
+S1
+
+	
+
+Purpose and scope
+
+	
+
+Planned six-week pilot for registered community groups. Indoor presentation kits only. Committee approval in principle does not establish an opening date.
+
+
+
+
+S2
+
+	
+
+Borrower eligibility
+
+	
+
+Accepted group registration required. One kit per group. Named adult representative responsible for collection and return. Eligibility does not guarantee availability.
+
+
+
+
+S3
+
+	
+
+Requests and confirmation
+
+	
+
+At least five calendar days' notice normally required. Written confirmation must specify collection and return dates. Acknowledgment alone is insufficient.
+
+
+
+
+S4
+
+	
+
+Collection and return
+
+	
+
+Ordinary desk hours: Tuesday and Thursday, 16:00–18:00 local time, excluding public holidays. Ordinary loan period: three calendar days. Actual return appointment requires confirmation.
+
+
+
+
+S5
+
+	
+
+Deposit and charges
+
+	
+
+Refundable 40-credit deposit collected at collection and held until inspection is complete. Other charges, total cost, and refund timing are unspecified.
+
+
+
+
+S6
+
+	
+
+Equipment use and care
+
+	
+
+Indoor use only, stable surface, unobstructed vents. No repair, modification, or onward lending. Compatibility and technical support are not guaranteed.
+
+
+
+
+S7
+
+	
+
+Returns and inspection
+
+	
+
+All four components must be inspected. Outside-hours handover does not complete the return process. Disputes go to the coordinator. Refund timing is unspecified.
+
+
+
+
+S8
+
+	
+
+Opening and capacity
+
+	
+
+Two kits planned. Lockable storage confirmation and collection checklist approval are both outstanding. No opening announcement or date-specific availability established.
+
+
+
+
+S9
+
+	
+
+Emergency exception
+
+	
+
+Accepted groups replacing their own failed projector may request shorter notice, subject to coordinator approval, stock availability, and written confirmation. Other requirements remain.
+
+
+
+
+S10
+
+	
+
+Reporting and revisions
+
+	
+
+Separate reporting categories required. Only a coordinator-published revised handbook changes rules. Several operational and financial questions remain unresolved.
+
+2. Decision Summary — Can a Group Borrow Next Week?
+
+Status — Not confirmed (S1, S8)
+
+The pilot has committee approval in principle but is not confirmed open. The storage review remains pending, and the collection checklist is unapproved. Therefore, borrowing next week cannot be promised.
+
+Eligibility (S2)
+
+Only groups with accepted registrations qualify. A named adult representative must collect and return the kit. Eligibility does not guarantee stock.
+
+Request and confirmation (S3, S9)
+
+Requests normally require at least five calendar days' notice. Written confirmation specifying collection and return dates is essential. A narrowly defined emergency exception may permit shorter notice, but requires explicit coordinator approval and available stock.
+
+Collection and return (S4, S7)
+
+Ordinary desk hours are Tuesday and Thursday, 16:00–18:00, excluding public holidays. The ordinary loan period is three calendar days, with the actual return appointment arranged before confirmation. Return inspection must be completed.
+
+Financial terms (S5)
+
+A refundable 40-credit deposit is required. Other charges and refund timing are unspecified. The deposit is not the total cost.
+
+Availability and decision (S8, S10)
+
+Two kits are planned, but no live schedule is supplied. The group should verify opening status, registration, date-specific stock, collection and return appointments, and applicable charges before relying on a loan.
+
+Conclusion: Borrowing next week remains unverified, not booked.
+
+3. Restrictions and Cross-Section Exceptions
+
+General restriction
+
+	
+
+Exception or qualification
+
+	
+
+What remains mandatory
+
+
+
+
+Five-calendar-day minimum request notice (S3)
+
+	
+
+Emergency replacement of an accepted group's own failed projector may qualify for shorter notice (S9).
+
+	
+
+Coordinator approval, stock check, written confirmation, registration, deposit, opening conditions, and agreed desk window.
+
+
+
+
+Accepted registration required (S2)
+
+	
+
+No registration exception is established, including emergencies (S9).
+
+	
+
+Application acceptance before borrowing.
+
+
+
+
+One kit per group (S2)
+
+	
+
+A new request is possible after the current kit is returned and outstanding inspection resolved.
+
+	
+
+Stock and requested dates must be confirmed.
+
+
+
+
+Three-calendar-day ordinary loan (S4)
+
+	
+
+A closed or holiday return day requires staff to arrange a return appointment before confirmation.
+
+	
+
+Borrowers cannot independently extend the loan.
+
+
+
+
+Ordinary Tuesday/Thursday desk window (S4)
+
+	
+
+Confirmed appointments govern collection; public holidays close the desk.
+
+	
+
+Emergency approval does not authorize outside-window collection (S9).
+
+
+
+
+Refundable deposit of 40 credits (S5)
+
+	
+
+Inspection discrepancies or disputes may delay deposit resolution (S7).
+
+	
+
+No immediate refund promise; no automatic deduction or specific charge established by a dispute.
+
+
+
+
+Indoor use and no onward lending (S1, S2, S6)
+
+	
+
+Another group member may operate the projector (S6).
+
+	
+
+The named representative remains the desk contact; no transfer to another group.
+
+
+
+
+No repairs or modifications (S6)
+
+	
+
+Equipment failure requires stopping use and contacting the desk.
+
+	
+
+No authorization to open the case or substitute an unknown power supply.
+
+
+
+
+Two kits in planned inventory (S8)
+
+	
+
+Actual availability depends on loans, inspections, and the confirmed schedule.
+
+	
+
+Opening prerequisites and date-specific stock verification.
+
+
+
+
+Published handbook controls policy (S10)
+
+	
+
+The coordinator may publish a revised version.
+
+	
+
+Discussion notes and suggested changes do not independently amend rules.
+
+Important cross-section interpretations
+
+S1 + S8 — Approval is not opening authorization. Committee approval in principle does not satisfy either operational prerequisite. Both storage confirmation and checklist approval must be completed before the opening announcement.
+
+S3 + S9 — Emergency status is not a booking. The exception changes only the minimum request lead time. It does not guarantee same-day service, waive other requirements, or establish available inventory.
+
+S4 + S7 — Physical handover is not completed return. A kit delivered to an unrelated volunteer outside desk hours remains outside the completed return process. Inspection and discrepancy resolution are distinct stages.
+
+S5 + S7 — Deposit review is not an established penalty. Missing items, damage, or disagreement trigger inspection or review procedures, but the handbook establishes neither automatic deductions nor specific charges.
+
+S2 + S8 — Eligibility and capacity are separate. An accepted registration and two planned kits do not establish availability for a particular event.
+
+S6 + S3 — Compatibility should be addressed before confirmation. Even successful collection checks do not guarantee compatibility with every device or presentation.
+
+4. Unresolved Questions
+
+Priority
+
+	
+
+Unresolved question
+
+	
+
+Source
+
+	
+
+Why it matters
+
+
+
+
+Critical
+
+	
+
+Have lockable storage and the collection checklist both been approved?
+
+	
+
+S8
+
+	
+
+Determines whether opening conditions have been satisfied.
+
+
+
+
+Critical
+
+	
+
+What is the official opening date?
+
+	
+
+S1, S8, S10
+
+	
+
+Establishes whether lending can begin next week.
+
+
+
+
+Critical
+
+	
+
+Is a kit available for the group's specific requested dates?
+
+	
+
+S2, S3, S8, S10
+
+	
+
+No booking ledger or live stock calendar is provided.
+
+
+
+
+High
+
+	
+
+Has the group's registration been accepted, and how long does review take?
+
+	
+
+S2
+
+	
+
+Eligibility and processing time cannot be assumed.
+
+
+
+
+High
+
+	
+
+What charges apply beyond the 40-credit refundable deposit?
+
+	
+
+S5, S10
+
+	
+
+Total borrowing cost is unknown.
+
+
+
+
+High
+
+	
+
+What collection and return appointments can actually be confirmed?
+
+	
+
+S3, S4
+
+	
+
+Ordinary desk hours and three-day loan rules do not establish an appointment.
+
+
+
+
+High
+
+	
+
+Which local public holidays affect the proposed dates, and what is the applicable time zone?
+
+	
+
+S4, S10
+
+	
+
+Closures and appointment times require local confirmation.
+
+
+
+
+Medium
+
+	
+
+How long does deposit refund processing take?
+
+	
+
+S5, S7, S10
+
+	
+
+Inspection completion and refund payment timing are distinct.
+
+
+
+
+Medium
+
+	
+
+What contact address or emergency request route should borrowers use?
+
+	
+
+S6, S9, S10
+
+	
+
+No contact address or emergency phone number is supplied.
+
+
+
+
+Medium
+
+	
+
+Which laptops, adapters, and presentation formats are compatible?
+
+	
+
+S6
+
+	
+
+Successful equipment use is not guaranteed.
+
+
+
+
+Medium
+
+	
+
+What response time applies to ordinary or emergency requests?
+
+	
+
+S2, S3, S9
+
+	
+
+No guaranteed processing or emergency response time is stated.
+
+
+
+
+Future decision
+
+	
+
+Will the library continue beyond the six-week pilot?
+
+	
+
+S1, S10
+
+	
+
+Continuation depends on a later committee review, not current approval.
+
+5. Overall Decision Assessment
+
+Borrowing next week cannot be confirmed from this handbook.
+
+The decisive blocker is not simply whether the group qualifies or whether one of the two planned kits is free. The pilot's opening prerequisites remain unfulfilled in the supplied version, with no confirmed opening date.
+
+A legitimate booking would require opening authorization, accepted group registration, compliance with the ordinary notice period or an approved emergency exception, confirmed stock, agreed collection and return appointments, written confirmation, and disclosure of applicable charges before acceptance.
+
+Evidence boundary: This assessment uses only S1–S10 of the fictional teaching handbook. No availability, appointment, fee beyond the deposit, contact route, or future operational decision has been inferred or independently verified.

@@ -1,0 +1,34 @@
+{
+  "checked_on": "2026-10-24",
+  "method": "Read the two official Google Search Central pages and compared the claims below with their relevant passages. No live index-removal experiment was run.",
+  "claim_origin": "Editor-constructed statements for a source-checking exercise; not an observed AI response.",
+  "claims": [
+    {
+      "id": "C01",
+      "claim": "Blocking a web page in robots.txt guarantees it will not appear in Google Search.",
+      "status": "contradicted",
+      "source": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
+      "section": "What is a robots.txt file used for? — Web page",
+      "supporting_excerpt": "its URL can still appear in search results",
+      "decision": "Replace the guarantee: robots.txt controls crawling; a blocked page URL may still appear in Google Search."
+    },
+    {
+      "id": "C02",
+      "claim": "Googlebot must be able to access a page to read its noindex rule.",
+      "status": "supported",
+      "source": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+      "section": "Block Search indexing with noindex — Important",
+      "supporting_excerpt": "the page or resource must not be blocked by a robots.txt file",
+      "decision": "Keep the crawl-access condition when explaining noindex."
+    },
+    {
+      "id": "C03",
+      "claim": "A specific URL will disappear from results tomorrow after noindex is added.",
+      "status": "unresolved",
+      "source": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+      "section": "Debugging noindex issues",
+      "decision": "Do not promise a date; the documentation does not establish the recrawl or removal time of a particular URL."
+    }
+  ],
+  "not_established": ["Any specific URL's current indexing status", "A guaranteed removal deadline", "Behavior of every search engine", "AdSense approval"]
+}

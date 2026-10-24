@@ -1,0 +1,50 @@
+{
+  "recorded_on": "2026-10-25",
+  "capture": "Visible assistant response text only; UI whitespace retained. No chat URLs or account details included.",
+  "files": [
+    {
+      "path": "document-coverage/criteria.json",
+      "sha256": "b04bd81d57709623774af5cc3497cc1a0d37f3c528c23ca193f69790fd0bf990"
+    },
+    {
+      "path": "document-coverage/request.txt",
+      "sha256": "641f7b2f1c0cd8a5c3325b5230a1bff69c16d895340eb44e3708e390f5def987"
+    },
+    {
+      "path": "document-coverage/response.txt",
+      "sha256": "7a7c7f1e6d694153d2fd512916a93f95be5c0731894d090764e38afe36b184bf"
+    },
+    {
+      "path": "document-coverage/review.json",
+      "sha256": "694440832580d93ea72a4b4576cc9eb9e2d65bbd07c1732a4aad5e6616a1e21f"
+    },
+    {
+      "path": "document-coverage/source.txt",
+      "sha256": "fc6402ea211d1151c6ef209c330f5d380f282c8a36accf59a4805e78f6778311"
+    },
+    {
+      "path": "context-handoff/criteria.json",
+      "sha256": "29950d4e16c2621876c945afc5141d332ebfb7e67f33c2302d40d7f94f3632d5"
+    },
+    {
+      "path": "context-handoff/request.txt",
+      "sha256": "d5f9b8caf6dbe56c3b3e07224d95ce09c9f6e578d60f5f8ba294a17fe5c8de06"
+    },
+    {
+      "path": "context-handoff/response.txt",
+      "sha256": "a378c0327ef38a211d33c25d63bf1afa833dee2447a7a8b77fb0d97717bd9fef"
+    },
+    {
+      "path": "context-handoff/resume-request.txt",
+      "sha256": "782c1ddfeacd278f49294b5b8b89ae47537d434c937f71df93e75b02e1279561"
+    },
+    {
+      "path": "context-handoff/resume-response.txt",
+      "sha256": "6058e54bcf60711e7562b55bd493775b39fecbebb7d0bbbb73cc3ffc84b63805"
+    },
+    {
+      "path": "context-handoff/review.json",
+      "sha256": "be9d71aeaa334897fce8c6522512c717fe933d83b1da85a979e5251239598f03"
+    }
+  ]
+}
