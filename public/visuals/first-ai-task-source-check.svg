@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">A beginner's first AI task: give notes, draft, then check facts</title>
+<desc id="desc">Three steps. First, supply fictional garden meeting notes with Saturday at 10 a.m., notebook and location unconfirmed. Second, ask AI for an invitation. Third, check that the response keeps the details and marks the location to confirm rather than inventing one.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="66" fill="#173d34" font-size="32" font-family="Arial,sans-serif" font-weight="700">Your first AI task: give, draft, check</text>
+<text x="52" y="102" fill="#47675c" font-size="18" font-family="Arial,sans-serif">A clear prompt is a start. Checking the result is what makes it useful.</text>
+<rect x="48" y="136" width="337" height="255" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="72" y="176" fill="#245a45" font-size="23" font-family="Arial,sans-serif" font-weight="700">1. Give the notes</text>
+<text x="72" y="216" fill="#304b41" font-size="18" font-family="Arial,sans-serif">Saturday · 10 a.m.</text>
+<text x="72" y="250" fill="#304b41" font-size="18" font-family="Arial,sans-serif">Bring a notebook</text>
+<text x="72" y="284" fill="#304b41" font-size="18" font-family="Arial,sans-serif">Choose a planting schedule</text>
+<text x="72" y="336" fill="#9a6528" font-size="18" font-family="Arial,sans-serif" font-weight="700">Location not confirmed</text>
+<path d="M395 260H423" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<path d="m415 249 16 11-16 11" stroke="#2a7757" stroke-width="5" fill="none"/>
+<rect x="443" y="136" width="307" height="255" rx="16" fill="#194a3b"/>
+<text x="466" y="176" fill="#ecfff4" font-size="23" font-family="Arial,sans-serif" font-weight="700">2. Ask for a draft</text>
+<text x="466" y="217" fill="#e2f4e8" font-size="18" font-family="Arial,sans-serif">“Write a short invitation.</text>
+<text x="466" y="248" fill="#e2f4e8" font-size="18" font-family="Arial,sans-serif">Use only the notes.</text>
+<text x="466" y="279" fill="#e2f4e8" font-size="18" font-family="Arial,sans-serif">Mark missing details.”</text>
+<text x="466" y="346" fill="#c7efa8" font-size="19" font-family="Arial,sans-serif" font-weight="700">A draft, not verified facts</text>
+<path d="M761 260H787" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<path d="m779 249 16 11-16 11" stroke="#2a7757" stroke-width="5" fill="none"/>
+<rect x="806" y="136" width="345" height="255" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="829" y="176" fill="#245a45" font-size="23" font-family="Arial,sans-serif" font-weight="700">3. Check the result</text>
+<text x="829" y="216" fill="#304b41" font-size="18" font-family="Arial,sans-serif">✓ Time and purpose included</text>
+<text x="829" y="251" fill="#304b41" font-size="18" font-family="Arial,sans-serif">✓ Notebook request included</text>
+<text x="829" y="286" fill="#304b41" font-size="18" font-family="Arial,sans-serif">✓ Location: [TO CONFIRM]</text>
+<text x="829" y="343" fill="#9a452b" font-size="18" font-family="Arial,sans-serif" font-weight="700">✕ No invented address</text>
+<text x="52" y="430" fill="#557266" font-size="16" font-family="Arial,sans-serif">Original fictional teaching example. This is a process diagram, not a screenshot or a measured AI output.</text>
+</svg>
