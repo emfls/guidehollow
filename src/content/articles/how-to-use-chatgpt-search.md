@@ -5,7 +5,7 @@ slug: "how-to-use-chatgpt-search"
 category: "ai-tools"
 tags: ["chatgpt", "research", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-24"
 sources: [{"title": "OpenAI: Searching the web with ChatGPT", "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -86,6 +86,8 @@ We opened that original page and inspected **“How do I delete a saved file?”
 | Action taken | Research and source reading only; no account file was opened or deleted |
 
 [Download the concise evidence record](/examples/chatgpt-search-evidence.json). The important result is the match between a specific claim and a specific original passage. A general chat-deletion article alone would not settle the Library-copy question.
+
+**Practical next check:** the [official Library article](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) distinguishes deleting a conversation from deleting a file that remains in Library. Open the section headed “How do I delete a saved file?” and follow its current instructions if you intend to remove a file. A source link does not confirm whether any specific file exists in your account or whether you have deleted it. If an upload itself fails, use the [file-upload diagnostics](/troubleshooting/chatgpt-file-upload-problems/) instead of treating the saved-file question as an upload failure.
 
 This one observation establishes neither search ranking quality nor every retention detail. Read the current page for exceptions and connected-service behavior, and keep account-specific deletion actions separate from documentation research.
 
