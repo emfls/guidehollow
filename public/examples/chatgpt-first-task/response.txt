@@ -1,0 +1,5 @@
+Problem: The customer reports that the download link shows an error.
+
+Confirmed facts: The customer has tried the download link once.
+
+Missing details: The error code and browser version were not provided.

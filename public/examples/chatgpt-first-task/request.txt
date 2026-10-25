@@ -1,0 +1,8 @@
+Respond in English.
+Extract facts from this fictional support note.
+Return exactly three bullets labeled Problem, Confirmed facts, Missing details.
+Use only the note. Do not invent a fix, refund, or delivery date.
+
+Note:
+A customer says the download link shows an error.
+They have tried it once. No error code or browser version was provided.

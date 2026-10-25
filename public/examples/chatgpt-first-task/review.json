@@ -1,0 +1,31 @@
+{
+  "observed_date": "2026-10-25",
+  "method": "Two requests in one signed-in ChatGPT web conversation using fictional support data. Interface displayed High; model version not independently verified. Output text extracted from displayed assistant messages, excluding UI labels. No upload or Search used.",
+  "limits": "One run; no cross-model or cross-client comparison. Text preserves wording, not visual list formatting.",
+  "checks": {
+    "first_two_statements_unchanged": true,
+    "two_questions": true,
+    "error_code_requested": true,
+    "browser_version_requested": true,
+    "unsupported_resolution_or_promise": false
+  },
+  "observation": "Follow-up additionally requests browser name. This is a question, not an asserted customer fact.",
+  "files": [
+    {
+      "path": "followup-request.txt",
+      "sha256": "6eb7ff821bf2d60ee0ae21d68af766b7699fc2080b79a8d2720180c08dea3727"
+    },
+    {
+      "path": "followup-response.txt",
+      "sha256": "23ca15496951e4ceababcda96535253779daac0cf35d38a091cedc457627e4cd"
+    },
+    {
+      "path": "request.txt",
+      "sha256": "f4f78b8269ab14b443a4fbbd37a1a9af495e60ce0c9aacb0891514068331086f"
+    },
+    {
+      "path": "response.txt",
+      "sha256": "f55d597b15b85e58b106a8af2586cad88d6b7695de47784e252257c1be2ffa00"
+    }
+  ]
+}

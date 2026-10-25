@@ -1,0 +1,4 @@
+Respond in English.
+Keep the Problem and Confirmed facts bullets unchanged.
+Revise Missing details into two questions asking for the error code
+and browser version. Do not say that the download has been repaired.

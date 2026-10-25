@@ -1,0 +1,9 @@
+Problem: The customer reports that the download link shows an error.
+
+Confirmed facts: The customer has tried the download link once.
+
+Missing details:
+
+What error code appears when you open the download link?
+
+Which browser and browser version are you using?

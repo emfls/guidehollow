@@ -5,7 +5,7 @@ slug: "getting-started-with-chatgpt"
 category: "ai-tools"
 tags: ["chatgpt", "getting-started", "privacy"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: The ChatGPT home page", "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -34,13 +34,14 @@ This guide does not require a paid subscription, file upload, web search, or any
 4. Compare the result with the expected facts before requesting a revision.
 5. Save the reviewed text somewhere you control. The official home-page guide explains that logged-out history is limited to the current session; do not rely on it as your only copy.
 
-These steps were checked against official documentation, not tested in a personal ChatGPT account for this article. Button placement can differ between clients.
+The navigation and data-setting guidance follows official documentation. We also ran the two-turn text exercise below in the signed-in ChatGPT web interface on October 25, 2026. That run does not verify every client, account option, or privacy setting.
 
 ## A first prompt with a visible pass condition
 
 Use this fictional support note rather than real customer data:
 
 ```text
+Respond in English.
 Extract facts from this fictional support note.
 Return exactly three bullets labeled Problem, Confirmed facts, Missing details.
 Use only the note. Do not invent a fix, refund, or delivery date.
@@ -63,12 +64,47 @@ This is a teaching reference, not a captured ChatGPT output. Pass means all thre
 If the response jumps to a solution, request a narrow correction:
 
 ```text
+Respond in English.
 Keep the Problem and Confirmed facts bullets unchanged.
 Revise Missing details into two questions asking for the error code
 and browser version. Do not say that the download has been repaired.
 ```
 
 Check that the two preserved bullets really remain unchanged. If a later answer promises a refund, remove the unsupported promise; adding a helpful tone does not authorize a commitment.
+
+## What happened in our actual two-turn run
+
+The fictional note above was submitted once, followed by the revision request in the same conversation. The interface displayed **High**; we did not independently establish a model version. No file upload or search was used in this exercise.
+
+The first response said:
+
+> Problem: The customer reports that the download link shows an error.
+>
+> Confirmed facts: The customer has tried the download link once.
+>
+> Missing details: The error code and browser version were not provided.
+
+After the follow-up, the first two statements stayed unchanged. The Missing details section became:
+
+> What error code appears when you open the download link?
+>
+> Which browser and browser version are you using?
+
+That is useful because the conversation moves from describing a problem to collecting the missing information without pretending to resolve it. The second question also asks for the browser name, which was not explicitly requested but is relevant context; it does not assert a new fact about the customer.
+
+| Check against the original note | Observed result | What to do if your run differs |
+| --- | --- | --- |
+| Keep the reported error separate from a confirmed diagnosis | Preserved as a customer report | Replace claims about the cause with “customer reports” |
+| Preserve the single attempt | Both answers say “once” | Remove invented retries or troubleshooting steps |
+| Keep the first two statements unchanged in the revision | Exact text match | Compare the sentences, not just their meaning |
+| Ask for both missing fields | Two questions request error code and browser/version | Ask only for the omitted field |
+| Avoid unsupported commitments | No repair, refund, or delivery promise | Delete the promise before sending anything to a customer |
+
+Download the [exact first request](/examples/chatgpt-first-task/request.txt), [first response](/examples/chatgpt-first-task/response.txt), [follow-up request](/examples/chatgpt-first-task/followup-request.txt), and [follow-up response](/examples/chatgpt-first-task/followup-response.txt). The text downloads preserve the observed wording; the page excerpts simplify formatting. The [run record](/examples/chatgpt-first-task/review.json) includes the method, limits, and file hashes.
+
+**Try a second case yourself:** change the note to “The customer tried twice in Firefox. No error code was provided.” Before sending, write your own expected facts: two attempts, Firefox known, error code unknown, browser version still unknown. Reject a response that asks which browser was used as if Firefox had not been supplied. This variation tests whether the answer follows the source rather than copying the first example.
+
+This is one successful, small text exercise, not evidence that every future response will meet the same criteria. The outputs have not been silently corrected; review your own result before using it.
 
 ## Distinguish the text task from optional features
 
@@ -79,7 +115,7 @@ Check that the two preserved bullets really remain unchanged. If a later answer 
 | Ask about current information | Whether Search is available and used | Open an official source yourself |
 | Review data settings | Settings → Data controls in the intended account/workspace | Do not upload sensitive material while uncertain |
 
-This exercise does not require uploading, Search, a paid plan, or a named model. Avoid upgrading or changing account settings merely to reproduce the text example. For a separate Search walkthrough, see [ChatGPT Search and its sources](/ai-tools/how-to-use-chatgpt-search/).
+For a separate Search walkthrough, see [ChatGPT Search and its sources](/ai-tools/how-to-use-chatgpt-search/).
 
 ## Mistakes to avoid
 
