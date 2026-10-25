@@ -9,7 +9,7 @@ updatedDate: "2026-10-24"
 sources: [{"title": "Microsoft: SUMIFS function", "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: false
+featured: true
 ---
 
 ## Ask for a checkable formula

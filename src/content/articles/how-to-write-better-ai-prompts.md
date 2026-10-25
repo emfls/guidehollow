@@ -5,11 +5,11 @@ slug: "how-to-write-better-ai-prompts"
 category: "prompts"
 tags: ["prompting", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: true
+featured: false
 ---
 
 ## Give the answer a job
@@ -17,6 +17,8 @@ featured: true
 A useful prompt tells the assistant what result you need, what information it should use, and what a satisfactory answer looks like. You do not need elaborate roleplay or a long list of impressive adjectives.
 
 OpenAI's prompting guidance emphasizes specific instructions, context, and revision. The workflow below turns those principles into a task you can inspect. It is a practical starting point, not a formula that guarantees correctness.
+
+This guide fixes one ambiguous request using a release-note example and five acceptance checks. For a task with several deliverables, use the [four-part framework](/prompts/a-practical-ai-prompt-framework/); for recurring inputs, use a [reusable template](/prompts/how-to-build-reusable-prompt-templates/). To compare revisions across several cases, use the [evaluation dataset](/prompts/test-ai-prompts-with-evaluation-dataset/).
 
 ## Diagnose the vague version
 

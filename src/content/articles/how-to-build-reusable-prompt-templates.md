@@ -5,7 +5,7 @@ slug: "how-to-build-reusable-prompt-templates"
 category: "prompts"
 tags: ["prompting", "workflows", "templates"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-23"
+updatedDate: "2026-10-25"
 sources: [{"title": "Google: Prompt design strategies", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -17,6 +17,8 @@ featured: false
 A reusable prompt template keeps the instructions that stay the same and makes the changing facts explicit. It should reduce repeated setup without carrying old names, dates, or assumptions into a new task.
 
 Do not start by creating a large template library. Choose one task you repeat, such as turning approved meeting notes into an action summary. Build a template for that task and inspect how it behaves with a few realistic inputs.
+
+The deliverable here is a reusable input contract: fixed rules, changing fields, and checks for ordinary, sparse, and conflicting notes. For a scored comparison across prompt versions, continue with the [eight-case evaluation dataset](/prompts/test-ai-prompts-with-evaluation-dataset/).
 
 ## Identify stable and variable parts
 

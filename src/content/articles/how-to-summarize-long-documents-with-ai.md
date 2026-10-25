@@ -9,7 +9,7 @@ updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "Anthropic: Effective context engineering for AI agents", "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: false
+featured: true
 ---
 
 ## Decide what the summary is for

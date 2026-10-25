@@ -5,7 +5,7 @@ slug: "a-practical-ai-prompt-framework"
 category: "prompts"
 tags: ["prompting", "workflows"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "Google: Prompt design strategies", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -17,6 +17,8 @@ featured: false
 For a multi-part task, organize the prompt into four sections: Goal, Inputs, Boundaries, and Output. This is GuideHollow's working checklist, not a standardized method or a vendor-endorsed framework.
 
 Its purpose is to separate what you want from what you know. If those are mixed together, the assistant may treat a desired outcome as an established fact. Clear sections also make the prompt easier for you to revise.
+
+Use this guide when one request contains several connected decisions: its output is a handoff table and three unresolved questions. If you only need to improve a single paragraph, start with [one-request prompt revision](/prompts/how-to-write-better-ai-prompts/).
 
 ## Goal: describe the finished job
 

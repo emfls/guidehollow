@@ -9,7 +9,7 @@ updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: true
+featured: false
 ---
 
 ## Check the claims that affect your decision

@@ -1,11 +1,11 @@
 ---
 title: "How to Draft and Improve Emails with AI"
-description: "Draft a useful email from approved facts, preserve commitments, and review tone, placeholders, and recipients before sending anything."
+description: "Compare complete email drafts and revisions, checking that deadlines, conditions, placeholders, and commitments survive changes in tone."
 slug: "how-to-draft-emails-with-ai"
 category: "guides"
 tags: ["productivity", "writing", "privacy"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -96,6 +96,47 @@ Draft:
 ```
 
 The change list is a review aid, not a guarantee that every change is disclosed. Compare the source and revision yourself, especially around words such as “will,” “may,” “approved,” and “required.”
+
+### Worked revision: remove blame without weakening the deadline
+
+This pair is editor-written from fictional facts, not an observed AI run or a sent email. Use the revision prompt above with this sanitized draft:
+
+```text
+Subject: Missing agenda comments
+
+Hi [REVIEWER],
+You still haven't sent the agenda comments. We need them by
+15:00 UTC on 6 November 2026 so we can prepare the review packet.
+Send them in [SHARED DOCUMENT]. If you cannot meet that deadline,
+tell us by 12:00 UTC on 6 November 2026.
+The review meeting time is not confirmed.
+```
+
+**A reference revision:**
+
+```text
+Subject: Agenda comments needed by 15:00 UTC on 6 November
+
+Hi [REVIEWER],
+Please add your agenda comments to [SHARED DOCUMENT] by
+15:00 UTC on 6 November 2026 so we can prepare the review packet.
+If you cannot meet that deadline, please let us know by
+12:00 UTC on 6 November 2026.
+The review meeting time is not confirmed.
+```
+
+| Original element | What changed | Acceptance check |
+| --- | --- | --- |
+| “You still haven't sent” | Replaced blame with a direct request | The requested work is still agenda comments |
+| 15:00 UTC on 6 November 2026 | Moved into the request sentence | Date, time, and time zone are unchanged |
+| Prepare the review packet | Preserved as the reason | No claim that the packet is already complete |
+| [SHARED DOCUMENT] | Preserved verbatim | No new attachment or delivery channel |
+| Tell us by 12:00 UTC if unable | Added “please”; retained the condition | The earlier notification deadline remains distinct from the submission deadline |
+| Meeting time unconfirmed | Preserved verbatim | No invitation or meeting time invented |
+
+A smoother version saying “Send the comments when convenient” fails: it removes the deadline. “We'll send the completed packet today” also fails: it creates a delivery promise. Neither is a harmless tone change.
+
+For your own draft, mark each time, condition, placeholder, and commitment before requesting a revision. Compare those marked items afterward. If one changes, correct that sentence and review the complete email again; the assistant's change list can miss an omission.
 
 ## Review the email in four passes
 
