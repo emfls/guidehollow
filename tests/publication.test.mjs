@@ -44,6 +44,12 @@ test('new publication, missing start article, drafts and future content build sa
     assert(index.some(entry => entry.url === '/guides/additional-public-guide/'),'New publications must enter search');
     const home = await readFile(path.join(fixture,'dist/index.html'),'utf8');
     assert(!home.includes('href="/guides/what-is-generative-ai/"'));
+    const guides = await readFile(path.join(fixture,'dist/guides/index.html'),'utf8');
+    assert(!guides.includes('Decide whether AI fits your task'),'Removed task selections must not produce orphan labels');
+    assert(guides.includes('Prepare material before sharing it'),'Remaining task selections should stay usable');
+    const prompts = await readFile(path.join(fixture,'dist/prompts/index.html'),'utf8');
+    assert(prompts.includes('Compare two prompt versions'));
+    assert(prompts.includes('href="/prompts/test-ai-prompts-with-evaluation-dataset/"'));
     const promptPage = await readFile(path.join(fixture,'dist/tools/ai-prompt-builder/index.html'),'utf8');
     assert.match(promptPage,/<fieldset[^>]*\bdisabled(?:\s|>)/,'Prompt inputs must be inert until the local script is ready, preventing no-JS GET submission');
     async function checkOutput(dir) {
