@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { publishedArticles, articleUrl } from '../../lib/content';
+import { categories } from '../../config';
+export function getStaticPaths() { return categories.map(category => ({ params: { category: category.slug }, props: { category } })); }
+const { category } = Astro.props;
+const posts = (await publishedArticles()).filter(p => p.data.category === category.slug);
+const tasks: Record<string, [string, string, string][]> = {
+  guides: [
+    ['what-is-generative-ai', 'Decide whether AI fits your task', 'Compare drafting, finding a current fact, and checking a calculation.'],
+    ['ai-privacy-basics', 'Prepare material before sharing it', 'Work through a fictional record and decide what to remove or keep.'],
+    ['how-to-use-ai-for-spreadsheet-tasks', 'Check an AI-suggested formula', 'Download sample data and compare the calculated results with expected values.'],
+    ['how-to-summarize-long-documents-with-ai', 'Find omissions in a document summary', 'Compare a supplied source, observed response, and section-by-section review.'],
+  ],
+  prompts: [
+    ['how-to-write-better-ai-prompts', 'Repair one vague request', 'Turn release notes into a bounded prompt and check five output requirements.'],
+    ['a-practical-ai-prompt-framework', 'Organize a task with several deliverables', 'Separate inputs and limits, then review a handoff table and open questions.'],
+    ['how-to-build-reusable-prompt-templates', 'Repeat a task with different inputs', 'Separate stable rules from changing fields and inspect three input conditions.'],
+    ['test-ai-prompts-with-evaluation-dataset', 'Compare two prompt versions', 'Use eight cases and a scoring worksheet; keep raw outputs separate from judgments.'],
+  ],
+};
+const routes = (tasks[category.slug] ?? []).flatMap(([slug, task, result]) => {
+  const post = posts.find(p => p.data.slug === slug);
+  return post ? [{post, task, result}] : [];
+});
+---
+<Base title={category.name} description={category.description} breadcrumbs={[{name:category.name,url:`/${category.slug}/`}]}>
+<header class="page-heading"><p class="eyebrow mint">/ {category.command}</p><h1>{category.name}</h1><p>{category.description}</p></header>
+{routes.length > 0 && <section class="section" aria-labelledby="choose-task"><div class="section-heading"><div><p class="eyebrow mint">/ choose_a_task</p><h2 id="choose-task">What are you trying to finish?</h2></div></div><ol class="start-path">{routes.map(({post, task, result}, i) => <li><span class="path-number">0{i + 1}</span><div><h3><a href={articleUrl(post)}>{task}</a></h3><p>{result}</p></div></li>)}</ol><p class="small muted">Choose the task closest to yours, then compare your result with the guide's checks. All articles are listed below.</p></section>}
+{category.slug === 'tools' ? <div class="tools-grid"><a class="tool-card" href="/tools/ai-prompt-builder/"><span class="eyebrow mint">Compose / no AI required</span><h2>AI Prompt Builder ↗</h2><p>Combine your goal, context, audience, constraints, and output format into a prompt you can copy or download.</p></a><a class="tool-card" href="/tools/ai-response-checklist/"><span class="eyebrow mint">Review / use your judgment</span><h2>AI Response Quality Checklist ↗</h2><p>Work through six practical checks before relying on an AI response. Track your review without sending us your data.</p></a></div> : <><p class="small muted mono">{posts.length} {posts.length === 1 ? 'guide' : 'guides'} / open a guide to get started</p><ArticleList posts={posts} /></>}
+</Base>
