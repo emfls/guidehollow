@@ -1,0 +1,15 @@
+---
+import { articleUrl, readingTime, type Article } from '../lib/content';
+import { categories } from '../config';
+interface Props { posts: Article[]; compact?: boolean }
+const { posts, compact = false } = Astro.props;
+---
+<div class:list={['article-list', { compact }]}>
+  {posts.map((post, i) => <article class="article-row">
+    <span class="row-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+    <div><div class="eyebrow">{categories.find(c => c.slug === post.data.category)?.name} <span class="muted"> / {readingTime(post)} min read</span></div>
+    <h3><a href={articleUrl(post)}>{post.data.title}</a></h3>
+    {!compact && <p>{post.data.description}</p>}</div>
+    <span class="row-arrow" aria-hidden="true">↗</span>
+  </article>)}
+</div>
