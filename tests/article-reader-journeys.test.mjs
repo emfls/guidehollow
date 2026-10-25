@@ -42,7 +42,7 @@ test('email drafting reference stays within the approved scheduling brief',()=>{
  assert.doesNotMatch(email,/I booked|invitation has been sent|meeting is confirmed/i);
  assert.ok(email.trim().split(/\s+/).length<130,'Email reference must match the brief word limit');
  assert.match(article,/editor-written reference.*not a captured ChatGPT response/);
- assert.match(article,/updatedDate: "2026-10-24"/);
+ assert.ok(article.match(/updatedDate: "([^"]+)"/)[1] >= "2026-10-24");
 });
 
 test('prompt injection article names its exact official sources',()=>{

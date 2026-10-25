@@ -9,7 +9,7 @@ updatedDate: "2026-10-25"
 sources: [{"title": "OpenAI: The ChatGPT home page", "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: false
+featured: true
 ---
 
 ## Start with a task you can check

@@ -9,7 +9,7 @@ updatedDate: "2026-10-24"
 sources: [{"title": "Google Machine Learning Crash Course: Introduction to LLMs", "url": "https://developers.google.com/machine-learning/crash-course/llm"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
-featured: true
+featured: false
 ---
 
 ## The short answer
