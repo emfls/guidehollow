@@ -5,7 +5,7 @@ slug: "what-is-generative-ai"
 category: "guides"
 tags: ["ai-basics", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-10-25"
 sources: [{"title": "Google Machine Learning Crash Course: Introduction to LLMs", "url": "https://developers.google.com/machine-learning/crash-course/llm"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -23,6 +23,27 @@ For a beginner, the useful question is not whether AI can “do everything.” I
 A language model works with patterns in language and context. Tokens are the pieces of text it processes; they do not always line up with whole words. A product built around the model may also provide tools, files, or search. Those surrounding features matter, so avoid assuming that every chatbot has the same capabilities.
 
 Imagine asking for three ways to explain a community garden project. The assistant can propose language and structure. You still supply the actual location, budget, and permissions. Smooth writing does not establish that those details are true.
+
+## Generation, search, and calculation solve different problems
+
+A generated answer, a retrieved source, and a calculated result can appear in the same interface. Check which operation your task needs before judging the result. A fluent explanation alone does not show that a source was retrieved or a calculation executed.
+
+| Your task | Useful starting point | Evidence to check |
+| --- | --- | --- |
+| Turn your garden notes into an invitation | Text generation | Every date, instruction, and unknown matches the notes |
+| Find the garden's current opening hours | The operator's current published information; search can help locate it | Correct location, applicable day, and any dated closure notice |
+| Total the cost of supplies | A calculator or spreadsheet with explicit inputs | Quantities, unit prices, units, and the resulting total |
+| Decide what information a plan is missing | A question-generating prompt | Questions address actual gaps without treating proposed answers as facts |
+
+These are workflow choices, not a comparison of model performance. An AI product may offer search or calculation tools, but you still need to inspect their sources or results. The rest of this guide focuses on text; image, audio, and code outputs need checks appropriate to their intended use.
+
+### One project, three different checks
+
+Consider a fictional garden group buying **3 bags at $8 each** and **2 trays at $6 each**. The expected subtotal is **3 × 8 + 2 × 6 = $36**, before any unspecified tax or delivery charge. You can verify that with arithmetic; a confident paragraph is unnecessary evidence.
+
+If the same group asks whether the garden is open next Saturday, these purchase notes cannot answer. Find the operator's current schedule. If it asks for an invitation, the notes can support a draft, but only supplied meeting details belong in it.
+
+**Practice:** a draft says “The garden is open Saturday, supplies cost $36 including delivery, and everyone gets free seeds.” Which parts are supported? The arithmetic supports a $36 supplies subtotal only. Opening hours, delivery cost, and free seeds remain unsupported. A correct number does not validate the surrounding sentence.
 
 ## Choose your first task
 

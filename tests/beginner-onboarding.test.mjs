@@ -10,7 +10,7 @@ test('beginner guide includes a source-bounded example answer, not invented fact
   assert.match(body,/Location: \[TO CONFIRM\]/);
   assert.match(body,/Saturday at 10 a\.m\./);
   assert.match(body,/no invented address, organizer, or promise/i);
-  assert.match(body,/updatedDate: "2026-10-24"/);
+  assert.ok(body.match(/updatedDate: "([^"]+)"/)[1] >= "2026-10-24");
 });
 
 test('safe prompt builder demo cannot replace visitor writing',()=>{
