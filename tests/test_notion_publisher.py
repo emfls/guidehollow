@@ -211,6 +211,40 @@ class PublisherTests(unittest.TestCase):
                 self.assertEqual(saved["state"], "published")
                 self.assertEqual(saved["commit"], "a"*40)
 
+    def test_post_commit_notion_failure_keeps_staged_ledger_and_blocks_next_release(self):
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            articles = home / "src/content/articles"
+            articles.mkdir(parents=True)
+            (articles / "safe-test.md").write_text('slug: "safe-test"')
+            ledger = home / "ledger.jsonl"
+            url = publisher.SITE + "/guides/safe-test/"
+            before = json.dumps({"site_id": publisher.SITE_ID, "page_id": "testid", "url": url,
+                                 "title": "Safe Test Title", "state": "staged", "kst_date": "2020-01-01"}) + "\n"
+            ledger.write_text(before)
+            props = {"properties": {"배포 사이트": {"relation": [{"id": publisher.SITE_PAGE}]},
+                "검수승인": {"checkbox": True}, "상태": {"select": {"name": "발행중"}}, "게시 URL": {"url": None}}}
+            class Response:
+                status = 200
+                def __enter__(self): return self
+                def __exit__(self, *args): return False
+                def read(self): return ('<link rel="canonical" href="'+url+'"><article class="prose">Safe Test Title Official sources</article>').encode()
+            def api(method, route, payload=None):
+                if method == "PATCH": raise TimeoutError("Notion completion uncertain")
+                return props
+            with (patch.object(publisher, "ROOT", home), patch.object(publisher, "LEDGER", ledger),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "notion", side_effect=api),
+                  patch.object(publisher, "urlopen", return_value=Response()),
+                  patch.dict("os.environ", {"PUBLISHED_COMMIT_SHA": "a"*40})):
+                with self.assertRaises(TimeoutError): publisher.finalize("testid", url)
+                self.assertEqual(ledger.read_text(), before)
+                with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"): publisher.stage()
+                # A delayed or failed live check also leaves the committed staged row intact.
+                with patch.object(publisher, "urlopen", side_effect=TimeoutError("Pages delayed")):
+                    with self.assertRaises(TimeoutError): publisher.finalize("testid", url)
+                self.assertEqual(ledger.read_text(), before)
+
     def test_three_daily_slots_and_same_slot_idempotency(self):
         today = publisher.datetime.now(publisher.ZoneInfo("Asia/Seoul")).date().isoformat()
         history = [
@@ -321,6 +355,81 @@ class PublisherTests(unittest.TestCase):
                 self.assertEqual(result["page_id"], "passes-build")
                 self.assertFalse((home/"src/content/articles/bad-build-slug.md").exists())
                 self.assertEqual(calls[0][1]["properties"]["상태"]["select"]["name"], "실패")
+
+    def test_incomplete_notion_block_response_is_infrastructure_error(self):
+        for batch in ({}, {"results": None}, {"results": [], "has_more": True, "next_cursor": None}):
+            with self.subTest(batch=batch), patch.object(publisher, "notion", return_value=batch):
+                with self.assertRaisesRegex(RuntimeError, "NOTION_RESPONSE_INVALID"):
+                    publisher.children("test")
+
+    def test_malformed_notion_json_is_infrastructure_error(self):
+        from io import BytesIO
+        for body in (b"not json", b"[]"):
+            with (self.subTest(body=body), patch.dict("os.environ", {"NOTION_API_TOKEN": "test-only"}),
+                  patch.object(publisher, "urlopen", return_value=BytesIO(body))):
+                with self.assertRaisesRegex(RuntimeError, "NOTION_RESPONSE_INVALID"):
+                    publisher.notion("GET", "/blocks/test/children")
+
+    def test_generic_build_failure_is_not_article_failure(self):
+        from subprocess import CompletedProcess
+        with (patch.dict("os.environ", {"GUIDEHOLLOW_VALIDATE_BUILD": "1"}),
+              patch.object(publisher.subprocess, "run", return_value=CompletedProcess(
+                  ["npm"], 1, "", "npm error ENOSPC: no space left on device"))):
+            with self.assertRaisesRegex(RuntimeError, "BUILD_INFRASTRUCTURE_OR_UNKNOWN"):
+                publisher.verify_candidate_build(Path("candidate.md"))
+
+    def test_attributable_article_build_failure_can_be_quarantined(self):
+        from subprocess import CompletedProcess
+        with (patch.dict("os.environ", {"GUIDEHOLLOW_VALIDATE_BUILD": "1"}),
+              patch.object(publisher.subprocess, "run", return_value=CompletedProcess(
+                  ["npm"], 1, "", "AssertionError: guides/candidate/index.html: broken internal link /missing/"))):
+            with self.assertRaisesRegex(ValueError, "Candidate Astro validation failed"):
+                publisher.verify_candidate_build(Path("candidate.md"))
+
+    def test_queue_order_gaps_do_not_require_contiguous_numbers(self):
+        first, third = row("first"), row("third")
+        first["properties"]["발행순서"] = {"number": 1}
+        third["properties"]["발행순서"] = {"number": 3}
+        with patch.object(publisher, "notion", return_value={"results": [first, third], "has_more": False}):
+            self.assertEqual([r["id"] for r in publisher.fetch_ready()], ["first", "third"])
+
+    def test_infrastructure_errors_abort_without_quarantining_or_next_selection(self):
+        from urllib.error import URLError
+        from subprocess import TimeoutExpired
+        errors = [TimeoutError("slow Notion"), URLError("Notion unavailable"),
+                  RuntimeError("NOTION_RESPONSE_INVALID"),
+                  TimeoutExpired("npm", 240), FileNotFoundError("npm missing")]
+        for error in errors:
+            with self.subTest(error=type(error).__name__), tempfile.TemporaryDirectory() as td:
+                home = Path(td)
+                (home / "src/content/articles").mkdir(parents=True)
+                with (patch.object(publisher, "ROOT", home),
+                      patch.object(publisher, "LEDGER", home/"ledger.jsonl"),
+                      patch.object(publisher, "verify_site_registry", return_value={}),
+                      patch.object(publisher, "fetch_ready", return_value=[row("one"), row("two")]),
+                      patch.object(publisher, "markdown", side_effect=error) as render,
+                      patch.object(publisher, "notion") as api):
+                    with self.assertRaises(type(error)):
+                        publisher.stage()
+                    self.assertEqual(render.call_count, 1)
+                    api.assert_not_called()
+                    self.assertFalse((home/"ledger.jsonl").exists())
+
+    def test_previously_published_notion_page_is_not_marked_failed_or_republished(self):
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            ledger = home / "ledger.jsonl"
+            before = json.dumps({"site_id": publisher.SITE_ID, "page_id": "already-live",
+                                 "state": "published", "kst_date": "2020-01-01"}) + "\n"
+            ledger.write_text(before)
+            with (patch.object(publisher, "ROOT", home), patch.object(publisher, "LEDGER", ledger),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready", return_value=[row("already-live"), row("next")]),
+                  patch.object(publisher, "notion") as api):
+                with self.assertRaisesRegex(RuntimeError, "DUPLICATE_PUBLICATION"):
+                    publisher.stage()
+                api.assert_not_called()
+                self.assertEqual(ledger.read_text(), before)
 
     def test_unapproved_article_not_published(self):
         article = row()

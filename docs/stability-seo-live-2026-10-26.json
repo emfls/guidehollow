@@ -1,0 +1,3634 @@
+{
+  "checkedAt": "2026-10-26T12:48:34.302Z",
+  "source": "https://guidehollow.com",
+  "pages": [
+    {
+      "path": "/404.html",
+      "status": 200,
+      "title": "Page Not Found | GuideHollow",
+      "description": "This path does not lead to a GuideHollow page. Search our guides or return to the homepage.",
+      "canonical": "https://guidehollow.com/404.html",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/404.html",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 6454,
+      "schemaTypes": [
+        "Organization",
+        "WebSite"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/about/",
+      "status": 200,
+      "title": "About GuideHollow | GuideHollow",
+      "description": "GuideHollow is an independent English-language resource for understanding AI, writing useful prompts, and building thoughtful everyday workflows.",
+      "canonical": "https://guidehollow.com/about/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/emfls",
+        "/emfls/guidehollow",
+        "/guides/",
+        "/guides/what-is-generative-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 8726,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "b2f14bba74b2b36f03ef78c36ffdd4fe4845bca8b0f8703cf01d0e9a2bc95747",
+      "articleWords": 216
+    },
+    {
+      "path": "/ai-tools/getting-started-with-chatgpt/",
+      "status": 200,
+      "title": "How to Get Started with ChatGPT | GuideHollow",
+      "description": "Start with a small, verifiable ChatGPT task, review your data settings, and learn a repeatable way to improve an answer without relying on changing UI details.",
+      "canonical": "https://guidehollow.com/ai-tools/getting-started-with-chatgpt/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/7730893-data-controls-in-chatgpt",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/en/articles/9125172-the-chatgpt-home-page",
+        "/examples/chatgpt-first-task/followup-request.txt",
+        "/examples/chatgpt-first-task/followup-response.txt",
+        "/examples/chatgpt-first-task/request.txt",
+        "/examples/chatgpt-first-task/response.txt",
+        "/examples/chatgpt-first-task/review.json",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/rss.xml",
+        "/search/",
+        "/tags/chatgpt/",
+        "/tags/getting-started/",
+        "/tags/privacy/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/"
+      ],
+      "images": [],
+      "bytes": 23048,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "ceb8f701faa9d720097e602ddc793d6f3d00109829c059cd04665550e3d88fb4",
+      "articleWords": 1305
+    },
+    {
+      "path": "/ai-tools/how-to-use-chatgpt-search/",
+      "status": 200,
+      "title": "How to Use ChatGPT Search and Check Its Sources | GuideHollow",
+      "description": "Choose a bounded web question, open the sources behind a ChatGPT Search answer, and keep a short evidence record before reusing the result.",
+      "canonical": "https://guidehollow.com/ai-tools/how-to-use-chatgpt-search/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/20001052-using-library-to-manage-files-in-chatgpt",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/en/articles/9237897-searching-the-web-with-chatgpt",
+        "/examples/chatgpt-search-evidence.json",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/chatgpt/",
+        "/tags/research/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/"
+      ],
+      "images": [],
+      "bytes": 21200,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "3fdd3e3898dd09d68f35e5d2bed583cb2bc1eb7f4127e3199ab6ceccd77d2097",
+      "articleWords": 1077
+    },
+    {
+      "path": "/ai-tools/",
+      "status": 200,
+      "title": "AI Tool Guides | GuideHollow",
+      "description": "Get oriented in AI tools with careful walkthroughs and realistic expectations.",
+      "canonical": "https://guidehollow.com/ai-tools/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7713,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/contact/",
+      "status": 200,
+      "title": "Contact GuideHollow | GuideHollow",
+      "description": "Report a broken link, suggest an article correction, or ask a question about GuideHollow through GuideHollow’s available contact channels.",
+      "canonical": "https://guidehollow.com/contact/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/emfls/guidehollow/issues",
+        "/emfls/guidehollow/issues/new",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "emfls24777@daum.net"
+      ],
+      "images": [],
+      "bytes": 8210,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "594855036728483ddc96a38afc7671e6ccb98ddfdf6efa76b91243aa1ddf2da0",
+      "articleWords": 153
+    },
+    {
+      "path": "/editorial-policy/",
+      "status": 200,
+      "title": "Editorial Policy | GuideHollow",
+      "description": "How GuideHollow selects topics, uses official sources and AI assistance, distinguishes examples from testing, and handles corrections.",
+      "canonical": "https://guidehollow.com/editorial-policy/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 10679,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "399f555b1911bcd36ed8f8b70bb396aac16862731984cefa239aa509c6af496c",
+      "articleWords": 459
+    },
+    {
+      "path": "/guides/ai-privacy-basics/",
+      "status": 200,
+      "title": "AI Privacy Basics for Everyday Users | GuideHollow",
+      "description": "Work through a fictional customer record to remove identifiers, preserve useful context, and check an AI-ready input before sharing it.",
+      "canonical": "https://guidehollow.com/guides/ai-privacy-basics/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/7730893-data-controls-in-chatgpt",
+        "/en/site-policy/privacy-policies/github-general-privacy-statement",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-basics/",
+        "/tags/chatgpt/",
+        "/tags/privacy/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 21754,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "ae83d838929d43cc9e07d38222d0cda47480e0281e4328462e62111f4feb6ff5",
+      "articleWords": 1142
+    },
+    {
+      "path": "/guides/ai-valid-json-without-inventing-data/",
+      "status": 200,
+      "title": "How to Get AI to Output Valid JSON Without Inventing Missing Data | GuideHollow",
+      "description": "Make AI return valid JSON without inventing values. Learn a source-bounded prompt, a two-ticket example, JSON syntax checks, schema rules, and a fact audit.",
+      "canonical": "https://guidehollow.com/guides/ai-valid-json-without-inventing-data/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/api/docs/guides/structured-outputs",
+        "/contact/",
+        "/editorial-policy/",
+        "/en-US/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai/",
+        "/tags/json/",
+        "/tags/source-verification/",
+        "/tags/structured-data/",
+        "/tags/validation/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/understanding-json-schema/reference/object"
+      ],
+      "images": [],
+      "bytes": 36432,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "faf62114b5c25827e30eb2f4ebadda68f5bc72c8948dab146717fa26e8a19a1e",
+      "articleWords": 1513
+    },
+    {
+      "path": "/guides/extract-meeting-action-items-with-ai/",
+      "status": 200,
+      "title": "How to Extract Meeting Action Items with AI Without Inventing Deadlines | GuideHollow",
+      "description": "Turn approved meeting notes into a reliable AI-assisted action tracker without fabricating owners, due dates, or decisions.",
+      "canonical": "https://guidehollow.com/guides/extract-meeting-action-items-with-ai/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/rss.xml",
+        "/search/",
+        "/tags/productivity/",
+        "/tags/prompting/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [
+        {
+          "src": "/visuals/meeting-notes-approval-boundary.svg",
+          "alt": "Approved meeting notes move through three verification questions to a factual action summary, while unapproved suggestions remain excluded.",
+          "width": "1200",
+          "height": "460"
+        }
+      ],
+      "bytes": 25159,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "eff9dd879d58a87edbcf85e0360d0ae76701a55e370a82a02a74576e0b517c2e",
+      "articleWords": 1363
+    },
+    {
+      "path": "/guides/how-to-draft-emails-with-ai/",
+      "status": 200,
+      "title": "How to Draft and Improve Emails with AI | GuideHollow",
+      "description": "Compare complete email drafts and revisions, checking that deadlines, conditions, placeholders, and commitments survive changes in tone.",
+      "canonical": "https://guidehollow.com/guides/how-to-draft-emails-with-ai/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/rss.xml",
+        "/search/",
+        "/tags/privacy/",
+        "/tags/productivity/",
+        "/tags/writing/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 23742,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "60c5c6bacd46707130ccc148bc98d5267afaa8f8eebe8ae3fbea4de86c6dc8d0",
+      "articleWords": 1290
+    },
+    {
+      "path": "/guides/how-to-summarize-long-documents-with-ai/",
+      "status": 200,
+      "title": "How to Summarize Documents with AI and Check What Was Omitted | GuideHollow",
+      "description": "Create an evidence-linked summary by defining the reader’s decision, preserving section references, and checking omissions against the original document.",
+      "canonical": "https://guidehollow.com/guides/how-to-summarize-long-documents-with-ai/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/8555545-uploading-files-and-audio-to-chatgpt",
+        "/examples/document-coverage/criteria.json",
+        "/examples/document-coverage/request.txt",
+        "/examples/document-coverage/response.txt",
+        "/examples/document-coverage/review.json",
+        "/examples/document-coverage/source.txt",
+        "/examples/document-summary-run.txt",
+        "/examples/venue-policy-sample.txt",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/research/effective-context-engineering-for-ai-agents",
+        "/rss.xml",
+        "/search/",
+        "/tags/documents/",
+        "/tags/productivity/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 25876,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "4c103ef9a87438220c45ad29b10330490f4182ed3db7ab92712ca6f58b87794c",
+      "articleWords": 1572
+    },
+    {
+      "path": "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+      "status": 200,
+      "title": "How to Use AI for Spreadsheet Tasks Safely | GuideHollow",
+      "description": "Ask AI for a formula you can inspect, test it against a tiny known dataset, and protect the original workbook before applying it to real rows.",
+      "canonical": "https://guidehollow.com/guides/how-to-use-ai-for-spreadsheet-tasks/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en-us/excel/functions/sumifs-function",
+        "/examples/ai-spreadsheet-checks-results.json",
+        "/examples/ai-spreadsheet-checks.xlsx",
+        "/examples/ai-spreadsheet-sample.csv",
+        "/formulas/sumifs-with-dates/",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/productivity/",
+        "/tags/spreadsheets/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/tools/formula-finder/",
+        "/troubleshooting/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 21229,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "4292ab7c02b30f59abdeccde622b475b8794751d57b077de9e1528d6cc940169",
+      "articleWords": 1162
+    },
+    {
+      "path": "/guides/how-to-verify-ai-generated-information/",
+      "status": 200,
+      "title": "How to Verify AI-Generated Information | GuideHollow",
+      "description": "Use a claim-by-claim review to check AI answers against primary sources, dates, calculations, and the exact decision you need to make.",
+      "canonical": "https://guidehollow.com/guides/how-to-verify-ai-generated-information/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/examples/verification-ledger-robots.json",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/search/docs/crawling-indexing/block-indexing",
+        "/search/docs/crawling-indexing/robots/intro",
+        "/tags/ai-basics/",
+        "/tags/research/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 22033,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "13dbe7fa99b4ca09ea36808fd637b442803b7bfbb1f5f682de0b5f6d4a356321",
+      "articleWords": 1181
+    },
+    {
+      "path": "/guides/",
+      "status": 200,
+      "title": "Guides | GuideHollow",
+      "description": "Clear explanations and practical workflows, from your first AI conversation to everyday productivity.",
+      "canonical": "https://guidehollow.com/guides/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/guides/what-is-generative-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 12489,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/guides/spot-prompt-injection-in-documents/",
+      "status": 200,
+      "title": "How to Spot Prompt Injection in Documents and Web Pages | GuideHollow",
+      "description": "Learn to recognize prompt injection in documents, emails, and web pages with concrete examples, a trust-boundary worksheet, and practical safety checks.",
+      "canonical": "https://guidehollow.com/guides/spot-prompt-injection-in-documents/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/index/designing-agents-to-resist-prompt-injection/",
+        "/index/prompt-injections/",
+        "/llmrisk/llm01-prompt-injection/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-security/",
+        "/tags/document-review/",
+        "/tags/prompt-injection/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 32921,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "daf2a92a18fc724c3813da76a9892955814151e8f9a0362d39fda34974b0514c",
+      "articleWords": 2290
+    },
+    {
+      "path": "/guides/what-is-generative-ai/",
+      "status": 200,
+      "title": "What Is Generative AI? A Beginner’s Guide | GuideHollow",
+      "description": "Understand what generative AI creates, how a language model fits into the picture, and how to choose a useful first task without trusting it blindly.",
+      "canonical": "https://guidehollow.com/guides/what-is-generative-ai/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/what-is-generative-ai/",
+        "/machine-learning/crash-course/llm",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-basics/",
+        "/tags/getting-started/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [
+        {
+          "src": "/visuals/first-ai-task-source-check.svg",
+          "alt": "Three steps for a first AI task: provide fictional notes, ask for a draft, then verify details and mark the unknown location rather than making one up.",
+          "width": "1200",
+          "height": "460"
+        }
+      ],
+      "bytes": 20773,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "1b3d00246147cf90b76bed1bfb08a9e58aff12ab5ec77fa941c4365a9e469e49",
+      "articleWords": 1140
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "title": "GuideHollow — A clearer path through AI.",
+      "description": "Practical AI guides, reusable prompts, and free tools. Understand the basics, build better workflows, and check what AI gets wrong.",
+      "canonical": "https://guidehollow.com/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/guides/what-is-generative-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 17761,
+      "schemaTypes": [
+        "Organization",
+        "WebSite"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/privacy-policy/",
+      "status": 200,
+      "title": "Privacy Policy | GuideHollow",
+      "description": "Understand what GuideHollow stores locally, how browser tools and search work, and what GitHub Pages and external links may collect.",
+      "canonical": "https://guidehollow.com/privacy-policy/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/emfls/guidehollow",
+        "/en/site-policy/privacy-policies/github-general-privacy-statement",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 10674,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "6b0617cda654cfb0f49db862b54c6e25a36970a8e73286b880a36333497926fa",
+      "articleWords": 518
+    },
+    {
+      "path": "/prompts/a-practical-ai-prompt-framework/",
+      "status": 200,
+      "title": "A Practical AI Prompt Framework | GuideHollow",
+      "description": "Use a lightweight Goal–Inputs–Boundaries–Output framework to organize multi-part AI tasks and make missing information visible before drafting.",
+      "canonical": "https://guidehollow.com/prompts/a-practical-ai-prompt-framework/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/gemini-api/docs/prompting-strategies",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/prompting/",
+        "/tags/workflows/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 20441,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "be88a82575f04fdb7eab79683274c5ebe59c3f535be2e5ef24ac310d3ce6f62a",
+      "articleWords": 1036
+    },
+    {
+      "path": "/prompts/how-to-build-reusable-prompt-templates/",
+      "status": 200,
+      "title": "How to Build Reusable Prompt Templates | GuideHollow",
+      "description": "Separate stable instructions from changing inputs, define required fields, and check a prompt template against ordinary, sparse, and conflicting examples.",
+      "canonical": "https://guidehollow.com/prompts/how-to-build-reusable-prompt-templates/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/examples/prompt-template-run.txt",
+        "/gemini-api/docs/prompting-strategies",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/prompting/",
+        "/tags/templates/",
+        "/tags/workflows/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 19783,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "cfe17ceed4702b4f1b95eca143faec2c35499ec1d2550258b7e88e247ddc1944",
+      "articleWords": 982
+    },
+    {
+      "path": "/prompts/how-to-write-better-ai-prompts/",
+      "status": 200,
+      "title": "How to Write Better AI Prompts | GuideHollow",
+      "description": "Turn an ambiguous request into a clear task with relevant context, checkable constraints, and an output format you can evaluate.",
+      "canonical": "https://guidehollow.com/prompts/how-to-write-better-ai-prompts/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/getting-started/",
+        "/tags/prompting/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 19667,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "4c72f030bc4803c91348a60c1786bd27e5f920469bfaa03e763be4f35e11b3ba",
+      "articleWords": 972
+    },
+    {
+      "path": "/prompts/",
+      "status": 200,
+      "title": "Prompt Library | GuideHollow",
+      "description": "Adaptable prompts and methods that make your instructions clearer and your results easier to review.",
+      "canonical": "https://guidehollow.com/prompts/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 10133,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/prompts/test-ai-prompts-with-evaluation-dataset/",
+      "status": 200,
+      "title": "How to Test AI Prompts with a Small Evaluation Dataset | GuideHollow",
+      "description": "Build a practical AI prompt evaluation with eight fictional test cases, a scoring rubric, two candidate prompts, and a reusable regression checklist.",
+      "canonical": "https://guidehollow.com/prompts/test-ai-prompts-with-evaluation-dataset/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/api/docs/guides/evaluation-best-practices",
+        "/contact/",
+        "/docs/en/test-and-evaluate/develop-tests",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/search/docs/fundamentals/creating-helpful-content",
+        "/tags/prompt-evaluation/",
+        "/tags/reliability/",
+        "/tags/testing/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 36665,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "c562525fffc557aa729e40dbb9d90bdce8826fb0751c2e91a9d906cbd56710cf",
+      "articleWords": 2586
+    },
+    {
+      "path": "/search/",
+      "status": 200,
+      "title": "Search Guides | GuideHollow",
+      "description": "Search GuideHollow articles, prompts, tools, and troubleshooting guides. Find a clear next step for your AI questions.",
+      "canonical": "https://guidehollow.com/search/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 9137,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/ai/",
+      "status": 200,
+      "title": "ai guides | GuideHollow",
+      "description": "Browse GuideHollow articles about ai. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/ai/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7148,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/ai-basics/",
+      "status": 200,
+      "title": "ai basics guides | GuideHollow",
+      "description": "Browse GuideHollow articles about ai basics. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/ai-basics/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/guides/what-is-generative-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-basics/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 8640,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/ai-security/",
+      "status": 200,
+      "title": "ai security guides | GuideHollow",
+      "description": "Browse GuideHollow articles about ai security. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/ai-security/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-security/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7241,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/chatgpt/",
+      "status": 200,
+      "title": "chatgpt guides | GuideHollow",
+      "description": "Browse GuideHollow articles about chatgpt. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/chatgpt/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/chatgpt/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/"
+      ],
+      "images": [],
+      "bytes": 8647,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/document-review/",
+      "status": 200,
+      "title": "document review guides | GuideHollow",
+      "description": "Browse GuideHollow articles about document review. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/document-review/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/document-review/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7289,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/documents/",
+      "status": 200,
+      "title": "documents guides | GuideHollow",
+      "description": "Browse GuideHollow articles about documents. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/documents/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/documents/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 8256,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/getting-started/",
+      "status": 200,
+      "title": "getting started guides | GuideHollow",
+      "description": "Browse GuideHollow articles about getting started. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/getting-started/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/what-is-generative-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/getting-started/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 8222,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/json/",
+      "status": 200,
+      "title": "json guides | GuideHollow",
+      "description": "Browse GuideHollow articles about json. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/json/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/json/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7172,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/privacy/",
+      "status": 200,
+      "title": "privacy guides | GuideHollow",
+      "description": "Browse GuideHollow articles about privacy. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/privacy/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/getting-started-with-chatgpt/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/privacy/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 8106,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/productivity/",
+      "status": 200,
+      "title": "productivity guides | GuideHollow",
+      "description": "Browse GuideHollow articles about productivity. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/productivity/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/productivity/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 8723,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/prompt-evaluation/",
+      "status": 200,
+      "title": "prompt evaluation guides | GuideHollow",
+      "description": "Browse GuideHollow articles about prompt evaluation. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/prompt-evaluation/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/prompt-evaluation/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7323,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/prompt-injection/",
+      "status": 200,
+      "title": "prompt injection guides | GuideHollow",
+      "description": "Browse GuideHollow articles about prompt injection. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/prompt-injection/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/spot-prompt-injection-in-documents/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/prompt-injection/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7301,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/prompting/",
+      "status": 200,
+      "title": "prompting guides | GuideHollow",
+      "description": "Browse GuideHollow articles about prompting. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/prompting/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/prompting/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 8667,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/reliability/",
+      "status": 200,
+      "title": "reliability guides | GuideHollow",
+      "description": "Browse GuideHollow articles about reliability. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/reliability/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/reliability/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7251,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/research/",
+      "status": 200,
+      "title": "research guides | GuideHollow",
+      "description": "Browse GuideHollow articles about research. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/research/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/research/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7662,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/source-verification/",
+      "status": 200,
+      "title": "source verification guides | GuideHollow",
+      "description": "Browse GuideHollow articles about source verification. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/source-verification/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/source-verification/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7352,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/spreadsheets/",
+      "status": 200,
+      "title": "spreadsheets guides | GuideHollow",
+      "description": "Browse GuideHollow articles about spreadsheets. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/spreadsheets/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/spreadsheets/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7230,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/structured-data/",
+      "status": 200,
+      "title": "structured data guides | GuideHollow",
+      "description": "Browse GuideHollow articles about structured data. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/structured-data/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/structured-data/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7304,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/templates/",
+      "status": 200,
+      "title": "templates guides | GuideHollow",
+      "description": "Browse GuideHollow articles about templates. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/templates/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/rss.xml",
+        "/search/",
+        "/tags/templates/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7214,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/testing/",
+      "status": 200,
+      "title": "testing guides | GuideHollow",
+      "description": "Browse GuideHollow articles about testing. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/testing/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "/rss.xml",
+        "/search/",
+        "/tags/testing/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7203,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/troubleshooting/",
+      "status": 200,
+      "title": "troubleshooting guides | GuideHollow",
+      "description": "Browse GuideHollow articles about troubleshooting. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/troubleshooting/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/troubleshooting/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 8321,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/validation/",
+      "status": 200,
+      "title": "validation guides | GuideHollow",
+      "description": "Browse GuideHollow articles about validation. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/validation/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/ai-valid-json-without-inventing-data/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/validation/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7244,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/verification/",
+      "status": 200,
+      "title": "verification guides | GuideHollow",
+      "description": "Browse GuideHollow articles about verification. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/verification/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/ai-tools/how-to-use-chatgpt-search/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/extract-meeting-action-items-with-ai/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 9738,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/workflows/",
+      "status": 200,
+      "title": "workflows guides | GuideHollow",
+      "description": "Browse GuideHollow articles about workflows. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/workflows/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/rss.xml",
+        "/search/",
+        "/tags/workflows/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 8207,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tags/writing/",
+      "status": 200,
+      "title": "writing guides | GuideHollow",
+      "description": "Browse GuideHollow articles about writing. Practical explanations, useful examples, and official references.",
+      "canonical": "https://guidehollow.com/tags/writing/",
+      "robots": "noindex, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-draft-emails-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/writing/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7153,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/terms/",
+      "status": 200,
+      "title": "Terms of Use | GuideHollow",
+      "description": "Terms for using GuideHollow articles and browser tools, including educational limitations, external services, and responsible use.",
+      "canonical": "https://guidehollow.com/terms/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 9394,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "456f2f0dff3cd3f579af29c1709d6e774fff65a0657477f4bef7938494d39cb5",
+      "articleWords": 349
+    },
+    {
+      "path": "/tools/ai-prompt-builder/",
+      "status": 200,
+      "title": "AI Prompt Builder | GuideHollow",
+      "description": "Build a clear, structured AI prompt from your goal, context, audience, constraints, and output format. Free, private, and entirely in your browser.",
+      "canonical": "https://guidehollow.com/tools/ai-prompt-builder/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-write-better-ai-prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 10140,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tools/ai-response-checklist/",
+      "status": 200,
+      "title": "AI Response Quality Checklist | GuideHollow",
+      "description": "Review an AI answer for facts, sources, freshness, privacy, and missing requirements with a free checklist that runs entirely in your browser.",
+      "canonical": "https://guidehollow.com/tools/ai-response-checklist/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 9950,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/tools/",
+      "status": 200,
+      "title": "Free Tools | GuideHollow",
+      "description": "Small, useful tools that run in your browser. No account, AI calls, or uploads required.",
+      "canonical": "https://guidehollow.com/tools/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-prompt-builder/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/"
+      ],
+      "images": [],
+      "bytes": 7206,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/troubleshooting/chatgpt-file-upload-problems/",
+      "status": 200,
+      "title": "ChatGPT File Upload Problems: A Diagnostic Checklist | GuideHollow",
+      "description": "Separate file compatibility, upload limits, service incidents, and network failures before retrying a ChatGPT attachment or sharing diagnostic information.",
+      "canonical": "https://guidehollow.com/troubleshooting/chatgpt-file-upload-problems/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/20001052-using-library-to-manage-files-in-chatgpt",
+        "/en/articles/8555545-uploading-files-and-audio-to-chatgpt",
+        "/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/chatgpt/",
+        "/tags/documents/",
+        "/tags/troubleshooting/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 20528,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "11b4258f25704e8c2151470c568ab854d58be44a7e33fe7dfd5bd560329cc1fa",
+      "articleWords": 995
+    },
+    {
+      "path": "/troubleshooting/how-to-handle-ai-context-limits/",
+      "status": 200,
+      "title": "How to Handle AI Context Limits | GuideHollow",
+      "description": "Recover from an overloaded AI conversation with a checked working brief, labeled source sections, and a handoff that preserves decisions and open questions.",
+      "canonical": "https://guidehollow.com/troubleshooting/how-to-handle-ai-context-limits/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/examples/context-handoff/criteria.json",
+        "/examples/context-handoff/request.txt",
+        "/examples/context-handoff/response.txt",
+        "/examples/context-handoff/resume-request.txt",
+        "/examples/context-handoff/resume-response.txt",
+        "/examples/context-handoff/review.json",
+        "/guides/",
+        "/guides/how-to-summarize-long-documents-with-ai/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/prompts/a-practical-ai-prompt-framework/",
+        "/prompts/how-to-build-reusable-prompt-templates/",
+        "/research/effective-context-engineering-for-ai-agents",
+        "/rss.xml",
+        "/search/",
+        "/tags/documents/",
+        "/tags/troubleshooting/",
+        "/tags/workflows/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/"
+      ],
+      "images": [],
+      "bytes": 26442,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "ec45863ba4498b583acd8269b62c5ec4a8a021d782014d6058ad761002e7ba6f",
+      "articleWords": 1639
+    },
+    {
+      "path": "/troubleshooting/",
+      "status": 200,
+      "title": "Troubleshooting | GuideHollow",
+      "description": "Diagnose unreliable answers, missing context, and common AI workflow problems.",
+      "canonical": "https://guidehollow.com/troubleshooting/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/guides/",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/terms/",
+        "/tools/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 8295,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList"
+      ],
+      "jsonLdParsed": true
+    },
+    {
+      "path": "/troubleshooting/why-ai-gives-wrong-answers/",
+      "status": 200,
+      "title": "How to Diagnose and Correct a Wrong AI Answer | GuideHollow",
+      "description": "Distinguish missing facts, ambiguous instructions, unsupported citations, and context problems so you can correct an AI answer without trusting a second guess.",
+      "canonical": "https://guidehollow.com/troubleshooting/why-ai-gives-wrong-answers/",
+      "robots": "index, follow",
+      "h1": 1,
+      "links": [
+        "/",
+        "/about/",
+        "/ai-tools/",
+        "/contact/",
+        "/editorial-policy/",
+        "/en/articles/8313428-does-chatgpt-tell-the-truth",
+        "/guides/",
+        "/guides/ai-privacy-basics/",
+        "/guides/how-to-verify-ai-generated-information/",
+        "/machine-learning/crash-course/llm",
+        "/privacy-policy/",
+        "/prompts/",
+        "/rss.xml",
+        "/search/",
+        "/tags/ai-basics/",
+        "/tags/troubleshooting/",
+        "/tags/verification/",
+        "/terms/",
+        "/tools/",
+        "/tools/ai-response-checklist/",
+        "/troubleshooting/",
+        "/troubleshooting/chatgpt-file-upload-problems/",
+        "/troubleshooting/how-to-handle-ai-context-limits/",
+        "/troubleshooting/why-ai-gives-wrong-answers/"
+      ],
+      "images": [],
+      "bytes": 19998,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "BreadcrumbList",
+        "BlogPosting"
+      ],
+      "jsonLdParsed": true,
+      "articleSha256": "1f19dd4cf5c5bf977a168b9575cc8f7ee541d5801db490db322f7fb175df7caa",
+      "articleWords": 936
+    }
+  ],
+  "mobile": {
+    "viewport": 390,
+    "pages": [
+      {
+        "path": "/404.html",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/about/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/ai-tools/getting-started-with-chatgpt/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/ai-tools/how-to-use-chatgpt-search/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/ai-tools/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/contact/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/editorial-policy/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/ai-privacy-basics/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/ai-valid-json-without-inventing-data/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">",
+          "<input type=\"checkbox\" disabled=\"\">"
+        ],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/extract-meeting-action-items-with-ai/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/how-to-draft-emails-with-ai/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/how-to-summarize-long-documents-with-ai/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/how-to-verify-ai-generated-information/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/spot-prompt-injection-in-documents/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/guides/what-is-generative-ai/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/privacy-policy/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/prompts/a-practical-ai-prompt-framework/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/prompts/how-to-build-reusable-prompt-templates/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/prompts/how-to-write-better-ai-prompts/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/prompts/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/search/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/ai/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/ai-basics/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/ai-security/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/chatgpt/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/document-review/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/documents/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/getting-started/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/json/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/privacy/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/productivity/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/prompt-evaluation/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/prompt-injection/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/prompting/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/reliability/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/research/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/source-verification/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/spreadsheets/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/structured-data/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/templates/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/testing/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/troubleshooting/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/validation/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/verification/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/workflows/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tags/writing/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/terms/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tools/ai-prompt-builder/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tools/ai-response-checklist/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/tools/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/troubleshooting/chatgpt-file-upload-problems/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/troubleshooting/how-to-handle-ai-context-limits/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/troubleshooting/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      },
+      {
+        "path": "/troubleshooting/why-ai-gives-wrong-answers/",
+        "width": 390,
+        "scrollWidth": 390,
+        "unlabelled": [],
+        "brokenImages": []
+      }
+    ]
+  },
+  "performance": {
+    "method": "Chromium 390px, existing browser cache, no CPU/network throttling; immediate buffered observations, not Lighthouse or field CWV",
+    "pages": [
+      {
+        "path": "/",
+        "viewport": 390,
+        "ttfbMs": 2.8000001907348633,
+        "domContentLoadedMs": 15.400000095367432,
+        "lcpMs": 76,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 7.299999952316284,
+            "bytes": 0
+          }
+        ]
+      },
+      {
+        "path": "/guides/",
+        "viewport": 390,
+        "ttfbMs": 2.8000001907348633,
+        "domContentLoadedMs": 7.800000190734863,
+        "lcpMs": 44,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 0,
+            "bytes": 0
+          }
+        ]
+      },
+      {
+        "path": "/guides/ai-valid-json-without-inventing-data/",
+        "viewport": 390,
+        "ttfbMs": 2.3000001907348633,
+        "domContentLoadedMs": 8.400000095367432,
+        "lcpMs": 44,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 0,
+            "bytes": 0
+          }
+        ]
+      },
+      {
+        "path": "/tools/ai-prompt-builder/",
+        "viewport": 390,
+        "ttfbMs": 1.8000001907348633,
+        "domContentLoadedMs": 17,
+        "lcpMs": 44,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 0,
+            "bytes": 0
+          },
+          {
+            "name": "https://guidehollow.com/_astro/ai-prompt-builder.astro_astro_type_script_index_0_lang.B-bzmU3q.js",
+            "duration": 5.700000047683716,
+            "bytes": 0
+          },
+          {
+            "name": "https://guidehollow.com/_astro/tools.CinuJ9Fd.js",
+            "duration": 2.299999952316284,
+            "bytes": 0
+          }
+        ]
+      },
+      {
+        "path": "/tools/ai-response-checklist/",
+        "viewport": 390,
+        "ttfbMs": 3.200000047683716,
+        "domContentLoadedMs": 18,
+        "lcpMs": 44,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 0,
+            "bytes": 0
+          },
+          {
+            "name": "https://guidehollow.com/_astro/ai-response-checklist.astro_astro_type_script_index_0_lang.4vayJgEX.js",
+            "duration": 7.199999809265137,
+            "bytes": 0
+          },
+          {
+            "name": "https://guidehollow.com/_astro/tools.CinuJ9Fd.js",
+            "duration": 0,
+            "bytes": 0
+          }
+        ]
+      },
+      {
+        "path": "/search/",
+        "viewport": 390,
+        "ttfbMs": 3.799999952316284,
+        "domContentLoadedMs": 11.899999856948853,
+        "lcpMs": 56,
+        "observedCls": 0,
+        "transferBytes": 0,
+        "resources": [
+          {
+            "name": "https://guidehollow.com/_astro/Base.MZo1K38D.css",
+            "duration": 0,
+            "bytes": 0
+          }
+        ]
+      }
+    ]
+  },
+  "missingRoute": {
+    "status": 404,
+    "noindex": true
+  },
+  "accessibility": {
+    "engine": "axe-core 4.14.0",
+    "tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21aa"
+    ],
+    "viewport": 390,
+    "pages": [
+      {
+        "path": "/404.html",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 17
+      },
+      {
+        "path": "/about/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 20
+      },
+      {
+        "path": "/ai-tools/getting-started-with-chatgpt/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/ai-tools/how-to-use-chatgpt-search/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/ai-tools/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/contact/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 20
+      },
+      {
+        "path": "/editorial-policy/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 20
+      },
+      {
+        "path": "/guides/ai-privacy-basics/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/ai-valid-json-without-inventing-data/",
+        "violations": [
+          {
+            "id": "label",
+            "impact": "critical",
+            "help": "Form elements must have labels",
+            "nodes": [
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(1) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(2) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(3) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(4) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(5) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(6) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              },
+              {
+                "html": "<input type=\"checkbox\" disabled=\"\">",
+                "target": [
+                  ".task-list-item:nth-child(7) > input"
+                ],
+                "summary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+              }
+            ]
+          }
+        ],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 26
+      },
+      {
+        "path": "/guides/extract-meeting-action-items-with-ai/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 26
+      },
+      {
+        "path": "/guides/how-to-draft-emails-with-ai/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/how-to-summarize-long-documents-with-ai/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/how-to-use-ai-for-spreadsheet-tasks/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/how-to-verify-ai-generated-information/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/guides/spot-prompt-injection-in-documents/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/guides/what-is-generative-ai/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 26
+      },
+      {
+        "path": "/",
+        "violations": [],
+        "incomplete": [
+          "aria-prohibited-attr",
+          "color-contrast"
+        ],
+        "passes": 24
+      },
+      {
+        "path": "/privacy-policy/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 20
+      },
+      {
+        "path": "/prompts/a-practical-ai-prompt-framework/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/prompts/how-to-build-reusable-prompt-templates/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/prompts/how-to-write-better-ai-prompts/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 23
+      },
+      {
+        "path": "/prompts/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/prompts/test-ai-prompts-with-evaluation-dataset/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/search/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/tags/ai/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/ai-basics/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/ai-security/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/chatgpt/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/document-review/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/documents/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/getting-started/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/json/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/privacy/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/productivity/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/prompt-evaluation/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/prompt-injection/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/prompting/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/reliability/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/research/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/source-verification/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/spreadsheets/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/structured-data/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/templates/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/testing/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/troubleshooting/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/validation/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/verification/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/workflows/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/tags/writing/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/terms/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 20
+      },
+      {
+        "path": "/tools/ai-prompt-builder/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/tools/ai-response-checklist/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 24
+      },
+      {
+        "path": "/tools/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/troubleshooting/chatgpt-file-upload-problems/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/troubleshooting/how-to-handle-ai-context-limits/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      },
+      {
+        "path": "/troubleshooting/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 19
+      },
+      {
+        "path": "/troubleshooting/why-ai-gives-wrong-answers/",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ],
+        "passes": 25
+      }
+    ],
+    "localFix": {
+      "url": "http://127.0.0.1:4321/guides/ai-valid-json-without-inventing-data/",
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ],
+      "checks": [
+        {
+          "label": "Every source item has exactly one expected output record.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "All required fields are present.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "Field types and null values follow the contract.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "Extra fields are rejected.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "Dates, codes, statuses and totals are checked against the source.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "No private data is transferred to a third-party service without permission.",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "label": "Parsing, schema validation and factual review are treated as separate checks.",
+          "checked": false,
+          "disabled": true
+        }
+      ]
+    }
+  },
+  "liveAssets": [
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "type": "application/xml"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/rss.xml",
+      "status": 200,
+      "type": "application/xml"
+    },
+    {
+      "path": "/search-index.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/ads.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/favicon.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "/_astro/Base.MZo1K38D.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-first-task/request.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-first-task/response.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-first-task/followup-request.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-first-task/followup-response.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-first-task/review.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/examples/chatgpt-search-evidence.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/visuals/meeting-notes-approval-boundary.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "/examples/venue-policy-sample.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-summary-run.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-coverage/criteria.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-coverage/source.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-coverage/request.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-coverage/response.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/document-coverage/review.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/examples/ai-spreadsheet-sample.csv",
+      "status": 200,
+      "type": "text/csv; charset=utf-8"
+    },
+    {
+      "path": "/examples/ai-spreadsheet-checks.xlsx",
+      "status": 200,
+      "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "path": "/examples/ai-spreadsheet-checks-results.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/examples/verification-ledger-robots.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/visuals/first-ai-task-source-check.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "/examples/prompt-template-run.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/_astro/ai-prompt-builder.astro_astro_type_script_index_0_lang.B-bzmU3q.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/_astro/ai-response-checklist.astro_astro_type_script_index_0_lang.4vayJgEX.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/request.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/criteria.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/response.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/resume-request.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/resume-response.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/examples/context-handoff/review.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8"
+    }
+  ],
+  "summary": {
+    "htmlPages": 58,
+    "articles": 18,
+    "duplicateTitles": 0,
+    "duplicateDescriptions": 0,
+    "indexableOrphans": [],
+    "nearDuplicateMethod": "Jaccard similarity of lowercase 5-word shingles over all 23 article.prose containers (18 BlogPosting pages plus 5 policy/about pages); top 3 pairs, human review heuristic only",
+    "mostSimilarArticles": [
+      {
+        "paths": [
+          "/guides/extract-meeting-action-items-with-ai/",
+          "/prompts/how-to-build-reusable-prompt-templates/"
+        ],
+        "jaccard5WordShingles": 0.01765719207579673
+      },
+      {
+        "paths": [
+          "/ai-tools/how-to-use-chatgpt-search/",
+          "/prompts/how-to-build-reusable-prompt-templates/"
+        ],
+        "jaccard5WordShingles": 0.016724053123462864
+      },
+      {
+        "paths": [
+          "/prompts/a-practical-ai-prompt-framework/",
+          "/prompts/how-to-build-reusable-prompt-templates/"
+        ],
+        "jaccard5WordShingles": 0.016516516516516516
+      }
+    ],
+    "prosePages": 23
+  }
+}

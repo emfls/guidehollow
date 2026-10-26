@@ -41,7 +41,13 @@ def notion(method, route, data=None):
                  "Content-Type": "application/json"},
         method=method)
     with urlopen(req, timeout=25) as res:
-        return json.load(res)
+        try:
+            payload = json.load(res)
+        except (ValueError, UnicodeError) as exc:
+            raise RuntimeError("NOTION_RESPONSE_INVALID: expected JSON object") from exc
+        if not isinstance(payload, dict):
+            raise RuntimeError("NOTION_RESPONSE_INVALID: expected JSON object")
+        return payload
 
 
 def plain(items):
@@ -61,6 +67,9 @@ def children(block_id):
         if cursor:
             route += "&start_cursor=" + quote(cursor)
         batch = notion("GET", route)
+        if (not isinstance(batch.get("results"), list) or
+                (batch.get("has_more") and not batch.get("next_cursor"))):
+            raise RuntimeError("NOTION_RESPONSE_INVALID: incomplete paginated response")
         items.extend(batch["results"])
         if not batch.get("has_more"):
             return items
@@ -248,6 +257,9 @@ def fetch_ready():
         if cursor:
             payload["start_cursor"] = cursor
         batch = notion("POST", "/data_sources/" + QUEUE_ID + "/query", payload)
+        if (not isinstance(batch.get("results"), list) or
+                (batch.get("has_more") and not batch.get("next_cursor"))):
+            raise RuntimeError("NOTION_RESPONSE_INVALID: incomplete paginated response")
         items.extend(batch["results"])
         if not batch.get("has_more"):
             break
@@ -332,7 +344,7 @@ def prepare_article(row, today, history):
     if not eligible(row):
         raise ValueError("Article is not approved for exactly one main site")
     if any(r.get("site_id") == SITE_ID and r.get("page_id") == row["id"] for r in history):
-        raise ValueError("This Notion page was previously staged or published; duplicate publication forbidden")
+        raise RuntimeError("DUPLICATE_PUBLICATION: this Notion page is already in the ledger; review without changing its publication record")
     title, slug = prop(p, "제목").strip(), prop(p, "슬러그").strip()
     category = (p["카테고리"].get("select") or {}).get("name", "")
     description = prop(p, "설명").strip()
@@ -368,12 +380,11 @@ def prepare_article(row, today, history):
     return {"path": destination, "text": article, "url": url, "title": title}
 
 
-def verify_candidate_build():
+def verify_candidate_build(destination):
     """Only article-specific check/build failures advance to the next candidate.
 
-    The workflow first validates the unchanged base site and installs dependencies.
-    A failure after inserting a candidate therefore indicates a broken candidate.
-    Tool unavailability or timeouts remain infrastructure errors (abort, do not quarantine).
+    A previously green baseline cannot prove that a later npm failure is editorial.
+    Only explicit validation diagnostics naming this candidate can quarantine it.
     """
     if os.getenv("GUIDEHOLLOW_VALIDATE_BUILD") != "1":
         return
@@ -381,8 +392,13 @@ def verify_candidate_build():
         result = subprocess.run(command, cwd=ROOT, capture_output=True,
                                 text=True, timeout=240, check=False)
         if result.returncode:
-            tail = (result.stdout + "\n" + result.stderr)[-800:]
-            raise ValueError("Candidate Astro validation failed: " + tail)
+            output = result.stdout + "\n" + result.stderr
+            # Unknown failures (including resource exhaustion) must stop the release.
+            diagnostic = re.search(r"(?:AssertionError[^\n]*|\[InvalidContentEntryDataError\][\s\S]*)", output)
+            if result.returncode == 1 and diagnostic and re.search(
+                    r"(?<![a-z0-9-])" + re.escape(destination.stem) + r"(?:\.md|/)", diagnostic.group()):
+                raise ValueError("Candidate Astro validation failed: " + diagnostic.group()[-800:])
+            raise RuntimeError("BUILD_INFRASTRUCTURE_OR_UNKNOWN: inspect Actions build logs")
 
 
 def stage():
@@ -419,7 +435,7 @@ def stage():
             destination = candidate["path"]
             destination.write_text(candidate["text"], encoding="utf-8")
             written = True
-            verify_candidate_build()
+            verify_candidate_build(destination)
         except (ValueError, KeyError, TypeError) as exc:
             if written and destination is not None:
                 destination.unlink(missing_ok=True)
