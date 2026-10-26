@@ -118,7 +118,7 @@ class PublisherTests(unittest.TestCase):
                      "page_id": "old-main", "state": "staged", "url": publisher.SITE + "/guides/old/"},
                     {"site_id": "other-site", "kst_date": "2020-01-01",
                      "page_id": "other", "state": "staged"}]
-            before = "".join(json.dumps(r) + "\\n" for r in data)
+            before = "".join(json.dumps(r) + "\n" for r in data)
             ledger.write_text(before)
             with patch.object(publisher, "LEDGER", ledger):
                 result = publisher.publication_preflight()
@@ -133,10 +133,10 @@ class PublisherTests(unittest.TestCase):
             home = Path(td)
             ledger = home / "ledger.jsonl"
             ledger.write_text(json.dumps({"site_id": publisher.SITE_ID,
-                    "kst_date": "2020-01-01", "page_id": "stuck", "state": "staged"}) + "\\n")
-            with patch.object(publisher, "LEDGER", ledger), \\
-                 patch.object(publisher, "verify_site_registry", return_value={}), \\
-                 patch.object(publisher, "fetch_ready") as fetch:
+                    "kst_date": "2020-01-01", "page_id": "stuck", "state": "staged"}) + "\n")
+            with (patch.object(publisher, "LEDGER", ledger),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready") as fetch):
                 with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"):
                     publisher.stage()
                 fetch.assert_not_called()
