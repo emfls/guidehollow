@@ -1,0 +1,54 @@
+name: Reconcile legacy main publication ledger (manual, no new content)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: guidehollow-notion-daily-publisher
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    if: github.repository == 'emfls/guidehollow' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+      VERIFIED_PAGES_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate isolated publisher regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Verify current main commit has deployed successfully
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml --branch main --json headSha,conclusion,event --limit 40 > /tmp/deploys.json
+          jq -e --arg sha "$GITHUB_SHA" '[.[] | select(.headSha == $sha and .conclusion == "success")] | length > 0' /tmp/deploys.json >/dev/null || {
+            echo "::error::Current main source is not proven Pages deployed."; exit 1;
+          }
+      - name: Reconcile only already-completed Notion main articles
+        run: python scripts/reconcile_main_ledger.py
+      - name: Persist reconciled ledger atomically without force
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -f data/guidehollow-publication-ledger.jsonl
+          if git diff --cached --quiet; then
+            echo "No legacy changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --cached --check
+          git commit -m "ledger: reconcile previously completed main publications"
+          git fetch origin main
+          [[ "$(git rev-parse HEAD^)" == "$(git rev-parse origin/main)" ]] || {
+            echo "::error::Concurrent main edit; do not force-push."; exit 1;
+          }
+          git push origin HEAD:refs/heads/main
