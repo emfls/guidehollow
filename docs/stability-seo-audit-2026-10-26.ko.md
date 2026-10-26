@@ -54,7 +54,7 @@
 ## 테스트 및 배포 증거
 
 - 기준 main: Python 32 / JS 22 통과, Astro check 0 오류/경고/힌트, build 통과.
-- 수정: Python 45 / JS 23 통과. `npm run check`: 0 오류/경고/힌트. `npm run build`: 58 HTML·1,808 내부 참조, 피드·사이트맵·광고 게이트 통과. `git diff --check` 통과.
+- 수정: Python 46 / JS 23 통과. `npm run check`: 0 오류/경고/힌트. `npm run build`: 58 HTML·1,808 내부 참조, 피드·사이트맵·광고 게이트 통과. `git diff --check` 통과.
 - 수정 전 실패를 재현한 JSON 응답·일반 npm 오류·접근성 라벨·기존 발행 ID 테스트가 수정 후 통과했다.
 - 기존 최신 main [Pages 배포 40323571034](https://github.com/emfls/guidehollow/actions/runs/40323571034)는 성공. 이는 이번 수정의 배포 증거가 아니다.
 - 이번 변경은 별도 PR 검증 대상으로 제출한다. 병합·운영 배포·새 원고 발행을 실행하지 않는다. PR CI 결과와 커밋은 아래 실행 기록으로 보충한다.

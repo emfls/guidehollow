@@ -431,6 +431,13 @@ class PublisherTests(unittest.TestCase):
                 api.assert_not_called()
                 self.assertEqual(ledger.read_text(), before)
 
+    def test_prior_publication_wins_over_changed_article_relations(self):
+        article = row("already-live")
+        article["properties"]["배포 사이트"]["relation"].append({"id": "another-site"})
+        history = [{"site_id": publisher.SITE_ID, "page_id": "already-live", "state": "published"}]
+        with self.assertRaisesRegex(RuntimeError, "DUPLICATE_PUBLICATION"):
+            publisher.prepare_article(article, "2026-10-26", history)
+
     def test_unapproved_article_not_published(self):
         article = row()
         article["properties"]["검수승인"]["checkbox"] = False

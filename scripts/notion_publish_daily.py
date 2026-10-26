@@ -341,10 +341,10 @@ def flag_article_failure(item, detail):
 
 def prepare_article(row, today, history):
     p = row["properties"]
-    if not eligible(row):
-        raise ValueError("Article is not approved for exactly one main site")
     if any(r.get("site_id") == SITE_ID and r.get("page_id") == row["id"] for r in history):
         raise RuntimeError("DUPLICATE_PUBLICATION: this Notion page is already in the ledger; review without changing its publication record")
+    if not eligible(row):
+        raise ValueError("Article is not approved for exactly one main site")
     title, slug = prop(p, "제목").strip(), prop(p, "슬러그").strip()
     category = (p["카테고리"].get("select") or {}).get("name", "")
     description = prop(p, "설명").strip()
