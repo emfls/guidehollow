@@ -75,6 +75,33 @@ class PublisherTests(unittest.TestCase):
             output = publisher.markdown("id")
         self.assertIn("- One\n- Two\n\nSeparate paragraph", output)
 
+    def test_notion_checklists_keep_checked_state_and_section_boundaries(self):
+        items = [
+            block("Before the checklist", "paragraph"),
+            {"type": "to_do", "has_children": False,
+             "to_do": {"checked": False, "rich_text": rich("Validate JSON syntax")}},
+            {"type": "to_do", "has_children": False,
+             "to_do": {"checked": True, "rich_text": rich("Compare against source")}},
+            block("After the checklist", "paragraph"),
+        ]
+        with patch.object(publisher, "children", return_value=items):
+            result = publisher.markdown("article")
+        self.assertIn(
+            "Before the checklist\\n\\n- [ ] Validate JSON syntax\\n"
+            "- [x] Compare against source\\n\\nAfter the checklist",
+            result)
+
+    def test_malformed_or_nested_checklist_fails_closed(self):
+        for item in [
+            {"type": "to_do", "has_children": False,
+             "to_do": {"checked": "false", "rich_text": rich("Invalid")}},
+            {"type": "to_do", "has_children": True,
+             "to_do": {"checked": False, "rich_text": rich("Nested")}},
+        ]:
+            with self.subTest(item=item), patch.object(publisher, "children", return_value=[item]):
+                with self.assertRaisesRegex(ValueError, "Malformed Notion|Unsupported nested"):
+                    publisher.markdown("article")
+
     def test_notion_normalized_internal_links_restore_site_paths(self):
         item = {"plain_text": "Prompt Builder",
                 "href": "https://app.notion.com/tools/ai-prompt-builder/",

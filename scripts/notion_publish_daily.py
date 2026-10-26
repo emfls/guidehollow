@@ -173,7 +173,7 @@ def markdown(block_id):
     previous_list = None
     for block in children(block_id):
         kind = block["type"]
-        list_kind = kind if kind in ("bulleted_list_item", "numbered_list_item") else None
+        list_kind = kind if kind in ("bulleted_list_item", "numbered_list_item", "to_do") else None
         if previous_list and previous_list != list_kind:
             out.append("")  # prevent following prose from becoming the final list item
         previous_list = list_kind
@@ -212,7 +212,7 @@ def markdown(block_id):
         if block.get("has_children"):
             raise ValueError("Unsupported nested block: " + kind)
         if kind not in ("paragraph", "heading_1", "heading_2", "heading_3",
-                        "bulleted_list_item", "numbered_list_item", "quote"):
+                        "bulleted_list_item", "numbered_list_item", "to_do", "quote"):
             raise ValueError("Unsupported block: " + kind)
         text = safe_inline(data.get("rich_text", []))
         if kind == "heading_1" or kind == "heading_2":
@@ -223,6 +223,11 @@ def markdown(block_id):
             out.append("- " + text)
         elif kind == "numbered_list_item":
             out.append("1. " + text)
+        elif kind == "to_do":
+            # Notion checkboxes are editorial content, never workflow approval.
+            if not isinstance(data.get("checked"), bool):
+                raise ValueError("Malformed Notion to_do checked flag")
+            out.append("- [" + ("x" if data["checked"] else " ") + "] " + text)
         elif kind == "quote":
             out.extend(["> " + text, ""])
         else:
