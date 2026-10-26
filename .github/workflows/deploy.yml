@@ -22,6 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
+      - run: bash -n scripts/create-guidehollow-repos.sh
       - run: npm ci
       - run: npm test
       - run: npm run check
