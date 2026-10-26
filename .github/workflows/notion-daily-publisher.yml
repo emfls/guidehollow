@@ -1,6 +1,9 @@
 name: Notion daily GuideHollow publisher
 on:
   workflow_dispatch:
+  # 09:17 Asia/Seoul. An empty/false repository variable keeps publishing OFF.
+  schedule:
+    - cron: '17 0 * * *'
 
 permissions:
   contents: write
@@ -12,7 +15,11 @@ concurrency:
 
 jobs:
   publish:
-    if: github.repository == 'emfls/guidehollow' && github.ref == 'refs/heads/main'
+    if: >-
+      github.repository == 'emfls/guidehollow' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'schedule' && vars.GUIDEHOLLOW_AUTO_PUBLISH == 'true'))
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:

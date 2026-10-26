@@ -273,6 +273,23 @@ def eligible(item):
     return p["검수승인"].get("checkbox", False) is True
 
 
+def publication_preflight():
+    """Read-only ledger health check. A successful QA run is not proof of publication."""
+    history = []
+    if LEDGER.exists():
+        history = [json.loads(line) for line in LEDGER.read_text(encoding="utf-8").splitlines() if line.strip()]
+    own = [row for row in history if row.get("site_id") == SITE_ID]
+    unresolved = [row for row in own if row.get("state") == "staged"]
+    unexpected = [row for row in own if row.get("state") not in ("staged", "published")]
+    return {
+        "status": "BLOCKED" if unresolved or unexpected else "READY_FOR_QUEUE_CHECK",
+        "site_id": SITE_ID, "checked_records": len(own),
+        "unresolved": [{"kst_date": row.get("kst_date"), "page_id": row.get("page_id"),
+                        "url": row.get("url"), "state": row.get("state")} for row in unresolved],
+        "unexpected_state_count": len(unexpected),
+    }
+
+
 def stage():
     verify_site_registry()
     today = datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
@@ -281,6 +298,11 @@ def stage():
         history = [json.loads(x) for x in LEDGER.read_text().splitlines() if x.strip()]
     if any(row.get("kst_date") == today and row.get("site_id") == SITE_ID for row in history):
         return {"status": "ALREADY_STAGED_TODAY"}
+    check = publication_preflight()
+    if check["status"] != "READY_FOR_QUEUE_CHECK":
+        raise ValueError("UNRECONCILED_LEDGER: publication is paused until prior staged records "
+                         "are checked against Notion, live URLs and deployed SHA; unresolved="
+                         + json.dumps(check["unresolved"], ensure_ascii=False))
     ready = [item for item in fetch_ready() if eligible(item)]
     if not ready:
         return {"status": "QUEUE_EMPTY"}
@@ -364,13 +386,14 @@ def selftest():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("stage","finalize","selftest"))
+    parser.add_argument("command", choices=("stage","finalize","selftest","preflight"))
     parser.add_argument("--page-id")
     parser.add_argument("--url")
     args = parser.parse_args()
     try:
-        result = stage() if args.command == "stage" else (
-            finalize(args.page_id, args.url) if args.command == "finalize" else selftest())
+        result = (stage() if args.command == "stage" else
+                  finalize(args.page_id, args.url) if args.command == "finalize" else
+                  publication_preflight() if args.command == "preflight" else selftest())
         if args.command != "selftest":
             print(json.dumps(result,ensure_ascii=False))
     except Exception as ex:

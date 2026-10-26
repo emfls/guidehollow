@@ -1,0 +1,22 @@
+name: Main publisher readiness (read-only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    if: github.repository == 'emfls/guidehollow'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline publisher regression suite
+        run: python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
+      - name: Inspect existing publication ledger (no Notion mutation)
+        run: python scripts/notion_publish_daily.py preflight
+      - name: State publication gate
+        run: |
+          echo 'This workflow never publishes or turns on scheduled publishing.'
+          echo 'Read the preflight status and the main-only runbook before enabling the repository variable.'
