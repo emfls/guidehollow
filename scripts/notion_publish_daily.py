@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
@@ -19,6 +20,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://guidehollow.com"
 REPO = "emfls/guidehollow"
 SITE_ID = "gh-main"
+DAILY_LIMIT = 3
+SLOTS = ("morning", "afternoon", "evening")
+MAX_FAILED_CANDIDATES_PER_RUN = 20
 QUEUE_ID = os.getenv("NOTION_QUEUE_ID", "b788e982-fc20-4df0-9f1b-8ff2a19f271d")
 SITE_PAGE = os.getenv("NOTION_SITE_PAGE_ID", "402db4c0-a991-81ed-a03d-d8b1c2247d76")
 LEDGER = ROOT / "data" / "guidehollow-publication-ledger.jsonl"
@@ -263,7 +267,7 @@ def verify_site_registry():
         "Status": (p["Status"].get("select") or {}).get("name"),
         "Content Format": prop(p, "Content Format"),
     }
-    if observed != expected or p["Daily Limit"].get("number") != 1:
+    if observed != expected or p["Daily Limit"].get("number") != DAILY_LIMIT:
         raise ValueError("SITE_REGISTRY_MISMATCH: " + repr(observed))
     return record
 
@@ -295,68 +299,156 @@ def publication_preflight():
     }
 
 
-def stage():
-    verify_site_registry()
-    today = datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
-    history = []
-    if LEDGER.exists():
-        history = [json.loads(x) for x in LEDGER.read_text().splitlines() if x.strip()]
-    if any(row.get("kst_date") == today and row.get("site_id") == SITE_ID for row in history):
-        return {"status": "ALREADY_STAGED_TODAY"}
-    check = publication_preflight()
-    if check["status"] != "READY_FOR_QUEUE_CHECK":
-        raise ValueError("UNRECONCILED_LEDGER: publication is paused until prior staged records "
-                         "are checked against Notion, live URLs and deployed SHA; unresolved="
-                         + json.dumps(check["unresolved"], ensure_ascii=False))
-    ready = [item for item in fetch_ready() if eligible(item)]
-    if not ready:
-        return {"status": "QUEUE_EMPTY"}
-    row = ready[0]
+def resolve_slot(history, today):
+    """A manual dispatch consumes the first available slot and counts toward 3/day."""
+    requested = os.getenv("PUBLISH_SLOT", "manual")
+    if requested not in SLOTS and requested != "manual":
+        raise ValueError("Unknown publication slot")
+    own_today = [r for r in history if r.get("site_id") == SITE_ID and r.get("kst_date") == today]
+    if len(own_today) >= DAILY_LIMIT:
+        return None, "DAILY_LIMIT_REACHED"
+    occupied = {r.get("slot") for r in own_today}
+    if requested == "manual":
+        remaining = [slot for slot in SLOTS if slot not in occupied]
+        return (remaining[0], None) if remaining else (None, "SLOTS_EXHAUSTED")
+    if requested in occupied:
+        return None, "SLOT_ALREADY_USED"
+    return requested, None
+
+
+def flag_article_failure(item, detail):
+    """Quarantine only a reviewed, article-specific failure; never reselect until manually reset."""
+    reason = ("원고 검증 실패: " + str(detail)).replace("\x00", "").strip()[:1700]
+    notion("PATCH", "/pages/" + item["id"], {
+        "properties": {
+            "상태": {"select": {"name": "실패"}},
+            "오류": {"rich_text": [{"type": "text", "text": {"content": reason}}]},
+        }
+    })
+
+
+def prepare_article(row, today, history):
     p = row["properties"]
+    if not eligible(row):
+        raise ValueError("Article is not approved for exactly one main site")
+    if any(r.get("site_id") == SITE_ID and r.get("page_id") == row["id"] for r in history):
+        raise ValueError("This Notion page was previously staged or published; duplicate publication forbidden")
     title, slug = prop(p, "제목").strip(), prop(p, "슬러그").strip()
     category = (p["카테고리"].get("select") or {}).get("name", "")
     description = prop(p, "설명").strip()
-    tags = [s.strip() for s in prop(p, "태그").split(",") if s.strip()]
-    sources = [x.strip() for x in prop(p, "공식출처").splitlines() if x.strip()]
-    if not title or not (50 <= len(description) <= 200):
+    tags = [value.strip() for value in prop(p, "태그").split(",") if value.strip()]
+    sources = [value.strip() for value in prop(p, "공식출처").splitlines() if value.strip()]
+    if not title or len(title) < 10 or not (50 <= len(description) <= 200):
         raise ValueError("Invalid article title or description")
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
         raise ValueError("Unsafe article slug")
     if category not in ("guides", "ai-tools", "prompts", "troubleshooting"):
         raise ValueError("Unsupported category")
-    if not tags or not all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", s) for s in tags):
-        raise ValueError("Invalid tag")
-    if not sources or not all(urlsplit(url).scheme == "https" for url in sources):
+    if not tags or not all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", x) for x in tags):
+        raise ValueError("Invalid tags")
+    if not sources or not all(urlsplit(url).scheme == "https" and urlsplit(url).netloc for url in sources):
         raise ValueError("Official HTTPS references required")
-    due = p["발행예정일"].get("date")
-    if due and due["start"][:10] > today:
-        return {"status": "NOT_DUE"}
     destination = ROOT / "src" / "content" / "articles" / (slug + ".md")
     if destination.exists():
         raise ValueError("Duplicate slug/file: " + slug)
     body = markdown(row["id"])
     if len(body.split()) < 550:
-        raise ValueError("Insufficient article substance")
-    frontmatter = {
+        raise ValueError("Insufficient article substance (minimum 550 words)")
+    fields = {
         "title": title, "description": description,
         "slug": slug, "category": category, "tags": tags,
         "publishedDate": today, "updatedDate": today,
         "sources": [{"title": urlsplit(url).netloc + " — reference", "url": url} for url in sources],
         "draft": False, "author": "GuideHollow Editorial", "featured": False,
     }
-    head = "\n".join(k + ": " + json.dumps(v, ensure_ascii=False)
-                     for k,v in frontmatter.items())
-    destination.write_text("---\n" + head + "\n---\n\n" + body, encoding="utf-8")
-    LEDGER.parent.mkdir(exist_ok=True, parents=True)
-    public_url = SITE + "/" + category + "/" + slug + "/"
-    with LEDGER.open("a", encoding="utf-8") as out:
-        out.write(json.dumps({"site_id": SITE_ID, "kst_date": today,
-                              "page_id": row["id"], "title": title, "url": public_url,
-                              "state": "staged"}, ensure_ascii=False) + "\n")
-    notion("PATCH", "/pages/" + row["id"],
-           {"properties": {"상태": {"select": {"name": "발행중"}}}})
-    return {"status": "STAGED", "file": str(destination.relative_to(ROOT)),
-            "url": public_url, "title": title, "page_id": row["id"]}
+    heading = "\n".join(key + ": " + json.dumps(value, ensure_ascii=False)
+                        for key, value in fields.items())
+    article = "---\n" + heading + "\n---\n\n" + body
+    url = SITE + "/" + category + "/" + slug + "/"
+    return {"path": destination, "text": article, "url": url, "title": title}
+
+
+def verify_candidate_build():
+    """Only article-specific check/build failures advance to the next candidate.
+
+    The workflow first validates the unchanged base site and installs dependencies.
+    A failure after inserting a candidate therefore indicates a broken candidate.
+    Tool unavailability or timeouts remain infrastructure errors (abort, do not quarantine).
+    """
+    if os.getenv("GUIDEHOLLOW_VALIDATE_BUILD") != "1":
+        return
+    for command in (["npm", "run", "check"], ["npm", "run", "build"]):
+        result = subprocess.run(command, cwd=ROOT, capture_output=True,
+                                text=True, timeout=240, check=False)
+        if result.returncode:
+            tail = (result.stdout + "\n" + result.stderr)[-800:]
+            raise ValueError("Candidate Astro validation failed: " + tail)
+
+
+def stage():
+    verify_site_registry()
+    today = datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
+    history = []
+    if LEDGER.exists():
+        history = [json.loads(x) for x in LEDGER.read_text(encoding="utf-8").splitlines() if x.strip()]
+    check = publication_preflight()
+    if check["status"] != "READY_FOR_QUEUE_CHECK":
+        raise ValueError("UNRECONCILED_LEDGER: prior staged records or unknown ledger states "
+                         "require deployed SHA/Notion review before another article")
+    slot, blocker = resolve_slot(history, today)
+    if blocker:
+        return {"status": blocker, "daily_limit": DAILY_LIMIT}
+    ready = fetch_ready()
+    if not ready:
+        return {"status": "QUEUE_EMPTY", "slot": slot}
+    failures, deferred = 0, 0
+    for row in ready:
+        # Shared network queue: never alter another site's article or an unapproved draft.
+        related = row["properties"]["배포 사이트"].get("relation", [])
+        if not any(entry.get("id") == SITE_PAGE for entry in related):
+            continue
+        if not row["properties"]["검수승인"].get("checkbox", False):
+            continue
+        due = row["properties"]["발행예정일"].get("date")
+        if due and due["start"][:10] > today:
+            deferred += 1
+            continue
+        destination, written = None, False
+        try:
+            candidate = prepare_article(row, today, history)
+            destination = candidate["path"]
+            destination.write_text(candidate["text"], encoding="utf-8")
+            written = True
+            verify_candidate_build()
+        except (ValueError, KeyError, TypeError) as exc:
+            if written and destination is not None:
+                destination.unlink(missing_ok=True)
+            flag_article_failure(row, exc)
+            failures += 1
+            if failures >= MAX_FAILED_CANDIDATES_PER_RUN:
+                return {"status": "MAX_FAILURES_REACHED", "failed": failures, "slot": slot}
+            continue
+        LEDGER.parent.mkdir(exist_ok=True, parents=True)
+        # Files + ledger remain local until workflow CI and non-forced main push succeed.
+        with LEDGER.open("a", encoding="utf-8") as out:
+            out.write(json.dumps({
+                "site_id": SITE_ID, "kst_date": today, "slot": slot,
+                "page_id": row["id"], "title": candidate["title"],
+                "url": candidate["url"], "state": "staged",
+            }, ensure_ascii=False) + "\n")
+        notion("PATCH", "/pages/" + row["id"], {
+            "properties": {
+                "상태": {"select": {"name": "발행중"}},
+                "오류": {"rich_text": []},
+            }
+        })
+        return {
+            "status": "STAGED", "file": str(destination.relative_to(ROOT)),
+            "url": candidate["url"], "title": candidate["title"], "page_id": row["id"],
+            "slot": slot, "failed_before_selection": failures,
+        }
+    return {"status": "QUEUE_EMPTY" if failures == 0 else "ALL_CANDIDATES_FAILED",
+            "failed": failures, "deferred": deferred, "slot": slot}
 
 
 def finalize(page_id, url):
