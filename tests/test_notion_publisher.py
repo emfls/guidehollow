@@ -130,9 +130,10 @@ class PublisherTests(unittest.TestCase):
                  patch.object(publisher, "markdown", return_value=("Word " * 600)), \
                  patch.object(publisher, "notion", return_value={}):
                 first = publisher.stage()
-                second = publisher.stage()
+                with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"):
+                    publisher.stage()
                 self.assertEqual(first["status"], "STAGED")
-                self.assertEqual(second["status"], "ALREADY_STAGED_TODAY")
+                self.assertEqual(first["slot"], "morning")
                 generated = home / first["file"]
                 self.assertTrue(generated.is_file())
                 self.assertIn("slug: \"extract-meeting-action-items-with-ai\"", generated.read_text())
@@ -209,6 +210,117 @@ class PublisherTests(unittest.TestCase):
                 saved = json.loads(ledger.read_text().strip())
                 self.assertEqual(saved["state"], "published")
                 self.assertEqual(saved["commit"], "a"*40)
+
+    def test_three_daily_slots_and_same_slot_idempotency(self):
+        today = publisher.datetime.now(publisher.ZoneInfo("Asia/Seoul")).date().isoformat()
+        history = [
+            {"site_id": publisher.SITE_ID, "kst_date": today, "slot": "morning", "state": "published"},
+            {"site_id": publisher.SITE_ID, "kst_date": today, "slot": "afternoon", "state": "published"},
+        ]
+        with patch.dict("os.environ", {"PUBLISH_SLOT": "morning"}):
+            self.assertEqual(publisher.resolve_slot(history, today)[1], "SLOT_ALREADY_USED")
+        with patch.dict("os.environ", {"PUBLISH_SLOT": "evening"}):
+            self.assertEqual(publisher.resolve_slot(history, today), ("evening", None))
+        with patch.dict("os.environ", {"PUBLISH_SLOT": "manual"}):
+            self.assertEqual(publisher.resolve_slot(history, today), ("evening", None))
+        history.append({"site_id": publisher.SITE_ID, "kst_date": today,
+                        "slot": "evening", "state": "published"})
+        self.assertEqual(publisher.resolve_slot(history, today)[1], "DAILY_LIMIT_REACHED")
+
+    def test_invalid_draft_moves_to_failure_then_next_valid_draft_stages(self):
+        bad, good = row("bad-item"), row("good-item")
+        bad["properties"]["슬러그"]["rich_text"] = rich("INVALID SLUG")
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            (home / "src/content/articles").mkdir(parents=True)
+            calls = []
+            def notion_call(method, route, payload=None):
+                calls.append((method, route, payload))
+                return {}
+            with (patch.object(publisher, "ROOT", home),
+                  patch.object(publisher, "LEDGER", home/"ledger.jsonl"),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready", return_value=[bad, good]),
+                  patch.object(publisher, "markdown", return_value="Word " * 600),
+                  patch.object(publisher, "notion", side_effect=notion_call),
+                  patch.dict("os.environ", {"PUBLISH_SLOT": "morning", "GUIDEHOLLOW_VALIDATE_BUILD": "0"})):
+                result = publisher.stage()
+                self.assertEqual(result["status"], "STAGED")
+                self.assertEqual(result["failed_before_selection"], 1)
+                self.assertEqual(result["page_id"], "good-item")
+                self.assertEqual(len((home/"ledger.jsonl").read_text().splitlines()), 1)
+                self.assertEqual(calls[0][1], "/pages/bad-item")
+                self.assertEqual(calls[0][2]["properties"]["상태"]["select"]["name"], "실패")
+                self.assertIn("Unsafe article slug", calls[0][2]["properties"]["오류"]["rich_text"][0]["text"]["content"])
+                self.assertEqual(calls[-1][1], "/pages/good-item")
+                self.assertEqual(calls[-1][2]["properties"]["상태"]["select"]["name"], "발행중")
+
+    def test_bad_article_can_be_corrected_and_requeued_for_later_slot(self):
+        draft = row("correctable-item")
+        draft["properties"]["태그"]["rich_text"] = rich("BAD TAG")
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            (home / "src/content/articles").mkdir(parents=True)
+            ledger = home / "ledger.jsonl"
+            updates = []
+            def notion_call(method, route, payload=None):
+                updates.append(payload)
+                return {}
+            with (patch.object(publisher, "ROOT", home),
+                  patch.object(publisher, "LEDGER", ledger),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready", return_value=[draft]),
+                  patch.object(publisher, "markdown", return_value="Word " * 600),
+                  patch.object(publisher, "notion", side_effect=notion_call),
+                  patch.dict("os.environ", {"PUBLISH_SLOT": "morning", "GUIDEHOLLOW_VALIDATE_BUILD": "0"})):
+                result = publisher.stage()
+                self.assertEqual(result["status"], "ALL_CANDIDATES_FAILED")
+                self.assertFalse(ledger.exists())
+                self.assertEqual(updates[-1]["properties"]["상태"]["select"]["name"], "실패")
+                # Editor repairs the text and explicitly changes 상태 back to 발행대기.
+                draft["properties"]["태그"]["rich_text"] = rich("safe-tag")
+                result = publisher.stage()
+                self.assertEqual(result["status"], "STAGED")
+                self.assertEqual(result["page_id"], "correctable-item")
+                self.assertEqual(updates[-1]["properties"]["오류"]["rich_text"], [])
+
+    def test_future_dated_article_does_not_block_due_article(self):
+        future, due = row("future"), row("due")
+        future["properties"]["발행예정일"]["date"] = {"start": "2099-01-01"}
+        with tempfile.TemporaryDirectory() as td:
+            home=Path(td)
+            (home / "src/content/articles").mkdir(parents=True)
+            with (patch.object(publisher, "ROOT", home),
+                  patch.object(publisher, "LEDGER", home/"ledger.jsonl"),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready", return_value=[future, due]),
+                  patch.object(publisher, "markdown", return_value="Word " * 600),
+                  patch.object(publisher, "notion", return_value={}),
+                  patch.dict("os.environ", {"PUBLISH_SLOT": "evening", "GUIDEHOLLOW_VALIDATE_BUILD": "0"})):
+                self.assertEqual(publisher.stage()["page_id"], "due")
+
+    def test_build_failure_quarantines_candidate_and_tries_next(self):
+        first, second = row("bad-build"), row("passes-build")
+        first["properties"]["슬러그"]["rich_text"] = rich("bad-build-slug")
+        second["properties"]["슬러그"]["rich_text"] = rich("passes-build-slug")
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            (home / "src/content/articles").mkdir(parents=True)
+            calls = []
+            with (patch.object(publisher, "ROOT", home),
+                  patch.object(publisher, "LEDGER", home/"ledger.jsonl"),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "fetch_ready", return_value=[first, second]),
+                  patch.object(publisher, "markdown", return_value="Word " * 600),
+                  patch.object(publisher, "verify_candidate_build",
+                               side_effect=[ValueError("Candidate Astro validation failed"), None]),
+                  patch.object(publisher, "notion", side_effect=lambda method, route, payload=None:
+                               calls.append((route, payload)) or {}),
+                  patch.dict("os.environ", {"PUBLISH_SLOT": "afternoon"})):
+                result = publisher.stage()
+                self.assertEqual(result["page_id"], "passes-build")
+                self.assertFalse((home/"src/content/articles/bad-build-slug.md").exists())
+                self.assertEqual(calls[0][1]["properties"]["상태"]["select"]["name"], "실패")
 
     def test_unapproved_article_not_published(self):
         article = row()
