@@ -87,8 +87,8 @@ class PublisherTests(unittest.TestCase):
         with patch.object(publisher, "children", return_value=items):
             result = publisher.markdown("article")
         self.assertIn(
-            "Before the checklist\\n\\n- [ ] Validate JSON syntax\\n"
-            "- [x] Compare against source\\n\\nAfter the checklist",
+            "Before the checklist\n\n- [ ] Validate JSON syntax\n"
+            "- [x] Compare against source\n\nAfter the checklist",
             result)
 
     def test_malformed_or_nested_checklist_fails_closed(self):
