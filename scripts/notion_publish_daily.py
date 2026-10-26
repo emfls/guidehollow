@@ -29,6 +29,14 @@ LEDGER = ROOT / "data" / "guidehollow-publication-ledger.jsonl"
 API = "https://api.notion.com/v1"
 
 
+class ArticleValidationError(ValueError):
+    """Only explicit editorial validation failures may quarantine a draft."""
+
+
+class NotionResponseError(RuntimeError):
+    """An incomplete or mistyped external response must stop publication."""
+
+
 def notion(method, route, data=None):
     token = os.getenv("NOTION_API_TOKEN", "")
     if not token:
@@ -44,19 +52,64 @@ def notion(method, route, data=None):
         try:
             payload = json.load(res)
         except (ValueError, UnicodeError) as exc:
-            raise RuntimeError("NOTION_RESPONSE_INVALID: expected JSON object") from exc
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: expected JSON object") from exc
         if not isinstance(payload, dict):
-            raise RuntimeError("NOTION_RESPONSE_INVALID: expected JSON object")
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: expected JSON object")
         return payload
 
 
 def plain(items):
-    return "".join(x.get("plain_text", "") for x in items)
+    if not isinstance(items, list) or any(
+            not isinstance(item, dict) or not isinstance(item.get("plain_text"), str)
+            for item in items):
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: rich text must contain plain_text strings")
+    return "".join(item["plain_text"] for item in items)
+
+
+def notion_property(props, name, kind):
+    """Validate transport shape; empty but well-formed values remain editorial input."""
+    field = props.get(name) if isinstance(props, dict) else None
+    if not isinstance(field, dict) or field.get("type") != kind or kind not in field:
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: missing or mistyped property " + name)
+    value = field[kind]
+    valid = True
+    if kind in ("title", "rich_text"):
+        plain(value)
+    elif kind == "select":
+        valid = value is None or (isinstance(value, dict) and isinstance(value.get("name"), str))
+    elif kind == "relation":
+        valid = (isinstance(value, list) and not field.get("has_more") and all(
+            isinstance(item, dict) and isinstance(item.get("id"), str) and item["id"] for item in value))
+    elif kind == "checkbox":
+        valid = isinstance(value, bool)
+    elif kind == "date":
+        valid = value is None or (isinstance(value, dict) and isinstance(value.get("start"), str))
+        if valid and value is not None:
+            try:
+                datetime.fromisoformat(value["start"].replace("Z", "+00:00"))
+            except ValueError:
+                valid = False
+    if not valid:
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: malformed property " + name)
+    return value
 
 
 def prop(props, name):
-    p = props[name]
-    return plain(p.get("title", []) if p["type"] == "title" else p.get("rich_text", []))
+    field = props.get(name) if isinstance(props, dict) else None
+    kind = field.get("type") if isinstance(field, dict) else None
+    if kind not in ("title", "rich_text"):
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: expected text property " + name)
+    return plain(notion_property(props, name, kind))
+
+
+def validate_queue_item(item):
+    if (not isinstance(item, dict) or not isinstance(item.get("id"), str) or not item["id"] or
+            not isinstance(item.get("properties"), dict)):
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: queue page needs id and properties")
+    for name, kind in (("제목", "title"), ("슬러그", "rich_text"), ("설명", "rich_text"),
+                       ("태그", "rich_text"), ("공식출처", "rich_text"), ("카테고리", "select"),
+                       ("배포 사이트", "relation"), ("검수승인", "checkbox"), ("발행예정일", "date")):
+        notion_property(item["properties"], name, kind)
 
 
 def children(block_id):
@@ -67,9 +120,11 @@ def children(block_id):
         if cursor:
             route += "&start_cursor=" + quote(cursor)
         batch = notion("GET", route)
-        if (not isinstance(batch.get("results"), list) or
-                (batch.get("has_more") and not batch.get("next_cursor"))):
-            raise RuntimeError("NOTION_RESPONSE_INVALID: incomplete paginated response")
+        if (not isinstance(batch, dict) or not isinstance(batch.get("results"), list) or
+                not isinstance(batch.get("has_more"), bool) or
+                (batch["has_more"] and (not isinstance(batch.get("next_cursor"), str) or
+                 not batch["next_cursor"] or batch["next_cursor"] == cursor))):
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: incomplete paginated response")
         items.extend(batch["results"])
         if not batch.get("has_more"):
             return items
@@ -77,15 +132,20 @@ def children(block_id):
 
 
 def safe_inline(items):
+    plain(items)
     result = []
     for item in items:
-        t = item.get("plain_text", "")
+        t = item["plain_text"]
         if "\x00" in t:
-            raise ValueError("Null byte in article")
+            raise ArticleValidationError("Null byte in article")
         # No raw HTML or user-supplied Markdown injections.
         t = t.replace("\\", "\\\\").replace("<", "&lt;").replace(">", "&gt;")
         t = re.sub(r"([*_\[\]])", r"\\\1", t)
         annotations = item.get("annotations", {})
+        if not isinstance(annotations, dict) or any(
+                key in annotations and not isinstance(annotations[key], bool)
+                for key in ("code", "bold", "italic", "strikethrough", "underline")):
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: invalid rich text annotations")
         if annotations.get("code"):
             t = "`" + t.replace("`", "'") + "`"
         if annotations.get("bold"):
@@ -94,9 +154,14 @@ def safe_inline(items):
             t = "*" + t + "*"
         url = item.get("href")
         if url:
-            parsed = urlsplit(url)
+            if not isinstance(url, str):
+                raise NotionResponseError("NOTION_RESPONSE_INVALID: inline href must be text")
+            try:
+                parsed = urlsplit(url)
+            except ValueError as exc:
+                raise ArticleValidationError("Invalid inline link") from exc
             if parsed.scheme != "https":
-                raise ValueError("Non-HTTPS inline link")
+                raise ArticleValidationError("Non-HTTPS inline link")
             # Notion normalizes originally relative GuideHollow links against app.notion.com.
             # Restore only recognized site paths. Genuine Notion page URLs are unchanged.
             if parsed.hostname == "app.notion.com" and re.match(
@@ -120,58 +185,66 @@ def approved_image_block(block):
     are never embedded in an automatic publication.
     """
     if block.get('has_children'):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: nested image blocks are unsupported')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: nested image blocks are unsupported')
     item = block['image']
-    if item.get('type') != 'external':
-        raise ValueError('VISUAL_REVIEW_REQUIRED: use an external image linked to an approved /visuals/ SVG; Notion file links expire')
-    url = (item.get('external') or {}).get('url', '')
-    parsed, site = urlsplit(url), urlsplit(SITE)
+    if not isinstance(item, dict) or not isinstance(item.get('type'), str):
+        raise NotionResponseError('NOTION_RESPONSE_INVALID: image type missing or malformed')
+    if item['type'] != 'external':
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: use an external image linked to an approved /visuals/ SVG; Notion file links expire')
+    external = item.get('external')
+    if not isinstance(external, dict) or not isinstance(external.get('url'), str):
+        raise NotionResponseError('NOTION_RESPONSE_INVALID: external image URL missing or malformed')
+    url = external['url']
+    try:
+        parsed, site = urlsplit(url), urlsplit(SITE)
+    except ValueError as exc:
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: invalid image URL') from exc
     if (parsed.scheme, parsed.netloc) != (site.scheme, site.netloc) or parsed.username or parsed.password or parsed.query or parsed.fragment:
-        raise ValueError('VISUAL_REVIEW_REQUIRED: image URL must be an exact asset URL on this site')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: image URL must be an exact asset URL on this site')
     if not re.fullmatch(r'/visuals/[a-z0-9]+(?:-[a-z0-9]+)*\.svg', parsed.path):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: only reviewed /visuals/name.svg images are supported')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: only reviewed /visuals/name.svg images are supported')
     asset = ROOT / 'public' / parsed.path.lstrip('/')
     if not asset.is_file() or asset.stat().st_size > 60000:
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG missing from GitHub public/visuals or exceeds 60 KB')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG missing from GitHub public/visuals or exceeds 60 KB')
     data = asset.read_bytes()
     if b'<!DOCTYPE' in data.upper() or b'<!ENTITY' in data.upper():
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG entities or doctypes are not permitted')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG entities or doctypes are not permitted')
     if re.search(rb'url\s*\(|javascript\s*:', data, re.I):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG cannot contain embedded or remote resource links')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG cannot contain embedded or remote resource links')
     try:
         image = ET.fromstring(data)
     except ET.ParseError as exc:
-        raise ValueError('VISUAL_REVIEW_REQUIRED: malformed SVG') from exc
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: malformed SVG') from exc
     if image.tag != '{http://www.w3.org/2000/svg}svg':
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG root must have an SVG namespace')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG root must have an SVG namespace')
     bounds = re.fullmatch(r'0 0 (\d+) (\d+)', image.get('viewBox', '').strip())
     if not bounds:
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG must declare viewBox="0 0 width height"')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG must declare viewBox="0 0 width height"')
     width, height = map(int, bounds.groups())
     if not (250 <= width <= 3000 and 150 <= height <= 3000):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: SVG dimensions outside the supported range')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG dimensions outside the supported range')
     denied_tags = {'script', 'foreignObject', 'image', 'use', 'a', 'style', 'animate', 'animateMotion',
                    'animateTransform', 'set', 'feImage', 'iframe'}
     for node in image.iter():
         if node.tag.split('}')[-1] in denied_tags:
-            raise ValueError('VISUAL_REVIEW_REQUIRED: unsafe or external SVG element')
+            raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: unsafe or external SVG element')
         for name in node.attrib:
             attribute = name.split('}')[-1].lower()
             if attribute.startswith('on') or attribute == 'href' or attribute == 'style':
-                raise ValueError('VISUAL_REVIEW_REQUIRED: SVG event handlers, hrefs and styles are not permitted')
+                raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: SVG event handlers, hrefs and styles are not permitted')
     lines = plain(item.get('caption', [])).replace('\r\n', '\n').strip().split('\n')
     if len(lines) != 3:
-        raise ValueError('VISUAL_REVIEW_REQUIRED: image caption needs Alt:, Caption:, Credit: on separate lines')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: image caption needs Alt:, Caption:, Credit: on separate lines')
     fields = {}
     for prefix, line in zip(('Alt: ', 'Caption: ', 'Credit: '), lines):
         if not line.startswith(prefix):
-            raise ValueError('VISUAL_REVIEW_REQUIRED: caption must contain Alt:, Caption:, Credit: in that order')
+            raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: caption must contain Alt:, Caption:, Credit: in that order')
         fields[prefix] = line[len(prefix):].strip()
     alt, caption, credit = (fields[key] for key in ('Alt: ', 'Caption: ', 'Credit: '))
     if not (30 <= len(alt) <= 240 and 25 <= len(caption) <= 360 and 10 <= len(credit) <= 180):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: meaningful alt text, caption and credit are required')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: meaningful alt text, caption and credit are required')
     if any('\x00' in value for value in (alt, caption, credit)):
-        raise ValueError('VISUAL_REVIEW_REQUIRED: null byte in visual metadata')
+        raise ArticleValidationError('VISUAL_REVIEW_REQUIRED: null byte in visual metadata')
     digest = hashlib.sha256(data).hexdigest()
     return ('<figure class="article-visual" data-asset-sha256="' + digest + '">\n'
             '<img src="' + parsed.path + '" alt="' + html_escape(alt, quote=True) + '"'
@@ -185,6 +258,10 @@ def markdown(block_id):
     out = []
     previous_list = None
     for block in children(block_id):
+        if (not isinstance(block, dict) or not isinstance(block.get("type"), str) or
+                not isinstance(block.get(block["type"]), dict) or
+                not isinstance(block.get("has_children", False), bool)):
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: malformed block")
         kind = block["type"]
         list_kind = kind if kind in ("bulleted_list_item", "numbered_list_item", "to_do") else None
         if previous_list and previous_list != list_kind:
@@ -193,16 +270,16 @@ def markdown(block_id):
         data = block[kind]
         if kind == "table":
             if not block.get("has_children"):
-                raise ValueError("Table without rows")
+                raise ArticleValidationError("Table without rows")
             rows = children(block["id"])
             cells = []
             for row in rows:
                 if row["type"] != "table_row":
-                    raise ValueError("Unexpected table child: " + row["type"])
+                    raise ArticleValidationError("Unexpected table child: " + row["type"])
                 cells.append([safe_inline(c).replace("|", "&#124;")
                               for c in row["table_row"]["cells"]])
             if not cells or any(len(r) != len(cells[0]) for r in cells):
-                raise ValueError("Invalid table")
+                raise ArticleValidationError("Invalid table")
             out.append("| " + " | ".join(cells[0]) + " |")
             out.append("| " + " | ".join("---" for _ in cells[0]) + " |")
             for row in cells[1:]:
@@ -223,11 +300,13 @@ def markdown(block_id):
             out.extend(["---", ""])
             continue
         if block.get("has_children"):
-            raise ValueError("Unsupported nested block: " + kind)
+            raise ArticleValidationError("Unsupported nested block: " + kind)
         if kind not in ("paragraph", "heading_1", "heading_2", "heading_3",
                         "bulleted_list_item", "numbered_list_item", "to_do", "quote"):
-            raise ValueError("Unsupported block: " + kind)
-        text = safe_inline(data.get("rich_text", []))
+            raise ArticleValidationError("Unsupported block: " + kind)
+        if "rich_text" not in data:
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: block rich_text missing")
+        text = safe_inline(data["rich_text"])
         if kind == "heading_1" or kind == "heading_2":
             out.extend(["## " + text, ""])
         elif kind == "heading_3":
@@ -239,7 +318,7 @@ def markdown(block_id):
         elif kind == "to_do":
             # Notion checkboxes are editorial content, never workflow approval.
             if not isinstance(data.get("checked"), bool):
-                raise ValueError("Malformed Notion to_do checked flag")
+                raise NotionResponseError("NOTION_RESPONSE_INVALID: malformed Notion to_do checked flag")
             out.append("- [" + ("x" if data["checked"] else " ") + "] " + text)
         elif kind == "quote":
             out.extend(["> " + text, ""])
@@ -257,9 +336,11 @@ def fetch_ready():
         if cursor:
             payload["start_cursor"] = cursor
         batch = notion("POST", "/data_sources/" + QUEUE_ID + "/query", payload)
-        if (not isinstance(batch.get("results"), list) or
-                (batch.get("has_more") and not batch.get("next_cursor"))):
-            raise RuntimeError("NOTION_RESPONSE_INVALID: incomplete paginated response")
+        if (not isinstance(batch, dict) or not isinstance(batch.get("results"), list) or
+                not isinstance(batch.get("has_more"), bool) or
+                (batch["has_more"] and (not isinstance(batch.get("next_cursor"), str) or
+                 not batch["next_cursor"] or batch["next_cursor"] == cursor))):
+            raise NotionResponseError("NOTION_RESPONSE_INVALID: incomplete paginated response")
         items.extend(batch["results"])
         if not batch.get("has_more"):
             break
@@ -288,7 +369,7 @@ def eligible(item):
     p = item["properties"]
     related = p["배포 사이트"].get("relation", [])
     if len(related) != 1:
-        raise ValueError("An approved article must point to exactly one site")
+        raise NotionResponseError("NOTION_RESPONSE_INVALID: ambiguous site relation")
     if related[0]["id"] != SITE_PAGE:
         return False
     return p["검수승인"].get("checkbox", False) is True
@@ -344,28 +425,32 @@ def prepare_article(row, today, history):
     if any(r.get("site_id") == SITE_ID and r.get("page_id") == row["id"] for r in history):
         raise RuntimeError("DUPLICATE_PUBLICATION: this Notion page is already in the ledger; review without changing its publication record")
     if not eligible(row):
-        raise ValueError("Article is not approved for exactly one main site")
+        raise RuntimeError("Article is not approved for exactly one main site")
     title, slug = prop(p, "제목").strip(), prop(p, "슬러그").strip()
     category = (p["카테고리"].get("select") or {}).get("name", "")
     description = prop(p, "설명").strip()
     tags = [value.strip() for value in prop(p, "태그").split(",") if value.strip()]
     sources = [value.strip() for value in prop(p, "공식출처").splitlines() if value.strip()]
     if not title or len(title) < 10 or not (50 <= len(description) <= 200):
-        raise ValueError("Invalid article title or description")
+        raise ArticleValidationError("Invalid article title or description")
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
-        raise ValueError("Unsafe article slug")
+        raise ArticleValidationError("Unsafe article slug")
     if category not in ("guides", "ai-tools", "prompts", "troubleshooting"):
-        raise ValueError("Unsupported category")
+        raise ArticleValidationError("Unsupported category")
     if not tags or not all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", x) for x in tags):
-        raise ValueError("Invalid tags")
-    if not sources or not all(urlsplit(url).scheme == "https" and urlsplit(url).netloc for url in sources):
-        raise ValueError("Official HTTPS references required")
+        raise ArticleValidationError("Invalid tags")
+    try:
+        valid_sources = sources and all(urlsplit(url).scheme == "https" and urlsplit(url).netloc for url in sources)
+    except ValueError as exc:
+        raise ArticleValidationError("Invalid official source URL") from exc
+    if not valid_sources:
+        raise ArticleValidationError("Official HTTPS references required")
     destination = ROOT / "src" / "content" / "articles" / (slug + ".md")
     if destination.exists():
-        raise ValueError("Duplicate slug/file: " + slug)
+        raise ArticleValidationError("Duplicate slug/file: " + slug)
     body = markdown(row["id"])
     if len(body.split()) < 550:
-        raise ValueError("Insufficient article substance (minimum 550 words)")
+        raise ArticleValidationError("Insufficient article substance (minimum 550 words)")
     fields = {
         "title": title, "description": description,
         "slug": slug, "category": category, "tags": tags,
@@ -397,7 +482,7 @@ def verify_candidate_build(destination):
             diagnostic = re.search(r"(?:AssertionError[^\n]*|\[InvalidContentEntryDataError\][\s\S]*)", output)
             if result.returncode == 1 and diagnostic and re.search(
                     r"(?<![a-z0-9-])" + re.escape(destination.stem) + r"(?:\.md|/)", diagnostic.group()):
-                raise ValueError("Candidate Astro validation failed: " + diagnostic.group()[-800:])
+                raise ArticleValidationError("Candidate Astro validation failed: " + diagnostic.group()[-800:])
             raise RuntimeError("BUILD_INFRASTRUCTURE_OR_UNKNOWN: inspect Actions build logs")
 
 
@@ -419,6 +504,7 @@ def stage():
         return {"status": "QUEUE_EMPTY", "slot": slot}
     failures, deferred = 0, 0
     for row in ready:
+        validate_queue_item(row)
         # Shared network queue: never alter another site's article or an unapproved draft.
         related = row["properties"]["배포 사이트"].get("relation", [])
         if not any(entry.get("id") == SITE_PAGE for entry in related):
@@ -436,7 +522,7 @@ def stage():
             destination.write_text(candidate["text"], encoding="utf-8")
             written = True
             verify_candidate_build(destination)
-        except (ValueError, KeyError, TypeError) as exc:
+        except ArticleValidationError as exc:
             if written and destination is not None:
                 destination.unlink(missing_ok=True)
             flag_article_failure(row, exc)
