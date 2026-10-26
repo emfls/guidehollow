@@ -27,6 +27,8 @@ At each allowed slot:
 5. For the first validated article, stage one source file plus one JSONL ledger row with `kst_date`, `slot`, and `state=staged`. Mark the selected Notion item `발행중` and clear its old `오류`. Test, commit without forcing, deploy GitHub Pages, verify the exact article commit SHA and live title, canonical and body, then set Notion `발행완료` with URL and GitHub commit.
 6. Persist `state=published` to GitHub ledger in an additional non-force commit. If this cannot complete, later releases block until evidence-bound recovery.
 
+A candidate build failure is quarantined only when an explicit Astro content validation or build assertion names that candidate. A general npm exit code does not establish an article error. Unknown failures stop for operator review. Queued publisher runs check out the current `main` after the shared concurrency lock so they read the preceding run's persisted ledger. Exact-SHA deployment verification waits for delayed runs and stops on a completed failed/cancelled run or timeout.
+
 ### Retrying a previously failed article
 
 An editor opens the Notion item, reads `오류`, fixes the actual title/body/sources/slug or unsupported blocks, checks it again, and explicitly changes `상태` **`실패 → 발행대기`**. Preserve the `gh-main` relation and explicit `검수승인`. At the next unused release slot it re-enters the sorted queue according to `발행순서`. The publisher clears the old error once that corrected article passes validation and is staged.
@@ -35,7 +37,7 @@ An editor opens the Notion item, reads `오류`, fixes the actual title/body/sou
 
 ### Infrastructure and partially published errors
 
-Notion API outages, rate limits, token/permission issues, missing npm, timeouts, GitHub push/deploy problems and uncertain post-commit publication results are **not** safe article-specific failures. Stop instead of changing a possibly published article to `실패` or publishing a second article. The preflight ledger blocks further releases when a `staged` record remains until its public deployed SHA/Notion state is reconciled. Never delete the ledger or force-push to clear this condition.
+Malformed/incomplete Notion API responses, Notion API outages, rate limits, token/permission issues, missing npm, timeouts, unknown build failures, previously published Notion IDs, GitHub push/deploy problems and uncertain post-commit publication results are **not** safe article-specific failures. Stop instead of changing a possibly published article to `실패` or publishing a second article. The preflight ledger blocks further releases when a `staged` record remains until its public deployed SHA/Notion state is reconciled. Never delete the ledger or force-push to clear this condition.
 
 ## Activation and observation
 

@@ -33,6 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # A queued run must read the ledger committed by the previous run.
+          ref: main
           fetch-depth: 0
           persist-credentials: true
       - uses: actions/setup-python@v5
@@ -46,7 +48,7 @@ jobs:
       - name: Run isolated publisher self-test
         run: |
           python scripts/notion_publish_daily.py selftest
-          python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
+          python -m unittest discover -s tests -p 'test_*.py' -v
 
       - name: Verify baseline site quality before selecting any Notion article
         run: |
@@ -118,20 +120,7 @@ jobs:
         if: steps.stage.outputs.status == 'STAGED'
         env:
           ARTICLE_SHA: ${{ steps.article_commit.outputs.sha }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          [[ "$ARTICLE_SHA" =~ ^[a-f0-9]{40}$ ]] || exit 1
-          for n in $(seq 1 70); do
-            payload="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml --branch main --limit 40 --json headSha,conclusion,event)"
-            if jq -e --arg sha "$ARTICLE_SHA" '[.[] | select(.headSha == $sha and .event == "workflow_dispatch" and .conclusion == "success")] | length > 0' <<< "$payload" >/dev/null; then
-              echo "VERIFIED_PAGES_SHA=$ARTICLE_SHA"
-              exit 0
-            fi
-            sleep 12
-          done
-          echo "::error::No Pages success for exact article SHA."
-          exit 1
+        run: python scripts/verify_pages_deployment.py
 
       - name: Verify real published URL
         if: steps.stage.outputs.status == 'STAGED'

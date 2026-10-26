@@ -19,6 +19,7 @@ test('new publication, missing start article, drafts and future content build sa
     const collection = path.join(fixture,'src/content/articles');
     for (const [slug,extra] of [['additional-public-guide',''],['private-draft-sentinel','draft'],['future-guide-sentinel','future']]) {
       let content = original.replaceAll('what-is-generative-ai',slug).replace(/^title:.*$/m,`title: ${JSON.stringify(slug)}`);
+      if(!extra) content += '\n- [x] Reviewed & approved.\n';
       if(extra==='draft') content=content.replace('draft: false','draft: true');
       if(extra==='future') {
         // Keep synthetic future-article metadata valid regardless of how often
@@ -33,8 +34,14 @@ test('new publication, missing start article, drafts and future content build sa
     assert.equal(build.status,0,`${build.stdout}\n${build.stderr}`);
     const verify = spawnSync(process.execPath,['scripts/verify-build.mjs'],{cwd:fixture,encoding:'utf8'});
     assert.equal(verify.status,0,`${verify.stdout}\n${verify.stderr}`);
+    const checklistHtml = await readFile(path.join(fixture,'dist/guides/ai-valid-json-without-inventing-data/index.html'),'utf8');
+    const checkboxes = [...checklistHtml.matchAll(/<input\b[^>]*type="checkbox"[^>]*>/g)].map(m=>m[0]);
+    assert.equal(checkboxes.length,7);
+    assert(checkboxes.every(input=>/aria-label="[^"]+"/.test(input) && input.includes('disabled') && !input.replace(/"[^"]*"/g,'""').includes('checked')));
+    assert(checklistHtml.includes('aria-label="Every source item has exactly one expected output record."'));
     const articleOutput = path.join(fixture,'dist/guides/additional-public-guide/index.html');
     const articleHtml = await readFile(articleOutput,'utf8');
+    assert.match(articleHtml, /<input[^>]*checked[^>]*aria-label="Reviewed &amp; approved\."/);
     await writeFile(articleOutput,articleHtml.replace(/<h1\b[^>]*>.*?<\/h1>/s,'<h1>Incorrect visible title</h1>'));
     const mismatch = spawnSync(process.execPath,['scripts/verify-build.mjs'],{cwd:fixture,encoding:'utf8'});
     assert.notEqual(mismatch.status,0,'Visible title mismatch must fail even when JSON-LD remains correct');
