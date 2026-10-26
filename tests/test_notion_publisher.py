@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import tempfile
+import json
 import unittest
 from unittest.mock import patch
 
@@ -109,6 +110,37 @@ class PublisherTests(unittest.TestCase):
                 self.assertTrue(generated.is_file())
                 self.assertIn("slug: \"extract-meeting-action-items-with-ai\"", generated.read_text())
                 self.assertEqual(len((home/"data/guidehollow-publication-ledger.jsonl").read_text().splitlines()), 1)
+
+    def test_preflight_reports_legacy_staged_records_without_changing_them(self):
+        with tempfile.TemporaryDirectory() as td:
+            ledger = Path(td) / "ledger.jsonl"
+            data = [{"site_id": publisher.SITE_ID, "kst_date": "2020-01-01",
+                     "page_id": "old-main", "state": "staged", "url": publisher.SITE + "/guides/old/"},
+                    {"site_id": "other-site", "kst_date": "2020-01-01",
+                     "page_id": "other", "state": "staged"}]
+            before = "".join(json.dumps(r) + "\\n" for r in data)
+            ledger.write_text(before)
+            with patch.object(publisher, "LEDGER", ledger):
+                result = publisher.publication_preflight()
+                self.assertEqual(result["status"], "BLOCKED")
+                self.assertEqual(result["checked_records"], 1)
+                self.assertEqual(len(result["unresolved"]), 1)
+                self.assertEqual(result["unresolved"][0]["page_id"], "old-main")
+                self.assertEqual(ledger.read_text(), before)
+
+    def test_prior_staged_publication_prevents_another_day_automatic_release(self):
+        with tempfile.TemporaryDirectory() as td:
+            home = Path(td)
+            ledger = home / "ledger.jsonl"
+            ledger.write_text(json.dumps({"site_id": publisher.SITE_ID,
+                    "kst_date": "2020-01-01", "page_id": "stuck", "state": "staged"}) + "\\n")
+            with patch.object(publisher, "LEDGER", ledger), \\
+                 patch.object(publisher, "verify_site_registry", return_value={}), \\
+                 patch.object(publisher, "fetch_ready") as fetch:
+                with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"):
+                    publisher.stage()
+                fetch.assert_not_called()
+                self.assertEqual(len(ledger.read_text().splitlines()), 1)
 
     def test_unapproved_article_not_published(self):
         article = row()
