@@ -23,16 +23,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate isolated publisher regression tests
-        run: python -m unittest discover -s tests -p 'test_notion_publisher.py' -v
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Verify current main commit has deployed successfully
         shell: bash
         run: |
           set -euo pipefail
-          gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml --branch main \\
-            --json headSha,conclusion,event --limit 40 > /tmp/deploys.json
-          jq -e --arg sha "$GITHUB_SHA" \\
-            '[.[] | select(.headSha == $sha and .conclusion == "success")] | length > 0' \\
-            /tmp/deploys.json >/dev/null || {
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml --branch main --json headSha,conclusion,event --limit 40 > /tmp/deploys.json
+          jq -e --arg sha "$GITHUB_SHA" '[.[] | select(.headSha == $sha and .conclusion == "success")] | length > 0' /tmp/deploys.json >/dev/null || {
             echo "::error::Current main source is not proven Pages deployed."; exit 1;
           }
       - name: Reconcile only already-completed Notion main articles
