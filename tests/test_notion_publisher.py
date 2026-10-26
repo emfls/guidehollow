@@ -142,6 +142,47 @@ class PublisherTests(unittest.TestCase):
                 fetch.assert_not_called()
                 self.assertEqual(len(ledger.read_text().splitlines()), 1)
 
+    def test_finalize_rejects_missing_deployment_sha_before_writing(self):
+        with patch.object(publisher, "verify_site_registry", return_value={}):
+            with patch.dict("os.environ", {"PUBLISHED_COMMIT_SHA": ""}):
+                with self.assertRaisesRegex(ValueError, "DEPLOYMENT_SHA_REQUIRED"):
+                    publisher.finalize("test", publisher.SITE + "/guides/test/")
+
+    def test_finalization_updates_notion_then_persists_main_ledger(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            articles = root / "src/content/articles"
+            articles.mkdir(parents=True)
+            slug = "safe-test"
+            title = "A Test Article with a Reliable and Traceable Source"
+            url = publisher.SITE + "/guides/" + slug + "/"
+            (articles / (slug + ".md")).write_text('slug: "' + slug + '"')
+            ledger = root / "ledger.jsonl"
+            ledger.write_text(json.dumps({"site_id": publisher.SITE_ID,
+                "page_id": "testid", "url": url, "title": title,
+                "state": "staged", "kst_date": "2020-01-01"}) + "\n")
+            props = {"properties": {"배포 사이트": {"relation": [{"id": publisher.SITE_PAGE}]},
+                      "검수승인": {"checkbox": True}, "상태": {"select": {"name": "발행중"}},
+                      "게시 URL": {"url": None}}}
+            class Response:
+                status = 200
+                def __enter__(self): return self
+                def __exit__(self, *args): return False
+                def read(self):
+                    return ('<link rel="canonical" href="' + url + '">'
+                            '<article class="prose">' + title + ' Official sources</article>').encode()
+            with (patch.object(publisher, "ROOT", root),
+                  patch.object(publisher, "LEDGER", ledger),
+                  patch.object(publisher, "verify_site_registry", return_value={}),
+                  patch.object(publisher, "notion", side_effect=lambda method, route, data=None: props if method=="GET" else {}),
+                  patch.object(publisher, "urlopen", return_value=Response()),
+                  patch.dict("os.environ", {"PUBLISHED_COMMIT_SHA": "a"*40})):
+                result = publisher.finalize("testid", url)
+                self.assertEqual(result["status"], "PUBLISHED")
+                saved = json.loads(ledger.read_text().strip())
+                self.assertEqual(saved["state"], "published")
+                self.assertEqual(saved["commit"], "a"*40)
+
     def test_unapproved_article_not_published(self):
         article = row()
         article["properties"]["검수승인"]["checkbox"] = False
