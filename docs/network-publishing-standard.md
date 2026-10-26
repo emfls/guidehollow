@@ -1,4 +1,7 @@
-# GuideHollow 100-site publishing standard
+# GuideHollow future multi-site publishing standard
+
+> **Current operations (2026-10-26):** GuideHollow is **MAIN_ONLY**. Satellite creation and cross-repository publishing are disabled. The long-term architecture is captured in [growth-ready central publishing](network-control-plane.md). This older standard describes possible future site format, **not** authorization to recreate deleted repositories or assume site-local Notion Secrets. Main currently publishes at most **3 approved articles/day** at 09:17, 15:17 and 21:17 KST (not one/day).
+
 
 **User-confirmed scope: standardize the publication system and article format, NOT site design.**
 
