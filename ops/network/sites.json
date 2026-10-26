@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "control_repository": "emfls/guidehollow",
+  "root_domain": "guidehollow.com",
+  "expansion_enabled": false,
+  "cross_repo_publishing_enabled": false,
+  "sites": [
+    {
+      "site_id": "gh-main",
+      "repository": "emfls/guidehollow",
+      "hostname": "guidehollow.com",
+      "state": "active",
+      "publication_enabled": true,
+      "publisher": "repo-local",
+      "daily_limit": 3,
+      "notion_site_page_id": "402db4c0-a991-81ed-a03d-d8b1c2247d76"
+    }
+  ]
+}

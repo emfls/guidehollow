@@ -1,0 +1,22 @@
+name: Future GuideHollow Network Readiness (read-only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    if: github.repository == 'emfls/guidehollow' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify network control-plane policy tests
+        run: python -m unittest discover -s tests -p 'test_network_control.py' -v
+      - name: Audit registered sites without using any secrets or external APIs
+        run: python scripts/network_control.py audit
+      - name: Keep satellite publishing disabled
+        run: |
+          echo 'No repositories, DNS records, tokens or Notion content were changed.'
+          echo 'Expansion and cross-repository publishing remain disabled.'
