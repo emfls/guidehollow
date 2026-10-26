@@ -19,7 +19,7 @@
 6. Only after a genuinely successful end-to-end release and no unresolved ledger records, set GitHub Actions repository variable `GUIDEHOLLOW_AUTO_PUBLISH=true`. Before then leave it unset or `false`. The cron is 00:17 UTC (09:17 KST) and GitHub may delay the job. The publisher enforces one article per Asia/Seoul calendar day using its own ledger.
 7. Check Actions and Notion state after the first scheduled release. Manually stop automatic publishing by setting `GUIDEHOLLOW_AUTO_PUBLISH=false`. The job is fail-closed; no unapproved items are generated or published.
 
-**Known follow-up hardening:** The current `finalize` path marks Notion `발행완료` but does not itself persist `state=published` with deployment SHA into the repository ledger. The prior stage records demonstrate the gap. Before step 5, implement an evidence-bound, idempotent ledger finalization and recovery path in a separate reviewed PR. The preflight block deliberately prevents new releases while this gap exists.
+**Finalization update:** The publishing workflow now checks a successful Pages run at the exact content commit SHA, verifies live title/body/canonical, finalizes the Notion page with commit URL, and pushes the finalized `published` ledger. If a final push fails, leave it blocked and reconcile; never force-push. The 3 historical staged rows remain unreconciled and require evidence-based manual handling before the next release.
 
 ## Post-pilot monitoring
 

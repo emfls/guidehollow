@@ -356,25 +356,52 @@ def stage():
 
 def finalize(page_id, url):
     verify_site_registry()
+    sha = os.getenv("PUBLISHED_COMMIT_SHA", "").strip()
+    if not re.fullmatch(r"[a-f0-9]{40}", sha):
+        raise ValueError("DEPLOYMENT_SHA_REQUIRED: a verified Pages deployment SHA is mandatory")
     if not url.startswith(SITE + "/") or not page_id:
         raise ValueError("Invalid finalization target")
     if not LEDGER.is_file():
         raise ValueError("Missing publication ledger")
-    records = [json.loads(x) for x in LEDGER.read_text().splitlines() if x.strip()]
-    matched = [x for x in records if x.get("page_id") == page_id and x.get("url") == url]
-    if len(matched) != 1:
+    rows = [json.loads(x) for x in LEDGER.read_text(encoding="utf-8").splitlines() if x.strip()]
+    match = [r for r in rows if r.get("site_id") == SITE_ID and r.get("page_id") == page_id and r.get("url") == url]
+    if len(match) != 1:
         raise ValueError("Ledger mismatch or duplicate")
-    req = Request(url + "?verify-notion-publication=1",headers={"Cache-Control": "no-cache"})
+    row = match[0]
+    if row.get("state") == "published" and row.get("commit") == sha:
+        return {"status": "ALREADY_PUBLISHED", "url": url}
+    if row.get("state") != "staged":
+        raise ValueError("Cannot finalize unexpected ledger state")
+    slug = urlsplit(url).path.rstrip("/").rsplit("/", 1)[-1]
+    source = ROOT / "src" / "content" / "articles" / (slug + ".md")
+    if (not source.is_file() or not row.get("title") or
+            'slug: "' + slug + '"' not in source.read_text(encoding="utf-8")):
+        raise ValueError("Article source does not match ledger")
+    detail = notion("GET", "/pages/" + page_id)["properties"]
+    relation = detail["배포 사이트"].get("relation", [])
+    if (len(relation) != 1 or relation[0]["id"] != SITE_PAGE or
+            not detail["검수승인"].get("checkbox") or
+            (detail["상태"].get("select") or {}).get("name") not in ("발행중", "발행완료") or
+            (detail["게시 URL"].get("url") or url) != url):
+        raise ValueError("Notion item approval/site/status changed")
+    req = Request(url + "?verify-notion-publication=1", headers={"Cache-Control": "no-cache"})
     with urlopen(req, timeout=20) as response:
-        page = response.read().decode("utf-8")
-        if response.status != 200 or html_escape(matched[0]["title"]) not in page:
-            raise ValueError("Public page does not contain the expected title")
+        body = response.read().decode("utf-8")
+        if (response.status != 200 or html_escape(row["title"]) not in body or
+                ('rel="canonical" href="' + url + '"') not in body or
+                '<article class="prose"' not in body or "Official sources" not in body):
+            raise ValueError("Public page title, canonical or body mismatch")
+    now = datetime.now(timezone.utc).isoformat()
     notion("PATCH", "/pages/" + page_id,
            {"properties": {"상태": {"select": {"name": "발행완료"}},
                            "게시 URL": {"url": url},
-                           "발행일시": {"date": {"start": datetime.now(timezone.utc).isoformat()}}}})
-    return {"status": "PUBLISHED", "url": url}
-
+                           "GitHub 커밋": {"url": "https://github.com/" + REPO + "/commit/" + sha},
+                           "발행일시": {"date": {"start": now}}}})
+    row.update({"state": "published", "commit": sha, "published_at": now})
+    temp = LEDGER.with_suffix(".jsonl.tmp")
+    temp.write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in rows), encoding="utf-8")
+    os.replace(temp, LEDGER)
+    return {"status": "PUBLISHED", "url": url, "commit": sha}
 
 def selftest():
     assert safe_inline([{"plain_text": "<hello>"}]) == "&lt;hello&gt;"

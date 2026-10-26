@@ -68,6 +68,7 @@ jobs:
           npm run build
 
       - name: Commit verified article to unprotected main (no force)
+        id: article_commit
         if: steps.stage.outputs.status == 'STAGED'
         env:
           ARTICLE_FILE: ${{ steps.stage.outputs.file }}
@@ -89,6 +90,7 @@ jobs:
             exit 1
           fi
           git push origin HEAD:refs/heads/main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Explicitly dispatch Pages deploy
         if: steps.stage.outputs.status == 'STAGED'
@@ -98,6 +100,25 @@ jobs:
           # GITHUB_TOKEN pushes do not reliably initiate push workflows. workflow_dispatch does.
           gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/dispatches" \
             -f ref=main
+
+      - name: Verify Pages deployment at exact source SHA
+        if: steps.stage.outputs.status == 'STAGED'
+        env:
+          ARTICLE_SHA: ${{ steps.article_commit.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$ARTICLE_SHA" =~ ^[a-f0-9]{40}$ ]] || exit 1
+          for n in $(seq 1 70); do
+            payload="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml --branch main --limit 40 --json headSha,conclusion,event)"
+            if jq -e --arg sha "$ARTICLE_SHA" '[.[] | select(.headSha == $sha and .event == "workflow_dispatch" and .conclusion == "success")] | length > 0' <<< "$payload" >/dev/null; then
+              echo "VERIFIED_PAGES_SHA=$ARTICLE_SHA"
+              exit 0
+            fi
+            sleep 12
+          done
+          echo "::error::No Pages success for exact article SHA."
+          exit 1
 
       - name: Verify real published URL
         if: steps.stage.outputs.status == 'STAGED'
@@ -132,8 +153,23 @@ jobs:
         env:
           NOTION_PAGE_ID: ${{ steps.stage.outputs.page_id }}
           PUBLIC_URL: ${{ steps.stage.outputs.url }}
+          PUBLISHED_COMMIT_SHA: ${{ steps.article_commit.outputs.sha }}
         run: |
           python scripts/notion_publish_daily.py finalize --page-id "$NOTION_PAGE_ID" --url "$PUBLIC_URL"
+
+      - name: Persist finalized publication ledger
+        if: steps.stage.outputs.status == 'STAGED'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -f data/guidehollow-publication-ledger.jsonl
+          git diff --cached --check
+          git commit -m "ledger: finalize exact deployed main article"
+          git fetch origin main
+          test "$(git rev-parse HEAD^)" = "$(git rev-parse origin/main)" || {
+            echo "::error::Main changed; manual reconciliation required."; exit 1;
+          }
+          git push origin HEAD:refs/heads/main
 
       - name: Summary
         if: always()
