@@ -121,24 +121,35 @@ class PublisherTests(unittest.TestCase):
         self.assertFalse(publisher.eligible(article))
 
     def test_approved_article_stages_once_per_kst_date(self):
-        with tempfile.TemporaryDirectory() as td:
-            home = Path(td)
-            (home / "src/content/articles").mkdir(parents=True)
-            with patch.object(publisher, "ROOT", home), \
-                 patch.object(publisher, "LEDGER", home/"data"/"guidehollow-publication-ledger.jsonl"), \
-                 patch.object(publisher, "verify_site_registry", return_value={}), \
-                 patch.object(publisher, "fetch_ready", return_value=[row()]), \
-                 patch.object(publisher, "markdown", return_value=("Word " * 600)), \
-                 patch.object(publisher, "notion", return_value={}):
-                first = publisher.stage()
-                with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"):
-                    publisher.stage()
-                self.assertEqual(first["status"], "STAGED")
-                self.assertEqual(first["slot"], "morning")
-                generated = home / first["file"]
-                self.assertTrue(generated.is_file())
-                self.assertIn("slug: \"extract-meeting-action-items-with-ai\"", generated.read_text())
-                self.assertEqual(len((home/"data/guidehollow-publication-ledger.jsonl").read_text().splitlines()), 1)
+        # The real scheduled job sets PUBLISH_SLOT in the job environment.
+        # Tests must not depend on the ambient event slot (09:17/15:17/21:17 KST).
+        for requested, expected in (("manual", "morning"), ("morning", "morning"),
+                                    ("afternoon", "afternoon"), ("evening", "evening")):
+            with self.subTest(requested=requested), tempfile.TemporaryDirectory() as td:
+                home = Path(td)
+                (home / "src/content/articles").mkdir(parents=True)
+                with (patch.object(publisher, "ROOT", home),
+                      patch.object(publisher, "LEDGER",
+                                   home/"data"/"guidehollow-publication-ledger.jsonl"),
+                      patch.object(publisher, "verify_site_registry", return_value={}),
+                      patch.object(publisher, "fetch_ready", return_value=[row()]),
+                      patch.object(publisher, "markdown", return_value=("Word " * 600)),
+                      patch.object(publisher, "notion", return_value={}),
+                      patch.dict("os.environ", {
+                          "PUBLISH_SLOT": requested,
+                          "GUIDEHOLLOW_VALIDATE_BUILD": "0",
+                      })):
+                    first = publisher.stage()
+                    with self.assertRaisesRegex(ValueError, "UNRECONCILED_LEDGER"):
+                        publisher.stage()
+                    self.assertEqual(first["status"], "STAGED")
+                    self.assertEqual(first["slot"], expected)
+                    generated = home / first["file"]
+                    self.assertTrue(generated.is_file())
+                    self.assertIn('slug: "extract-meeting-action-items-with-ai"',
+                                  generated.read_text())
+                    self.assertEqual(len((home/"data"/"guidehollow-publication-ledger.jsonl")
+                                         .read_text().splitlines()), 1)
 
     def test_preflight_reports_legacy_staged_records_without_changing_them(self):
         with tempfile.TemporaryDirectory() as td:

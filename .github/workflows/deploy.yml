@@ -22,6 +22,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Regression - tests are isolated from real scheduled publication slots
+        run: |
+          PUBLISH_SLOT=afternoon python -m unittest discover -s tests -p 'test_*.py' -q
+          PUBLISH_SLOT=evening python -m unittest discover -s tests -p 'test_*.py' -q
       - run: bash -n scripts/create-guidehollow-repos.sh
       - run: npm ci
       - run: npm test
