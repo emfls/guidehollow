@@ -31,6 +31,8 @@ PYTH
 plutil -lint "$PLIST"
 # Disable only the obsolete GuideHollow 09:30 / satellite job.
 launchctl bootout "gui/$(id -u)/com.guidehollow.scheduler" 2>/dev/null || true
+# Persistently suppress the old label, even if its plist lives outside LaunchAgents.
+launchctl disable "gui/$(id -u)/com.guidehollow.scheduler"
 OLD="$AGENTS/com.guidehollow.scheduler.plist"
 if [[ -f "$OLD" ]]; then
   mv "$OLD" "$BACKUP/com.guidehollow.scheduler.$(date +%Y%m%d%H%M%S).plist"
