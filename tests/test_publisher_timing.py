@@ -130,3 +130,29 @@ class TimingTests(unittest.TestCase):
         result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_notion_publisher.py','-q'],
                  cwd=Path(__file__).resolve().parents[1],env=env,capture_output=True,text=True,timeout=20)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+
+    def test_external_job_payloads_reuse_named_admission_without_live_dispatch(self):
+        import json
+        from unittest.mock import patch
+        templates=json.loads((Path(__file__).resolve().parents[1]/
+                             'docs/examples/cron-job-org-main.disabled.json').read_text())
+        for template in templates:
+            job=template['job']
+            slot=json.loads(job['extendedData']['body'])['inputs']['slot']
+            hour=job['schedule']['hours'][0]
+            env={'GITHUB_EVENT_NAME':'workflow_dispatch','PUBLISH_SLOT':slot,
+                 'PUBLISH_BOUND_MANUAL_SLOT':'true','GITHUB_RUN_ATTEMPT':'1',
+                 'PUBLISH_EXPECTED_DATE':'',
+                 'PUBLISH_RUN_CREATED_AT':f'2026-10-27T{hour:02}:17:00+09:00'}
+            with self.subTest(slot=slot), patch.dict('os.environ',env):
+                # Both the external trigger and GitHub backup share this date/slot identity.
+                for minute in (17,29,43):
+                    allowed=timing.context(datetime.fromisoformat(f'2026-10-27T{hour:02}:{minute:02}:00+09:00'))
+                    self.assertTrue(allowed['allowed'])
+                    self.assertEqual((allowed['kst_date'],allowed['slot']),('2026-10-27',slot))
+                self.assertTrue(timing.context(datetime.fromisoformat(f'2026-10-27T{hour+1:02}:17:00+09:00'))['allowed'])
+                self.assertFalse(timing.context(datetime.fromisoformat(f'2026-10-27T{hour+1:02}:17:01+09:00'))['allowed'])
+                # Creation evidence is kept even if GitHub queues for a whole day.
+                self.assertFalse(timing.context(datetime.fromisoformat(f'2026-10-28T{hour:02}:20:00+09:00'))['allowed'])
+                with patch.dict('os.environ',{'GITHUB_RUN_ATTEMPT':'2'}):
+                    self.assertFalse(timing.context(datetime.fromisoformat(f'2026-10-27T{hour:02}:20:00+09:00'))['allowed'])

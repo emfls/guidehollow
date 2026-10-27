@@ -45,3 +45,26 @@ test('publisher schedule is unchanged and monitor cannot publish or create dupli
   assert.equal(monitor.jobs.observe.steps.find(s=>s.uses?.startsWith('actions/checkout@')).with['persist-credentials'],false);
   assert(monitor.jobs.observe.steps.some(s=>s.run==='python scripts/publisher_monitor.py check > /tmp/publisher-monitor.json'));
 });
+
+test('external trigger templates stay disabled, secret-free and bound to existing named slots',()=>{
+  const templates=JSON.parse(readFileSync('docs/examples/cron-job-org-main.disabled.json','utf8'));
+  const publisher=parse(readFileSync('.github/workflows/notion-daily-publisher.yml','utf8'));
+  assert.equal(templates.length,3);
+  for (const [i,slot] of ['morning','afternoon','evening'].entries()) {
+    const job=templates[i].job;
+    assert.equal(job.enabled,false);
+    assert.equal(job.url,'https://api.github.com/repos/emfls/guidehollow/actions/workflows/notion-daily-publisher.yml/dispatches');
+    assert.equal(job.requestMethod,1); // cron-job.org POST
+    assert.equal(job.saveResponses,false);
+    assert.equal(job.redirectSuccess,false);
+    assert.equal(job.requestTimeout,30);
+    assert.deepEqual(job.schedule,{timezone:'Asia/Seoul',hours:[[9,15,21][i]],minutes:[17],mdays:[-1],months:[-1],wdays:[-1]});
+    assert.deepEqual(JSON.parse(job.extendedData.body),{ref:'main',inputs:{slot}});
+    assert(publisher.on.workflow_dispatch.inputs.slot.options.includes(slot));
+    assert.deepEqual(Object.keys(job.extendedData.headers).sort(),['Accept','Content-Type','X-GitHub-Api-Version']);
+  }
+  assert.equal(publisher.jobs.publish.env.PUBLISH_BOUND_MANUAL_SLOT,
+    "${{ github.event_name == 'workflow_dispatch' && inputs.slot != '' && inputs.slot != 'manual' }}");
+  assert(publisher.jobs.publish.steps.some(s=>s.run?.includes('PUBLISH_RUN_CREATED_AT=$created')));
+  assert(publisher.jobs.publish.steps.find(s=>s.id==='timing').run.includes('publisher_timing.py'));
+});
