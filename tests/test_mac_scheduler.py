@@ -36,7 +36,7 @@ class MacSchedulerTests(unittest.TestCase):
             r=[{'site_id':'gh-main','kst_date':'2026-10-27','slot':'morning','state':state}]
             self.assertNotEqual(mac.check_evidence(r,[],'evening',kst(21,17)),'CLEAR')
         runs=[{'event':'schedule','created_at':'2026-10-27T06:17:01Z'}]
-        self.assertEqual(mac.check_evidence([],runs,'afternoon',kst(15,18)),'PUBLISHER_ALREADY_TRIGGERED')
+        self.assertEqual(mac.check_evidence([],runs,'afternoon',kst(15,17)),'PUBLISHER_ALREADY_TRIGGERED')
 
     def test_outside_window_never_calls_gh(self):
         with patch.object(mac,'gh',side_effect=AssertionError('network')):
