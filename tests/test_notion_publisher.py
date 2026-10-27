@@ -41,7 +41,7 @@ def row(page_id="approved-page"):
 
 class PublisherTests(unittest.TestCase):
     def setUp(self):
-        isolated = patch.dict("os.environ", {"GITHUB_EVENT_NAME": "workflow_dispatch", "PUBLISH_EXPECTED_DATE": "", "GITHUB_RUN_ATTEMPT": "1", "PUBLISH_RUN_CREATED_AT": ""})
+        isolated = patch.dict("os.environ", {"GITHUB_EVENT_NAME": "workflow_dispatch", "PUBLISH_EXPECTED_DATE": "", "GITHUB_RUN_ATTEMPT": "1", "PUBLISH_RUN_CREATED_AT": "", "PUBLISH_BOUND_MANUAL_SLOT": "false"})
         isolated.start()
         self.addCleanup(isolated.stop)
 

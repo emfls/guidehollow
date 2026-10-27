@@ -126,6 +126,7 @@ class TimingTests(unittest.TestCase):
         import os, subprocess, sys
         env={**os.environ,'GITHUB_EVENT_NAME':'schedule','GITHUB_RUN_ATTEMPT':'2',
              'PUBLISH_RUN_CREATED_AT':'2020-01-01T12:17:00Z','PUBLISH_EXPECTED_DATE':'2020-01-01',
+             'PUBLISH_BOUND_MANUAL_SLOT':'true',
              'PUBLISH_SCHEDULE':'17 12 * * *','PUBLISH_SLOT':'evening'}
         result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_notion_publisher.py','-q'],
                  cwd=Path(__file__).resolve().parents[1],env=env,capture_output=True,text=True,timeout=20)
