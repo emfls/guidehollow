@@ -12,6 +12,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
+from publisher_timing import context as publication_context
 from datetime import timezone
 from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
@@ -487,8 +488,11 @@ def verify_candidate_build(destination):
 
 
 def stage():
+    admission = publication_context()
+    if not admission["allowed"]:
+        return admission
+    today = admission["kst_date"]
     verify_site_registry()
-    today = datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
     history = []
     if LEDGER.exists():
         history = [json.loads(x) for x in LEDGER.read_text(encoding="utf-8").splitlines() if x.strip()]
@@ -522,6 +526,11 @@ def stage():
             destination.write_text(candidate["text"], encoding="utf-8")
             written = True
             verify_candidate_build(destination)
+            current = publication_context()
+            if not current["allowed"] or current["kst_date"] != today:
+                destination.unlink(missing_ok=True)
+                return {**current, "allowed": False,
+                        "status": current["status"] if not current["allowed"] else "SKIPPED_DATE_CHANGED"}
         except ArticleValidationError as exc:
             if written and destination is not None:
                 destination.unlink(missing_ok=True)
@@ -547,7 +556,7 @@ def stage():
         return {
             "status": "STAGED", "file": str(destination.relative_to(ROOT)),
             "url": candidate["url"], "title": candidate["title"], "page_id": row["id"],
-            "slot": slot, "failed_before_selection": failures,
+            "slot": slot, "kst_date": today, "failed_before_selection": failures,
         }
     return {"status": "QUEUE_EMPTY" if failures == 0 else "ALL_CANDIDATES_FAILED",
             "failed": failures, "deferred": deferred, "slot": slot}

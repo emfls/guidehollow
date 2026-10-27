@@ -1,0 +1,23 @@
+{
+  "id": 40379949004,
+  "event": "schedule",
+  "head_sha": "6738d1bd7bcb6467f70018eab14c2ee2d8e92c86",
+  "run_attempt": 1,
+  "created_at": "2026-10-26T18:41:21Z",
+  "run_started_at": "2026-10-26T18:41:21Z",
+  "updated_at": "2026-10-26T18:41:32Z",
+  "conclusion": "failure",
+  "html_url": "https://github.com/emfls/guidehollow/actions/runs/40379949004",
+  "slot_from_logs": "evening",
+  "nominal_occurrence_inferred": "2026-10-26T21:17:00+09:00",
+  "actual_run_start_kst": "2026-10-27T03:41:21+09:00",
+  "nominal_delay_seconds": 23061,
+  "provider_original_scheduled_timestamp_available": false,
+  "failed_test": "test_approved_article_stages_once_per_kst_date",
+  "assertion": "evening != morning",
+  "publication_stage_reached": false,
+  "fixed_main": "e3644e10fac1bf7622a2a5fb07121eba54e4d0ae",
+  "fixed_main_deployment_run": 40422021278,
+  "fixed_main_deploy_finished": "2026-10-26T23:47:18Z",
+  "pages_environment_deployment_id": 7346447543
+}
