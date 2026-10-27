@@ -3,10 +3,12 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import json
+import sys
 import unittest
 from unittest.mock import patch
 
 FILE = Path(__file__).resolve().parents[1] / "scripts/notion_publish_daily.py"
+sys.path.insert(0, str(FILE.parent))
 spec = importlib.util.spec_from_file_location("notion_daily_publisher", FILE)
 publisher = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(publisher)
@@ -38,6 +40,37 @@ def row(page_id="approved-page"):
 
 
 class PublisherTests(unittest.TestCase):
+    def setUp(self):
+        isolated = patch.dict("os.environ", {"GITHUB_EVENT_NAME": "workflow_dispatch", "PUBLISH_EXPECTED_DATE": "", "GITHUB_RUN_ATTEMPT": "1", "PUBLISH_RUN_CREATED_AT": ""})
+        isolated.start()
+        self.addCleanup(isolated.stop)
+
+    def test_expired_admission_never_reads_notion_or_queue(self):
+        with (patch.object(publisher, "publication_context", return_value={"allowed": False, "status": "SKIPPED_LATE_SCHEDULE", "kst_date": "2026-10-26", "slot": "evening"}),
+              patch.object(publisher, "verify_site_registry") as registry,
+              patch.object(publisher, "fetch_ready") as queue):
+            self.assertEqual(publisher.stage()["status"], "SKIPPED_LATE_SCHEDULE")
+            registry.assert_not_called()
+            queue.assert_not_called()
+
+    def test_admission_expiring_during_build_does_not_stage_or_patch(self):
+        from publisher_timing import context
+        admitted=context()
+        expired={**admitted,"allowed":False,"status":"SKIPPED_DATE_CHANGED"}
+        with tempfile.TemporaryDirectory() as td:
+            home=Path(td);(home/"src/content/articles").mkdir(parents=True)
+            with (patch.object(publisher,"ROOT",home),patch.object(publisher,"LEDGER",home/"ledger.jsonl"),
+                  patch.object(publisher,"publication_context",side_effect=[admitted,expired]),
+                  patch.object(publisher,"verify_site_registry",return_value={}),
+                  patch.object(publisher,"fetch_ready",return_value=[row()]),
+                  patch.object(publisher,"markdown",return_value="Word "*600),
+                  patch.object(publisher,"verify_candidate_build",return_value=None),
+                  patch.object(publisher,"notion") as api):
+                self.assertEqual(publisher.stage()["status"],"SKIPPED_DATE_CHANGED")
+                api.assert_not_called()
+                self.assertFalse((home/"ledger.jsonl").exists())
+                self.assertEqual(list((home/"src/content/articles").iterdir()),[])
+
     def test_adjacent_bold_code_spans_render_as_one_markdown_run(self):
         items = [
             {"plain_text": "Use ", "annotations": {"bold": True}},

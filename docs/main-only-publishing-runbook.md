@@ -63,3 +63,7 @@ gh workflow run notion-daily-publisher.yml --repo emfls/guidehollow --ref main
 Check GitHub Actions, the Notion `상태` and `오류`, commit and exact deployed SHA, and the repository `data/guidehollow-publication-ledger.jsonl`. The daily capacity is a **maximum, not a promise**: without enough genuinely reviewed and due articles the job emits `QUEUE_EMPTY`; it never invents or publishes unapproved content. Ad serving remains separately disabled pending consent/ad readiness.
 
 Legacy rows dated 2026-10-23 to 2026-10-25 were previously reconciled in a verified manual-only workflow; the main 2026-10-26 JSON tutorial passed the full real Notion→Pages→ledger E2E.
+
+## Scheduled admission and read-only SRE observation
+
+The original three cron times and 3/day limit remain unchanged. Scheduled admission expires 60 minutes after the nominal occurrence and never rolls into another KST date. Existing run retries require evidence review and a new explicit dispatch. The guard runs before Notion selection, after candidate validation, and immediately before the article push. See [the SRE runbook](./publisher-operations-runbook.ko.md) for precise metadata limitations, Actions Summary monitoring, native email settings, and manual recovery without resetting publication records.

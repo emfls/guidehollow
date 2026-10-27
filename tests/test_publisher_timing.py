@@ -1,0 +1,71 @@
+"""Admission policy tests: no live Notion/GitHub calls."""
+import importlib.util
+from datetime import datetime
+from pathlib import Path
+import unittest
+
+spec = importlib.util.spec_from_file_location('timing', Path(__file__).resolve().parents[1]/'scripts/publisher_timing.py')
+timing = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(timing)
+
+class TimingTests(unittest.TestCase):
+    def check(self, created, now, slot='evening', attempt=1):
+        return timing.evaluate('schedule', slot, created, datetime.fromisoformat(now), attempt)
+
+    def test_on_time_and_hour_boundary(self):
+        self.assertTrue(self.check('2026-10-26T12:17:00Z','2026-10-26T22:17:00+09:00')['allowed'])
+        self.assertFalse(self.check('2026-10-26T12:17:00Z','2026-10-26T22:17:01+09:00')['allowed'])
+
+    def test_incident_cross_midnight_cannot_use_next_day_slot(self):
+        result=self.check('2026-10-26T18:41:21Z','2026-10-27T03:41:28+09:00')
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['kst_date'],'2026-10-26')
+        self.assertEqual(result['delay_seconds'],23068)
+
+    def test_runner_wait_crosses_date_and_new_day_window(self):
+        result=self.check('2026-10-26T12:17:00Z','2026-10-27T21:20:00+09:00')
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['kst_date'],'2026-10-26')
+
+    def test_future_creation_and_missing_evidence_fail_closed(self):
+        for created in ('', 'invalid', '2026-10-26T12:17:00', '2026-10-27T12:17:00Z'):
+            with self.subTest(created=created):
+                with self.assertRaises(ValueError):
+                    self.check(created,'2026-10-26T21:20:00+09:00')
+
+    def test_scheduled_retry_requires_review_even_inside_window(self):
+        self.assertEqual(self.check('2026-10-26T12:17:00Z','2026-10-26T21:20:00+09:00',attempt=2)['status'],'SKIPPED_SCHEDULE_RETRY')
+
+    def test_all_three_slot_times_and_manual_dispatch(self):
+        for slot, hour in [('morning',0),('afternoon',6),('evening',12)]:
+            result=self.check(f'2026-10-26T{hour:02}:17:00Z',f'2026-10-26T{hour+9:02}:20:00+09:00',slot)
+            self.assertTrue(result['allowed'])
+            self.assertEqual(result['slot'],slot)
+        self.assertTrue(timing.evaluate('workflow_dispatch','manual','',datetime.fromisoformat('2026-10-27T02:00:00+09:00'),1)['allowed'])
+
+    def test_manual_rerun_is_not_a_new_publication_authorization(self):
+        result=timing.evaluate('workflow_dispatch','manual','',datetime.fromisoformat('2026-10-27T02:00:00+09:00'),2)
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['status'],'SKIPPED_RUN_RETRY')
+
+    def test_manual_date_binding_survives_midnight(self):
+        from unittest.mock import patch
+        with patch.dict('os.environ',{'GITHUB_EVENT_NAME':'workflow_dispatch','PUBLISH_SLOT':'manual',
+                                     'GITHUB_RUN_ATTEMPT':'1','PUBLISH_RUN_CREATED_AT':'','PUBLISH_EXPECTED_DATE':'2026-10-26'}):
+            result=timing.context(datetime.fromisoformat('2026-10-27T00:01:00+09:00'))
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['kst_date'],'2026-10-26')
+
+    def test_manual_run_queued_across_midnight_keeps_original_date(self):
+        result=timing.evaluate('workflow_dispatch','manual','2026-10-26T14:50:00Z',datetime.fromisoformat('2026-10-27T00:05:00+09:00'),1)
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['kst_date'],'2026-10-26')
+
+    def test_publisher_suite_isolated_from_real_schedule_timestamps(self):
+        import os, subprocess, sys
+        env={**os.environ,'GITHUB_EVENT_NAME':'schedule','GITHUB_RUN_ATTEMPT':'2',
+             'PUBLISH_RUN_CREATED_AT':'2020-01-01T12:17:00Z','PUBLISH_EXPECTED_DATE':'2020-01-01',
+             'PUBLISH_SCHEDULE':'17 12 * * *','PUBLISH_SLOT':'evening'}
+        result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-p','test_notion_publisher.py','-q'],
+                 cwd=Path(__file__).resolve().parents[1],env=env,capture_output=True,text=True,timeout=20)
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)

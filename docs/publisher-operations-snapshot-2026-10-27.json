@@ -1,0 +1,84 @@
+{
+  "now": "2026-10-27T09:08:51.918334+09:00",
+  "automation": {
+    "enabled": true,
+    "since": "2026-10-26T12:39:09Z"
+  },
+  "ledger": [
+    {
+      "site_id": "gh-main",
+      "kst_date": "2026-10-23",
+      "page_id": "402db4c0-a991-8135-862e-f0b5f64af741",
+      "title": "How to Extract Meeting Action Items with AI Without Inventing Deadlines",
+      "url": "https://guidehollow.com/guides/extract-meeting-action-items-with-ai/",
+      "state": "published",
+      "legacy_reconciled_at": "2026-10-26T11:38:45.512800+00:00",
+      "verified_deployment_sha": "e40b9f6f446143e6fbddeeaec600be407e8b5886",
+      "reconciliation_note": "Verified existing Notion completion and live page; original publication commit was not inferred"
+    },
+    {
+      "site_id": "gh-main",
+      "kst_date": "2026-10-24",
+      "page_id": "402db4c0-a991-8133-80ab-c35b7779114d",
+      "title": "How to Spot Prompt Injection in Documents and Web Pages",
+      "url": "https://guidehollow.com/guides/spot-prompt-injection-in-documents/",
+      "state": "published",
+      "legacy_reconciled_at": "2026-10-26T11:38:45.512800+00:00",
+      "verified_deployment_sha": "e40b9f6f446143e6fbddeeaec600be407e8b5886",
+      "reconciliation_note": "Verified existing Notion completion and live page; original publication commit was not inferred"
+    },
+    {
+      "site_id": "gh-main",
+      "kst_date": "2026-10-25",
+      "page_id": "402db4c0-a991-81fb-b2d5-d87e989315b1",
+      "title": "How to Test AI Prompts with a Small Evaluation Dataset",
+      "url": "https://guidehollow.com/prompts/test-ai-prompts-with-evaluation-dataset/",
+      "state": "published",
+      "legacy_reconciled_at": "2026-10-26T11:38:45.512800+00:00",
+      "verified_deployment_sha": "e40b9f6f446143e6fbddeeaec600be407e8b5886",
+      "reconciliation_note": "Verified existing Notion completion and live page; original publication commit was not inferred"
+    },
+    {
+      "site_id": "gh-main",
+      "kst_date": "2026-10-26",
+      "page_id": "405db4c0-a991-81bf-b0ea-f6e921391c6c",
+      "title": "How to Get AI to Output Valid JSON Without Inventing Missing Data",
+      "url": "https://guidehollow.com/guides/ai-valid-json-without-inventing-data/",
+      "state": "published",
+      "commit": "00f0ed997b36da64a9c660c3f196e81a4e21ac80",
+      "published_at": "2026-10-26T11:51:05.117143+00:00"
+    }
+  ],
+  "runs": [
+    {
+      "id": 40379949004,
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-26T18:41:21Z",
+      "run_started_at": "2026-10-26T18:41:21Z",
+      "run_attempt": 1,
+      "head_sha": "6738d1bd7bcb6467f70018eab14c2ee2d8e92c86",
+      "html_url": "https://github.com/emfls/guidehollow/actions/runs/40379949004",
+      "receipt": null,
+      "failed_steps": [
+        "Run isolated publisher self-test"
+      ]
+    }
+  ],
+  "notion": {},
+  "notion_complete_scan": false,
+  "pages": {
+    "sha": "e3644e10fac1bf7622a2a5fb07121eba54e4d0ae",
+    "state": "success",
+    "run_verified": true,
+    "deployment_id": 7346447543
+  },
+  "ancestry": {
+    "e40b9f6f446143e6fbddeeaec600be407e8b5886": true,
+    "00f0ed997b36da64a9c660c3f196e81a4e21ac80": true
+  },
+  "errors": [
+    "NOTION_TOKEN_UNAVAILABLE"
+  ]
+}

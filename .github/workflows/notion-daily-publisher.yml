@@ -28,6 +28,7 @@ jobs:
       TZ: Asia/Seoul
       NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
       GH_TOKEN: ${{ github.token }}
+      PUBLISH_SCHEDULE: ${{ github.event.schedule }}
       # Manual runs consume the earliest unoccupied daily slot (and count toward 3/day).
       PUBLISH_SLOT: ${{ github.event.schedule == '17 0 * * *' && 'morning' || github.event.schedule == '17 6 * * *' && 'afternoon' || github.event.schedule == '17 12 * * *' && 'evening' || 'manual' }}
     steps:
@@ -45,12 +46,25 @@ jobs:
           node-version: '24'
           cache: npm
 
+      - name: Read original run creation time (never use rerun start time)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "PUBLISH_EXECUTION_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          created="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"
+          echo "PUBLISH_RUN_CREATED_AT=$created" >> "$GITHUB_ENV"
+
+      - name: Check scheduled publication admission
+        id: timing
+        run: python scripts/publisher_timing.py
+
       - name: Run isolated publisher self-test
         run: |
           python scripts/notion_publish_daily.py selftest
           python -m unittest discover -s tests -p 'test_*.py' -v
 
       - name: Verify baseline site quality before selecting any Notion article
+        if: steps.timing.outputs.allowed == 'true'
         run: |
           npm ci
           npm test
@@ -59,6 +73,7 @@ jobs:
 
       - name: Select first valid due article and quarantine invalid drafts
         id: stage
+        if: steps.timing.outputs.allowed == 'true'
         env:
           GUIDEHOLLOW_VALIDATE_BUILD: '1'
         shell: bash
@@ -104,6 +119,8 @@ jobs:
             echo "::error::Main advanced while publishing; stopping safely without force-push."
             exit 1
           fi
+          # A run delayed during tests/build/fetch must not push into another date/window.
+          python scripts/publisher_timing.py --require-allowed
           git push origin HEAD:refs/heads/main
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
@@ -173,18 +190,23 @@ jobs:
           }
           git push origin HEAD:refs/heads/main
 
-      - name: Summary
+      - name: Persist operational outcome and Actions Summary
         if: always()
-        shell: bash
-        run: |
-          if [ -f /tmp/notion-result.json ]; then cat /tmp/notion-result.json; fi
-          echo "Invalid reviewed drafts are marked Notion 실패 + 오류; a corrected draft must be manually returned to 발행대기."
-          echo "Infrastructure or post-commit uncertainty stops the release to avoid duplicate public articles."
-          echo "No-queue, used-slot, or all-failed runs are not publications."
+        env:
+          PUBLISH_JOB_STATUS: ${{ job.status }}
+          ARTICLE_SHA: ${{ steps.article_commit.outputs.sha }}
+        run: python scripts/publisher_monitor.py receipt
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: notion-daily-publish-${{ github.run_id }}
+          name: publisher-observation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/publisher-observation.json
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notion-daily-publish-${{ github.run_id }}-${{ github.run_attempt }}
           path: /tmp/notion-result.json
           if-no-files-found: ignore

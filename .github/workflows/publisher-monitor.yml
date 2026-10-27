@@ -1,0 +1,46 @@
+name: GuideHollow publisher operations monitor (read-only)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_run:
+    workflows: [Notion daily GuideHollow publisher]
+    types: [completed]
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+concurrency:
+  group: guidehollow-publisher-monitor
+  cancel-in-progress: false
+jobs:
+  observe:
+    if: >-
+      github.repository == 'emfls/guidehollow' && github.ref == 'refs/heads/main' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == 'emfls/guidehollow'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AUTO_PUBLISH_ENABLED: ${{ vars.GUIDEHOLLOW_AUTO_PUBLISH }}
+      MONITOR_SINCE: ${{ vars.GUIDEHOLLOW_MONITOR_SINCE }}
+      GH_TOKEN: ${{ github.token }}
+      NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare slots, receipts, Notion, ledger and Pages evidence
+        run: python scripts/publisher_monitor.py check > /tmp/publisher-monitor.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publisher-monitor-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/publisher-monitor.json
+          if-no-files-found: error
