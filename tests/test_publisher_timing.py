@@ -61,6 +61,22 @@ class TimingTests(unittest.TestCase):
         self.assertFalse(result['allowed'])
         self.assertEqual(result['kst_date'],'2026-10-26')
 
+    def test_explicit_mac_slots_are_bound_to_created_at_and_the_60_minute_window(self):
+        dt = datetime.fromisoformat
+        for slot, hour in (('morning',9),('afternoon',15),('evening',21)):
+            created=f'2026-10-27T{hour:02}:17:15+09:00'
+            self.assertTrue(timing.evaluate('workflow_dispatch',slot,created,
+                dt(f'2026-10-27T{hour:02}:20:00+09:00'),1,True)['allowed'])
+            self.assertFalse(timing.evaluate('workflow_dispatch',slot,created,
+                dt(f'2026-10-27T{hour+1:02}:17:01+09:00'),1,True)['allowed'])
+            self.assertFalse(timing.evaluate('workflow_dispatch',slot,
+                f'2026-10-27T{hour-1:02}:59:00+09:00',
+                dt(f'2026-10-27T{hour:02}:20:00+09:00'),1,True)['allowed'])
+            self.assertFalse(timing.evaluate('workflow_dispatch',slot,created,
+                dt(f'2026-10-27T{hour:02}:20:00+09:00'),2,True)['allowed'])
+        with self.assertRaises(ValueError):
+            timing.evaluate('workflow_dispatch','manual','',dt('2026-10-27T09:20:00+09:00'),1,True)
+
     def test_publisher_suite_isolated_from_real_schedule_timestamps(self):
         import os, subprocess, sys
         env={**os.environ,'GITHUB_EVENT_NAME':'schedule','GITHUB_RUN_ATTEMPT':'2',

@@ -20,7 +20,7 @@ def timestamp(value):
     return parsed.astimezone(KST)
 
 
-def evaluate(event, slot, created_at, now, attempt=1):
+def evaluate(event, slot, created_at, now, attempt=1, bound_manual=False):
     if now.tzinfo is None:
         raise ValueError('TIMING_EVIDENCE_REQUIRED: current timezone missing')
     now = now.astimezone(KST)
@@ -32,7 +32,12 @@ def evaluate(event, slot, created_at, now, attempt=1):
                 raise ValueError('TIMING_EVIDENCE_REQUIRED: run creation is in the future')
             date = created.date()
         allowed = attempt == 1 and date == now.date()
-        return {'allowed': allowed, 'status': ('MANUAL' if allowed else
+        if bound_manual:
+            if slot not in SLOT_HOURS or not created_at:
+                raise ValueError('TIMING_EVIDENCE_REQUIRED: bound manual slot and creation time required')
+            due = created.replace(hour=SLOT_HOURS[slot], minute=17, second=0, microsecond=0)
+            allowed = allowed and due <= created <= now <= due + MAX_DELAY
+        return {'allowed': allowed, 'status': (('BOUND_MANUAL' if bound_manual else 'MANUAL') if allowed else
                 'SKIPPED_RUN_RETRY' if attempt > 1 else 'SKIPPED_DATE_CHANGED'),
                 'kst_date': date.isoformat(), 'slot': slot}
     if slot not in SLOT_HOURS or not isinstance(attempt, int) or attempt < 1:
@@ -58,7 +63,8 @@ def context(now=None):
     if event == 'schedule' and CRON_SLOTS.get(os.getenv('PUBLISH_SCHEDULE')) != slot:
         raise ValueError('TIMING_EVIDENCE_REQUIRED: cron and slot disagree')
     result = evaluate(event, slot, os.getenv('PUBLISH_RUN_CREATED_AT', ''),
-                      now or datetime.now(KST), int(os.getenv('GITHUB_RUN_ATTEMPT', '1')))
+                      now or datetime.now(KST), int(os.getenv('GITHUB_RUN_ATTEMPT', '1')),
+                      os.getenv('PUBLISH_BOUND_MANUAL_SLOT', 'false').lower() == 'true')
     expected = os.getenv('PUBLISH_EXPECTED_DATE')
     if expected and result['kst_date'] != expected:
         result.update(allowed=False, status='SKIPPED_DATE_CHANGED', observed_kst_date=result['kst_date'], kst_date=expected)

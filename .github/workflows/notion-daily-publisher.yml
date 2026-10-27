@@ -1,6 +1,17 @@
 name: Notion daily GuideHollow publisher
 on:
   workflow_dispatch:
+    inputs:
+      slot:
+        description: "Manual: next free. Named: exact slot bound to its 60-minute window."
+        type: choice
+        required: false
+        default: manual
+        options:
+          - manual
+          - morning
+          - afternoon
+          - evening
   # 09:17 / 15:17 / 21:17 Asia/Seoul. The repository variable is the kill switch.
   schedule:
     - cron: '17 0 * * *'
@@ -29,8 +40,9 @@ jobs:
       NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
       GH_TOKEN: ${{ github.token }}
       PUBLISH_SCHEDULE: ${{ github.event.schedule }}
+      PUBLISH_BOUND_MANUAL_SLOT: ${{ github.event_name == 'workflow_dispatch' && inputs.slot != '' && inputs.slot != 'manual' }}
       # Manual runs consume the earliest unoccupied daily slot (and count toward 3/day).
-      PUBLISH_SLOT: ${{ github.event.schedule == '17 0 * * *' && 'morning' || github.event.schedule == '17 6 * * *' && 'afternoon' || github.event.schedule == '17 12 * * *' && 'evening' || 'manual' }}
+      PUBLISH_SLOT: ${{ (github.event_name == 'workflow_dispatch' && inputs.slot) || github.event.schedule == '17 0 * * *' && 'morning' || github.event.schedule == '17 6 * * *' && 'afternoon' || github.event.schedule == '17 12 * * *' && 'evening' || 'manual' }}
     steps:
       - uses: actions/checkout@v4
         with:
