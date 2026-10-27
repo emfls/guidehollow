@@ -43,6 +43,51 @@ class TimingTests(unittest.TestCase):
             self.assertEqual(result['slot'],slot)
         self.assertTrue(timing.evaluate('workflow_dispatch','manual','',datetime.fromisoformat('2026-10-27T02:00:00+09:00'),1)['allowed'])
 
+    def test_backup_crons_all_bind_to_same_three_slots_without_new_publications(self):
+        from unittest.mock import patch
+        for slot, utc_hour in (('morning', 0), ('afternoon', 6), ('evening', 12)):
+            for minute in (17, 29, 43):
+                cron = f'{minute} {utc_hour} * * *'
+                with self.subTest(cron=cron):
+                    self.assertEqual(timing.CRON_SLOTS[cron], slot)
+                    created = f'2026-10-27T{utc_hour:02}:{minute:02}:10Z'
+                    now = datetime.fromisoformat(
+                        f'2026-10-27T{utc_hour+9:02}:{minute+1:02}:00+09:00')
+                    with patch.dict('os.environ', {
+                        'GITHUB_EVENT_NAME': 'schedule',
+                        'PUBLISH_SCHEDULE': cron,
+                        'PUBLISH_SLOT': slot,
+                        'PUBLISH_RUN_CREATED_AT': created,
+                        'GITHUB_RUN_ATTEMPT': '1',
+                        'PUBLISH_BOUND_MANUAL_SLOT': 'false',
+                    }):
+                        admission = timing.context(now)
+                        self.assertTrue(admission['allowed'], admission)
+                        self.assertEqual(admission['slot'], slot)
+                        self.assertEqual(admission['scheduled_at'],
+                                         f'2026-10-27T{utc_hour+9:02}:17:00+09:00')
+                        # Multiple matching events use the original :17 release identity.
+                        self.assertEqual(admission['kst_date'], '2026-10-27')
+                        with patch.dict('os.environ', {'PUBLISH_SLOT': 'evening' if slot != 'evening' else 'morning'}):
+                            with self.assertRaisesRegex(ValueError, 'TIMING_EVIDENCE_REQUIRED'):
+                                timing.context(now)
+
+    def test_delayed_backup_cannot_use_next_day_even_if_created_late(self):
+        from unittest.mock import patch
+        for minute in (29, 43):
+            cron = f'{minute} 12 * * *'
+            with self.subTest(cron=cron):
+                with patch.dict('os.environ', {
+                    'GITHUB_EVENT_NAME': 'schedule', 'PUBLISH_SCHEDULE': cron,
+                    'PUBLISH_SLOT': 'evening',
+                    'PUBLISH_RUN_CREATED_AT': f'2026-10-27T18:{minute:02}:01Z',
+                    'GITHUB_RUN_ATTEMPT': '1'
+                }):
+                    result = timing.context(datetime.fromisoformat('2026-10-28T03:45:00+09:00'))
+                    self.assertFalse(result['allowed'])
+                    self.assertEqual(result['kst_date'], '2026-10-27')
+                    self.assertEqual(result['status'], 'SKIPPED_LATE_SCHEDULE')
+
     def test_manual_rerun_is_not_a_new_publication_authorization(self):
         result=timing.evaluate('workflow_dispatch','manual','',datetime.fromisoformat('2026-10-27T02:00:00+09:00'),2)
         self.assertFalse(result['allowed'])

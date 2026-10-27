@@ -19,7 +19,19 @@ test('queued publishers read the latest main ledger and serialize with reconcili
 
 test('publisher schedule is unchanged and monitor cannot publish or create duplicate Issues',()=>{
   const publisher=parse(readFileSync('.github/workflows/notion-daily-publisher.yml','utf8'));
-  assert.deepEqual(publisher.on.schedule.map(s=>s.cron),['17 0 * * *','17 6 * * *','17 12 * * *']);
+  assert.deepEqual(publisher.on.schedule.map(s=>s.cron),[
+    '17 0 * * *','29 0 * * *','43 0 * * *',
+    '17 6 * * *','29 6 * * *','43 6 * * *',
+    '17 12 * * *','29 12 * * *','43 12 * * *'
+  ]);
+  const slotExpr=publisher.jobs.publish.env.PUBLISH_SLOT;
+  for (const [hour,slot] of [['0','morning'],['6','afternoon'],['12','evening']]) {
+    for (const minute of [17,29,43]) {
+      assert(slotExpr.includes(`'${minute} ${hour} * * *'`),`Missing ${slot} fallback cron ${minute}:${hour}`);
+    }
+  }
+  assert.equal(publisher.concurrency.group,'guidehollow-notion-daily-publisher');
+  assert.equal(publisher.concurrency['cancel-in-progress'],false);
   const steps=publisher.jobs.publish.steps;
   const stage=steps.find(s=>s.id==='stage');
   assert.equal(stage.if,"steps.timing.outputs.allowed == 'true'");

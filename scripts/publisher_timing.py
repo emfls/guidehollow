@@ -9,7 +9,13 @@ from zoneinfo import ZoneInfo
 
 KST = ZoneInfo('Asia/Seoul')
 SLOT_HOURS = {'morning': 9, 'afternoon': 15, 'evening': 21}
-CRON_SLOTS = {'17 0 * * *': 'morning', '17 6 * * *': 'afternoon', '17 12 * * *': 'evening'}
+# Additional cron events are alternate opportunities for the SAME nominal KST slot;
+# they must not invent new daily slots or rebind an expired previous-day event.
+CRON_SLOTS = {
+    f'{minute} {hour} * * *': slot
+    for slot, hour in (('morning', 0), ('afternoon', 6), ('evening', 12))
+    for minute in (17, 29, 43)
+}
 MAX_DELAY = timedelta(minutes=60)
 
 

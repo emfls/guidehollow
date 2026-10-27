@@ -12,11 +12,19 @@ on:
           - morning
           - afternoon
           - evening
-  # 09:17 / 15:17 / 21:17 Asia/Seoul. The repository variable is the kill switch.
+  # Primary at :17 plus in-window backup opportunities at :29 and :43.
+  # GitHub may delay/drop any scheduled run. All 9 crons share one serialized publisher
+  # and the 60-minute KST admission + 3/day + append-only ledger guards.
   schedule:
     - cron: '17 0 * * *'
+    - cron: '29 0 * * *'
+    - cron: '43 0 * * *'
     - cron: '17 6 * * *'
+    - cron: '29 6 * * *'
+    - cron: '43 6 * * *'
     - cron: '17 12 * * *'
+    - cron: '29 12 * * *'
+    - cron: '43 12 * * *'
 
 permissions:
   contents: write
@@ -42,7 +50,7 @@ jobs:
       PUBLISH_SCHEDULE: ${{ github.event.schedule }}
       PUBLISH_BOUND_MANUAL_SLOT: ${{ github.event_name == 'workflow_dispatch' && inputs.slot != '' && inputs.slot != 'manual' }}
       # Manual runs consume the earliest unoccupied daily slot (and count toward 3/day).
-      PUBLISH_SLOT: ${{ (github.event_name == 'workflow_dispatch' && inputs.slot) || github.event.schedule == '17 0 * * *' && 'morning' || github.event.schedule == '17 6 * * *' && 'afternoon' || github.event.schedule == '17 12 * * *' && 'evening' || 'manual' }}
+      PUBLISH_SLOT: ${{ (github.event_name == 'workflow_dispatch' && inputs.slot) || (github.event.schedule == '17 0 * * *' || github.event.schedule == '29 0 * * *' || github.event.schedule == '43 0 * * *') && 'morning' || (github.event.schedule == '17 6 * * *' || github.event.schedule == '29 6 * * *' || github.event.schedule == '43 6 * * *') && 'afternoon' || (github.event.schedule == '17 12 * * *' || github.event.schedule == '29 12 * * *' || github.event.schedule == '43 12 * * *') && 'evening' || 'manual' }}
     steps:
       - uses: actions/checkout@v4
         with:
