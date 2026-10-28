@@ -9,6 +9,22 @@ timing = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(timing)
 
 class TimingTests(unittest.TestCase):
+    def setUp(self):
+        # A publisher workflow first exports the live slot/date into GITHUB_ENV.
+        # Historical offline cases must never inherit those production bindings.
+        from unittest.mock import patch
+        isolated = patch.dict('os.environ', {
+            'GITHUB_EVENT_NAME': 'workflow_dispatch',
+            'GITHUB_RUN_ATTEMPT': '1',
+            'PUBLISH_SLOT': 'manual',
+            'PUBLISH_SCHEDULE': '',
+            'PUBLISH_RUN_CREATED_AT': '',
+            'PUBLISH_EXPECTED_DATE': '',
+            'PUBLISH_BOUND_MANUAL_SLOT': 'false',
+        })
+        isolated.start()
+        self.addCleanup(isolated.stop)
+
     def check(self, created, now, slot='evening', attempt=1):
         return timing.evaluate('schedule', slot, created, datetime.fromisoformat(now), attempt)
 
