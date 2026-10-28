@@ -81,7 +81,13 @@ jobs:
       - name: Run isolated publisher self-test
         run: |
           python scripts/notion_publish_daily.py selftest
-          python -m unittest discover -s tests -p 'test_*.py' -v
+          # Run offline tests without inheriting the live job's admitted date/slot.
+          # The production admission/push guards run before and after this step
+          # with the original GITHUB_ENV values unchanged.
+          env -u GITHUB_EVENT_NAME -u GITHUB_RUN_ATTEMPT -u PUBLISH_SLOT \
+            -u PUBLISH_SCHEDULE -u PUBLISH_RUN_CREATED_AT \
+            -u PUBLISH_EXPECTED_DATE -u PUBLISH_BOUND_MANUAL_SLOT \
+            python -m unittest discover -s tests -p 'test_*.py' -v
 
       - name: Verify baseline site quality before selecting any Notion article
         if: steps.timing.outputs.allowed == 'true'
