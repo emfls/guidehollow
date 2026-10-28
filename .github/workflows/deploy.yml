@@ -26,6 +26,17 @@ jobs:
         run: |
           PUBLISH_SLOT=afternoon python -m unittest discover -s tests -p 'test_*.py' -q
           PUBLISH_SLOT=evening python -m unittest discover -s tests -p 'test_*.py' -q
+      # Reproduce the exact ambient variables exported by the real Mac named-slot
+      # workflow before running offline tests. Future fixtures must stay isolated.
+      - name: Regression - unit tests ignore live named-slot and date context
+        env:
+          GITHUB_EVENT_NAME: workflow_dispatch
+          PUBLISH_SLOT: morning
+          PUBLISH_BOUND_MANUAL_SLOT: 'true'
+          PUBLISH_RUN_CREATED_AT: '2026-10-28T00:17:55Z'
+          PUBLISH_EXPECTED_DATE: '2026-10-28'
+          GITHUB_RUN_ATTEMPT: '1'
+        run: python -m unittest discover -s tests -p 'test_*.py' -q
       - run: bash -n scripts/create-guidehollow-repos.sh
       - run: npm ci
       - run: npm test
