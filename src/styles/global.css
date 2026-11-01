@@ -43,3 +43,14 @@
   .toc details:not([open]) { margin-bottom: .2rem; }
   .toc a { overflow-wrap: anywhere; }
 }
+
+/* The long evidence index is usable without scripts and remains compact on phones. */
+.evidence-jumps{margin:1.5rem 0 2.8rem;padding:1.2rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.prose .evidence-jumps h2{font-size:1.2rem;line-height:1.35;margin:0 0 .35rem}
+.evidence-jumps>p{font-size:.86rem;color:var(--muted);margin:.55rem 0 1rem;max-width:68ch}
+.evidence-jumps ol{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:2rem;row-gap:.2rem;padding:0;margin:0}
+.evidence-jumps li{margin:0;min-width:0}
+.evidence-jumps a{display:block;padding:.45rem 0;text-decoration:none;font-size:.87rem;line-height:1.45}
+.evidence-jumps a:hover{text-decoration:underline}
+.evidence-jumps .mono{font-size:.72rem}
+@media(max-width:650px){.evidence-jumps ol{grid-template-columns:1fr}}
