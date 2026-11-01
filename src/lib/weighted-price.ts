@@ -38,8 +38,11 @@ export function parsePriceCsv(input: string): string[][] {
     } else if (ch === ',') {
       row.push(cell); cell = ''; closedQuote = false;
     } else if (ch === '\n') {
+      // Preserve every logical CSV record until integrity checking. Silently
+      // dropping interior blank rows can mask missing or accidentally erased
+      // source transactions in a tool intended to audit row preservation.
       row.push(cell);
-      if (row.some(value => value.trim() !== '')) rows.push(row);
+      rows.push(row);
       row = []; cell = ''; closedQuote = false;
     } else {
       if (closedQuote && ch.trim()) throw new Error('Unexpected characters after a quoted CSV field.');
@@ -49,7 +52,15 @@ export function parsePriceCsv(input: string): string[][] {
   }
   if (quoted) throw new Error('CSV has an unclosed quotation mark.');
   row.push(cell);
-  if (row.some(value => value.trim() !== '')) rows.push(row);
+  rows.push(row);
+  const blank = (record: string[]) => record.every(value => value.trim() === '');
+  // A final newline or multiple blank lines after the last complete record
+  // are harmless. Any blank record before a later nonempty record is not.
+  while (rows.length && blank(rows[rows.length - 1])) rows.pop();
+  const interiorBlank = rows.findIndex(blank);
+  if (interiorBlank >= 0) {
+    throw new Error(`Blank CSV record ${interiorBlank + 1}: a source row may have been lost. Reconcile the original file before removing the blank line.`);
+  }
   return rows;
 }
 
