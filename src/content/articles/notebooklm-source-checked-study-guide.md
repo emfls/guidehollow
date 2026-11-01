@@ -5,8 +5,8 @@ slug: "notebooklm-source-checked-study-guide"
 category: "ai-tools"
 tags: ["notebooklm", "gemini-notebook", "study-guide", "source-citations", "google-ai", "source-verification"]
 publishedDate: "2026-11-01"
-updatedDate: "2026-11-01"
-sources: [{"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/16206563?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/16215270?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/16179559?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/18323649?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/17003757?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/16213268?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/gemininotebook/answer/17004255?hl=en"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"Google: Create a notebook in Gemini Notebook","url":"https://support.google.com/gemininotebook/answer/16206563?hl=en"}, {"title":"Google: Add or discover new sources for your notebook","url":"https://support.google.com/gemininotebook/answer/16215270?hl=en"}, {"title":"Google: Use chat in Gemini Notebook","url":"https://support.google.com/gemininotebook/answer/16179559?hl=en"}, {"title":"Google: Generate reports in Gemini Notebook","url":"https://support.google.com/gemininotebook/answer/18323649?hl=en"}, {"title":"Google: Notebooks in Gemini Apps","url":"https://support.google.com/gemininotebook/answer/17003757?hl=en"}, {"title":"Google: Learn about Gemini Notebook’s plans","url":"https://support.google.com/gemininotebook/answer/16213268?hl=en"}, {"title":"Google: Privacy and Terms of Use in Gemini Notebook","url":"https://support.google.com/gemininotebook/answer/17004255?hl=en"}, {"title":"Google: NotebookLM is now Gemini Notebook (July 2026)","url":"https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -30,13 +30,15 @@ Choose a notebook when you have **bounded, identifiable source material** and a 
 
 ## Step 1: Assemble a small, versioned packet
 
-For a first attempt, use three short, fictional text files. These are teaching fixtures, not museum rules:
+For a first attempt, **download these three original, fictional UTF-8 text files**. They are teaching fixtures, not museum rules. Their content corresponds exactly to the three statements used by the answer checks below.
 
-- `exhibit-overview-v1.txt`: "The Harbor Gallery orientation includes three exhibit rooms. The guided walkthrough begins in Room A."
-- `training-agenda-v2.txt`: "The practice session starts at 1:30 p.m. Participants should meet at the reception desk."
-- `visitor-questions-v1.txt`: "Staff will practice explaining the map and welcoming visitors. The photography policy is not included in this document."
+1. [Download exhibit-overview-v1.txt](/examples/gemini-notebook/exhibit-overview-v1.txt) — three exhibit rooms; the guided walkthrough begins in Room A.
+2. [Download training-agenda-v2.txt](/examples/gemini-notebook/training-agenda-v2.txt) — the practice starts at 1:30 p.m.; participants meet at the reception desk.
+3. [Download visitor-questions-v1.txt](/examples/gemini-notebook/visitor-questions-v1.txt) — staff practise maps and welcome messages; this file contains no photography policy.
 
-Write the filenames, versions, and owners in a separate source register. An example register entry is "training-agenda-v2.txt — approved October 25; replaces training-agenda-v1.txt." That approval sentence is part of the **invented exercise**, not an actual dated museum approval.
+[Download the separate source register](/examples/gemini-notebook/source-register.tsv) to see the selected filenames, revision labels and what each file establishes. The register and approval status are **editor-created for this exercise**; they are not real museum approval records. Do not upload the register alongside the three selected sources for the baseline test: it is the **human reviewer’s control sheet**, not part of the notebook evidence.
+
+Save the three files individually, then import them as three distinct sources so each citation can point to a specific filename. This step is meaningful even without signing in to Gemini Notebook: you can read the local files and make the source judgments independently.
 
 Do not upload a real employee list or guest record for a trial. Use permission-cleared sources. Google advises against adding documents that you do not have rights to use.
 
@@ -95,6 +97,24 @@ A reviewer should split that answer into separate claims and assess each one. Th
 Do not treat "not established" as "false." Missing evidence does not prove a policy prohibits photography. It means the guide should omit the claim or ask the responsible person for a definitive source.
 
 If two versions conflict, record which one is approved. If approval status is unclear, request clarification instead of declaring that the newest filename automatically wins.
+
+## Original ten-claim citation audit: test the answer before you trust it
+
+A model may cite the correct *file* but still conflate separate facts. To practise this distinction without depending on a particular account, we have made a review worksheet and a **separate** editorial answer key.
+
+1. [Download the ten-claim worksheet (TSV)](/examples/gemini-notebook/claim-audit-worksheet.tsv) and read the three source files above. The worksheet intentionally leaves its third column blank for your classification.
+2. Classify every statement as **SUPPORTED**, **CONTRADICTED**, or **NOT_ESTABLISHED**. Choose based on the exact source wording; do not use general knowledge about real museums.
+3. [Compare your decisions with the independent answer key (TSV)](/examples/gemini-notebook/claim-audit-answer-key.tsv). It records the source basis and the smallest safe correction for each case. Keep the key closed until you finish.
+
+The ten cases contain **three supported, four contradicted, and three not-established claims**, as determined by the fictional reference packet. The essential distinction is visible in C04: the *walkthrough* begins in Room A, but the *practice-session venue* is not established. Likewise, C05 cannot assert that photography is allowed or prohibited just because the policy is absent.
+
+### Optional negative test: deliberately include an obsolete agenda
+
+Only after completing the three-source baseline, [download the superseded fictional planning draft](/examples/gemini-notebook/training-agenda-v1-superseded.txt) and add it as a fourth source. This unapproved draft suggests **2:00 p.m. and Room C**, while the fictional source register identifies v2 as the selected revision. In your own account, ask the model for the **current approved practice start and meeting point**, with a quote supporting each. The correct approved baseline is **1:30 p.m. and the reception desk**; the old draft must not override it.
+
+If the answer favors the old draft, inspect source selection and version status before assuming that the notebook "knows" which revision won. Merely naming a newer filename is not itself a verified approval decision: in this exercise the separate editor-written register supplies that decision. The optional older file is intentionally **excluded from the default three-source test**.
+
+These inputs and judgments are original editorial teaching data, **not** a record of Gemini Notebook answering ten queries, a measured model failure rate, or a real museum policy assessment. The worksheets can be read as plain text or opened in a spreadsheet using tab-separated columns.
 
 ## Step 5: Generate a study guide from the audited packet
 
@@ -170,7 +190,7 @@ The useful output is not simply a neat summary. It is a guide whose **important 
 
 ## Official Google references and test boundary
 
-- [Create a notebook](https://support.google.com/gemininotebook/answer/16206563?hl=en) — creating notebooks, Studio outputs, sharing, and export restrictions.
+- [Google announcement: NotebookLM is now Gemini Notebook](https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/) — official July 2026 name change.\n- [Create a notebook](https://support.google.com/gemininotebook/answer/16206563?hl=en) — creating notebooks, Studio outputs, sharing, and export restrictions.
 - [Add or discover sources](https://support.google.com/gemininotebook/answer/16215270?hl=en) — supported file types, source selection, Drive syncing, and source limits.
 - [Use chat in Gemini Notebook](https://support.google.com/gemininotebook/answer/16179559?hl=en) — source citations, chat settings, and experimental features.
 - [Generate reports](https://support.google.com/gemininotebook/answer/18323649?hl=en) — Document reports, templates, and error warning.
@@ -178,4 +198,4 @@ The useful output is not simply a neat summary. It is a guide whose **important 
 - [Plans and usage limits](https://support.google.com/gemininotebook/answer/16213268?hl=en) — plan-dependent access and allowances.
 - [Privacy and terms](https://support.google.com/gemininotebook/answer/17004255?hl=en) — feedback, training, and account differences.
 
-**Review date: October 26, 2026.** The museum course packet, claims, answers, prompts, and evaluation matrix are original fictional teaching fixtures. The fixture classifications were checked against the text in this article. No Gemini Notebook tool, subscription, source import, generated report, screenshot, or real classroom outcome was personally tested.
+**Original guide review: October 26, 2026; source titles and fixture downloads updated November 2, 2026.** The downloadable museum course packet, source register, ten-claim worksheet, answer key, optional superseded agenda, prompts, and editorial classifications are original fictional teaching fixtures. The fixture classifications were checked against the text in this article. No Gemini Notebook tool, subscription, source import, generated report, screenshot, or real classroom outcome was personally tested.
