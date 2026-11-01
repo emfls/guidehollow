@@ -86,7 +86,7 @@ for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
 }
 assert((await readFile(path.join(root,'robots.txt'),'utf8')).includes('https://guidehollow.com/sitemap.xml'));
 assert.equal(((await readFile(path.join(root,'rss.xml'),'utf8')).match(/<item>/g)||[]).length,publicArticles.length);
-console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 3 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
+console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
 console.log('Verified ' + approvedVisualCount + ' approved Notion figure(s) against SVG bytes and generated HTML.');
