@@ -65,7 +65,7 @@ for (const file of htmlFiles) {
     const decoded = decodeURIComponent(url.pathname);
     const target = path.join(root,decoded.endsWith('/') ? `${decoded}index.html` : decoded);
     assert(await stat(target).catch(()=>null),`${relative}: broken internal link ${raw}`);
-    if (url.hash && url.hash !== '#top') {
+    if (url.hash) {
       const targetHtml = target === file ? html : await readFile(target,'utf8');
       const id = decodeURIComponent(url.hash.slice(1));
       assert(targetHtml.includes(`id="${id}"`),`${relative}: broken anchor ${raw}`);
