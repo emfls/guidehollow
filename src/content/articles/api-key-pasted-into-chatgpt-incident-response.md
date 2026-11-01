@@ -5,8 +5,8 @@ slug: "api-key-pasted-into-chatgpt-incident-response"
 category: "troubleshooting"
 tags: ["chatgpt", "api-key-security", "credential-exposure", "incident-response"]
 publishedDate: "2026-10-31"
-updatedDate: "2026-10-31"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8304786-keeping-your-openai-account-secure"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8809935-deleting-and-archiving-chats-in-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt"}, {"title": "docs.github.com — reference", "url": "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-secret-scanning-alerts/resolving-alerts"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "OpenAI Help Center: Keeping your OpenAI account secure", "url": "https://help.openai.com/en/articles/8304786-keeping-your-openai-account-secure"}, {"title": "OpenAI Help Center: Best practices for API key safety", "url": "https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety"}, {"title": "OpenAI Help Center: Deleting and archiving chats in ChatGPT", "url": "https://help.openai.com/en/articles/8809935-deleting-and-archiving-chats-in-chatgpt"}, {"title": "OpenAI Help Center: Chat and file retention guidance (URL-derived label)", "url": "https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt"}, {"title": "GitHub Docs: Resolving alerts from secret scanning", "url": "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-secret-scanning-alerts/resolving-alerts"}, {"title": "OpenAI Help Center: Getting started with Space in ChatGPT", "url": "https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -16,7 +16,7 @@ You meant to ask an AI assistant why an API request was failing. While pasting t
 
 The priority is to **make a real exposed credential unusable at the issuing service**, not to ask the chatbot to forget it. Then assess what the credential could access, check usage, and handle copies in chats or attached files. A clearly fictional placeholder is different from a production token.
 
-This procedure focuses on credentials entered into ChatGPT, whether issued by OpenAI, GitHub, a database, or another service. Entering a credential does not prove it was publicly disclosed or abused. The guide draws on official OpenAI and GitHub documentation reviewed October 26, 2026, not on a live test of a private account.
+This procedure focuses on credentials entered into ChatGPT, whether issued by OpenAI, GitHub, a database, or another service. Entering a credential does not prove it was publicly disclosed or abused. The guide draws on official OpenAI and GitHub documentation reviewed October 26 and refreshed November 2, 2026, not on a live test of a private account. The exact retention-help URL could not be re-fetched during this update; do not treat that citation as a fresh independent content verification.
 
 ## First, classify the secret without copying it again
 
@@ -87,7 +87,9 @@ If you are subject to an organizational retention or investigation requirement, 
 
 If the credential was in a screenshot, pasted configuration file, uploaded log, or project attachment, review the **file itself** as a separate item.
 
-OpenAI's [retention documentation](https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt) explains that a file saved in ChatGPT **Library** is managed separately from the conversation that used it. Deleting a chat does not delete its separately saved Library files. Delete a relevant Library copy through Library controls where permitted.
+OpenAI's [retention documentation](https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt) describes how files saved separately from a conversation can remain after the chat itself is deleted. **Library or Space:** Accounts with Library can manage saved files there; for accounts with access to [Space](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt), OpenAI says Space **replaces Library**, while Projects remain a separate feature. Do not instruct a Space user to look for a Library control that their account does not expose.
+
+The safest response is to identify each **separately saved** copy using the current, account-specific file controls, and follow the issuer's or organization's deletion and retention rules. Deleting the chat does not prove any separate file was removed. For shared Space pages, verify whether a credential also appears as copied or summarized text on a page that collaborators can read; deleting the original chat does not automatically remove that separate page's text.
 
 Files used by projects and custom GPTs have additional retention rules. Shared conversation links and saved recipient copies also create separate exposure questions. Do not assume that deleting one conversation removes the original file from an external cloud drive or repository.
 
@@ -142,7 +144,7 @@ Secret value: DO NOT RECORD HERE
 Revocation: [CONFIRMED / PENDING / UNKNOWN]
 Replacement deployment: [CONFIRMED / PENDING / N/A]
 Usage review: [EVIDENCE / UNAVAILABLE]
-Saved copies: [CHAT / LIBRARY / PROJECT / SHARES]
+Saved copies: [CHAT / LIBRARY OR SPACE / PROJECT / SHARES]
 Escalation contact: [AUTHORIZED ROLE]
 Open questions: [ONLY UNVERIFIED FACTS]
 ```
