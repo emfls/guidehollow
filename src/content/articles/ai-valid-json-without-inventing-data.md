@@ -5,8 +5,8 @@ slug: "ai-valid-json-without-inventing-data"
 category: "guides"
 tags: ["ai", "json", "structured-data", "source-verification", "validation"]
 publishedDate: "2026-10-26"
-updatedDate: "2026-10-26"
-sources: [{"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/structured-outputs"}, {"title": "json-schema.org — reference", "url": "https://json-schema.org/understanding-json-schema/reference/object"}, {"title": "developer.mozilla.org — reference", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "OpenAI API: Structured model outputs", "url": "https://developers.openai.com/api/docs/guides/structured-outputs"}, {"title": "JSON Schema: Object properties and validation", "url": "https://json-schema.org/understanding-json-schema/reference/object"}, {"title": "MDN: JSON.parse syntax errors", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -127,6 +127,8 @@ If you process many records, a JSON Schema makes the expected data shape explici
   "properties": {
     "records": {
       "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
       "items": {
         "type": "object",
         "properties": {
@@ -145,7 +147,7 @@ If you process many records, a JSON Schema makes the expected data shape explici
 }
 ```
 
-In JSON Schema, `required` says which keys must exist. `additionalProperties: false` rejects keys not listed for that object. Types that include `"null"` allow explicitly unknown values. A missing field and a present field containing `null` are not identical.
+In JSON Schema, `required` says which keys must exist. `additionalProperties: false` rejects keys not listed for that object. Types that include `"null"` allow explicitly unknown values. A missing field and a present field containing `null` are not identical. The `minItems` and `maxItems` values of **2** are specific to this two-ticket teaching case, not a sensible limit for a general production extractor. Even with those boundaries, JSON Schema does not prove that the two IDs are correct, unique or supported by the original notes.
 
 A schema is only useful as a validation rule when you actually run a compatible validator against the output, or supply it through an API feature that enforces the supported schema. Simply pasting this schema into a normal chat does not turn that chat into a guaranteed schema validator.
 
@@ -163,6 +165,38 @@ Even a schema-valid JSON object may be factually wrong. Use this four-row audit 
 | Unsupported details | No added dates, owners, refunds or names |
 
 A practical production workflow should also count source records and output records, flag unmatched IDs, and ask a human to review any extracted value not traceable to the source. These checks catch content mistakes that syntax parsing cannot see.
+
+## Download and run the original ten-case JSON failure audit
+
+The reference example above is small enough to inspect, but one perfect object does not reveal which part of validation catches an error. We created **ten original, fictional candidate outputs**, including deliberately broken JSON, extra fields, incorrect types, invented source details, and duplicated IDs. **No candidate is represented as a captured model response.**
+
+Download these files into the **same local folder**:
+
+1. [The two fictional source notes](/examples/json-fidelity/source-notes.txt) and [the exact reference JSON](/examples/json-fidelity/reference.json). The reference fixes short `problem` labels for repeatable scoring; a truthful paraphrase could be acceptable in a real application.
+2. [The JSON Schema for the two-ticket exercise](/examples/json-fidelity/ticket-schema.json) and [ten candidate JSON outputs](/examples/json-fidelity/candidate-outputs.json). The candidate file contains strings, so an intentionally malformed candidate does not make the enclosing exercise file invalid.
+3. [The separate editorial answer key](/examples/json-fidelity/answer-key.tsv) and [the offline Node.js audit script](/examples/json-fidelity/audit.mjs). Keep the key closed until you have classified a few cases yourself.
+
+Once the six files are together, run this in a terminal with Node.js:
+
+```bash
+node audit.mjs
+```
+
+The script uses only built-in Node.js APIs and reads the adjacent files. It tests **JSON syntax first**, then implements the limited schema keywords used by this particular file (object/array/types/required/no extra keys/two-record bounds), and finally compares each valid candidate with our fixed fictional reference record by record. It is **not a general-purpose JSON Schema implementation**, does not inspect an AI service, and does not establish truth for real-world tickets. For arbitrary production JSON Schema, install a maintained, compatible schema validation library.
+
+The expected exercise results are **1 PASS, 1 SYNTAX, 4 STRUCTURE, 4 SOURCE**. See why an error is classified:
+
+| Case | Deliberate defect | Expected layer |
+| --- | --- | --- |
+| J02 | An illegal trailing comma | Syntax parser |
+| J03 | An extra `priority` field | Structure |
+| J05 | Unknown T-101 resolution changed to `false` | Source fidelity |
+| J07 | Two syntactically valid records both use T-101, silently omitting T-102 | Source fidelity |
+| J09 | The JSON string `"true"` instead of a Boolean | Structure |
+
+**Why J07 matters:** its two records can satisfy the array size and required field rules. But the input contained *two different* tickets, so the output still fails source fidelity. The script's reference comparison catches this, even though the schema by itself cannot. An application handling real records needs a source-specific identity and completeness check, not a claim that syntax and schema validation guarantee accuracy.
+
+If you modify the fictional source notes, you must also independently revise the reference and scoring assumptions; otherwise the script still checks the **old** answer key. That limitation is intentional and visible, rather than quietly presenting an editorial fixture as a live accuracy benchmark.
 
 ## Three failure patterns and how to repair them
 
