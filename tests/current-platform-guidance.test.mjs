@@ -27,7 +27,7 @@ test('project guide preserves memory, shared access and saved-file deletion boun
   assert.match(article,/may take a few hours to apply/);
   assert.match(article,/Shared projects automatically use project-only memory and cannot be switched to default/);
   assert.match(article,/Files separately saved in \*\*Library or Space\*\* are not deleted/);
-  assert.match(article,/not a verified test in a live workspace/);
+  assert.match(article,/\*\*not\*\* a verified test in a live workspace/);
   assert(getSources(article).some(item=>item.url===spaceDoc),'Need official Space reference');
   for (const source of getSources(article)) assert(!source.title.includes('— reference'),source.title);
 });
