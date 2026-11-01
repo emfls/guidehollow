@@ -1,0 +1,11 @@
+case_id	classification	source_basis	minimum_safe_correction
+C01	SUPPORTED	exhibit-overview-v1.txt names Room A	No correction needed
+C02	CONTRADICTED	exhibit-overview-v1.txt explicitly names Room A	The walkthrough begins in Room A
+C03	SUPPORTED	training-agenda-v2.txt specifies both time and meeting point	No correction needed
+C04	NOT_ESTABLISHED	Room A is the walkthrough starting point, not an established practice-session venue	Practice-session location is not established; meet at the reception desk
+C05	NOT_ESTABLISHED	visitor-questions-v1.txt does not state a photography policy	Ask the museum policy owner; do not infer permission or prohibition
+C06	CONTRADICTED	training-agenda-v2.txt explicitly states 1:30 p.m.	The practice session starts at 1:30 p.m.
+C07	CONTRADICTED	exhibit-overview-v1.txt explicitly states three rooms	There are three exhibit rooms in the fictional orientation
+C08	SUPPORTED	visitor-questions-v1.txt says staff will practice these skills	No correction needed
+C09	NOT_ESTABLISHED	No selected source provides a calendar date	Session date is not established by these files
+C10	CONTRADICTED	training-agenda-v2.txt specifies the reception desk	Participants meet at the reception desk
