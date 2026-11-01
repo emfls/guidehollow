@@ -28,7 +28,10 @@ function makeQuestion(item: ClaimCase): HTMLElement {
     const input = document.createElement('input');
     input.type = 'radio';
     input.name = item.id;
+    input.id = 'answer-' + item.id + '-' + verdict.toLowerCase();
     input.value = verdict;
+    input.setAttribute('aria-label', item.id + ': ' + readable[verdict]);
+    label.htmlFor = input.id;
     label.append(input, document.createTextNode(' ' + readable[verdict]));
     answers.append(label);
   }
@@ -38,12 +41,19 @@ function makeQuestion(item: ClaimCase): HTMLElement {
 function selected(): ClaimCase[] {
   return choice?.value === 'all' ? allCases : allCases.filter(item => PRACTICE_IDS.some(id => id === item.id));
 }
+function updateSelectionCount() {
+  if (!form || !status) return;
+  const answered = selected().filter(item => new FormData(form).has(item.id)).length;
+  const total = selected().length;
+  status.textContent = answered + ' of ' + total + ' claims answered. ' +
+    (answered === total ? 'All choices are selected; you can now check your answers.' : 'Read the source and select one verdict for each claim before grading.');
+}
 function render() {
   if (!questions || !feedback || !status) return;
   const rows = selected();
   questions.replaceChildren(...rows.map(makeQuestion));
   feedback.replaceChildren();
-  status.textContent = rows.length + ' fictional claims ready. Read the source notes, choose a verdict for each claim, then check your answers.';
+  updateSelectionCount();
 }
 function evaluate(event: SubmitEvent) {
   event.preventDefault();
@@ -56,6 +66,13 @@ function evaluate(event: SubmitEvent) {
     answers[item.id] = VERDICTS.includes(value as ClaimVerdict) ? value as ClaimVerdict : '';
   }
   const result = scoreClaimCases(rows, answers);
+  if (result.answered !== result.total) {
+    feedback.replaceChildren();
+    status.textContent = 'Only ' + result.answered + ' of ' + result.total + ' claims answered. Select a verdict for every claim before grading.';
+    const firstMissing = rows.find(item => !answers[item.id]);
+    if (firstMissing) questions?.querySelector<HTMLInputElement>('input[name="' + firstMissing.id + '"]')?.focus();
+    return;
+  }
   const heading = document.createElement('h3');
   heading.textContent = 'Your source-reading check: ' + result.matched + ' of ' + result.total + ' match the editorial reference.';
   const note = document.createElement('p');
@@ -86,6 +103,7 @@ async function init() {
     reset.disabled = false;
     choice.disabled = false;
     choice.addEventListener('change', render);
+    form.addEventListener('change', updateSelectionCount);
     form.addEventListener('submit', evaluate);
     reset.addEventListener('click',render);
     render();

@@ -1,0 +1,94 @@
+{
+  "title": "GuideHollow production-browser QA: reproducible exercises and limits",
+  "date": "2026-11-01",
+  "scope": "Actual public GuideHollow website interacted with by a browser agent. Underlying sample sales, garden, release and event data are invented. No Excel, Google Sheets, ChatGPT or external AI model was executed.",
+  "method": "Live browser UI interaction and reading rendered results; not only source-code inspection. Separate Node regression tests are published in the repository.",
+  "trials": [
+    {
+      "id": "price-baseline",
+      "product": "GuideHollow Weighted Average Audit Workbench",
+      "url": "https://guidehollow.com/tools/weighted-price-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/6c7255f0-7df2-46fb-be53-b5df638d8d38",
+      "input": "Original published eight-row sample",
+      "observed": {
+        "rowCount": 8,
+        "units": 27,
+        "revenue": 530,
+        "displayedWeightedPrice": 19.63,
+        "displayedSimplePriceMean": 153.25,
+        "web": {
+          "units": 7,
+          "revenue": 280
+        },
+        "store": {
+          "units": 20,
+          "revenue": 250
+        },
+        "zeroUnitLine": "L-106",
+        "zeroPriceLine": "L-107"
+      },
+      "outcome": "pass",
+      "limits": "Data are fictional and amounts have no verified currency."
+    },
+    {
+      "id": "price-quantity-mutation",
+      "product": "GuideHollow Weighted Average Audit Workbench",
+      "url": "https://guidehollow.com/tools/weighted-price-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/6c7255f0-7df2-46fb-be53-b5df638d8d38",
+      "inputChange": "L-102,Web,4,25 -> L-102,Web,40,25",
+      "observed": {
+        "rowCount": 8,
+        "units": 63,
+        "revenue": 1430,
+        "displayedWeightedPrice": 22.7,
+        "displayedSimplePriceMean": 153.25,
+        "web": {
+          "units": 43,
+          "revenue": 1180
+        },
+        "store": {
+          "units": 20,
+          "revenue": 250
+        }
+      },
+      "outcome": "pass",
+      "limits": "The new calculated weighted average is a display rounded to two decimals."
+    },
+    {
+      "id": "price-blank-rejection",
+      "product": "GuideHollow Weighted Average Audit Workbench",
+      "url": "https://guidehollow.com/tools/weighted-price-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/6c7255f0-7df2-46fb-be53-b5df638d8d38",
+      "inputChange": "L-107,Store,5,0 -> L-107,Store,5,",
+      "observed": {
+        "error": "Row 8: UnitPrice must be a nonnegative number; blanks are not zero.",
+        "summary": "No result: correct the input and try again.",
+        "previousTablesCleared": true
+      },
+      "outcome": "pass",
+      "limits": "Demonstrates local input validation, not accounting compliance."
+    },
+    {
+      "id": "claim-practice-selection-ambiguity",
+      "product": "GuideHollow Source Claim Verifier",
+      "url": "https://guidehollow.com/tools/claim-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/25bc82f0-a7ad-4557-8f24-7269ac707534",
+      "plannedAnswers": {
+        "G04": "SUPPORTED",
+        "G06": "CONTRADICTED",
+        "G09": "SUPPORTED",
+        "R02": "CONTRADICTED",
+        "E06": "SUPPORTED"
+      },
+      "observed": {
+        "sourceNotesLoaded": true,
+        "visibleScore": "1 of 5",
+        "g04Reason": "The meeting location is not confirmed.",
+        "switchToAllShows22": true,
+        "staleFeedbackCleared": true
+      },
+      "outcome": "inconclusive",
+      "limits": "Browser run did not preserve a verifiable record of each radio's checked state before submission; we cannot attribute 1/5 to a computation bug. The stated planned answers would score 4/5 under the published reference key. The follow-up UI change requires five explicit selections and gives unique input labels. This was a pre-fix run, not a claim that the post-fix UI was browser-tested."
+    }
+  ]
+}

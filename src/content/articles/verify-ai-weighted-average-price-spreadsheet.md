@@ -6,7 +6,7 @@ category: "guides"
 tags: ["ai", "spreadsheets", "excel", "google-sheets", "weighted-average", "sumproduct", "pivot-tables", "data-validation"]
 publishedDate: "2026-10-31"
 updatedDate: "2026-11-01"
-sources: [{"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/sumproduct-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/count-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3094294?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093583?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/1272900?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093403?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093620?hl=en"}]
+sources: [{"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/functions/sumproduct-function"}, {"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/functions/count-function"}, {"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3094294?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093583?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/1272900?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093403?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093620?hl=en"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -200,6 +200,24 @@ For a simple preflight gate in either application, use:
 
 This gate is specific to the eight-row teaching fixture. In production, adapt expected row counts, business rules, and error handling; also check negative quantities, returns, and any duplicate line IDs separately.
 
+## A real browser run on the published workbench — November 1, 2026
+
+We went beyond calculating the fictional data privately: on **November 1, 2026**, a browser agent opened the **live public GuideHollow [Weighted Average Audit Workbench](/tools/weighted-price-checker/)**, clicked its controls, changed source rows, submitted the form, and captured what the interface actually displayed. This is firsthand testing of **GuideHollow's tool itself**, not a claim that ChatGPT, Excel or Google Sheets was executed.
+
+The experiment was deliberately narrow and repeatable. The input was the original eight-row CSV published above; no company sales or customer data was used. The [structured observed-results file](/examples/firsthand-browser-qa-2026-11-01.json) records the exact changes and outputs, and the [full procedure and limitations](https://github.com/emfls/guidehollow/blob/main/docs/firsthand-browser-qa-2026-11-01.md) are public.
+
+| Actual browser action | What the page displayed | Why this matters |
+| --- | --- | --- |
+| Click **Calculate and audit** on the unmodified eight rows | **27** units, **530.00** revenue, **19.63** weighted price, **153.25** simple listed-price mean | The tool distinguishes revenue per sold unit from the misleading row-price mean |
+| Inspect the two channel subtotals | Web **7 / 280**, Store **20 / 250** | Totals independently reconcile to 27 units and 530 revenue |
+| Change L-102 quantity from **4 to 40**, recalculate | **63** units, **1,430.00** revenue, **22.70** weighted price; simple mean stays **153.25** | A 36-unit change adds 900 revenue but does not change listed prices |
+| Restore data, then replace the zero on L-107 with an **empty price**, recalculate | **“Row 8: UnitPrice must be a nonnegative number; blanks are not zero.”** | Missing prices are rejected rather than silently treated as free |
+| Inspect the results after that invalid input | **“No result: correct the input and try again.”**; the previous row/channel tables were cleared | Stale success figures do not remain visible after a failed calculation |
+
+A useful surprise is how differently two small input changes behave. A genuine zero-price line still contributes its five units to the denominator, but a blank price must stop calculation. Conversely, changing a quantity by a factor of ten changes the weighted result but leaves the simple mean at 153.25. These are concrete observed behaviors on the site's UI, not assumptions based solely on a formula or its source code.
+
+**What we did not test:** Excel, Google Sheets, a real merchant's transactions, an AI model's original answer, currency rounding rules, or browser/OS compatibility across devices. The observed display uses two decimals; reproduce business-critical financial calculations with an approved, appropriately precise accounting or spreadsheet workflow.
+
 ## Checklist before trusting an AI spreadsheet summary
 
 - [ ] The requested metric has a clear numerator and denominator.
@@ -227,4 +245,4 @@ This gate is specific to the eight-row teaching fixture. In production, adapt ex
 
 **Executed verification:** The fictional CSV was parsed in Python with the built-in CSV module. Decimal arithmetic independently produced the eight row revenues, 27 units, 530 revenue, channel subtotals 7/280 and 20/250, weighted price 530/27, simple mean 153.25, and the mutated results 63/1430 and blank-price 7 numeric cells. A further zero-quantity mutation was checked privately but is not needed to complete the reader exercise.
 
-**Not executed:** No live AI request, Excel workbook calculation, Google Sheets calculation, or site deployment was performed. The reader should execute the stated formulas inside the intended spreadsheet application before applying the method to actual business decisions.
+**Not executed:** No live ChatGPT/other AI request, Microsoft Excel workbook calculation or Google Sheets calculation was performed. Separately, we **did operate the deployed GuideHollow browser workbench directly on November 1, 2026**, with the outcomes and limitations disclosed above. Its browser behavior is not a substitute for testing a specific commercial spreadsheet product.
