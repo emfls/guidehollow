@@ -63,6 +63,26 @@ The **written automation plan** specified G04=SUPPORTED (deliberately wrong), G0
 
 Following this run, the web UI was changed to (a) assign each radio a unique case+verdict accessible label, (b) display how many claims are selected, and (c) block grading until every question has a selection. Those are usability protections, not retroactive evidence that the earlier browser score was caused by a specific defect. A separate **post-fix live-browser smoke test** was subsequently performed. It loaded all five questions, selected only G04=SUPPORTED, and displayed **“1 of 5 claims answered”** before submitting. Clicking Check displayed **“Only 1 of 5 claims answered. Select a verdict for every claim before grading.”** It showed no score or feedback, and the selected option had the unique accessible label **“G04: Supported by the notes”**. [Inspect the observed browser run](https://agent.tinyfish.ai/runs/ff9a4360-9346-42d2-8d0d-bcf09beeb690). This directly verifies the incomplete-answer guard after deployment; it does **not** retest all five selected answers or resolve the earlier automated-selection discrepancy.
 
+## Trial E — Post-fix complete five-answer browser score, verified against checked selections
+
+After the incomplete-answer smoke test, we performed a **separate real production-browser test** of all five practice answers on November 1, 2026. Unlike the earlier ambiguous run, the browser report confirmed the **five actual checked radio choices before submitting**, and the on-page status showed **5 of 5 claims answered**.
+
+| Source case | Checked answer on the live site | Editorial reference | Actual feedback |
+| --- | --- | --- | --- |
+| G04 | SUPPORTED | UNSUPPORTED | Mismatch: meeting location is not confirmed |
+| G06 | CONTRADICTED | CONTRADICTED | Matched |
+| G09 | SUPPORTED | SUPPORTED | Matched |
+| R02 | CONTRADICTED | CONTRADICTED | Matched |
+| E06 | SUPPORTED | SUPPORTED | Matched |
+
+The observed production result was **4 of 5 matching**, with G04 as the only mismatch. The published deterministic scoring test also returns 4/5 for the same five choices; the browser session independently confirmed the current UI path rather than merely repeating a source-level calculation.
+
+- [Original browser execution with recorded selections and grading](https://agent.tinyfish.ai/runs/e6804798-a2cd-4872-9283-a2c5761d5391)
+- [Structured six-trial observations, including this result](https://guidehollow.com/examples/firsthand-browser-qa-2026-11-01.json)
+- [Run the same five-case exercise yourself](https://guidehollow.com/tools/claim-checker/)
+
+**Remaining uncertainty:** the earlier recorded 1/5 could have been caused by incorrect automation inputs, a transient interface state, or another problem. The earlier run did not preserve checked radio states, so we cannot identify its root cause. The new test shows the **current live site** correctly scores the intended complete selections. No independent claim is made about commercial AI models, all 22 cases, or every device/browser.
+
 ## What these tests do and do not establish
 
 They do establish that real users can run GuideHollow's own public weighted-price tool, observe the listed results and trigger a descriptive validation error. They also identify a concrete ambiguity in an automated use of the source-claim tool and document the engineering response.
