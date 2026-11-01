@@ -4,7 +4,7 @@ import { isIndexableTag } from '../lib/seo';
 export async function GET() {
   const posts = await publishedArticles();
   const tags = [...new Set(posts.flatMap(p => p.data.tags))].filter(tag => isIndexableTag(posts.filter(p => p.data.tags.includes(tag)).length));
-  const paths = ['/', ...categories.map(c => `/${c.slug}/`), '/about/', '/contact/', '/privacy-policy/', '/terms/', '/editorial-policy/', '/evidence/', '/tools/ai-prompt-builder/', '/tools/ai-response-checklist/', '/tools/weighted-price-checker/', ...tags.map(tag => `/tags/${tag}/`)];
+  const paths = ['/', ...categories.map(c => `/${c.slug}/`), '/about/', '/contact/', '/privacy-policy/', '/terms/', '/editorial-policy/', '/evidence/', '/tools/ai-prompt-builder/', '/tools/ai-response-checklist/', '/tools/weighted-price-checker/', '/tools/claim-checker/', ...tags.map(tag => `/tags/${tag}/`)];
   const pages = paths.map(path => `<url><loc>${site.url}${xmlEscape(path)}</loc></url>`);
   pages.push(...posts.map(post => `<url><loc>${site.url}${articleUrl(post)}</loc><lastmod>${post.data.updatedDate.toISOString().slice(0,10)}</lastmod></url>`));
   return new Response(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.join('')}</urlset>`,{headers:{'Content-Type':'application/xml;charset=utf-8'}});
