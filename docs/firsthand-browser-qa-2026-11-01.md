@@ -83,6 +83,27 @@ The observed production result was **4 of 5 matching**, with G04 as the only mis
 
 **Remaining uncertainty:** the earlier recorded 1/5 could have been caused by incorrect automation inputs, a transient interface state, or another problem. The earlier run did not preserve checked radio states, so we cannot identify its root cause. The new test shows the **current live site** correctly scores the intended complete selections. No independent claim is made about commercial AI models, all 22 cases, or every device/browser.
 
+## Trial F — Editable Prompt Builder, copy feedback and stale-output prevention
+
+On November 1, 2026, after deploying the change to the [public AI Prompt Builder](https://guidehollow.com/tools/ai-prompt-builder/), we operated the real form with the fictional garden meeting example. This was a **live browser interaction**, not just a simulated UI or a unit test.
+
+| Browser step | Actually observed |
+| --- | --- |
+| Load the fictional example and click Build my prompt | Generated prompt became enabled and editable; Copy and Download TXT were available |
+| Edit `under 70 words` to `under 50 words` in the output | The new phrase was visible, and the old phrase was absent |
+| Click Copy | The page reported “Your current edited draft was copied.” **Clipboard contents were not independently read** |
+| Change the source Target audience to `Garden volunteers` | The edited draft remained visible, but both export buttons became disabled and a stale-draft warning appeared |
+| Click Build my prompt again | The new output included `Garden volunteers`; both export buttons became available; format returned to the underlying source field |
+| Click Reset | All original inputs and the draft cleared; the output and both export buttons became disabled |
+
+This guards against accidentally exporting a prompt prepared from **older** constraints while protecting the visitor's typed draft from silent deletion. Rebuilding deliberately replaces the output with a fresh version derived from the source fields: visitors should save manual edits before changing those fields.
+
+- [Original browser execution](https://agent.tinyfish.ai/runs/46b0221c-85d6-4b67-9d0c-45b0e0367fa9)
+- [Structured observation record](https://guidehollow.com/examples/firsthand-browser-qa-2026-11-01.json)
+- [Try the same fictional example](https://guidehollow.com/tools/ai-prompt-builder/)
+
+**Boundary:** These observations validate the visible GuideHollow editor and its local input/output state, not clipboard bytes, external AI response quality, real event details, every browser/device, or AdSense approval.
+
 ## What these tests do and do not establish
 
 They do establish that real users can run GuideHollow's own public weighted-price tool, observe the listed results and trigger a descriptive validation error. They also identify a concrete ambiguity in an automated use of the source-claim tool and document the engineering response.
