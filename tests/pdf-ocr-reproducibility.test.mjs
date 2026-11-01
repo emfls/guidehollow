@@ -60,7 +60,7 @@ test('PDF and security guides show current downloadable primary evidence, not fa
   const article=readFileSync(path.join(root,'src/content/articles/ai-pdf-summary-missing-tables-ocr-check.md'),'utf8');
   assert.match(article,/updatedDate: "2026-11-02"/);
   for(const [name] of expected)assert(article.includes('/examples/pdf-ocr-fixtures/'+name));
-  assert.match(article,/ordinary page.get_text\(\)/);
+  assert.match(article,/ordinary `page\.get_text\(\)`/);
   assert.match(article,/supersedes the earlier, non-downloadable 134-character example/);
   assert.match(article,/No OCR engine, AI-summary benchmark/);
   const security=readFileSync(path.join(root,'src/content/articles/api-key-pasted-into-chatgpt-incident-response.md'),'utf8');
