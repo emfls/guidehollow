@@ -13,7 +13,37 @@ const checks = [
 <header class="page-heading"><p class="eyebrow mint">/ tools / review</p><h1>A second look<br />before you use it.</h1><p>An AI answer can sound convincing and still be wrong. Work through these checks using your own judgment.</p></header>
 <noscript><p>You can use the checklist below without JavaScript. Automatic progress and reset require JavaScript.</p></noscript>
 <section class="checklist-panel" aria-label="Response review checklist"><progress id="check-progress" value="0" max={checks.length} aria-label="Checks completed"></progress><p id="check-summary" class="tool-status" role="status" aria-live="polite">0 of {checks.length} checks completed. Review each item before using the response.</p><form id="checklist-form">{checks.map(([title,description],i) => <label class="checklist-item"><input type="checkbox" name={`check-${i}`} /><span><strong>{title}</strong><small>{description}</small></span></label>)}<div class="tool-actions"><button type="reset">Reset checklist</button></div></form><p class="tool-footnote">Checkmarks record your review, not a score for truth. Nothing is saved or sent to us; reloading clears the checklist.</p></section>
-<section class="section prose info-content"><h2>What to do when a check fails</h2><p>If a citation does not exist, remove the claim until you find evidence. If the answer misses a requirement, state that requirement again and ask for a targeted revision. For decisions with serious consequences, pause and consult the relevant qualified professional.</p><p>Read <a href="/guides/how-to-verify-ai-generated-information/">how to verify AI-generated information</a> for a complete worked example.</p></section>
+<section class="section prose info-content">
+<h2>Walk through a source-check before checking any boxes</h2>
+<p>These six boxes are <strong>reminders of work you performed</strong>, not a reliability score. To practice without sharing personal information or relying on an AI account, use our <a href="/examples/claim-boundary-source-notes.txt">fictional community-garden source notes</a>. The notes say a planning meeting is scheduled for Saturday at 10 a.m., attendees should bring a notebook, and supplies include three $8 bags and two $6 trays. They explicitly state that the meeting location is unconfirmed and provide no delivery price.</p>
+<p>Now imagine reviewing the following <strong>editor-written sample paragraph</strong>, not an actual AI model output:</p>
+<blockquote><p>The garden team will meet Saturday at 10 a.m. in the North Greenhouse. Bring a notebook. Supplies cost $36 including delivery.</p></blockquote>
+<p>The paragraph is fluent but contains two unsupported additions. Compare each claim with the notes:</p>
+<table><thead><tr><th>Claim</th><th>Evidence in the fictional notes</th><th>Review outcome</th></tr></thead><tbody>
+<tr><td>Meeting Saturday, 10 a.m.</td><td>The date and time are stated</td><td>Supported</td></tr>
+<tr><td>Bring a notebook</td><td>Explicit instruction</td><td>Supported</td></tr>
+<tr><td>North Greenhouse</td><td>The location is <em>not confirmed</em></td><td>Unsupported: remove or mark pending</td></tr>
+<tr><td>$36 supplies subtotal</td><td>3 × $8 + 2 × $6 = $36</td><td>Supported arithmetic</td></tr>
+<tr><td>Delivery included</td><td>Delivery charges are not described</td><td>Unsupported: do not assume free delivery</td></tr>
+</tbody></table>
+<p>This distinction matters: <strong>unknown does not necessarily mean false.</strong> The location might eventually be confirmed, but it cannot be presented as confirmed <em>from these notes</em>. This is an original, reproducible teaching example; the sample answer and notes were composed for GuideHollow, not recorded from real organizers or tested against a live AI model.</p>
+<h2>Use the six checks as an editorial decision process</h2>
+<ol>
+<li><strong>Facts:</strong> split the response into individual statements. Verify time, venue, price, people and any numerical totals independently.</li>
+<li><strong>Sources:</strong> open the primary document; a working citation URL does not mean the cited passage supports the text.</li>
+<li><strong>Date and context:</strong> distinguish a proposal, a confirmed decision and a later update; a past example is not a current product guarantee.</li>
+<li><strong>Privacy and safety:</strong> remove secrets and information you lack permission to disclose before copying text into an outside service.</li>
+<li><strong>Requirements:</strong> check that the answer respects the actual task: perhaps a short invitation, not a booking confirmation or an invoice.</li>
+<li><strong>Final decision:</strong> keep only supported statements, label uncertainties clearly, and reject the output when a consequential claim cannot be verified.</li>
+</ol>
+<h2>What to do when a check fails</h2>
+<p>When the sample fails the facts or source check, correct the <em>claim</em> rather than asking a model to sound more confident. A source-faithful rewrite could say: “The garden team plans to meet Saturday at 10 a.m. Please bring a notebook. The location is still to be confirmed. The listed supplies subtotal is $36 before any unspecified delivery charges.”</p>
+<p>If a citation does not exist or does not support the detail, remove that claim until you obtain evidence. If an important requirement was missed, state it explicitly and request a targeted revision—then verify the new answer again. When the decision concerns medical care, money, legal obligations or physical safety, stop and seek appropriately qualified human review.</p>
+<h2>Try one mutation without involving an AI model</h2>
+<p>Change the garden source in your own copy to say the meeting is on Sunday instead of Saturday. The original Saturday claim becomes contradicted, while the notebook reminder and missing venue remain unchanged. Altering the meeting day must not silently alter the cost subtotal. For a longer test with 22 independent fictional claims and their editorial answer key, open the <a href="/tools/claim-checker/">Source Claim Verifier</a>.</p>
+<h2>Limits and privacy</h2>
+<p>Six checked boxes mean only that you indicated completion. The progress bar cannot prove that you opened an official source, understood the numbers or verified a real-world fact. This page stores no checklist history and submits no inputs to a scoring server. See the <a href="/privacy-policy/">privacy notice</a>. For the full claim-by-claim workflow and exact reference-document distinctions, see <a href="/guides/how-to-verify-ai-generated-information/">the fact-checking guide</a> and our <a href="/evidence/">public exercise library</a>.</p>
+</section>
 <script>
 import { checklistSummary } from '../../lib/tools';
 const form = document.querySelector<HTMLFormElement>('#checklist-form')!;
