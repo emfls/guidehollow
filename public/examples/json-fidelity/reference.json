@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "id": "T-101",
+      "problem": "Download link shows an error",
+      "error_code": null,
+      "resolved": null
+    },
+    {
+      "id": "T-102",
+      "problem": "CSV import failed",
+      "error_code": "E42",
+      "resolved": true
+    }
+  ]
+}
