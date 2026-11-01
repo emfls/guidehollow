@@ -23,6 +23,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-prompt-edit"><span class="mono muted">08 /</span> Prompt Builder regression</a></li>
         <li><a href="#evidence-notebook-packet"><span class="mono muted">09 /</span> Notebook source packet</a></li>
         <li><a href="#evidence-json-fidelity"><span class="mono muted">10 /</span> JSON source-fidelity audit</a></li>
+        <li><a href="#evidence-pdf-ocr"><span class="mono muted">11 /</span> Selectable PDF vs. image-only scan</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -118,6 +119,15 @@ import Base from '../layouts/Base.astro';
       <li>Download the <a href="/examples/json-fidelity/audit.mjs">offline audit script</a> into the same folder and run <code>node audit.mjs</code> to reproduce the expected 1 pass, 1 syntax failure, 4 structural failures and 4 source mismatches.</li>
     </ol>
     <p><strong>What it proves:</strong> only that the published fixed dataset and script distinguish these three classes under the disclosed, simplified rules. It is not a universal JSON Schema validation library, real customer data, an AI-model benchmark or a test of a live third-party service.</p>
+
+    <h2 id="evidence-pdf-ocr">11. Two PDFs that look alike but extract differently</h2>
+    <p><strong>Question:</strong> why can an AI PDF summary omit a visibly legible table? Start by distinguishing a selectable text layer from a page image. Our <a href="/troubleshooting/ai-pdf-summary-missing-tables-ocr-check/">PDF extraction guide</a> provides two actual original one-page files containing the same fictional expenses and a separate, inspectable generation method.</p>
+    <ol>
+      <li><a href="/examples/pdf-ocr-fixtures/fictional-expense-selectable-text.pdf">Download the text-layer PDF</a> and <a href="/examples/pdf-ocr-fixtures/fictional-expense-image-only.pdf">download the image-only PDF</a>. Both display January $120 + $80 = $200, February $95 + $105 = $200, and a $400 grand total.</li>
+      <li>Try selecting <strong>Feb 2026</strong> in each PDF. The image-only version contains a page image rather than an ordinary searchable text layer. Some viewers can apply their own OCR; this is a different operation from basic text extraction.</li>
+      <li>Inspect the <a href="/examples/pdf-ocr-fixtures/manifest.json">generated-file manifest</a> for the reproducible expected values. In our local PyMuPDF 1.26.7 check, the selectable file yielded <strong>263 characters</strong>, and the raster-only file <strong>0 characters</strong> without OCR.</li>
+    </ol>
+    <p><strong>Scope:</strong> the source PDFs were generated from a <a href="https://github.com/emfls/guidehollow/blob/main/scripts/generate-pdf-ocr-fixtures.mjs">public dependency-free Node script</a>. These results compare ordinary local PDF text extraction only. They do not measure OCR quality, AI model performance, customer documents, or ChatGPT/Adobe/Google Drive uploads.</p>
 
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>

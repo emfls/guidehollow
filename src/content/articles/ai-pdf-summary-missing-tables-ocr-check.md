@@ -5,8 +5,8 @@ slug: "ai-pdf-summary-missing-tables-ocr-check"
 category: "troubleshooting"
 tags: ["ai", "pdf", "ocr", "scanned-pdf", "tables", "data-verification"]
 publishedDate: "2026-10-27"
-updatedDate: "2026-10-27"
-sources: [{"title": "helpx.adobe.com — reference", "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/recognize-text.html"}, {"title": "helpx.adobe.com — reference", "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/fix-scanned-text.html"}, {"title": "support.google.com — reference", "url": "https://support.google.com/drive/answer/176692?hl=en"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "Adobe Acrobat: Recognize text in scanned documents", "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/recognize-text.html"}, {"title": "Adobe Acrobat: Fix text issues in scanned PDFs", "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/fix-scanned-text.html"}, {"title": "Google Drive Help: Convert PDF and photo files to text", "url": "https://support.google.com/drive/answer/176692?hl=en"}, {"title": "OpenAI Help Center: Data analysis with ChatGPT", "url": "https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt"}, {"title": "OpenAI Help Center: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -32,9 +32,21 @@ If selection or search fails, the page may be image-only, but restricted permiss
 
 ## What a text-layer test actually proved
 
-For this article, we created **two fictional one-page PDFs** that looked the same on screen. One contained ordinary PDF text and a drawn expense table. The other contained a full-page raster image of that same page.
+The same fictional expense report is now available in **two downloadable one-page PDFs**, each showing January travel $120, supplies $80, row total $200; February travel $95, supplies $105, row total $200; and a two-month grand total of **$400**:
 
-A local test using PyMuPDF 1.26.7 extracted **134 characters** from the text-based PDF and **0 characters** from the image-only PDF. Both PDFs had one page. We also rendered and visually inspected the example to check that the expense values were visible. No OCR was run, and no AI model was asked to summarize these files.
+1. [Download the selectable-text example PDF](/examples/pdf-ocr-fixtures/fictional-expense-selectable-text.pdf) — ordinary embedded PDF text and drawn table lines.
+2. [Download the visually equivalent raster-only PDF](/examples/pdf-ocr-fixtures/fictional-expense-image-only.pdf) — the same example rendered as a single monochrome page image, with no OCR text layer.
+3. [Inspect the generated-file manifest](/examples/pdf-ocr-fixtures/manifest.json) — byte sizes, SHA-256 digests, expected page counts, and extraction results. [Read the original offline generation code](https://github.com/emfls/guidehollow/blob/main/scripts/generate-pdf-ocr-fixtures.mjs) to see how these fixtures are made without calling an AI service.
+
+**Reproduced November 2, 2026:** In a local PyMuPDF **1.26.7** check of these exact new PDFs, ordinary `page.get_text()` extracted **263 characters** from the selectable-text file and **0 characters** from the raster-only file; each PDF had one page, and the raster-only page had one embedded image. We rendered both files and visually checked the sample table. These are new downloadable teaching fixtures; their 263-character count **supersedes the earlier, non-downloadable 134-character example**, rather than claiming the old file was preserved unchanged.
+
+To repeat this yourself, open each PDF in a trusted viewer. Try selecting or searching for `Feb 2026`, and compare the visible table. Searching the raster-only PDF will generally require OCR or visual processing by the viewer. If PyMuPDF 1.26.7 is available in an approved local Python environment, you can run this command with each file (replace the filename):
+
+```bash
+python -c 'import fitz,sys; p=fitz.open(sys.argv[1]); print(len(p),len(p[0].get_text()),len(p[0].get_images()))' fictional-expense-selectable-text.pdf
+```
+
+It prints **page count, extracted character count, and embedded-image count**. Change the filename to `fictional-expense-image-only.pdf` for the second test. This checks ordinary PDF extraction; it does not execute OCR, an AI upload, or an AI summary.
 
 That is a demonstration of ordinary PDF text extraction, **not** evidence that a particular AI product cannot interpret an image-based PDF. Some tools can analyze embedded page images. Capabilities depend on the tool, upload method, and processing route. OpenAI also cautions that extracting exact figures from scanned or visually complex tables can be unreliable. See [Data analysis with ChatGPT](https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt).
 
@@ -164,4 +176,4 @@ If these checks fail, fix the source or the extraction before polishing the summ
 - [OpenAI Help — Data analysis with ChatGPT](https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt). Warnings about exact extraction from scanned PDFs and complex visual tables.
 - [OpenAI Help — Uploading files and audio to ChatGPT](https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt). PDF file-handling guidance; availability and processing may change.
 
-**What was actually tested:** Two original fictional, visually matching one-page PDF fixtures were created. One contained real PDF text; the other was a raster-only PDF. PyMuPDF 1.26.7 returned 134 and 0 characters respectively. Both were rendered and inspected. The expense totals were recalculated locally and matched the displayed table. No OCR engine, AI-summary benchmark, ChatGPT PDF upload, Google Drive conversion, or Adobe Acrobat application session was run for this article.
+**What was actually tested (November 2, 2026):** Two downloadable original fictional one-page PDF fixtures were generated from the site's published build script. In the local PyMuPDF 1.26.7 test, ordinary text extraction returned 263 and 0 characters respectively. Both were rendered and visually inspected; the two-month $400 expense total was checked against the displayed rows. The older 134-character unpublished fixture has not been presented as the same file. No OCR engine, AI-summary benchmark, ChatGPT PDF upload, Google Drive conversion, or Adobe Acrobat application session was run for this article.

@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 test('new publication, missing start article, drafts and future content build safely', {timeout:30000}, async () => {
   const fixture = await mkdtemp(path.join(tmpdir(),'guidehollow-publication-'));
   try {
-    for (const name of ['src','public','scripts','astro.config.mjs','tsconfig.json','package.json']) await cp(name,path.join(fixture,name),{recursive:true});
+    for (const name of ['src','public','scripts','data/pdf-ocr-fixtures','astro.config.mjs','tsconfig.json','package.json']) await cp(name,path.join(fixture,name),{recursive:true});
     await symlink(path.resolve('node_modules'),path.join(fixture,'node_modules'),'dir');
     const article = path.join(fixture,'src/content/articles/what-is-generative-ai.md');
     const original = await readFile(article,'utf8');
@@ -41,6 +41,10 @@ test('new publication, missing start article, drafts and future content build sa
       }
       await writeFile(path.join(collection,`${slug}.md`),content);
     }
+    // The isolated publication build bypasses npm run build. Generate the same
+    // first-party PDF fixtures in the temporary site before Astro's direct build.
+    const pdfFixtures = spawnSync(process.execPath,['scripts/generate-pdf-ocr-fixtures.mjs'],{cwd:fixture,encoding:'utf8',timeout:10000});
+    assert.equal(pdfFixtures.status,0,`${pdfFixtures.stdout}\n${pdfFixtures.stderr}`);
     const astroPackage = JSON.parse(await readFile('node_modules/astro/package.json','utf8'));
     const build = spawnSync(process.execPath,[path.resolve('node_modules/astro',astroPackage.bin.astro),'build'],{cwd:fixture,encoding:'utf8',timeout:20000});
     assert.equal(build.status,0,`${build.stdout}\n${build.stderr}`);
