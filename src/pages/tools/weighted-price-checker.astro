@@ -26,7 +26,7 @@ L-108,Store,2,20`;
       <label for="weighted-price-csv">CSV input — LineID, Channel, Units, UnitPrice
         <textarea id="weighted-price-csv" rows="12" maxlength="50000" spellcheck="false" aria-describedby="csv-help">{fixture}</textarea>
       </label>
-      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices and units must be nonnegative numbers. Units must be whole numbers. Empty prices are rejected, not treated as zero. Maximum 500 rows.</p>
+      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices and units must be nonnegative numbers. Units must be whole numbers. Empty prices are rejected, not treated as zero. Maximum 500 rows. <strong>Changing the CSV clears the previous calculation immediately; run the audit again to view current totals.</strong></p>
       <div class="tool-actions">
         <button type="submit" class="primary">Calculate and audit</button>
         <button type="button" id="reset-weighted-price">Restore sample</button>
@@ -52,7 +52,7 @@ L-108,Store,2,20`;
       <li><strong>Reconciliation:</strong> check that the Web and Store units add to 27 and their revenue adds to 530. Do not take the unweighted mean of their separate 40.00 and 12.50 prices; that would yield an incorrect 26.25.</li>
     </ol>
     <h2>Try two error-injection experiments</h2>
-    <p><strong>Quantity typo:</strong> restore the example, then change L-102 from 4 to 40 units. The expected totals become 63 units and 1,430 revenue; the weighted price becomes approximately 22.70. If an AI-written summary still shows 19.63, it reused stale arithmetic.</p>
+    <p><strong>Quantity typo:</strong> restore the example, calculate the 27-unit baseline, then change L-102 from 4 to 40 units. The workbench should immediately <strong>remove the old 27-unit result</strong> and ask you to calculate again. The new totals should be 63 units and 1,430 revenue; the weighted price becomes approximately 22.70. If an AI-written summary still shows 19.63, it reused stale arithmetic.</p>
     <p><strong>Missing price:</strong> restore the example, then erase L-107’s numeric zero from UnitPrice. The calculator must refuse the input. A blank is an unknown price, not a documented free unit; a spreadsheet that multiplies blanks as zero can otherwise conceal this error.</p>
     <p>These tests confirm the reference arithmetic and validation rules for this fixture only. They do not measure the reliability of any AI model or establish that real transactions follow the fixture’s business rules.</p>
     <h2>Follow the full method</h2>
@@ -80,6 +80,14 @@ L-108,Store,2,20`;
       for (const row of values) { const tr=tbody.insertRow(); for (const value of row) { const td=tr.insertCell(); td.textContent=String(value); } }
       return table;
     };
+    // Results describe the CSV at calculation time, not whatever the visitor
+    // types afterward. Clear immediately on any edit instead of leaving a stale
+    // price or channel reconciliation visible alongside changed source rows.
+    input.addEventListener('input', () => {
+      result.replaceChildren();
+      summary.textContent = 'Not calculated for the current CSV. Select Calculate and audit.';
+      status.textContent = 'CSV changed. Earlier results were cleared. Recalculate before relying on totals.';
+    });
     form.addEventListener('submit', event => {
       event.preventDefault();
       result.replaceChildren();
