@@ -1,0 +1,42 @@
+[
+  {
+    "id": "J01",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":true}]}"
+  },
+  {
+    "id": "J02",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",}]}"
+  },
+  {
+    "id": "J03",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":true,\"priority\":\"urgent\"}]}"
+  },
+  {
+    "id": "J04",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":true}]}"
+  },
+  {
+    "id": "J05",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":false},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":true}]}"
+  },
+  {
+    "id": "J06",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":\"E99\",\"resolved\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":true}]}"
+  },
+  {
+    "id": "J07",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null},{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null}]}"
+  },
+  {
+    "id": "J08",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null}]}"
+  },
+  {
+    "id": "J09",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":\"true\"}]}"
+  },
+  {
+    "id": "J10",
+    "candidate": "{\"records\":[{\"id\":\"T-101\",\"problem\":\"Download link shows an error\",\"error_code\":null,\"resolved\":null},{\"id\":\"T-102\",\"problem\":\"CSV import failed\",\"error_code\":\"E42\",\"resolved\":false}]}"
+  }
+]
