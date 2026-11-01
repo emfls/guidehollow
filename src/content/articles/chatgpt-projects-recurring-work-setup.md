@@ -5,8 +5,8 @@ slug: "chatgpt-projects-recurring-work-setup"
 category: "ai-tools"
 tags: ["chatgpt-projects", "project-instructions", "project-memory", "recurring-work", "shared-projects", "ai-tools"]
 publishedDate: "2026-10-31"
-updatedDate: "2026-10-31"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8590148-memory-in-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "OpenAI: Projects in ChatGPT", "url": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"}, {"title": "OpenAI: Memory in ChatGPT", "url": "https://help.openai.com/en/articles/8590148-memory-in-chatgpt"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -16,7 +16,7 @@ You ask ChatGPT for a weekly update every Monday, yet you keep pasting the same 
 
 **ChatGPT Projects** organize related conversations, files, and project-specific instructions. They can make recurring work easier to manage, but they are not a verified database, an automatic publication system, or a substitute for human sign-off. This guide walks through a practical setup for a fictional community workshop preparing weekly public updates.
 
-All example files and cases below are fictional. Official OpenAI documentation was reviewed on October 26, 2026. This guide does not claim that a ChatGPT account or interface was personally tested.
+All example files and cases below are fictional. Official OpenAI documentation was reviewed on October 26 and refreshed on November 2, 2026. This guide does not claim that a ChatGPT account or interface was personally tested.
 
 ## Choose a project only when context will be reused
 
@@ -89,6 +89,8 @@ OpenAI documents two project memory modes: **Default memory** and **Project-only
 
 With project-only memory, chats may use conversations inside the project, but they do not reference conversations outside it, and outside chats do not reference its conversations. Prior personal saved memories are not referenced within the project-only boundary.
 
+**Changing an existing project's mode:** OpenAI's current help states that eligible users can change the mode later from **Project settings → Memory**, not only while creating a new project. A shared project remains project-only and cannot be switched to default. A change may take a few hours to apply. When switching from default to project-only, OpenAI says information from that project is removed from memory used **outside** the project, although the project's chats and files remain available inside it. Recheck the mode after changing it instead of treating a saved preference as proof of immediate isolation.
+
 Default memory behavior depends on plan and settings. Some accounts can draw on wider conversation context, while Enterprise and Edu have additional containment rules. Do not assume that default mode means the same thing for every user.
 
 | Consideration | Default memory | Project-only memory |
@@ -140,7 +142,20 @@ Shared projects automatically use project-only memory and cannot be switched to 
 
 Use controlled invitations for internal content. Where "Anyone with a link" sharing is allowed, a signed-in user holding that link may be able to join. Review active members, visibility, and edit permissions before adding organizational files.
 
-Deleting a project is not a harmless cleanup operation. OpenAI states that deleting it removes project chats, instructions, and project-only files, while separately saved Library material follows separate rules. Keep important records in the organization's authoritative storage.
+Deleting a project is not a harmless cleanup operation. OpenAI states that deleting it removes project chats, instructions, and files stored **only** in that project. Files separately saved in **Library or Space** are not deleted by that project deletion and follow their own storage rules. If a project was shared, other members also lose access. Keep important approved records in the organization's authoritative storage before a destructive operation.
+
+## Check the actual scope before you share or delete
+
+Use this compact decision review when a project contains files and multiple collaborators. A project can organize context, but its **memory boundary**, **sharing access**, and **file retention** are different controls.
+
+| Planned action | Confirm first | Do not assume |
+| --- | --- | --- |
+| Switch an existing private project to project-only memory | The Memory setting is available, the change was saved, and any propagation delay has passed | That older outside chats remain accessible inside project-only memory |
+| Share a project with colleagues | Members, chat/edit permissions, link-joining policy, and which sources are inside | That individual personal memories become visible merely because the project is shared |
+| Remove a source in a shared project | Whether collaborators still need that project copy and whether an authoritative original exists | That a collaborator will retain the removed project file |
+| Delete the project | Whether files exist only in the project or were separately saved in Library or Space | That deleting the project also removes every separately saved file, or another member's exported copy |
+
+OpenAI's [current Projects documentation](https://help.openai.com/en/articles/10169521-projects-in-chatgpt) distinguishes project-only context from files saved elsewhere. The [Memory documentation](https://help.openai.com/en/articles/8590148-memory-in-chatgpt) cautions that memory controls vary by account and plan. These are documented product rules; the fictional workshop below is **not** a verified test in a live workspace.
 
 ## Test three situations before trusting the setup
 
@@ -187,4 +202,4 @@ The goal is not to make ChatGPT appear to remember perfectly. It is to create a 
 - [OpenAI: Memory in ChatGPT](https://help.openai.com/en/articles/8590148-memory-in-chatgpt) — personalization behavior and limitations.
 - [OpenAI: Data controls in ChatGPT](https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt) — training preferences and history settings.
 
-**Documentation reviewed October 26, 2026.** The workshop, filenames, prompts, and three test cases are invented examples. No project was created or tested in a user account, and no screenshot, vendor comparison, or live publishing result is claimed.
+**Documentation reviewed October 26 and November 2, 2026.** The workshop, filenames, prompts, and three test cases are invented examples. No project was created or tested in a user account, and no screenshot, vendor comparison, or live publishing result is claimed.
