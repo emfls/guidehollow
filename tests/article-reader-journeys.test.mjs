@@ -6,7 +6,7 @@ const read = slug => readFileSync(new URL('../src/content/articles/' + slug + '.
 
 test('upload help distinguishes Library storage from rate limits and avoids destructive instructions',()=>{
  const article=read('chatgpt-file-upload-problems');
- assert.match(article,/upload-rate limit.*Library storage/i);
+ assert.match(article,/upload-rate limit.*saved-file storage/i);
  assert.match(article,/Settings → Storage/);
  assert.match(article,/does \*\*not\*\* tell you how much of a rolling upload-rate allowance remains/);
  assert.match(article,/Deleting a conversation alone does \*\*not\*\* delete a separate file/);
