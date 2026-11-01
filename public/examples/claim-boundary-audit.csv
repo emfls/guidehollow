@@ -1,0 +1,23 @@
+CaseID,Scenario,Claim,ExpectedVerdict,EditorialReason
+G01,GARDEN,The planning meeting is on Saturday at 10 a.m.,SUPPORTED,The source specifies Saturday at 10 a.m.
+G02,GARDEN,Attendees should bring a notebook.,SUPPORTED,The source explicitly asks attendees to bring a notebook.
+G03,GARDEN,The group will choose a planting schedule.,SUPPORTED,This is the stated meeting purpose.
+G04,GARDEN,The meeting is in the North Greenhouse.,UNSUPPORTED,The meeting location is not confirmed.
+G05,GARDEN,Attendees receive free seeds.,UNSUPPORTED,The source gives no information about free seeds.
+G06,GARDEN,The planning meeting is on Sunday.,CONTRADICTED,The source explicitly schedules it for Saturday.
+G07,GARDEN,Three bags cost $24 before other charges.,SUPPORTED,Three times eight equals twenty-four.
+G08,GARDEN,Two trays cost $12 before other charges.,SUPPORTED,Two times six equals twelve.
+G09,GARDEN,The listed supplies subtotal is $36.,SUPPORTED,Twenty-four plus twelve equals thirty-six.
+G10,GARDEN,The $36 total includes delivery.,UNSUPPORTED,No delivery charge or inclusion is given.
+R01,RELEASE,Version 3.2 fixes export filenames.,SUPPORTED,The release note states the filename fix.
+R02,RELEASE,Offline mode is an approved feature.,CONTRADICTED,The source explicitly calls it an unapproved proposal.
+R03,RELEASE,Offline mode remains a proposal.,SUPPORTED,The source explicitly says it is a proposal.
+R04,RELEASE,A Monday release date has been agreed.,CONTRADICTED,The source explicitly says no release date has been agreed.
+R05,RELEASE,No release date has been agreed.,SUPPORTED,This is stated directly.
+R06,RELEASE,The new release is 20 percent faster.,UNSUPPORTED,No performance measurement has been confirmed.
+E01,EVENT,The proposed event lasts two hours.,SUPPORTED,The source states two hours for the proposed event.
+E02,EVENT,The event has been confirmed.,CONTRADICTED,The notes call the event proposed and leave the date undecided.
+E03,EVENT,A room was suggested.,SUPPORTED,The source explicitly says the room was suggested.
+E04,EVENT,The room is reserved.,CONTRADICTED,The source explicitly says the room is not reserved.
+E05,EVENT,The event date is next Saturday.,CONTRADICTED,The source explicitly says no date has been selected.
+E06,EVENT,The event date has not been selected.,SUPPORTED,This is stated directly.
