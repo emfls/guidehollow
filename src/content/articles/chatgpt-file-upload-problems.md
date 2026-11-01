@@ -5,7 +5,7 @@ slug: "chatgpt-file-upload-problems"
 category: "troubleshooting"
 tags: ["chatgpt", "documents", "troubleshooting"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-11-02"
 sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "OpenAI: Using Library to manage files in ChatGPT", "url": "https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt"}, {"title": "OpenAI: Network recommendations for ChatGPT errors on web and apps", "url": "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -16,7 +16,7 @@ featured: false
 
 An upload problem can happen before attachment, during transfer, or after a file appears attached but its content is not interpreted as expected. Those are different problems. Record what you can observe before changing the file, browser, or account.
 
-This checklist is based on official documentation checked October 23, 2026. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
+This checklist was initially drafted against official documentation on October 23, 2026, then refreshed against the current OpenAI upload and saved-file help pages on November 2, 2026. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
 
 ## Record a minimal diagnostic note
 
@@ -63,11 +63,27 @@ If the error gives a retry time, wait for it. Repeated retries are not a neutral
 
 ### Check the actual limit without deleting anything
 
-An **upload-rate limit** counts attachment attempts over a time window; **Library storage** counts saved files. They are different problems. On the web, open **Settings → Storage** to inspect the available Library storage information, as described in [OpenAI's upload troubleshooting guide](https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt). The [Library guide](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) also explains how to view saved files and manage them.
+An **upload-rate limit** counts attachment attempts over a time window; **saved-file storage** counts files you keep. They are different problems. On the web, the official upload troubleshooting guide points to **Settings → Storage** for the account's available storage information. Where the **Library** interface is still available, OpenAI also documents a **Storage** button inside Library.
 
-**Important:** a storage display does **not** tell you how much of a rolling upload-rate allowance remains. If you recently reached the rate limit, deleting files does not establish that the rate limit has reset. If saved storage is the actual problem, review which files are no longer needed before taking any removal action. Deleting a conversation alone does **not** delete a separate file that remains saved in Library; those are distinct objects. Files from connected services may have different management rules.
+**Important — Library or Space?** OpenAI's current [saved-file help page](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) explicitly states that eligible accounts using **Space** see it **instead of Library**. If you see Space, follow the linked Space-specific help in that official page for finding and managing your files; do **not** search indefinitely for a Library tab that your account does not have. Your Projects remain a separate feature. Labels and storage views depend on the actual account interface.
+
+A storage display does **not** tell you how much of a rolling upload-rate allowance remains. If you recently reached the rate limit, deleting files does not establish that the rate limit has reset. If saved storage is the actual problem, review which files are no longer needed before taking any removal action. Deleting a conversation alone does **not** delete a separate file that remains saved in Library or Space; those are distinct objects. Files stored only in an individual Project may follow separate project deletion rules. Files connected from a third-party provider should be managed according to that provider's permissions.
 
 Do not remove irreplaceable files to troubleshoot an unclear message. First record whether the error mentions a retry time, a per-file size limit, or saved storage; then make the least destructive change consistent with that evidence.
+
+## Choose the right branch before contacting support
+
+| What you can actually observe | Next safe check | What the check cannot establish |
+| --- | --- | --- |
+| A retry time or an **upload limit reached** message | Check the signed-in account, the official upload-rate guidance, and the displayed retry time | An empty Library or Space means the rolling quota has reset |
+| A **storage full** message or clearly full saved-file indicator | Check **Settings → Storage** or the storage view available in Library; if your account uses Space, follow the official Space-specific instructions | That a previously failed upload is fixed just because a file was deleted |
+| A specific **file too large** or unsupported-format message | Compare the exact file type and size with the current official supported types and limits | That renaming `.gdoc` to `.pdf` converts the document |
+| A transferred file whose **answers omit a chart** | Check whether the original contains embedded graphics, how it was attached, and the product's current PDF-image instructions | That a complete text answer proves every figure was processed |
+| An upload failure limited to a workplace network | Check the official status page and ask the network administrator to inspect supported network requirements | That disabling network security is an appropriate fix |
+
+A PDF with charts deserves an additional distinction: OpenAI's current upload documentation says PDFs attached directly to a conversation can support analysis of embedded images, but files stored as GPT knowledge or Project sources can be processed differently. A correct answer about the PDF's first paragraph is **not** a successful test of a chart on page six. Ask a question about the exact figure or, when the product does not support its extraction, use an approved image attachment instead.
+
+This table separates **observations** from **hypotheses**. It is an editorial troubleshooting aid, not the result of measured account-specific upload tests.
 
 ## Check service and network conditions safely
 
