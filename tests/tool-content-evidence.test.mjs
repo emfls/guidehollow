@@ -29,4 +29,8 @@ test('both reader-facing browser utilities give a self-contained example and fai
   assert(!source.includes('North Greenhouse'));
   assert.equal(3 * 8 + 2 * 6, 36);
   assert(html.includes('AI Prompt Builder'));
+  assert(html.includes("Decide which kind of answer you actually need"));
+  assert(html.includes("First identify which failure you have"));
+  assert(html.includes("Revoke or rotate the credential at its issuer"));
+  assert(html.includes("Check the original file locally"));
 });
