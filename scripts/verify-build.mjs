@@ -13,7 +13,7 @@ const sitemap = await readFile(path.join(root,'sitemap.xml'),'utf8');
 const search = JSON.parse(await readFile(path.join(root,'search-index.json'),'utf8'));
 const publicArticles = search.filter(entry => !entry.url.startsWith('/tools/'));
 const articlePaths = [];
-assert.equal(search.length-publicArticles.length,2,'Both tools must be searchable');
+assert.equal(search.length-publicArticles.length,3,'All three tools must be searchable');
 assert.equal(new Set(search.map(entry => entry.url)).size,search.length,'Duplicate public article paths');
 assert(!sitemap.includes('/404') && !sitemap.includes('/search/'),'Noindex pages must be excluded');
 assert.equal((await readdir(root)).includes('ads.txt'),Boolean(site.ads.publisherId),'ads.txt must match publisher configuration');
@@ -85,7 +85,7 @@ for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
 }
 assert((await readFile(path.join(root,'robots.txt'),'utf8')).includes('https://guidehollow.com/sitemap.xml'));
 assert.equal(((await readFile(path.join(root,'rss.xml'),'utf8')).match(/<item>/g)||[]).length,publicArticles.length);
-console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 2 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
+console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 3 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
 console.log('Verified ' + approvedVisualCount + ' approved Notion figure(s) against SVG bytes and generated HTML.');
