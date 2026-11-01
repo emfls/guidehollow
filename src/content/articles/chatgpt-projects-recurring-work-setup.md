@@ -6,7 +6,7 @@ category: "ai-tools"
 tags: ["chatgpt-projects", "project-instructions", "project-memory", "recurring-work", "shared-projects", "ai-tools"]
 publishedDate: "2026-10-31"
 updatedDate: "2026-11-02"
-sources: [{"title": "OpenAI: Projects in ChatGPT", "url": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"}, {"title": "OpenAI: Memory in ChatGPT", "url": "https://help.openai.com/en/articles/8590148-memory-in-chatgpt"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}]
+sources: [{"title": "OpenAI: Projects in ChatGPT", "url": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"}, {"title": "OpenAI: Memory in ChatGPT", "url": "https://help.openai.com/en/articles/8590148-memory-in-chatgpt"}, {"title": "OpenAI: Getting started with Space in ChatGPT", "url": "https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -142,7 +142,7 @@ Shared projects automatically use project-only memory and cannot be switched to 
 
 Use controlled invitations for internal content. Where "Anyone with a link" sharing is allowed, a signed-in user holding that link may be able to join. Review active members, visibility, and edit permissions before adding organizational files.
 
-Deleting a project is not a harmless cleanup operation. OpenAI states that deleting it removes project chats, instructions, and files stored **only** in that project. Files separately saved in **Library or Space** are not deleted by that project deletion and follow their own storage rules. If a project was shared, other members also lose access. Keep important approved records in the organization's authoritative storage before a destructive operation.
+Deleting a project is not a harmless cleanup operation. OpenAI states that deleting it removes project chats, instructions, and files stored **only** in that project. Files separately saved in **Library or Space** are not deleted by that project deletion and follow their own storage rules. OpenAI's [Space guide](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt) explicitly says Space replaces Library where enabled, while Projects remain separate. If a project was shared, other members also lose access. Keep important approved records in the organization's authoritative storage before a destructive operation.
 
 ## Check the actual scope before you share or delete
 
