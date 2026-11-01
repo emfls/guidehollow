@@ -1,0 +1,11 @@
+case_id	editorial_classification	why	minimal_repair
+J01	PASS	All fields and both records match the invented notes	No correction
+J02	SYNTAX	Trailing comma prevents JSON.parse from reading the candidate	Remove the trailing comma and supply the complete two-record object
+J03	STRUCTURE	Unexpected priority field violates additionalProperties: false	Delete the unsupported priority field
+J04	STRUCTURE	Required resolved field is missing	Add resolved: null for T-101
+J05	SOURCE	T-101 resolution is unknown, not explicitly false	Change T-101 resolved to null
+J06	SOURCE	T-101 supplies no error code; E99 is invented	Change T-101 error_code to null
+J07	SOURCE	Two structurally valid rows repeat T-101 and omit T-102	Restore one T-101 and one T-102 record
+J08	STRUCTURE	A one-record array violates minItems: 2 in this two-ticket exercise	Restore the missing T-102 record
+J09	STRUCTURE	resolved must be boolean or null, not the string true	Use JSON boolean true for T-102
+J10	SOURCE	The source explicitly confirms T-102 resolved; false reverses that fact	Change T-102 resolved to true
