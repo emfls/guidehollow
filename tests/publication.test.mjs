@@ -14,8 +14,20 @@ test('new publication, missing start article, drafts and future content build sa
     const original = await readFile(article,'utf8');
     // Rename a published slug and its explicit editorial links, leaving Start Here to handle its missing selection.
     await writeFile(article,original.replace('slug: "what-is-generative-ai"','slug: "generative-ai-introduction"'));
-    const about = path.join(fixture,'src/pages/about.astro');
-    await writeFile(about,(await readFile(about,'utf8')).replace('/guides/what-is-generative-ai/','/guides/generative-ai-introduction/'));
+    // A permalink change must also update explicit editorial cross-links in
+    // source posts and static pages, not just the author/about page.
+    async function rewriteArticleLinks(dir) {
+      for (const entry of await readdir(dir,{withFileTypes:true})) {
+        const file = path.join(dir,entry.name);
+        if (entry.isDirectory()) await rewriteArticleLinks(file);
+        else if (/\.(?:astro|md|ts)$/.test(entry.name)) {
+          const source = await readFile(file,'utf8');
+          const changed = source.replaceAll('/guides/what-is-generative-ai/','/guides/generative-ai-introduction/');
+          if (changed !== source) await writeFile(file,changed);
+        }
+      }
+    }
+    await rewriteArticleLinks(path.join(fixture,'src'));
     const collection = path.join(fixture,'src/content/articles');
     for (const [slug,extra] of [['additional-public-guide',''],['private-draft-sentinel','draft'],['future-guide-sentinel','future']]) {
       let content = original.replaceAll('what-is-generative-ai',slug).replace(/^title:.*$/m,`title: ${JSON.stringify(slug)}`);

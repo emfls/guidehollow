@@ -79,6 +79,37 @@ A better-sounding single answer is not enough to conclude that a prompt is more 
 
 Decide the expected answer for each case **before** comparing prompt versions, and record format violations separately from label accuracy. The supplied scoring columns are invented to demonstrate arithmetic, not measured model outputs. For real use, replace them with answers from actual model runs; do not report invented numbers as an improvement in any AI product.
 
+## A second test: can your prompt distinguish unknown from false?
+
+A good instruction can still yield a smooth answer that adds invented facts. Before comparing two prompt versions on tone, test whether each one preserves what the source **does not establish**. We prepared a [22-row source-boundary exercise](/examples/claim-boundary-audit.csv) and published the [three fictional source notes](/examples/claim-boundary-source-notes.txt) separately. Unlike the routing exercise above, this is not a prediction dataset and contains **no model outputs**.
+
+The task is to classify a proposed factual statement as **SUPPORTED**, **CONTRADICTED** or **UNSUPPORTED** using only those notes. The distinction is important: “The meeting is on Sunday” contradicts a Saturday schedule, while “The meeting is in the North Greenhouse” has no evidence either way. Confusing these categories encourages an assistant to turn ignorance into confident denial.
+
+### Run a source-fidelity prompt comparison
+
+1. Download the notes and hide the answer-key columns of the CSV until you have made your predictions. Treat the labels as the editor's reference answer, not as experimental ground truth about the world.
+2. Try the prompt below with the source notes and one proposed claim. Save the complete raw answer for each case and record the date, product and interface you actually used.
+3. Repeat with a revised prompt. Change **one** instruction, such as the rule for missing information; do not secretly change the cases or scoring method between versions.
+4. Count exact label matches, separately track extra claims or formatting violations, and inspect the mistakes that matter. A correct label accompanied by an invented explanation is not necessarily a usable response.
+
+```text
+Use only the supplied fictional source notes.
+Classify the proposed claim using exactly one of:
+SUPPORTED — directly established by the notes.
+CONTRADICTED — explicitly inconsistent with the notes.
+UNSUPPORTED — not established either way by the notes.
+Quote the shortest source phrase that explains your decision.
+If none exists, say "No supporting passage."
+Do not use outside facts or invent a product result.
+
+Source: [PASTE THE RELEVANT SECTION FROM THE SOURCE NOTES]
+Claim: [PASTE ONE ROW'S CLAIM]
+```
+
+For a starting spot-check, try **G06** (Sunday versus Saturday), **G10** (delivery cost not provided), **R02** (a proposed offline feature called approved), and **E06** (no event date selected). These deliberately represent four ways to preserve the source boundary. Once you understand the rules, continue through all 22 cases.
+
+The editor-written key has **12 SUPPORTED, 6 CONTRADICTED and 4 UNSUPPORTED** rows. This is a reproducible *dataset description*, not a model success score. The [open test](https://github.com/emfls/guidehollow/blob/main/tests/claim-boundary-audit.test.mjs) checks the case inventory and arithmetic. Do not claim that a more elaborate prompt improved an actual model until you capture and compare its real answers.
+
 ## Add an example when style is hard to describe
 
 If you need a particular structure, provide a short example you wrote or are authorized to use. Explain which property matters: sentence length, headings, or the way unknown information is labeled.

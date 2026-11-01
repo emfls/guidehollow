@@ -79,6 +79,34 @@ A corrected sentence is: **“The proposed event is two hours long. The room is 
 
 The record separates detection from repair: first identify the unsupported claims, then change only those claims and compare the full result again. It diagnoses visible errors, not the model's hidden reason for producing them. For checking claims against external documents rather than supplied notes, use the [claim verification guide](/guides/how-to-verify-ai-generated-information/).
 
+## An original failure clinic: 22 statements against three sources
+
+The preceding event example contains three separate mistakes. To see how often a *type* of error can appear in different tasks, use our free [22-row claim-boundary CSV](/examples/claim-boundary-audit.csv) together with the [exact fictional source notes](/examples/claim-boundary-source-notes.txt). These are editor-written statements and reference classifications, **not** observations of a particular AI model.
+
+Our audit uses three labels with different repairs:
+
+| Evidence classification | Example case | What to do instead of asking the model to guess |
+| --- | --- | --- |
+| **SUPPORTED** | G01: Saturday at 10 a.m. | Keep the detail and the source quotation |
+| **CONTRADICTED** | R02: Offline mode approved | Replace it with “offline mode is only proposed” |
+| **UNSUPPORTED** | G04: North Greenhouse location | Remove the named venue or mark the location unconfirmed |
+| **CONTRADICTED** | E04: Room is reserved | State the room is suggested but not reserved |
+| **UNSUPPORTED** | R06: 20 percent faster | Remove the number unless there is genuine evidence |
+
+A generic “this is wrong” label loses information. For an explicitly contradicted statement you can point to the contrary passage. For an unsupported statement you can often only say *the source does not establish that*. Those require different editorial repairs. For example, unknown delivery costs do not establish that delivery is free or that delivery is charged.
+
+### Reproduce the checks before asking for another answer
+
+First open the source-notes file and classify cases G01 through G10 yourself. Then reveal the CSV's answer key. Across all three fictional scenarios, our reference classifications include **12 supported, 6 contradicted and 4 unsupported claims**. The public [integrity test](https://github.com/emfls/guidehollow/blob/main/tests/claim-boundary-audit.test.mjs) checks that those cases remain present and validates the independent $36 supply subtotal. The labels themselves come from the disclosed source notes, not a hidden model judge.
+
+Try a mutation: **change the garden's meeting day in the original notes from Saturday to Sunday**. A formerly contradicted Sunday statement can become supported; the unknown venue remains unknown, and the $36 supplies subtotal stays $36. If a revised answer changes all three, that is evidence of poor source control—not proof that the model's internal mechanism has been identified.
+
+### Stop conditions matter as much as corrections
+
+For a real customer or policy document, stop if the source is missing a key clause, two sources genuinely conflict, or the consequence of an incorrect answer is significant. Ask the source owner to resolve the ambiguity. A model can explain possible interpretations, but it cannot supply an authorization or a fact absent from your record.
+
+**Audit limits:** all 22 claims and their source notes are fictional; no ChatGPT or other AI response was benchmarked to produce the reference counts. This exercise checks your verification process. Its independently readable inputs make it useful without asserting unearned model performance.
+
 ## Why asking again is not enough
 
 A second response may change the wording or produce a different fact. That variation can reveal uncertainty, but it does not tell you which answer is correct. Agreement across repeated responses also does not establish independent evidence.

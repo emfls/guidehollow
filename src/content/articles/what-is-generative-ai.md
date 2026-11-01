@@ -45,6 +45,31 @@ If the same group asks whether the garden is open next Saturday, these purchase 
 
 **Practice:** a draft says “The garden is open Saturday, supplies cost $36 including delivery, and everyone gets free seeds.” Which parts are supported? The arithmetic supports a $36 supplies subtotal only. Opening hours, delivery cost, and free seeds remain unsupported. A correct number does not validate the surrounding sentence.
 
+## An original 22-claim source check: generation is not verification
+
+Here is a small audit you can **repeat without a ChatGPT account**. We wrote three fictional sets of notes—a garden plan, a software release note and a proposed event—and then wrote 22 statements that a confident assistant might include. The real task is to decide whether the supplied information supports each statement. You are checking evidence discipline, **not** measuring a model.
+
+**Download the [exact fictional source notes](/examples/claim-boundary-source-notes.txt) and [22-case claim ledger with the editorial answer key](/examples/claim-boundary-audit.csv).** The notes are published separately from the answers so you can try the exercise without seeing the labels first.
+
+Classify a statement as **SUPPORTED** when the notes establish it, **CONTRADICTED** when the notes say otherwise, and **UNSUPPORTED** when the notes leave it unknown. “Unsupported” does not mean “false”: it means you are not entitled to assert the claim from this particular source.
+
+| Proposed statement | Expected status | Why |
+| --- | --- | --- |
+| G09: The listed supplies subtotal is $36 | SUPPORTED | Three bags at $8 plus two trays at $6 yields $36 |
+| G10: The $36 includes delivery | UNSUPPORTED | Neither the delivery charge nor its inclusion is specified |
+| R02: Offline mode is approved | CONTRADICTED | The release note explicitly calls it an unapproved proposal |
+| E05: The event is next Saturday | CONTRADICTED | The event notes explicitly say no date was chosen |
+
+The original reference set contains **12 supported, 6 contradicted and 4 unsupported statements**. Those numbers are a count of our *editor-written cases*, not a count of model errors. The public automated [fixture test](https://github.com/emfls/guidehollow/blob/main/tests/claim-boundary-audit.test.mjs) independently confirms the 22 rows, the answer-key coverage and the $36 arithmetic; the editorial decisions themselves are explained beside the source statements.
+
+### Try a change that should not change the answer
+
+Change the price of a bag from $8 to $9 in your own copy of the source. The subtotal becomes **3 × 9 + 2 × 6 = $39**. The garden's meeting time and still-unknown location do **not** change. A response that updates the cost but also invents a confirmed venue has failed a different requirement entirely.
+
+This illustrates the critical difference: a generative assistant can suggest language, a source can establish a factual boundary, and arithmetic can verify a number. None of those substitutes for the others. For an interactive numerical audit using a separate eight-row dataset, try the [weighted-average workbench](/tools/weighted-price-checker/).
+
+**Limits of the exercise:** the meeting, release and event are fictional; we did not submit the 22 cases to an AI service or infer any vendor's accuracy rate. The value is a public input and answer key you can use to check your own results.
+
 ## Choose your first task
 
 1. Pick a short piece of material you are allowed to share. Fictional notes are a good starting point.

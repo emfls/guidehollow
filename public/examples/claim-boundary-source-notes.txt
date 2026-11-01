@@ -1,0 +1,23 @@
+GuideHollow editorial claim-boundary exercise — 2026-11-01
+FICTIONAL TEACHING DATA. These notes are invented by the publisher. No live model, customer, product launch, venue, or commercial transaction was evaluated.
+
+[GARDEN]
+A community garden planning meeting is scheduled for Saturday at 10 a.m.
+Attendees should bring a notebook.
+The group will choose a planting schedule.
+The meeting location is not confirmed.
+For an illustrative supplies budget: 3 bags cost $8 each and 2 trays cost $6 each.
+There is no information about delivery charges, free seeds, or the garden's public opening hours.
+
+[RELEASE]
+Version 3.2 fixes export filenames.
+Offline mode is a proposal and has not been approved.
+No release date has been agreed.
+No speed improvement percentage or subscription plan availability has been confirmed.
+
+[EVENT]
+The proposed event is two hours long.
+The room was suggested but has not been reserved.
+No event date has been selected.
+
+Reviewer instructions: For every proposed claim, mark SUPPORTED only if the supplied notes establish it; CONTRADICTED if the notes explicitly say otherwise; or UNSUPPORTED if the notes do not establish it. A claim can be plausible yet unsupported. Read the notes before checking the editor-written key. No prediction column is attributed to an AI service.

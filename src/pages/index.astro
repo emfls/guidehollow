@@ -26,6 +26,15 @@ const startArticles = startSlugs.flatMap((slug, index) => { const post = posts.f
     </ol>
     <p class="small muted">This is a teaching fixture with invented transactions, not evidence of a live AI model benchmark or a real merchant's sales. <a href="/evidence/">Explore the original evidence library and other reproducible checks →</a></p>
   </section>
+  <section class="section" aria-labelledby="fact-boundary-title">
+    <div class="section-heading"><div><p class="eyebrow mint">/ check_the_claim</p><h2 id="fact-boundary-title">Know the difference between false and unknown.</h2></div><p class="muted">A statement can contradict the source, or it can merely lack evidence. Those require different repairs.</p></div>
+    <ol class="start-path">
+      <li><span class="path-number">01</span><div><p class="eyebrow">Read the source</p><h3><a href="/examples/claim-boundary-source-notes.txt">Three short fictional notes</a></h3><p class="small muted">A garden meeting, a proposed software feature and an unconfirmed event.</p></div></li>
+      <li><span class="path-number">02</span><div><p class="eyebrow">Make a judgment</p><h3><a href="/examples/claim-boundary-audit.csv">Classify 22 factual claims</a></h3><p class="small muted">12 are supported, 6 directly contradicted and 4 left unsupported by the notes. Check the answers after deciding for yourself.</p></div></li>
+      <li><span class="path-number">03</span><div><p class="eyebrow">Explain the error</p><h3><a href="/troubleshooting/why-ai-gives-wrong-answers/">Learn to repair claims without guessing</a></h3><p class="small muted">Change a source note and observe which conclusions actually need to change.</p></div></li>
+    </ol>
+    <p class="small muted">These are <strong>editor-created</strong> teaching cases—not model-generated predictions. All source files, scoring limits and other examples are explained in the <a href="/evidence/">public evidence library</a>.</p>
+  </section>
   <section class="section" id="start-here"><div class="section-heading"><div><p class="eyebrow mint">/ start_here</p><h2>New to AI? Begin here.</h2></div><p class="muted">Useful first steps. No jargon required.</p></div><ol class="start-path">{startArticles.map(({post,index}, i) => <li><span class="path-number">0{i + 1}</span><div><p class="eyebrow">{['Get your bearings', 'Ask a better question', 'Build good judgment'][index]}</p><h3><a href={articleUrl(post)}>{post.data.title}</a></h3></div><span aria-hidden="true">→</span></li>)}</ol></section>
   <section class="section"><div class="section-heading"><div><p class="eyebrow mint">/ explore</p><h2>Find your next step.</h2></div><a class="text-link" href="/guides/">Browse all guides →</a></div><div class="category-grid">{categories.map((c,i) => <a class="category-block" href={`/${c.slug}/`}><span class="mono muted">0{i + 1} / {c.command}</span><h3>{c.name} <span aria-hidden="true">↗</span></h3><p>{c.label}</p></a>)}</div></section>
 

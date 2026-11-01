@@ -5,7 +5,7 @@ slug: "getting-started-with-chatgpt"
 category: "ai-tools"
 tags: ["chatgpt", "getting-started", "privacy"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-01"
 sources: [{"title": "OpenAI: The ChatGPT home page", "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -105,6 +105,14 @@ Download the [exact first request](/examples/chatgpt-first-task/request.txt), [f
 **Try a second case yourself:** change the note to “The customer tried twice in Firefox. No error code was provided.” Before sending, write your own expected facts: two attempts, Firefox known, error code unknown, browser version still unknown. Reject a response that asks which browser was used as if Firefox had not been supplied. This variation tests whether the answer follows the source rather than copying the first example.
 
 This is one successful, small text exercise, not evidence that every future response will meet the same criteria. The outputs have not been silently corrected; review your own result before using it.
+
+## One more check you can do before trusting the next answer
+
+The recorded two-turn example above is only one past response. For a different type of exercise that you can reproduce without trusting that transcript, download the [22-case claim ledger](/examples/claim-boundary-audit.csv) and [original fictional source notes](/examples/claim-boundary-source-notes.txt). Before submitting any prompt to a model, label statements G04, R02 and E06 yourself as supported, contradicted or unsupported.
+
+If you try the same cases in your own ChatGPT account, save its raw answers. Compare the claims with the source notes, not with an assistant's opinion of its own work. The downloadable answers are editor-written teaching references, not ChatGPT predictions or a measured model benchmark.
+
+A useful first-session habit is to record one **success**, one **unsupported addition** and one **unanswered question**. You learn more from a concrete correction than from asking whether the product is generally accurate. This extra exercise is optional; you can read the files without signing in.
 
 ## Distinguish the text task from optional features
 
