@@ -77,8 +77,8 @@ export function searchEntries(entries: SearchEntry[], query: string): SearchHit[
     if (matched.some(where => !(where.title || where.description || where.body))) return [];
     const score = matched.reduce((sum,where) =>
       sum + (where.title ? 12 : 0) + (where.description ? 5 : 0) + (where.body ? 1 : 0),0)
-      + (titleWords.join(' ').includes(phrase) ? 18 : 0)
-      + (descriptionWords.join(' ').includes(phrase) ? 7 : 0);
+      + ((' ' + titleWords.join(' ') + ' ').includes(' ' + phrase + ' ') ? 18 : 0)
+      + ((' ' + descriptionWords.join(' ') + ' ').includes(' ' + phrase + ' ') ? 7 : 0);
     return [{entry,score,preview:contextSnippet(plain,terms)}];
   }).sort((a,b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title));
 }
