@@ -63,7 +63,7 @@ function evaluate(event: SubmitEvent) {
   const list = document.createElement('ol');
   for (const item of result.results) {
     const li = document.createElement('li');
-    const verdict = item.chosen ? readable[item.chosen] : 'Not answered';
+    const verdict = item.chosen ? readable[item.chosen as ClaimVerdict] : 'Not answered';
     const resultText = item.matches ? 'Matched.' : 'Check again.';
     li.textContent = item.id + ': ' + resultText + ' Your answer: ' + verdict + '. Reference: ' + readable[item.expected] + '. Reason: ' + item.reason;
     list.append(li);
