@@ -6,13 +6,13 @@ const read = slug => readFileSync(new URL('../src/content/articles/' + slug + '.
 
 test('upload help distinguishes Library storage from rate limits and avoids destructive instructions',()=>{
  const article=read('chatgpt-file-upload-problems');
- assert.match(article,/upload-rate limit.*Library storage/i);
+ assert.match(article,/upload-rate limit.*saved-file storage/i);
  assert.match(article,/Settings → Storage/);
  assert.match(article,/does \*\*not\*\* tell you how much of a rolling upload-rate allowance remains/);
  assert.match(article,/Deleting a conversation alone does \*\*not\*\* delete a separate file/);
  assert.match(article,/help\.openai\.com\/en\/articles\/20001052-using-library-to-manage-files-in-chatgpt/);
  assert.match(article,/Do not remove irreplaceable files/);
- assert.match(article,/updatedDate: "2026-10-24"/);
+ assert.match(article,/updatedDate: "2026-11-02"/);
 });
 
 test('Search article separates research from account deletion claims',()=>{
