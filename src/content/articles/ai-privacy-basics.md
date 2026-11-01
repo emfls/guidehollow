@@ -5,7 +5,7 @@ slug: "ai-privacy-basics"
 category: "guides"
 tags: ["privacy", "ai-basics", "chatgpt"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-01"
 sources: [{"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "GitHub General Privacy Statement", "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -108,7 +108,7 @@ Settings can differ by workspace and account. If you use an organizational accou
 
 A prompt is only one place information can travel. Shared conversation links, copied text, downloaded files, browser extensions, screenshots, and collaborators can all change who can see the material. Inspect a generated document before forwarding it; the assistant may have preserved details you meant to remove.
 
-On GuideHollow, the two free tools operate locally in the page. Our search terms appear in URLs, and public GitHub issues are public. Those details are explained in our [Privacy Policy](/privacy-policy/). Local processing does not protect against someone with access to your device or clipboard.
+On GuideHollow, all four free browser tools process your entered information locally. The Source Claim Verifier downloads public fictional teaching files, but does not upload your answers. Search terms appear in URLs, and public GitHub issues are public. Those details are explained in our [Privacy Policy](/privacy-policy/). Local processing does not protect against someone with access to your device or clipboard.
 
 ## If you already shared something sensitive
 
