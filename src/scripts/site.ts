@@ -18,8 +18,12 @@ export async function copyText(text: string, button: HTMLButtonElement) {
   setTimeout(() => { button.textContent = 'Copy'; }, 3000);
 }
 document.querySelectorAll('pre').forEach(pre => {
+  // Plain-text evidence panels are not code snippets. Copying those using
+  // querySelector('code') returned an empty string and misled readers.
+  const code = pre.querySelector('code');
+  if (!code) return;
   const button = document.createElement('button'); button.type = 'button'; button.className = 'copy-button'; button.textContent = 'Copy'; button.setAttribute('aria-label', 'Copy code or prompt'); button.setAttribute('aria-live', 'polite');
-  button.addEventListener('click', () => copyText(pre.querySelector('code')?.textContent ?? '', button)); pre.append(button);
+  button.addEventListener('click', () => copyText(code.textContent ?? '', button)); pre.append(button);
 });
 
 // Keep the article visible sooner on phones; desktop readers retain the full contents list.
