@@ -1,0 +1,9 @@
+LineID,Channel,Units,UnitPrice
+L-101,Web,1,100
+L-102,Web,4,25
+L-103,Store,10,12
+L-104,Web,2,40
+L-105,Store,3,30
+L-106,Web,0,999
+L-107,Store,5,0
+L-108,Store,2,20
