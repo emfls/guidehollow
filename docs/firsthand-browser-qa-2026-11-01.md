@@ -61,7 +61,7 @@ The **written automation plan** specified G04=SUPPORTED (deliberately wrong), G0
 
 ### Remediation and limits
 
-Following this run, the web UI was changed to (a) assign each radio a unique case+verdict accessible label, (b) display how many claims are selected, and (c) block grading until every question has a selection. Those are usability protections, not retroactive evidence that the earlier browser score was caused by a specific defect. This record does not claim a post-fix interactive retest unless one actually occurs.
+Following this run, the web UI was changed to (a) assign each radio a unique case+verdict accessible label, (b) display how many claims are selected, and (c) block grading until every question has a selection. Those are usability protections, not retroactive evidence that the earlier browser score was caused by a specific defect. A separate **post-fix live-browser smoke test** was subsequently performed. It loaded all five questions, selected only G04=SUPPORTED, and displayed **“1 of 5 claims answered”** before submitting. Clicking Check displayed **“Only 1 of 5 claims answered. Select a verdict for every claim before grading.”** It showed no score or feedback, and the selected option had the unique accessible label **“G04: Supported by the notes”**. [Inspect the observed browser run](https://agent.tinyfish.ai/runs/ff9a4360-9346-42d2-8d0d-bcf09beeb690). This directly verifies the incomplete-answer guard after deployment; it does **not** retest all five selected answers or resolve the earlier automated-selection discrepancy.
 
 ## What these tests do and do not establish
 

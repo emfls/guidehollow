@@ -88,7 +88,26 @@
         "staleFeedbackCleared": true
       },
       "outcome": "inconclusive",
-      "limits": "Browser run did not preserve a verifiable record of each radio's checked state before submission; we cannot attribute 1/5 to a computation bug. The stated planned answers would score 4/5 under the published reference key. The follow-up UI change requires five explicit selections and gives unique input labels. This was a pre-fix run, not a claim that the post-fix UI was browser-tested."
+      "limits": "The initial browser run did not preserve checked radio inputs; the 1/5 score could reflect incomplete selection rather than a scoring defect. The five stated planned answers would score 4/5 under the reference key. A separate post-fix browser run confirmed that submitting only one of five selected answers is blocked; complete five-answer browser scoring was not repeated."
+    },
+    {
+      "id": "claim-incomplete-guard-postfix",
+      "product": "GuideHollow Source Claim Verifier",
+      "url": "https://guidehollow.com/tools/claim-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/ff9a4360-9346-42d2-8d0d-bcf09beeb690",
+      "input": "Post-fix five-case practice: select only G04=SUPPORTED; leave four other questions unanswered; press Check my source-reading answers once.",
+      "observed": {
+        "sourceCasesLoaded": 5,
+        "answeredBeforeSubmit": 1,
+        "selectionStatus": "1 of 5 claims answered. Read the source and select one verdict for each claim before grading.",
+        "submitStatus": "Only 1 of 5 claims answered. Select a verdict for every claim before grading.",
+        "gradingBlocked": true,
+        "scoreShown": false,
+        "feedbackShown": false,
+        "uniqueAccessibleLabel": "G04: Supported by the notes"
+      },
+      "outcome": "pass",
+      "limits": "Narrow post-fix UI smoke test of an incomplete five-case submission. Does not validate every browser or that the complete five-answer submission scores 4/5 in a browser. A source-level regression separately checks that deterministic score."
     }
   ]
 }

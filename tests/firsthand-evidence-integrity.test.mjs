@@ -15,9 +15,9 @@ test('public firsthand browser evidence is backed by actual reproducible source 
   ]);
   const report = JSON.parse(raw);
   assert.equal(report.date,'2026-11-01');
-  assert.equal(report.trials.length,4);
+  assert.equal(report.trials.length,5);
   assert(report.scope.includes('No Excel, Google Sheets, ChatGPT'));
-  const [base,quantity,invalid,claim] = report.trials;
+  const [base,quantity,invalid,claim,smoke] = report.trials;
   for(const trial of report.trials){
     assert.match(trial.runUrl,/^https:\/\/agent\.tinyfish\.ai\/runs\/[0-9a-f-]{36}$/);
     assert(trial.url.startsWith('https://guidehollow.com/tools/'));
@@ -46,7 +46,15 @@ test('public firsthand browser evidence is backed by actual reproducible source 
   assert.equal(intended.matched,4);
   assert.equal(claim.observed.visibleScore,'1 of 5');
   assert.equal(claim.outcome,'inconclusive');
-  assert(claim.limits.includes('cannot attribute 1/5'));
+  assert(claim.limits.includes('initial browser run did not preserve'));
+  assert.equal(smoke.id,'claim-incomplete-guard-postfix');
+  assert.equal(smoke.outcome,'pass');
+  assert.equal(smoke.observed.answeredBeforeSubmit,1);
+  assert.equal(smoke.observed.gradingBlocked,true);
+  assert.equal(smoke.observed.scoreShown,false);
+  assert.equal(smoke.observed.feedbackShown,false);
+  assert.match(smoke.observed.submitStatus,/Only 1 of 5 claims answered/);
+  assert.equal(smoke.observed.uniqueAccessibleLabel,'G04: Supported by the notes');
   assert(evidencePage.includes('/examples/firsthand-browser-qa-2026-11-01.json'));
   assert(article.includes('A real browser run on the published workbench'));
   assert(article.includes('not a claim that ChatGPT, Excel or Google Sheets was executed'));
