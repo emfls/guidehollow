@@ -20,7 +20,7 @@ test('new publication, missing start article, drafts and future content build sa
       for (const entry of await readdir(dir,{withFileTypes:true})) {
         const file = path.join(dir,entry.name);
         if (entry.isDirectory()) await rewriteArticleLinks(file);
-        else if (/\\.(?:astro|md|ts)$/.test(entry.name)) {
+        else if (/\.(?:astro|md|ts)$/.test(entry.name)) {
           const source = await readFile(file,'utf8');
           const changed = source.replaceAll('/guides/what-is-generative-ai/','/guides/generative-ai-introduction/');
           if (changed !== source) await writeFile(file,changed);
