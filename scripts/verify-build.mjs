@@ -15,7 +15,7 @@ const publicArticles = search.filter(entry => !entry.url.startsWith('/tools/'));
 const articlePaths = [];
 assert.equal(search.length-publicArticles.length,3,'All three tools must be searchable');
 assert.equal(new Set(search.map(entry => entry.url)).size,search.length,'Duplicate public article paths');
-assert(!sitemap.includes('/404') && !sitemap.includes('/search/'),'Noindex pages must be excluded');
+assert(!sitemap.includes('/404') && !sitemap.includes('/search/') && !sitemap.includes('/tags/'),'Noindex pages and navigation-only tag archives must be excluded');
 assert.equal((await readdir(root)).includes('ads.txt'),Boolean(site.ads.publisherId),'ads.txt must match publisher configuration');
 if(site.ads.publisherId) assert.equal((await readFile(path.join(root,'ads.txt'),'utf8')).trim(),`google.com, ${site.ads.publisherId.replace('ca-','')}, DIRECT, f08c47fec0942fa0`);
 for (const file of htmlFiles) {
@@ -39,7 +39,8 @@ for (const file of htmlFiles) {
   assert.equal(listed,!noindex,`${relative}: sitemap and robots indexing policy must agree`);
   if(relative.startsWith('tags/')) {
     const count = (html.match(/class="article-row"/g)||[]).length;
-    assert.equal(noindex,count < 2,`${relative}: singleton tag index policy`);
+    assert(count >= 1,`${relative}: tag archive must have articles`);
+    assert(noindex,`${relative}: navigation-only tag archives must be noindex`);
   }
   const jsonld = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)];
   assert(jsonld.length,`${relative}: structured data`);
