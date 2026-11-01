@@ -9,7 +9,7 @@ This document records an **actual browser agent's interaction with the public pr
 - Interface: publicly available web app; browser automation operated the actual page, clicked UI controls, edited CSV text and read feedback
 - Browser/OS/viewport: not reliably recorded by the browser-agent report; **do not infer browser compatibility**
 - Data: the published `/examples/weighted-price-sample.csv` and `/examples/claim-boundary-audit.csv`, **invented for teaching**
-- Structured observations: [firsthand-browser-qa-2026-11-01.json](/examples/firsthand-browser-qa-2026-11-01.json) (the link is relative to the public website)
+- Structured observations: [firsthand-browser-qa-2026-11-01.json](https://guidehollow.com/examples/firsthand-browser-qa-2026-11-01.json) (the link is relative to the public website)
 - Original browser executions: [price workbench run](https://agent.tinyfish.ai/runs/6c7255f0-7df2-46fb-be53-b5df638d8d38), [source-claim UI run](https://agent.tinyfish.ai/runs/25bc82f0-a7ad-4557-8f24-7269ac707534). Visibility may depend on the browser service. The JSON preserves key observations independently of those links.
 - No user data was uploaded, purchases made or authenticated sessions used.
 
