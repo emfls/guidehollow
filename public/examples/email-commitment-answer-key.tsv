@@ -1,0 +1,11 @@
+case_id	editorial_decision	reason	minimal_repair
+E01	PASS	The sentence asks for a choice without implying either time is final.	No repair needed.
+E02	REWRITE	The source explicitly says the room is not booked and neither time is confirmed.	Would [OPTION A] or [OPTION B] work better? No booking is confirmed.
+E03	INCOMPLETE	The sentence preserves the main deadline but drops the distinct noon notification condition required by the brief.	Add: If you cannot meet the deadline, please tell us by 12:00 UTC on 6 November 2026.
+E04	REWRITE	Friday is an unauthorized completion commitment; receiving a form is not proof the review will finish then.	We need the signed delivery form to continue the review.
+E05	PASS	The venue status and unapproved agenda are both accurately preserved.	No repair needed.
+E06	REWRITE	A name and an email delivery channel were invented; the required placeholders were removed.	Hello [CUSTOMER], please send the form through [APPROVED CHANNEL].
+E07	REWRITE	The statement offers a refund that the sender has not authorized.	We will review your request and respond after checking the applicable policy.
+E08	REWRITE	A refundable deposit is not an established total price; the source leaves the total unknown.	The refundable deposit is 50 credits; the total cost is not yet specified.
+E09	PASS	The sentence preserves draft status and claims neither approval nor sending.	No repair needed.
+E10	PASS	The required form and permitted channel remain intact without inventing a deadline.	No repair needed.
