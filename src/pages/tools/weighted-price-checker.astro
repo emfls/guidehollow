@@ -1,0 +1,107 @@
+---
+import Base from '../../layouts/Base.astro';
+const fixture = `LineID,Channel,Units,UnitPrice
+L-101,Web,1,100
+L-102,Web,4,25
+L-103,Store,10,12
+L-104,Web,2,40
+L-105,Store,3,30
+L-106,Web,0,999
+L-107,Store,5,0
+L-108,Store,2,20`;
+---
+<Base title="Weighted Average Audit Workbench" description="Paste a small CSV and independently check sales-weighted averages, line revenue, channel reconciliations, zero-price rows and missing numeric inputs in your browser." breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:'Weighted Average Audit',url:'/tools/weighted-price-checker/'}]}>
+  <header class="page-heading">
+    <p class="eyebrow mint">/ tools / spreadsheet audit</p>
+    <h1>Weighted Average Audit Workbench</h1>
+    <p>Verify an AI-generated average selling price against the original rows. Calculate revenue per sold unit, check channel reconciliation, and flag missing or invalid inputs before accepting a result.</p>
+  </header>
+  <section class="prose info-content">
+    <h2>What this tool checks</h2>
+    <p>An arithmetic-looking answer can be the wrong metric. This workbench divides <strong>total row revenue</strong> by <strong>total units</strong>; it never averages a list of prices as though every line sold the same quantity. It also reports the simple mean separately to expose the difference. Each row and channel remains visible for review.</p>
+    <p>All calculations take place inside your browser. Nothing is uploaded or sent to GuideHollow, and no AI model is called. This is a learning and preflight tool, not a replacement for your accounting system, spreadsheet engine or independent audit. Avoid entering private customer or company data.</p>
+  </section>
+  <div class="tool-workspace">
+    <form id="weighted-price-form" class="tool-form">
+      <label for="weighted-price-csv">CSV input — LineID, Channel, Units, UnitPrice
+        <textarea id="weighted-price-csv" rows="12" maxlength="50000" spellcheck="false" aria-describedby="csv-help">{fixture}</textarea>
+      </label>
+      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices and units must be nonnegative numbers. Units must be whole numbers. Empty prices are rejected, not treated as zero. Maximum 500 rows.</p>
+      <div class="tool-actions">
+        <button type="submit" class="primary">Calculate and audit</button>
+        <button type="button" id="reset-weighted-price">Restore sample</button>
+      </div>
+      <p id="weighted-price-status" class="tool-status" role="status" aria-live="polite">Sample loaded. Select “Calculate and audit” to view the checks.</p>
+      <p><a class="text-link" href="/examples/weighted-price-sample.csv" download>Download the original fictional CSV →</a></p>
+    </form>
+    <section class="tool-output" aria-labelledby="audit-title">
+      <h2 id="audit-title">Your audit results</h2>
+      <p id="weighted-price-summary">Calculation not run yet.</p>
+      <div id="weighted-price-results" aria-live="polite"></div>
+      <p class="tool-footnote">Numbers are displayed to two decimal places, but calculations retain unrounded JavaScript numeric values. This utility does not model refunds, taxes, currencies or returns. For accounting-grade precision, reproduce the formula in an approved system.</p>
+    </section>
+  </div>
+  <section class="section prose info-content">
+    <h2>Reproduce the reference result before using your own data</h2>
+    <p>Our original, entirely fictional eight-row fixture is a control case. Before changing anything, run the sample and check for <strong>8 rows, 27 units, 530 revenue and a weighted price of 530 ÷ 27 ≈ 19.63</strong>. The simple mean of listed prices is 153.25; it is not the per-unit sales price. The Web channel should report 7 units and 280 revenue; Store should report 20 units and 250 revenue.</p>
+    <p>The intentional edge cases make the exercise useful. Line L-106 has zero units and a listed price of 999. It contributes no revenue. Line L-107 has five units at an explicitly numeric zero price. It adds units but no revenue. Confusing these rows will change the result or conceal missing data.</p>
+    <h2>Three independent checks</h2>
+    <ol>
+      <li><strong>Preservation:</strong> confirm that all eight original LineIDs are present and that a line has not been silently merged, invented or duplicated.</li>
+      <li><strong>Arithmetic:</strong> compute each line’s revenue as Units × UnitPrice; sum these amounts independently of the channel totals. For the original fixture they should sum to 530.</li>
+      <li><strong>Reconciliation:</strong> check that the Web and Store units add to 27 and their revenue adds to 530. Do not take the unweighted mean of their separate 40.00 and 12.50 prices; that would yield an incorrect 26.25.</li>
+    </ol>
+    <h2>Try two error-injection experiments</h2>
+    <p><strong>Quantity typo:</strong> restore the example, then change L-102 from 4 to 40 units. The expected totals become 63 units and 1,430 revenue; the weighted price becomes approximately 22.70. If an AI-written summary still shows 19.63, it reused stale arithmetic.</p>
+    <p><strong>Missing price:</strong> restore the example, then erase L-107’s numeric zero from UnitPrice. The calculator must refuse the input. A blank is an unknown price, not a documented free unit; a spreadsheet that multiplies blanks as zero can otherwise conceal this error.</p>
+    <p>These tests confirm the reference arithmetic and validation rules for this fixture only. They do not measure the reliability of any AI model or establish that real transactions follow the fixture’s business rules.</p>
+    <h2>Follow the full method</h2>
+    <p>Read our <a href="/guides/verify-ai-weighted-average-price-spreadsheet/">step-by-step spreadsheet audit</a> for cell-level Excel and Google Sheets formulas, expected row outputs, pivot-table instructions, and original reference sources. You can compare your result with this independent browser calculation, but verify any real report against the authoritative source data.</p>
+  </section>
+  <script>
+    import { auditWeightedPriceCsv } from '../../lib/weighted-price';
+    const form = document.querySelector<HTMLFormElement>('#weighted-price-form')!;
+    const input = document.querySelector<HTMLTextAreaElement>('#weighted-price-csv')!;
+    const status = document.querySelector<HTMLElement>('#weighted-price-status')!;
+    const summary = document.querySelector<HTMLElement>('#weighted-price-summary')!;
+    const result = document.querySelector<HTMLElement>('#weighted-price-results')!;
+    const original = input.value;
+    const fmt = (n: number) => Number.isFinite(n) ? n.toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:2}) : 'N/A';
+    const add = (container: HTMLElement, name: string, value: string) => {
+      const p = document.createElement('p');
+      const strong = document.createElement('strong'); strong.textContent = name + ': ';
+      p.append(strong, document.createTextNode(value)); container.append(p);
+    };
+    const makeTable = (headers: string[], values: (string | number)[][]) => {
+      const table = document.createElement('table');
+      const thead = table.createTHead(); const headerRow = thead.insertRow();
+      for (const heading of headers) { const th = document.createElement('th'); th.scope='col'; th.textContent=heading; headerRow.append(th); }
+      const tbody = table.createTBody();
+      for (const row of values) { const tr=tbody.insertRow(); for (const value of row) { const td=tr.insertCell(); td.textContent=String(value); } }
+      return table;
+    };
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      result.replaceChildren();
+      try {
+        const a = auditWeightedPriceCsv(input.value);
+        status.textContent = 'Input validated. Compare totals with your original source before relying on the result.';
+        summary.textContent = `${a.rowCount} rows · ${a.units} units · ${fmt(a.revenue)} revenue · ${fmt(a.weightedPrice)} revenue per unit`;
+        add(result,'Mean of listed prices (different metric)',fmt(a.simplePriceMean));
+        add(result,'Zero-unit lines',a.zeroUnitLines.join(', ') || 'none');
+        add(result,'Numeric zero-price lines',a.zeroPriceLines.join(', ') || 'none');
+        const ch = document.createElement('h3'); ch.textContent = 'Channel reconciliation'; result.append(ch);
+        result.append(makeTable(['Channel','Units','Revenue','Revenue / unit'],a.channels.map(c=>[c.channel,c.units,fmt(c.revenue),c.weightedPrice===null?'N/A':fmt(c.weightedPrice)])));
+        const line = document.createElement('h3'); line.textContent = 'Row-level calculation'; result.append(line);
+        result.append(makeTable(['Line ID','Channel','Units','Unit price','Revenue'],a.rows.map(r=>[r.lineId,r.channel,r.units,fmt(r.unitPrice),fmt(r.revenue)])));
+      } catch (e) {
+        status.textContent = e instanceof Error ? e.message : 'Input could not be validated.';
+        summary.textContent = 'No result: correct the input and try again.';
+      }
+    });
+    document.querySelector<HTMLButtonElement>('#reset-weighted-price')!.addEventListener('click', () => {
+      input.value = original; status.textContent = 'Original fictional sample restored. Calculate to audit it.';
+      summary.textContent = 'Calculation not run yet.'; result.replaceChildren();
+    });
+  </script>
+</Base>
