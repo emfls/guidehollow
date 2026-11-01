@@ -1,0 +1,14 @@
+GUIDEHOLLOW ORIGINAL FICTIONAL SUPPORT NOTES — NOT CUSTOMER DATA
+
+T-101: The customer says the download link shows an error. They tried it once.
+They did not provide an error code. The note does not confirm whether the
+problem was resolved.
+
+T-102: A CSV import failed with error code E42. The support note explicitly
+confirms the problem was resolved after a corrected CSV was uploaded.
+
+Audit contract for this teaching exercise:
+- Return two records in source order, T-101 then T-102.
+- Use the exact short "problem" labels in reference.json for repeatable scoring.
+- Preserve unknown code/status as JSON null, not false or an invented value.
+- These constraints are editorial exercise rules, not general product requirements.
