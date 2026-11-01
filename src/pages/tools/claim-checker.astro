@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Source Claim Verifier: 22 Evidence Checks" description="Practice distinguishing supported, contradicted, and unsupported claims using 22 original fictional examples. Get immediate source-based feedback without sending any inputs to AI." breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:'Source Claim Verifier',url:'/tools/claim-checker/'}]}>
+  <header class="page-heading">
+    <p class="eyebrow mint">/ tools / verify</p>
+    <h1>Does the source actually support that claim?</h1>
+    <p>Practice the difference between a contradicted statement and an unknown statement. Classify editor-written claims against the original notes, see the reasoning, and try again. No account, AI subscription, or uploads.</p>
+  </header>
+  <section class="prose info-content">
+    <h2>What makes this different from asking an AI to check itself</h2>
+    <p>We supply the source, the claim, the reference answer, and the exact reason for that answer. You can independently read the fictional records before checking the published key. An AI assistant does not judge your choices and nothing in the quiz suggests a model was benchmarked.</p>
+    <p><strong>SUPPORTED</strong> means the evidence establishes the claim. <strong>CONTRADICTED</strong> means it says something inconsistent. <strong>UNSUPPORTED</strong> means the claim is not established either way. Missing evidence is not proof that a statement is false.</p>
+    <p>Start with five cases to see the pattern; select all 22 when ready. The exercise is based on the same public <a href="/examples/claim-boundary-source-notes.txt">source notes</a> and <a href="/examples/claim-boundary-audit.csv">complete answer-key CSV</a> used in our <a href="/evidence/">Evidence Library</a>. The data is fictional and was created for teaching, not from real users or a live AI experiment.</p>
+  </section>
+  <div class="tool-workspace">
+    <section class="tool-form" aria-labelledby="source-notes-title">
+      <h2 id="source-notes-title">Step 1 · Read the source notes</h2>
+      <p class="tool-footnote">The reference key deliberately separates what is known from what is absent. Use the full source notes, not your assumptions about a real venue, product, or event.</p>
+      <pre class="claim-audit-source" id="claim-source-notes" tabindex="0">Loading the original fictional notes. If this does not load, use the download link below.</pre>
+      <p><a href="/examples/claim-boundary-source-notes.txt">Open the original source notes as text →</a></p>
+      <p class="tool-footnote">The source material is editorially invented and contains no personal records. Your answers remain in this browser page. There is no AI service call or scoring server.</p>
+    </section>
+    <section class="tool-output" aria-labelledby="audit-quiz-title">
+      <h2 id="audit-quiz-title">Step 2 · Classify the claims</h2>
+      <form id="claim-audit-form">
+        <label for="claim-audit-length">Choose a practice set
+          <select id="claim-audit-length" disabled>
+            <option value="sample">Five essential cases</option>
+            <option value="all">All 22 original cases</option>
+          </select>
+        </label>
+        <div id="claim-audit-questions" class="claim-audit-questions">
+          <p>Loading the public exercise.</p>
+        </div>
+        <div class="tool-actions">
+          <button class="primary" id="claim-audit-submit" type="submit" disabled>Check my source-reading answers</button>
+          <button type="button" id="claim-audit-reset" disabled>Try again</button>
+        </div>
+      </form>
+      <p id="claim-audit-status" class="tool-status" role="status" aria-live="polite">Loading the editorial case set.</p>
+      <div id="claim-audit-results" class="claim-audit-feedback" aria-live="polite"></div>
+    </section>
+  </div>
+  <noscript><p>JavaScript is required for automatic feedback. The <a href="/examples/claim-boundary-audit.csv">22-case answer key</a> and <a href="/examples/claim-boundary-source-notes.txt">source notes</a> are available for a full manual check.</p></noscript>
+  <section class="section prose info-content">
+    <h2>Three errors this practice can expose</h2>
+    <ol>
+      <li><strong>Confusing an unknown with a false claim:</strong> the garden notes do not confirm a meeting location. That does not prove that a particular location is impossible.</li>
+      <li><strong>Promoting a proposal into a fact:</strong> the software notes say offline mode has not been approved. A claim that it is an approved feature directly contradicts the source.</li>
+      <li><strong>Adding a hidden assumption to correct arithmetic:</strong> three bags at $8 and two trays at $6 total $36 for supplies, but the notes never establish delivery cost. A subtotal is not evidence of free delivery.</li>
+    </ol>
+    <h2>A useful second attempt</h2>
+    <p>Change one fact in a copy of the fictional source notes—such as moving the garden meeting from Saturday to Sunday. Reconsider the affected verdicts without changing unrelated facts. A change to the meeting date does not establish the location, alter a product's release approval, or change the supplies subtotal.</p>
+    <h2>Why the reference key is not a benchmark</h2>
+    <p>The 22 cases and explanations were written by GuideHollow Editorial. Scores on this page compare <em>your selections</em> with those published explanations; they are not claims about an AI model's reliability, and they do not prove whether a real-world statement is true. For high-stakes material, verify the actual source and seek qualified review when appropriate.</p>
+    <p>The <a href="https://github.com/emfls/guidehollow/blob/main/tests/claim-checker.test.mjs">automated fixture test</a> checks the completeness and scoring behavior of this tool, and the <a href="/guides/how-to-verify-ai-generated-information/">verification guide</a> explains how to investigate outside sources. If an editorial answer looks wrong, <a href="/contact/">report the precise case ID and supporting passage</a>.</p>
+  </section>
+  <style>
+    .claim-audit-source{max-height:34rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.78rem;line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem;color:var(--text)}
+    .claim-audit-questions{display:grid;gap:1.2rem;margin:1.2rem 0}
+    .claim-audit-question{padding:1rem;border:1px solid var(--line);border-radius:6px;min-width:0}
+    .claim-audit-question legend{font-weight:650;font-size:.85rem}
+    .claim-audit-question p{margin:.5rem 0 1rem}
+    .claim-audit-choices{display:grid;gap:.55rem}
+    .claim-audit-choices label{display:flex;align-items:flex-start;gap:.5rem;font-size:.88rem;cursor:pointer}
+    .claim-audit-choices input{margin-top:.3rem;min-width:auto}
+    .claim-audit-feedback{margin-top:1.6rem}
+    .claim-audit-feedback li{margin-bottom:.7rem}
+    #claim-audit-length{display:block;width:100%;margin-top:.5rem;padding:.6rem}
+  </style>
+  <script>import '../../scripts/claim-checker';</script>
+</Base>
