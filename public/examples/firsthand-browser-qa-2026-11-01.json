@@ -88,7 +88,7 @@
         "staleFeedbackCleared": true
       },
       "outcome": "inconclusive",
-      "limits": "The initial browser run did not preserve checked radio inputs; the 1/5 score could reflect incomplete selection rather than a scoring defect. The five stated planned answers would score 4/5 under the reference key. A separate post-fix browser run confirmed that submitting only one of five selected answers is blocked; complete five-answer browser scoring was not repeated."
+      "limits": "The first browser run did not preserve verified pre-submit radio states; the cause of its 1/5 score is unknown. A later post-fix live-browser run independently verified that all five intended values were selected and correctly scored 4/5. The historical cause cannot be inferred retrospectively."
     },
     {
       "id": "claim-incomplete-guard-postfix",
@@ -107,7 +107,38 @@
         "uniqueAccessibleLabel": "G04: Supported by the notes"
       },
       "outcome": "pass",
-      "limits": "Narrow post-fix UI smoke test of an incomplete five-case submission. Does not validate every browser or that the complete five-answer submission scores 4/5 in a browser. A source-level regression separately checks that deterministic score."
+      "limits": "Narrow post-fix UI smoke test of an incomplete five-case submission. A separate, later complete five-case live-browser test independently verified 4/5 with all choices inspected before grading. Neither test establishes cross-browser or AI model accuracy."
+    },
+    {
+      "id": "claim-five-answer-full-browser-verified",
+      "product": "GuideHollow Source Claim Verifier",
+      "url": "https://guidehollow.com/tools/claim-checker/",
+      "runUrl": "https://agent.tinyfish.ai/runs/e6804798-a2cd-4872-9283-a2c5761d5391",
+      "input": "Live five-case practice in production; intentionally set G04 to the wrong verdict, the other four to their published reference verdicts. All five selected radio states were visually inspected before grading.",
+      "observed": {
+        "checkedAnswers": {
+          "G04": "SUPPORTED",
+          "G06": "CONTRADICTED",
+          "G09": "SUPPORTED",
+          "R02": "CONTRADICTED",
+          "E06": "SUPPORTED"
+        },
+        "preSubmitStatus": "5 of 5 claims answered. All choices are selected; you can now check your answers.",
+        "reportedScore": "4 of 5",
+        "matchedCaseIds": [
+          "G06",
+          "G09",
+          "R02",
+          "E06"
+        ],
+        "mismatchedCaseIds": [
+          "G04"
+        ],
+        "g04Reason": "The meeting location is not confirmed.",
+        "afterSubmitStatus": "4/5 labels matched the published teaching key. Review the explanation for every mismatch."
+      },
+      "outcome": "pass",
+      "limits": "Verified only the five-question scoring path on the live GuideHollow site via a browser agent. The underlying garden/release/event data and editorial reference key are fictional. This neither identifies the cause of an earlier 1/5 run nor tests real AI model performance, all 22 questions, or all browser environments."
     }
   ]
 }

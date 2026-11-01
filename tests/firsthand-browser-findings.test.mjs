@@ -39,3 +39,36 @@ test('a partially answered real-browser exercise should never display a misleadi
   assert.equal(selectedOnlyOne.total, 5);
   assert(selectedOnlyOne.answered !== selectedOnlyOne.total);
 });
+
+
+test('published post-fix five-answer browser observation matches the real scoring code and retained history', async () => {
+  const ledger = JSON.parse(await readFile(new URL('../public/examples/firsthand-browser-qa-2026-11-01.json', import.meta.url),'utf8'));
+  const run = ledger.trials.find(trial => trial.id === 'claim-five-answer-full-browser-verified');
+  const ambiguous = ledger.trials.find(trial => trial.id === 'claim-practice-selection-ambiguity');
+  assert(run, 'The direct production-browser evidence must remain publicly available');
+  assert.equal(run.outcome,'pass');
+  assert.equal(run.runUrl,'https://agent.tinyfish.ai/runs/e6804798-a2cd-4872-9283-a2c5761d5391');
+  const expectedInput = {
+    G04:'SUPPORTED', G06:'CONTRADICTED', G09:'SUPPORTED',
+    R02:'CONTRADICTED', E06:'SUPPORTED'
+  };
+  assert.deepEqual(run.observed.checkedAnswers,expectedInput);
+  const cases=parseClaimCases(await readFile(dataUrl,'utf8')).filter(item=>PRACTICE_IDS.includes(item.id));
+  const score=scoreClaimCases(cases,run.observed.checkedAnswers);
+  assert.equal(score.answered,5);
+  assert.equal(score.matched,4);
+  assert.equal(run.observed.reportedScore,'4 of 5');
+  assert.deepEqual(score.results.filter(item=>item.matches).map(item=>item.id),run.observed.matchedCaseIds);
+  assert.deepEqual(score.results.filter(item=>!item.matches).map(item=>item.id),run.observed.mismatchedCaseIds);
+  assert.equal(run.observed.preSubmitStatus,'5 of 5 claims answered. All choices are selected; you can now check your answers.');
+  assert.match(run.observed.g04Reason,/location is not confirmed/);
+  assert.equal(ambiguous.outcome,'inconclusive','Preserve the uncertain earlier observation rather than rewriting history');
+  assert.match(ambiguous.limits,/cannot be inferred retrospectively/);
+});
+test('editing a checked verdict clears stale scoring output before another grade', async () => {
+  const script=await readFile(new URL('../src/scripts/claim-checker.ts',import.meta.url),'utf8');
+  const update=script.split('function updateSelectionCount() {')[1]?.split('function render() {')[0] ?? '';
+  assert(update.includes('feedback?.replaceChildren()'),'Old results should not remain visible after editing a choice');
+  assert(script.includes("form.addEventListener('change', updateSelectionCount)"));
+  assert(script.includes("if (result.answered !== result.total)"));
+});
