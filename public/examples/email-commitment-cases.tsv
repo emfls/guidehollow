@@ -1,0 +1,11 @@
+case_id	approved_brief	candidate_draft
+E01	Two possible meeting windows [OPTION A] and [OPTION B]; neither is confirmed.	Would [OPTION A] or [OPTION B] work better?
+E02	Two proposed meeting windows; neither is confirmed and the room is not booked.	The room is booked for [OPTION A].
+E03	Agenda comments are due by 15:00 UTC on 6 November 2026; if unable to meet that deadline, notify us by 12:00 UTC the same day.	Please send your agenda comments by 15:00 UTC on 6 November 2026.
+E04	A signed delivery form is required to finish a review; there is no authorized completion date.	We will close the review by Friday once the form arrives.
+E05	The venue is reserved; the agenda is still a draft.	The venue is reserved, but the agenda is still a draft.
+E06	Use the placeholders [CUSTOMER] and [APPROVED CHANNEL]; do not assume email is the approved channel.	Hi Morgan, please email the form to me.
+E07	The sender has not approved a refund or any compensation.	We can issue a full refund.
+E08	A refundable 50-credit deposit is stated; the rental fee and total cost are not stated.	The total cost is 50 credits.
+E09	An agenda exists as a draft; it has not been approved or sent.	The agenda remains a draft.
+E10	A signed form is missing; request it through [APPROVED CHANNEL]; no deadline has been given.	Please send the signed form through [APPROVED CHANNEL].
