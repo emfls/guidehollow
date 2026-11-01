@@ -5,8 +5,8 @@ slug: "chatgpt-shared-links-audit-revoke-access"
 category: "troubleshooting"
 tags: ["chatgpt", "shared-links", "privacy", "access-control"]
 publishedDate: "2026-10-30"
-updatedDate: "2026-10-30"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8798634-managing-data-sharing-and-privacy-in-chatgpt-business"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "OpenAI Help Center: Sharing conversations and scheduled tasks in ChatGPT", "url": "https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt"}, {"title": "OpenAI Help Center: Managing data, sharing, and privacy in ChatGPT Business", "url": "https://help.openai.com/en/articles/8798634-managing-data-sharing-and-privacy-in-chatgpt-business"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -14,7 +14,7 @@ featured: false
 
 A ChatGPT sharing link is easy to forward and easy to forget. If you have shared a conversation and now worry that someone else can read it, the appropriate response is not to guess whether deleting the original chat, changing a privacy setting, or sending an updated link will fix the problem. First identify what was shared, where the link was created, and what deleting that particular link can actually accomplish.
 
-This is a practical access review for ChatGPT conversations and scheduled tasks. It uses official OpenAI guidance checked on October 26, 2026. The steps describe documented functionality, not a claim that GuideHollow accessed a reader's account or performed live experiments with private conversations.
+This is a practical access review for ChatGPT conversations and scheduled tasks. It uses official OpenAI guidance checked on October 26 and rechecked on November 2, 2026. The steps describe documented functionality, not a claim that GuideHollow accessed a reader's account or performed live experiments with private conversations.
 
 ## Step 1: Identify the thing that was shared
 
@@ -111,6 +111,28 @@ The controls below solve different problems:
 OpenAI explicitly says that changing the personal **Improve the model for everyone** setting does not delete existing shared links. Locking a conversation also leaves earlier sharing links in place. Use the specific shared-link manager to end future access.
 
 Another subtle case: deleting a conversation with an associated scheduled task can pause the task while its **separate scheduled-task sharing link remains accessible**. Remove that task link separately if you need to stop access.
+
+## An important exception: deleting a conversation may leave a shared task link
+
+OpenAI's current [sharing and scheduled-task documentation](https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt) distinguishes the **conversation**, an associated **scheduled task**, and the **shared URLs** for each. These are not interchangeable deletion targets.
+
+| Action | Documented result | Still needs checking |
+| --- | --- | --- |
+| Delete a shared **conversation link** | Stops future access through that link | Original conversation, existing recipient copies, and any separately shared task |
+| Delete the **original conversation** | Removes its conversation-sharing link; an associated scheduled task is **paused** | The task's previously created **shared task link remains available** and must be removed separately |
+| Delete an individual **shared scheduled-task link** | Stops access through that link | Original scheduled task and recipient-owned copies |
+| Delete the **original scheduled task** | Removes its shared task link | Copies already scheduled by someone else remain in that recipient's account |
+| **Lock** the conversation | Prevents new locked-chat messages from being added to the old shared link | The previously shared content remains accessible until the link is explicitly deleted |
+
+**Do not equate "paused" with "unshared."** If a conversation was deleted after a task was shared, inspect **Settings → Data controls → Shared links → Manage** in the originating account. Check the task link separately and remove it where appropriate. If you cannot access the link manager, report that verification as incomplete rather than claiming the task was made private.
+
+For an account-deletion review, OpenAI says account deletion removes shared **conversation** links, but recommends deleting existing **shared scheduled-task** links before deleting the account. Recipient copies remain a separate concern.
+
+### Check the sharing URL without trusting a lookalike domain
+
+OpenAI documents two canonical patterns: conversation links begin with `https://chatgpt.com/share/` and scheduled-task links begin with `https://chatgpt.com/s/`. Check the **actual hostname** before opening a purported ChatGPT share; a lookalike hostname or a URL that merely contains `chatgpt.com` in its path is not the same destination. Correct domain structure alone does not make a stranger's content safe.
+
+For internal incident notes, record the content type and what you saw in the first-party link manager rather than pasting sensitive link URLs into a public ticket. This is a documentation-based procedure, **not** a live test of an account, scheduled task, or third-party recipient.
 
 ## Step 7: Verify the action without spreading the URL
 

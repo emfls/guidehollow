@@ -5,8 +5,8 @@ slug: "compare-two-documents-ai-without-missing-changes"
 category: "guides"
 tags: ["ai", "compare-documents", "version-control", "document-review", "word", "google-docs"]
 publishedDate: "2026-10-27"
-updatedDate: "2026-10-27"
-sources: [{"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-gb/word/compare-document-differences-using-the-legal-blackline-option"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/word/accept-or-reject-tracked-changes-in-word"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/18512262?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/190843?hl=en"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "Microsoft Support: Compare document differences using the legal blackline option", "url": "https://support.microsoft.com/en-gb/word/compare-document-differences-using-the-legal-blackline-option"}, {"title": "Microsoft Support: Accept or reject tracked changes in Word", "url": "https://support.microsoft.com/en-us/word/accept-or-reject-tracked-changes-in-word"}, {"title": "Google Docs Editors Help: Compare documents in Google Docs", "url": "https://support.google.com/docs/answer/18512262?hl=en"}, {"title": "Google Docs Editors Help: Find what's changed in a file", "url": "https://support.google.com/docs/answer/190843?hl=en"}, {"title": "OpenAI Help Center: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -201,5 +201,7 @@ Ask the tool to list its inspected sections and missing material, rather than re
 - [Google Docs Editors Help — Compare documents](https://support.google.com/docs/answer/18512262?hl=en). Creating a comparison file and layout exclusions.
 - [Google Docs Editors Help — Find what's changed in a file](https://support.google.com/docs/answer/190843?hl=en). Earlier versions and permissions.
 - [OpenAI Help — Uploading files and audio to ChatGPT](https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt). Document comparison as a file-based task and availability caveats.
+
+**Source refresh (November 2, 2026):** Microsoft Word and Google Docs documentation titles and official destinations were rechecked. This verifies the cited reference pages, not the behavior of a live Word or Docs installation.
 
 **Verification note:** Both versions are original fictional text fixtures. A local Python comparison independently confirmed all five changes and both unchanged sections. We did not run an AI comparison on the files or test live Word/Google Docs UI actions. This guide reports the fixture and the providers' documented capabilities separately.
