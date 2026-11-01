@@ -5,7 +5,7 @@ slug: "test-ai-prompts-with-evaluation-dataset"
 category: "prompts"
 tags: ["prompt-evaluation", "testing", "reliability"]
 publishedDate: "2026-10-25"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-01"
 sources: [{"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"}, {"title": "platform.claude.com — reference", "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"}, {"title": "developers.google.com — reference", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -73,6 +73,14 @@ The following input texts and reference labels are **fictional and written for t
 Each row tests something different. T01–T04 are straightforward coverage checks; T05 checks whether an invoice reference wrongly overrides an access request; T06 checks whether a technical symptom wrongly overrides a refund request; T07 has two competing issues; and T08 tests vague input.
 
 The **expected label is an editorial judgment based on our stated rules**, not a hidden model answer. In real evaluations, have qualified reviewers examine labels independently, document disagreements, and resolve them before interpreting results.
+
+### Download the exact test fixture
+
+**[Download the eight-case CSV with expected labels and illustrative candidate outputs](/examples/prompt-evaluation-routing.csv).** The file contains T01–T08 and the same editorial labels shown above. It also records the invented Prompt A and B examples from the scoring table below, making it possible to calculate the exercise without retyping rows.
+
+**Reproduction steps:** open the CSV in a spreadsheet, count rows with ExpectedLabel equal to IllustrativePromptA, then repeat with IllustrativePromptB. The control totals should be **5/8** and **7/8**, respectively. Find T07 to confirm that both illustrative outputs choose ACCESS although the stated rule requires OTHER. If your spreadsheet returns different totals, inspect the import and the comparison formula before drawing conclusions.
+
+These are **editorial fixtures, not observations from ChatGPT or another model**. To measure real model performance, replace the two illustrative columns with complete recorded outputs from actual runs, record model/version and date, and leave the expected labels unchanged unless a human reviewer documents a correction. A passing check on invented examples establishes only that the teaching arithmetic is consistent.
 
 ## Step 4: write prompt A, the simple baseline
 
