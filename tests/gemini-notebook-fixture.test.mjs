@@ -24,7 +24,7 @@ test('three reader-downloadable Notebook sources establish precisely the editori
 });
 
 test('claim audit and approved-version register remain independently reviewable', async () => {
-  const lines = (await read('claim-audit-worksheet.tsv')).trimEnd().split(/\r?\n/);
+  const lines = (await read('claim-audit-worksheet.tsv')).replace(/\r?\n$/, '').split(/\r?\n/);
   const answerLines = (await read('claim-audit-answer-key.tsv')).trimEnd().split(/\r?\n/);
   assert.equal(lines.shift(), 'case_id\tcandidate_claim\treviewer_decision_before_answer_key');
   assert.equal(answerLines.shift(), 'case_id\tclassification\tsource_basis\tminimum_safe_correction');
