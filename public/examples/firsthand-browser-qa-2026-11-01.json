@@ -139,6 +139,50 @@
       },
       "outcome": "pass",
       "limits": "Verified only the five-question scoring path on the live GuideHollow site via a browser agent. The underlying garden/release/event data and editorial reference key are fictional. This neither identifies the cause of an earlier 1/5 run nor tests real AI model performance, all 22 questions, or all browser environments."
+    },
+    {
+      "id": "prompt-builder-edit-and-stale-export",
+      "product": "GuideHollow AI Prompt Builder",
+      "url": "https://guidehollow.com/tools/ai-prompt-builder/",
+      "runUrl": "https://agent.tinyfish.ai/runs/46b0221c-85d6-4b67-9d0c-45b0e0367fa9",
+      "input": "Load the public fictional garden example, build a prompt, edit output 'under 70 words' to 'under 50 words', click Copy, change the original audience to 'Garden volunteers', rebuild, and reset.",
+      "observed": {
+        "generatedPromptEditable": true,
+        "editableChange": {
+          "before": "A friendly invitation under 70 words",
+          "after": "A friendly invitation under 50 words",
+          "newTextVisible": true,
+          "oldTextAbsent": true
+        },
+        "copy": {
+          "feedback": "Your current edited draft was copied.",
+          "clipboardContentsIndependentlyInspected": false
+        },
+        "inputChange": {
+          "field": "Target audience",
+          "newValue": "Garden volunteers",
+          "editedDraftPreserved": true,
+          "copyDisabled": true,
+          "downloadDisabled": true,
+          "status": "Inputs changed. Your previous draft is kept below, but it is now out of date. Build again before copying or downloading."
+        },
+        "rebuild": {
+          "newAudiencePresent": true,
+          "copyEnabled": true,
+          "downloadEnabled": true,
+          "outputFormatResetToSourceField": true
+        },
+        "reset": {
+          "sourceInputsCleared": true,
+          "draftCleared": true,
+          "outputDisabled": true,
+          "copyDisabled": true,
+          "downloadDisabled": true,
+          "status": "Inputs and prompt cleared."
+        }
+      },
+      "outcome": "pass",
+      "limits": "Actual browser UI interactions with GuideHollow's own local text formatter. The Copy success message was observed, but clipboard bytes were not independently inspected. Fictional garden facts were used; no AI model was called, no third-party products were evaluated, and no cross-browser compatibility claim is made."
     }
   ]
 }
