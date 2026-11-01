@@ -39,7 +39,7 @@ for (const file of htmlFiles) {
   assert.equal(listed,!noindex,`${relative}: sitemap and robots indexing policy must agree`);
   if(relative.startsWith('tags/')) {
     const count = (html.match(/class="article-row"/g)||[]).length;
-    assert(count >= 1,`${relative}: tag archive must have articles`);
+    assert(count >= 3,`${relative}: archive must provide at least three independent articles`);
     assert(noindex,`${relative}: navigation-only tag archives must be noindex`);
   }
   const jsonld = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)];
