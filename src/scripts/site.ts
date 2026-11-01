@@ -23,7 +23,7 @@ document.querySelectorAll('pre').forEach(pre => {
   const code = pre.querySelector('code');
   if (!code) return;
   const button = document.createElement('button'); button.type = 'button'; button.className = 'copy-button'; button.textContent = 'Copy'; button.setAttribute('aria-label', 'Copy code or prompt'); button.setAttribute('aria-live', 'polite');
-  button.addEventListener('click', () => copyText(pre.querySelector('code')?.textContent ?? '', button)); pre.append(button);
+  button.addEventListener('click', () => copyText(code.textContent ?? '', button)); pre.append(button);
 });
 
 // Keep the article visible sooner on phones; desktop readers retain the full contents list.
