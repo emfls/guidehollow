@@ -1,8 +1,18 @@
 const menu = document.querySelector<HTMLButtonElement>('#menu-toggle');
-menu?.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); document.querySelector('#main-nav')?.classList.toggle('is-open', open); });
+const mainNav = document.querySelector<HTMLElement>('#main-nav');
+// Progressive enhancement: do not collapse navigation until its toggle is wired up.
+// If scripts fail or are disabled, all category links remain visible on mobile.
+if (menu && mainNav) {
+  menu.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open));
+    mainNav.classList.toggle('is-open', open);
+  });
+  document.documentElement.classList.add('has-mobile-menu');
+}
 document.addEventListener('keydown', event => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); const input = document.querySelector<HTMLInputElement>('input[type="search"]'); if (input) input.focus(); else window.location.assign('/search/'); }
-  if (event.key === 'Escape' && menu) { menu.setAttribute('aria-expanded', 'false'); document.querySelector('#main-nav')?.classList.remove('is-open'); }
+  if (event.key === 'Escape' && menu && mainNav) { menu.setAttribute('aria-expanded', 'false'); mainNav.classList.remove('is-open'); }
 });
 document.querySelector('#theme-toggle')?.addEventListener('click', () => {
   const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
