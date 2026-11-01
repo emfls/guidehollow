@@ -22,11 +22,11 @@ test('Search article separates research from account deletion claims',()=>{
  assert.match(article,/updatedDate: "2026-10-24"/);
 });
 
-test('AI spreadsheet guide points to worked formula examples rather than implying native execution',()=>{
+test('AI spreadsheet guide uses a first-party worked formula audit without claiming native execution',()=>{
  const article=read('how-to-use-ai-for-spreadsheet-tasks');
- assert.match(article,/https:\/\/sheets\.guidehollow\.com\/formulas\/sumifs-with-dates\//);
- assert.match(article,/https:\/\/sheets\.guidehollow\.com\/tools\/formula-finder\//);
- assert.match(article,/reference, not a spreadsheet execution engine/);
+ assert.match(article,/\/guides\/audit-ai-monthly-totals-with-timestamps\//);
+ assert.match(article,/independently calculated teaching expectations/);
+ assert.doesNotMatch(article,/https:\/\/sheets\.guidehollow\.com\//);
  assert.match(article,/not executed in a live Excel workbook/);
 });
 

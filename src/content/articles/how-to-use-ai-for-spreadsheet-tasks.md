@@ -5,7 +5,7 @@ slug: "how-to-use-ai-for-spreadsheet-tasks"
 category: "guides"
 tags: ["productivity", "spreadsheets", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-11-01"
 sources: [{"title": "Microsoft: SUMIFS function", "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -47,7 +47,14 @@ Microsoft documents `SUMIFS` as summing a range using multiple criteria. For thi
 
 The sum range is C2:C5. The two criteria ranges are A2:A5 and B2:B5. The ranges refer to the same four data rows. This explanation and arithmetic were reviewed against the documented function syntax; the formula was not executed in a live Excel workbook for this guide.
 
-For a step-by-step version with dates and boundary cases in **both Excel and Google Sheets**, use the [SUMIFS with dates tutorial](https://sheets.guidehollow.com/formulas/sumifs-with-dates/). It builds on the same function but checks how timestamps change a monthly total. The separate [Formula Finder](https://sheets.guidehollow.com/tools/formula-finder/) can help choose a function when you know the task but not its name; it is a reference, not a spreadsheet execution engine.
+The formula above selects by two **text labels** (Region and Status). A monthly total requires a different check: timestamps must be real date-time values, and the upper limit must exclude the **start of the next month** rather than use a date that may mean midnight on the last day. Our [October month-end audit with ten downloadable fictional records](/guides/audit-ai-monthly-totals-with-timestamps/) provides an original reference total of **295** for October Paid records; a faulty inclusive-midnight condition produces **190** on that fixture. It explains the source rows, parsing checks, expected month/status reconciliation, and negative tests for Excel or Google Sheets. These are independently calculated teaching expectations, not a claim that both spreadsheet applications were run.
+
+| Question you are asking | What your formula must check | Independent failure probe |
+| --- | --- | --- |
+| Total East/Paid amounts | Both Region = East and Status = Paid | Increase a West/Paid amount; the result must stay **150** |
+| Total October/Paid amounts | Status = Paid and a timestamp at or after October 1 but before November 1 | Include a Paid entry at **October 31, 23:59**; exclude one at **November 1, 00:00** |
+
+Decide your question and expected result before accepting any AI-suggested function. The two exercises use different original fictional datasets and should not be added together.
 
 ## Download the input and use a test oracle
 
