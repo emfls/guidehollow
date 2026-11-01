@@ -15,9 +15,9 @@ test('public firsthand browser evidence is backed by actual reproducible source 
   ]);
   const report = JSON.parse(raw);
   assert.equal(report.date,'2026-11-01');
-  assert.equal(report.trials.length,6);
+  assert.equal(report.trials.length,7);
   assert(report.scope.includes('No Excel, Google Sheets, ChatGPT'));
-  const [base,quantity,invalid,claim,smoke,complete] = report.trials;
+  const [base,quantity,invalid,claim,smoke,complete,prompt] = report.trials;
   for(const trial of report.trials){
     assert.match(trial.runUrl,/^https:\/\/agent\.tinyfish\.ai\/runs\/[0-9a-f-]{36}$/);
     assert(trial.url.startsWith('https://guidehollow.com/tools/'));
@@ -63,6 +63,25 @@ test('public firsthand browser evidence is backed by actual reproducible source 
   assert.deepEqual(complete.observed.matchedCaseIds,['G06','G09','R02','E06']);
   assert.deepEqual(complete.observed.checkedAnswers,claim.plannedAnswers);
   assert.equal(scoreClaimCases(cases,complete.observed.checkedAnswers).matched,4);
+  assert.equal(prompt.id,'prompt-builder-edit-and-stale-export');
+  assert.equal(prompt.outcome,'pass');
+  assert.equal(prompt.runUrl,'https://agent.tinyfish.ai/runs/46b0221c-85d6-4b67-9d0c-45b0e0367fa9');
+  assert.equal(prompt.observed.generatedPromptEditable,true);
+  assert.equal(prompt.observed.editableChange.after,'A friendly invitation under 50 words');
+  assert.equal(prompt.observed.editableChange.newTextVisible,true);
+  assert.equal(prompt.observed.editableChange.oldTextAbsent,true);
+  assert.equal(prompt.observed.copy.clipboardContentsIndependentlyInspected,false,'The UI copy message is not independent proof of clipboard bytes');
+  assert.match(prompt.observed.copy.feedback,/Your current edited draft was copied/);
+  assert.equal(prompt.observed.inputChange.newValue,'Garden volunteers');
+  assert.equal(prompt.observed.inputChange.editedDraftPreserved,true);
+  assert.equal(prompt.observed.inputChange.copyDisabled,true);
+  assert.equal(prompt.observed.inputChange.downloadDisabled,true);
+  assert.equal(prompt.observed.rebuild.newAudiencePresent,true);
+  assert.equal(prompt.observed.rebuild.copyEnabled,true);
+  assert.equal(prompt.observed.reset.draftCleared,true);
+  assert.equal(prompt.observed.reset.copyDisabled,true);
+  assert.equal(prompt.observed.reset.downloadDisabled,true);
+  assert(evidencePage.includes('An actual prompt edit'));
   assert(evidencePage.includes('/examples/firsthand-browser-qa-2026-11-01.json'));
   assert(article.includes('A real browser run on the published workbench'));
   assert(article.includes('not a claim that ChatGPT, Excel or Google Sheets was executed'));
