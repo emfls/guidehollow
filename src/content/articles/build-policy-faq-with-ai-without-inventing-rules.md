@@ -5,8 +5,8 @@ slug: "build-policy-faq-with-ai-without-inventing-rules"
 category: "guides"
 tags: ["ai", "policy-faq", "document-workflow", "source-verification", "knowledge-base"]
 publishedDate: "2026-10-28"
-updatedDate: "2026-10-28"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/10032626"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}, {"title": "learn.microsoft.com — reference", "url": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0"}]
+updatedDate: "2026-11-02"
+sources: [{"title": "OpenAI Help Center: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "OpenAI Help Center: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}, {"title": "Microsoft Learn: Choose the best Document Intelligence model", "url": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -29,7 +29,7 @@ Start with the version that the policy owner identifies as approved. Do not mix 
 
 Check that you can actually read the whole source. If a PDF has scanned pages, broken tables, or omitted appendices, resolve those issues before generating customer-facing answers. For restricted information, use only tools and accounts approved by the organization.
 
-OpenAI's [prompting guidance](https://help.openai.com/en/articles/10032626) recommends specific instructions and relevant context. Its [accuracy guidance](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth) cautions that models may confidently return incorrect claims or fabricated references. Those are reasons to define a source boundary and check the final output, not evidence that any particular prompt is infallible.
+OpenAI's [prompting guidance](https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt) recommends specific instructions and relevant context. Its [accuracy guidance](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth) cautions that models may confidently return incorrect claims or fabricated references. Those are reasons to define a source boundary and check the final output, not evidence that any particular prompt is infallible.
 
 ## Step 1: Try a complete, fictional policy
 
@@ -222,8 +222,8 @@ If the document includes forms, scanned pages, or tables, review extraction qual
 
 ## Official sources and verification notes
 
-- [OpenAI Help — Prompt engineering best practices for ChatGPT](https://help.openai.com/en/articles/10032626). Clear task instructions and iterative refinement.
+- [OpenAI Help — Prompt engineering best practices for ChatGPT](https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt). Clear task instructions and iterative refinement.
 - [OpenAI Help — Does ChatGPT tell the truth?](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth). Factual uncertainty, invented citations, and critical review.
 - [Microsoft Learn — Choose the best Document Intelligence model](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0). Text versus structured-layout processing.
 
-**What was tested:** This guide uses an original fictional fixture. A local Python script checked the nine source IDs, eleven question IDs, nine supported and two unsupported answers, full section coverage, and the capped $20 late-fee example. No live AI service, lending organization, or document-upload benchmark was tested.
+**Source refresh (November 2, 2026):** The primary sources were rechecked for their titles and destinations. The Microsoft Learn document-model page can display an authorization notice in some contexts; its topic reference does not constitute a live test of that service.\n\n**What was tested:** This guide uses an original fictional fixture. A local Python script checked the nine source IDs, eleven question IDs, nine supported and two unsupported answers, full section coverage, and the capped $20 late-fee example. No live AI service, lending organization, or document-upload benchmark was tested.
