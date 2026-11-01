@@ -5,7 +5,7 @@ slug: "how-to-write-better-ai-prompts"
 category: "prompts"
 tags: ["prompting", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-01"
 sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -72,6 +72,12 @@ One acceptable editorial example is: “Version 3.2 fixes export filenames. [REL
 - Is it within 80 words and understandable without the original notes?
 
 A result fails if any of the first four checks fails, even if its tone is excellent. Revise the failed requirement, then rerun the same input so you can compare like with like.
+
+## Check a prompt improvement over more than one example
+
+A better-sounding single answer is not enough to conclude that a prompt is more reliable. For a small, repeatable practice task, use the [eight-case fictional routing dataset](/prompts/test-ai-prompts-with-evaluation-dataset/), including its [downloadable CSV](/examples/prompt-evaluation-routing.csv). The example contains cases where a billing keyword appears in an access request, where a technical error appears in a refund request, and where two requests are equally important. Those cases reveal whether added instructions actually preserve the primary task.
+
+Decide the expected answer for each case **before** comparing prompt versions, and record format violations separately from label accuracy. The supplied scoring columns are invented to demonstrate arithmetic, not measured model outputs. For real use, replace them with answers from actual model runs; do not report invented numbers as an improvement in any AI product.
 
 ## Add an example when style is hard to describe
 

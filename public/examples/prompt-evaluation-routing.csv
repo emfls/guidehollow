@@ -1,0 +1,9 @@
+CaseID,Message,ExpectedLabel,IllustrativePromptA,IllustrativePromptB
+T01,I was charged twice. Please reverse the second charge.,BILLING,BILLING,BILLING
+T02,The app crashes whenever I export a CSV file.,TECHNICAL,TECHNICAL,TECHNICAL
+T03,My password reset email never arrives.,ACCESS,ACCESS,ACCESS
+T04,Where can I find your press kit?,OTHER,OTHER,OTHER
+T05,I cannot log in to view my invoices. Please restore access.,ACCESS,BILLING,ACCESS
+T06,Please refund my purchase; the app crashed yesterday.,BILLING,TECHNICAL,BILLING
+T07,I cannot sign in and exports also fail. Both need help.,OTHER,ACCESS,ACCESS
+T08,Everything is broken. I need help.,OTHER,OTHER,OTHER
