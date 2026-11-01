@@ -43,6 +43,9 @@ function selected(): ClaimCase[] {
 }
 function updateSelectionCount() {
   if (!form || !status) return;
+  // A changed selection invalidates the previous score and its explanations.
+  // Never leave old feedback visible for answers the visitor has just edited.
+  feedback?.replaceChildren();
   const answered = selected().filter(item => new FormData(form).has(item.id)).length;
   const total = selected().length;
   status.textContent = answered + ' of ' + total + ' claims answered. ' +
