@@ -5,7 +5,7 @@ slug: "verify-ai-weighted-average-price-spreadsheet"
 category: "guides"
 tags: ["ai", "spreadsheets", "excel", "google-sheets", "weighted-average", "sumproduct", "pivot-tables", "data-validation"]
 publishedDate: "2026-10-31"
-updatedDate: "2026-10-31"
+updatedDate: "2026-11-01"
 sources: [{"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/sumproduct-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/count-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3094294?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093583?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/1272900?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093403?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093620?hl=en"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -29,6 +29,12 @@ The goal is not to prove that one formula fits every pricing question. It is to 
 - **Average order value:** divide order revenue by the number of distinct orders. Our fixture has line IDs rather than verified order IDs, so it cannot support that calculation.
 
 Tell the AI which metric you want and what to do with zero-unit lines, zero-price units, blanks, refunds, taxes, and discounts. If you have not defined these rules, stop before generating a dashboard. A colorful chart will not resolve an ambiguous denominator.
+
+## Reproduce the calculation outside an AI answer
+
+**[Download the original eight-row CSV](/examples/weighted-price-sample.csv)** or copy the identical rows shown below. You can then open the **[independent weighted-average audit workbench](/tools/weighted-price-checker/)** to calculate a row-level revenue ledger, channel reconciliation, simple line-price average, and sold-unit-weighted average in your own browser. The workbench does not call an AI model or upload the CSV.
+
+Use the calculator as a **second arithmetic route**, not as proof of a live Excel or Google Sheets run. Start with the unmodified file and compare the expected result: eight lines, 27 units, 530 revenue, and 530/27 (approximately 19.63) revenue per unit. The intentionally misleading simple price mean is 153.25. Then make the quantity and missing-price changes in the negative tests below to see why input validation matters.
 
 ## Copy the fictional sales CSV
 
