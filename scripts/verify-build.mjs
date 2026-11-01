@@ -78,7 +78,7 @@ assert.deepEqual(articlePaths.sort(),publicArticles.map(entry=>entry.url).sort()
 for (const entry of publicArticles) {
   assert(entry.text.split(/\s+/).length >= 550,`${entry.url}: insufficient substantive content`);
   const html = await readFile(path.join(root,entry.url,'index.html'),'utf8');
-  assert(html.includes('Official sources') && html.includes('Related reading') && html.includes('On this page'),`${entry.url}: article navigation and sources`);
+  assert(html.includes('References and source documents') && html.includes('Related reading') && html.includes('On this page'),`${entry.url}: article navigation and sources`);
 }
 for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
   const url = new URL(match[1]); assert.equal(url.origin,'https://guidehollow.com');
