@@ -13,7 +13,7 @@ const sitemap = await readFile(path.join(root,'sitemap.xml'),'utf8');
 const search = JSON.parse(await readFile(path.join(root,'search-index.json'),'utf8'));
 const publicArticles = search.filter(entry => !entry.url.startsWith('/tools/'));
 const articlePaths = [];
-assert.equal(search.length-publicArticles.length,3,'All three tools must be searchable');
+assert.equal(search.length-publicArticles.length,4,'All four tools must be searchable');
 assert.equal(new Set(search.map(entry => entry.url)).size,search.length,'Duplicate public article paths');
 assert(!sitemap.includes('/404') && !sitemap.includes('/search/') && !sitemap.includes('/tags/'),'Noindex pages and navigation-only tag archives must be excluded');
 assert.equal((await readdir(root)).includes('ads.txt'),Boolean(site.ads.publisherId),'ads.txt must match publisher configuration');
