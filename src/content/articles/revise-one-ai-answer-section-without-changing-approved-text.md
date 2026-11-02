@@ -5,8 +5,8 @@ slug: "revise-one-ai-answer-section-without-changing-approved-text"
 category: "prompts"
 tags: ["prompt-engineering", "scoped-revision", "ai-quality", "output-control", "validation"]
 publishedDate: "2026-10-29"
-updatedDate: "2026-10-29"
-sources: [{"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/prompt-engineering"}, {"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"}, {"title": "docs.python.org — reference", "url": "https://docs.python.org/3/library/stdtypes.html#str.splitlines"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"OpenAI API: Prompt engineering","url":"https://developers.openai.com/api/docs/guides/prompt-engineering"},{"title":"OpenAI API: Evaluation best practices","url":"https://developers.openai.com/api/docs/guides/evaluation-best-practices"},{"title":"Python documentation: Built-in types — str.splitlines","url":"https://docs.python.org/3/library/stdtypes.html#str.splitlines"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -210,6 +210,9 @@ For each run, keep the full prompt, exact input, raw response, model or product 
 This workflow is especially useful for regulated wording, approved customer replies, internal knowledge-base edits, and repeated structured reports. It is not a security boundary or an authorization system: model instructions alone cannot prevent unauthorized changes to external files. Keep access controls, approval history, and final verification in the surrounding workflow.
 
 ## Sources and limits
+
+**Evidence boundaries (reviewed November 2, 2026):** OpenAI's prompt and evaluation guides support clear instructions and task-specific testing; neither certifies that a chat model will preserve approved wording. Python's `str.splitlines()` reference documents a line-processing operation used in the local test, not an AI revision result. Character-for-character approval checks remain this tutorial's independently inspectable local method.
+
 
 - [OpenAI: Prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering) — using precise instructions, content boundaries, examples, and prompt tests.
 - [OpenAI: Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices) — task-specific quality checks and human review.
