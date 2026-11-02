@@ -1,0 +1,13 @@
+GuideHollow fictional lending-kit policy — original teaching fixture
+This is invented source material. No real lending organization, approved policy, or effective date is claimed.
+The S1–S9 identifiers below are fictional section references, not real page citations.
+
+S1 | Eligibility | Only registered community groups may borrow kits.
+S2 | Booking | Submit a borrowing request at least 3 calendar days before pickup.
+S3 | Pickup | Pickup is available Tuesday through Friday, 10:00–16:00.
+S4 | Loan period | The standard loan lasts 7 calendar days from pickup.
+S5 | Quantity | A group may have up to 2 kits checked out at a time.
+S6 | Renewal | One additional 7-calendar-day renewal is permitted only if no other group has a confirmed reservation and the request is submitted at least 1 calendar day before the scheduled return date.
+S7 | Late fee | Late returns incur $5 per calendar day per kit, capped at $20 per kit.
+S8 | Missing items | Report missing cables to the coordinator; no replacement fee is specified.
+S9 | Repairs | Volunteers must not repair damaged kits; refer them to the coordinator.
