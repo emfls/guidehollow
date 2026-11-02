@@ -15,7 +15,10 @@ test('decimal prices reconcile in exact hundredths across rows and channels', ()
   assert.equal(a.weightedPrice, 71 / 600);
   assert.deepEqual(a.rows.map(row => row.revenue), [0.3,0.4,0.01]);
   assert.deepEqual(a.channels.map(row => [row.channel,row.units,row.revenue]),[['Web',4,0.31],['Store',2,0.4]]);
-  assert.equal(a.channels.reduce((total,row) => Math.round(total * 100) + Math.round(row.revenue * 100),0),71);
+  assert.equal(a.channels.reduce((total,row) => total + Math.round(row.revenue * 100),0),71);
+  const many=audit(...Array.from({length:400},(_,i)=>`L-${i},Web,1,0.01`));
+  assert.equal(many.revenue,4);
+  assert.equal(many.units,400);
 });
 
 test('do not silently drop fractional price precision or a missing price', () => {
