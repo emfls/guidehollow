@@ -91,7 +91,6 @@ const feed = await readFile(path.join(root,'rss.xml'),'utf8');
 assert(feed.includes('xmlns:dcterms="http://purl.org/dc/terms/"'),'RSS must declare the modification-date namespace');
 const feedItems = [...feed.matchAll(/<item>(.*?)<\/item>/gs)].map(match => match[1]);
 assert.equal(feedItems.length, publicArticles.length, 'RSS must include every published article exactly once');
-const rssUpdateDates = [];
 for (const entry of publicArticles) {
   const fullUrl = site.url + entry.url;
   const matching = feedItems.filter(item => item.includes(`<guid isPermaLink="true">${fullUrl}</guid>`));
@@ -107,8 +106,10 @@ for (const entry of publicArticles) {
   assert.equal(new Date(published).toISOString(), article.datePublished, `${entry.url}: RSS original published date must match page metadata`);
   assert.equal(modified, article.dateModified, `${entry.url}: RSS modification date must match page metadata`);
   assert(sitemap.includes(`<loc>${fullUrl}</loc><lastmod>${modified.slice(0,10)}</lastmod>`),`${entry.url}: sitemap lastmod must match real article update`);
-  rssUpdateDates.push(new Date(modified).getTime());
 }
+// The search index is in publication order. Compare the actual RSS item order.
+const rssUpdateDates = feedItems.map(item => new Date(item.match(/<dcterms:modified>(.*?)<\/dcterms:modified>/)?.[1]).getTime());
+assert(rssUpdateDates.every(Number.isFinite),'Every feed item needs a valid update date');
 assert(rssUpdateDates.every((date,index) => index === 0 || rssUpdateDates[index-1] >= date), 'RSS must show the most recently updated articles first');
 console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
