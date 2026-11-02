@@ -1,0 +1,7 @@
+CaseID	FictionalAction	YourVerdict	YourReason	YourPreShareCheck
+S01	Attach an internal file directly to a shared Space page			
+S02	Place a link to a separately restricted document on a shared Space page			
+S03	Link to a restricted report without copying its contents			
+S04	Copy confidential lines from a restricted report into a shared page			
+S05	Move a private draft below a page shared with a team			
+S06	Remove a direct page invitation while the same reader retains parent access			

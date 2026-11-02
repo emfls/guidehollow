@@ -6,7 +6,7 @@ category: "guides"
 tags: ["privacy", "ai-basics", "chatgpt"]
 publishedDate: "2026-10-23"
 updatedDate: "2026-11-03"
-sources: [{"title":"OpenAI: Data controls in ChatGPT","url":"https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"},{"title":"GitHub General Privacy Statement","url":"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"},{"title":"OpenAI Help Center: Getting started with Space in ChatGPT","url":"https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
+sources: [{"title":"OpenAI: Data controls in ChatGPT","url":"https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"},{"title":"GitHub General Privacy Statement","url":"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"},{"title":"OpenAI Help Center: Getting started with Space in ChatGPT","url":"https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"},{"title":"OpenAI Help Center: ChatGPT Space: sharing, data, and controls","url":"https://help.openai.com/en/articles/20001544-chatgpt-space-sharing-data-and-controls"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -112,7 +112,7 @@ Removing names from a prompt does not resolve every disclosure risk. In a collab
 
 ### A six-case permission drill you can audit
 
-Download the [original six-case Space sharing review worksheet](/examples/space-sharing-permissions-cases.tsv). It contains imaginary actions and **editor-written expected exposure classifications**, not simulated or observed ChatGPT actions. Compare the cases with the table above before reading the expected labels.
+**Try a blind review before looking at the answers.** Download the [six-case practice worksheet](/examples/space-sharing-permissions-practice.tsv), which provides only fictional scenarios and empty response fields. Predict one of `PAGE_VIEWERS`, `SOURCE_PERMISSIONS_STAY` or `INHERITED_ACCESS` for each case. Write your reason and the access check you would perform. **Then** open the separate [editorial answer key and reasoning](/examples/space-sharing-permissions-cases.tsv) and compare each case ID. The key is a learning reference, not verified access to any real account. Both files use the same six fictional cases; the practice copy does not include the solution column.
 
 **Case S03:** a coordinator links to a restricted report from a shared page. The link alone does not extend the report's original permissions. **Case S04:** the same coordinator pastes two confidential lines from that report into the page body. The *copied text*, unlike the link, is readable by the page audience. Even if the original file stays inaccessible, the copied lines have been disclosed to page readers.
 
@@ -127,6 +127,17 @@ Download the [original six-case Space sharing review worksheet](/examples/space-
 5. **Verify in the intended account:** inspect current sharing options without posting confidential page URLs in a public ticket. Record what you actually observed, not the result you hoped for.
 
 This is particularly important for a workgroup preparing a public update from restricted source material: an AI-generated summary pasted into a widely shared page is a **new disclosed copy**, not a private pointer back to the restricted original. Where permissions are unclear, keep the material in the approved restricted workspace and consult the responsible administrator.
+
+### A shared page has a second boundary: Memory and model training
+
+Permissions determine **who can read the page**. A collaborator's Memory and model-improvement settings govern different questions about what their ChatGPT may use when they interact with that shared page. The official [Space sharing, data, and controls guide](https://help.openai.com/en/articles/20001544-chatgpt-space-sharing-data-and-controls) describes these distinctions:
+
+- **Your private chats and Memory are not automatically shared.** But if you or ChatGPT put personal context from a prior conversation **into the page itself**, anyone authorized to view that page can read that information. Check generated text before sharing; a private source does not make a copied passage private.
+- **Another reader's Memory setting is their own.** Their ChatGPT may remember relevant content from the shared page if their Memory is enabled, even when yours is disabled.
+- **Personal-account model-training preferences are individual.** Disabling “Improve the model for everyone” on your account does not control another collaborator's use of shared content. Their interactions with a page are governed by their settings; no change here retrospectively revokes page access.
+- **Business and Enterprise have a different default.** OpenAI states that these products are not used for model training by default. An organization's own workspace rules still govern whether the page should have been shared.
+
+**Decision rule:** if material is too sensitive for a collaborator to read, **do not put it on a page they can access**. Trying to fix that exposure by changing only your personal Memory or training preference addresses the wrong control. These are documented feature boundaries, not an experiment in any reader's account.
 
 ## Understand what a setting changes
 
