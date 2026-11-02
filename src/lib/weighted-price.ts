@@ -64,6 +64,22 @@ export function parsePriceCsv(input: string): string[][] {
   return rows;
 }
 
+// Values are presented to two decimal places. Work in exact integer hundredths
+// instead of summing binary floating-point products, and refuse inputs whose
+// precision cannot be represented honestly at that display resolution.
+const MAX_EXACT_HUNDREDTHS = Math.floor(Number.MAX_SAFE_INTEGER / 100);
+function priceInHundredths(value: string, rowNumber: number): number {
+  const match = /^(\d+)(?:\.(\d{1,2}))?$|^\.(\d{1,2})$/.exec(value);
+  if (!match) throw new Error(`Row ${rowNumber}: UnitPrice must be nonnegative with at most two decimal places; blanks are not zero.`);
+  const whole = Number(match[1] ?? 0);
+  const fraction = Number((match[2] ?? match[3] ?? '').padEnd(2, '0') || '0');
+  const result = whole * 100 + fraction;
+  if (!Number.isSafeInteger(result) || result > MAX_EXACT_HUNDREDTHS) {
+    throw new Error(`Row ${rowNumber}: UnitPrice exceeds the supported two-decimal precision range.`);
+  }
+  return result;
+}
+
 export function auditWeightedPriceCsv(csv: string): PriceAudit {
   const data = parsePriceCsv(csv);
   const header = data.shift()?.map(value => value.trim()) ?? [];
@@ -75,8 +91,8 @@ export function auditWeightedPriceCsv(csv: string): PriceAudit {
   if (data.length > 500) throw new Error('This learning tool accepts at most 500 data rows.');
   const seen = new Set<string>();
   const rows: PriceRow[] = [];
-  const channelTotals = new Map<string, { units: number; revenue: number }>();
-  let units = 0, revenue = 0, priceSum = 0;
+  const channelTotals = new Map<string, { units: number; revenueHundredths: number }>();
+  let units = 0, revenueHundredths = 0, priceSumHundredths = 0;
   for (const [index, raw] of data.entries()) {
     const rowNumber = index + 2;
     if (raw.length !== 4) throw new Error(`Row ${rowNumber}: expected 4 columns, found ${raw.length}.`);
@@ -89,25 +105,33 @@ export function auditWeightedPriceCsv(csv: string): PriceAudit {
         throw new Error(`Row ${rowNumber}: ${label} must be a nonnegative number; blanks are not zero.`);
       }
     }
-    const lineUnits = Number(rawUnits), unitPrice = Number(rawPrice);
+    const lineUnits = Number(rawUnits);
     if (!Number.isSafeInteger(lineUnits)) throw new Error(`Row ${rowNumber}: Units must be a safe whole number.`);
-    if (!Number.isFinite(unitPrice) || !Number.isFinite(lineUnits * unitPrice)) throw new Error(`Row ${rowNumber}: price is outside the supported range.`);
-    const lineRevenue = lineUnits * unitPrice;
-    rows.push({ lineId, channel, units: lineUnits, unitPrice, revenue: lineRevenue });
-    units += lineUnits; revenue += lineRevenue; priceSum += unitPrice;
-    const subtotal = channelTotals.get(channel) ?? { units: 0, revenue: 0 };
-    subtotal.units += lineUnits; subtotal.revenue += lineRevenue;
+    const priceHundredths = priceInHundredths(rawPrice, rowNumber);
+    const lineRevenueHundredths = lineUnits * priceHundredths;
+    // Reject rather than rounding a large or overprecise result into a
+    // plausible-looking but untrustworthy two-decimal financial figure.
+    if (!Number.isSafeInteger(lineRevenueHundredths) || lineRevenueHundredths > MAX_EXACT_HUNDREDTHS) {
+      throw new Error(`Row ${rowNumber}: row revenue exceeds the supported two-decimal precision range.`);
+    }
+    rows.push({ lineId, channel, units: lineUnits, unitPrice: priceHundredths / 100, revenue: lineRevenueHundredths / 100 });
+    units += lineUnits; revenueHundredths += lineRevenueHundredths; priceSumHundredths += priceHundredths;
+    const subtotal = channelTotals.get(channel) ?? { units: 0, revenueHundredths: 0 };
+    subtotal.units += lineUnits; subtotal.revenueHundredths += lineRevenueHundredths;
     channelTotals.set(channel, subtotal);
+    if (!Number.isSafeInteger(units) || revenueHundredths > MAX_EXACT_HUNDREDTHS ||
+        priceSumHundredths > MAX_EXACT_HUNDREDTHS) {
+      throw new Error(`Row ${rowNumber}: totals exceed the supported two-decimal precision range.`);
+    }
   }
-  if (!Number.isSafeInteger(units) || !Number.isFinite(revenue) || !Number.isFinite(priceSum)) throw new Error('Totals exceed the safe numeric range.');
   if (!units) throw new Error('All quantities are zero. Revenue per sold unit is undefined.');
   return {
-    rows, rowCount: rows.length, units, revenue,
-    weightedPrice: revenue / units,
-    simplePriceMean: priceSum / rows.length,
+    rows, rowCount: rows.length, units, revenue: revenueHundredths / 100,
+    weightedPrice: revenueHundredths / (100 * units),
+    simplePriceMean: priceSumHundredths / (100 * rows.length),
     channels: [...channelTotals].map(([channel, totals]) => ({
-      channel, units: totals.units, revenue: totals.revenue,
-      weightedPrice: totals.units ? totals.revenue / totals.units : null,
+      channel, units: totals.units, revenue: totals.revenueHundredths / 100,
+      weightedPrice: totals.units ? totals.revenueHundredths / (100 * totals.units) : null,
     })),
     zeroUnitLines: rows.filter(row => !row.units).map(row => row.lineId),
     zeroPriceLines: rows.filter(row => !row.unitPrice).map(row => row.lineId),

@@ -5,7 +5,7 @@ slug: "verify-ai-weighted-average-price-spreadsheet"
 category: "guides"
 tags: ["ai", "spreadsheets", "excel", "google-sheets", "weighted-average", "sumproduct", "pivot-tables", "data-validation"]
 publishedDate: "2026-10-31"
-updatedDate: "2026-11-01"
+updatedDate: "2026-11-02"
 sources: [{"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/functions/sumproduct-function"}, {"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/functions/count-function"}, {"title": "Microsoft Support — official Excel reference", "url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3094294?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093583?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/1272900?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093403?hl=en"}, {"title": "Google Docs Editors Help — official formula reference", "url": "https://support.google.com/docs/answer/3093620?hl=en"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -32,7 +32,7 @@ Tell the AI which metric you want and what to do with zero-unit lines, zero-pric
 
 ## Reproduce the calculation outside an AI answer
 
-**[Download the original eight-row CSV](/examples/weighted-price-sample.csv)** or copy the identical rows shown below. You can then open the **[independent weighted-average audit workbench](/tools/weighted-price-checker/)** to calculate a row-level revenue ledger, channel reconciliation, simple line-price average, and sold-unit-weighted average in your own browser. The workbench does not call an AI model or upload the CSV.
+**[Download the original eight-row CSV](/examples/weighted-price-sample.csv)** or copy the identical rows shown below. You can then open the **[independent weighted-average audit workbench](/tools/weighted-price-checker/)** to calculate a row-level revenue ledger, channel reconciliation, simple line-price average, and sold-unit-weighted average in your own browser. The workbench does not call an AI model or upload the CSV. Its small-data calculator accepts nonnegative prices with up to two decimal places and checks amounts in exact integer hundredths before displaying two-decimal totals. It deliberately rejects finer price precision or unsafe-sized amounts instead of silently rounding them; use an approved precision-aware system for other pricing conventions.
 
 Use the calculator as a **second arithmetic route**, not as proof of a live Excel or Google Sheets run. Start with the unmodified file and compare the expected result: eight lines, 27 units, 530 revenue, and 530/27 (approximately 19.63) revenue per unit. The intentionally misleading simple price mean is 153.25. Then make the quantity and missing-price changes in the negative tests below to see why input validation matters.
 

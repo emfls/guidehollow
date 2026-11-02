@@ -26,7 +26,7 @@ L-108,Store,2,20`;
       <label for="weighted-price-csv">CSV input — LineID, Channel, Units, UnitPrice
         <textarea id="weighted-price-csv" rows="12" maxlength="50000" spellcheck="false" aria-describedby="csv-help">{fixture}</textarea>
       </label>
-      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices and units must be nonnegative numbers. Units must be whole numbers. Empty prices and blank CSV records between populated records are rejected, not treated as zero or silently skipped. Trailing empty lines are allowed. Maximum 500 rows. <strong>Changing the CSV clears the previous calculation immediately; run the audit again to view current totals.</strong></p>
+      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices must be nonnegative with no more than two decimal places (for example, 0.10 or 12.35); units must be nonnegative whole numbers. To prevent misleading displayed totals, inputs or totals beyond the workbench's safe two-decimal precision range are rejected. Empty prices and blank CSV records between populated records are rejected, not treated as zero or silently skipped. Trailing empty lines are allowed. Maximum 500 rows. <strong>Changing the CSV clears the previous calculation immediately; run the audit again to view current totals.</strong></p>
       <div class="tool-actions">
         <button type="submit" class="primary" id="calculate-weighted-price" disabled>Calculate and audit</button>
         <button type="button" id="reset-weighted-price" disabled>Restore sample</button>
@@ -38,13 +38,15 @@ L-108,Store,2,20`;
       <h2 id="audit-title">Your audit results</h2>
       <p id="weighted-price-summary">Calculation not run yet.</p>
       <div id="weighted-price-results" aria-live="polite"></div>
-      <p class="tool-footnote">Numbers are displayed to two decimal places, but calculations retain unrounded JavaScript numeric values. This utility does not model refunds, taxes, currencies or returns. For accounting-grade precision, reproduce the formula in an approved system.</p>
+      <p class="tool-footnote">Input prices and row/channel totals are calculated in exact integer hundredths; weighted averages are divided only after the integer totals are checked. Numbers are displayed to two decimal places, so a weighted average may be rounded for presentation. This utility does not model refunds, taxes, currencies or returns. For accounting-grade precision, reproduce the formula in an approved system.</p>
     </section>
   </div>
   <section class="section prose info-content">
     <h2>Reproduce the reference result before using your own data</h2>
     <p>Our original, entirely fictional eight-row fixture is a control case. Before changing anything, run the sample and check for <strong>8 rows, 27 units, 530 revenue and a weighted price of 530 ÷ 27 ≈ 19.63</strong>. The simple mean of listed prices is 153.25; it is not the per-unit sales price. The Web channel should report 7 units and 280 revenue; Store should report 20 units and 250 revenue.</p>
     <p>The intentional edge cases make the exercise useful. Line L-106 has zero units and a listed price of 999. It contributes no revenue. Line L-107 has five units at an explicitly numeric zero price. It adds units but no revenue. Confusing these rows will change the result or conceal missing data.</p>
+    <h2>Test decimal precision before trusting the answer</h2>
+    <p>Change the sample to three simple fictional rows: <code>A,Web,3,0.10</code>, <code>B,Store,2,0.20</code>, and <code>C,Web,1,0.01</code> under the existing four-column header. The exact row revenues are 0.30, 0.40, and 0.01; total revenue is <strong>0.71</strong> over six units. The workbench checks integer hundredths internally rather than accumulating floating-point rounding artifacts across rows. To avoid silently rounding away input precision, <code>0.001</code> is rejected; for three-decimal tariffs or large financial datasets, use a precision-aware spreadsheet or accounting system and state your rounding rules.</p>
     <h2>Check for accidentally omitted CSV records</h2>
     <p>As an audit tool, the workbench must not silently skip a blank record <strong>between populated CSV rows</strong>. Try inserting an empty line between L-103 and L-104 in a copy of the fictional sample, then select <strong>Calculate and audit</strong>. The tool should refuse the calculation and identify the blank record. Compare your original CSV with the edited copy to determine whether a transaction was accidentally erased. Do not simply delete the empty line until the underlying row count is reconciled.</p>
     <p>Empty lines <strong>after</strong> the final populated row are permitted; they do not imply missing transactions. A malformed row containing a LineID but no UnitPrice is still rejected separately. These checks cannot detect an entire transaction that was removed cleanly before the file reached the workbench—only comparison with an authoritative source can establish completeness.</p>
