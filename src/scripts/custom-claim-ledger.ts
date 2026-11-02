@@ -1,4 +1,4 @@
-import { exportClaimLedger, makeLedgerEntry, type LedgerEntry, type LedgerVerdict } from '../lib/claim-ledger';
+import { exportClaimLedger, makeLedgerEntry, replaceLedgerEntry, type LedgerEntry, type LedgerVerdict } from '../lib/claim-ledger';
 
 const form = document.querySelector<HTMLFormElement>('#personal-claim-form');
 const fields = form?.querySelector<HTMLFieldSetElement>('fieldset');
@@ -11,8 +11,16 @@ const status = document.querySelector<HTMLElement>('#personal-ledger-status');
 const records = document.querySelector<HTMLOListElement>('#personal-ledger-entries');
 const download = document.querySelector<HTMLButtonElement>('#personal-ledger-download');
 const clear = document.querySelector<HTMLButtonElement>('#personal-ledger-clear');
+const save = form?.querySelector<HTMLButtonElement>('#personal-ledger-save');
+const cancel = form?.querySelector<HTMLButtonElement>('#personal-ledger-cancel-edit');
 let entries: LedgerEntry[] = [];
 let nextId = 1;
+let editingId: string | null = null;
+function stopEditing() {
+  editingId = null;
+  if (save) save.textContent = 'Add reviewed claim';
+  if (cancel) cancel.disabled = true;
+}
 
 function refresh() {
   if (!records || !download || !clear) return;
@@ -29,46 +37,84 @@ function refresh() {
     const reason = document.createElement('p');
     reason.className = 'small';
     reason.textContent = 'Reviewer note: ' + entry.note;
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.textContent = 'Edit ' + entry.id;
+    edit.setAttribute('aria-label', 'Edit reviewed claim ' + entry.id);
+    edit.addEventListener('click', () => {
+      if (!form || !source || !claim || !passage || !verdict || !note || !save || !cancel || !status) return;
+      source.value = entry.source;
+      claim.value = entry.claim;
+      passage.value = entry.passage;
+      verdict.value = entry.verdict;
+      note.value = entry.note;
+      editingId = entry.id;
+      save.textContent = 'Save revised claim ' + entry.id;
+      cancel.disabled = false;
+      status.textContent = 'Editing ' + entry.id + '. Save the changes or cancel editing; your existing row remains until you save.';
+      source.focus();
+    });
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.textContent = 'Remove ' + entry.id;
     remove.setAttribute('aria-label', 'Remove reviewed claim ' + entry.id);
     remove.addEventListener('click', () => {
       entries = entries.filter(item => item.id !== entry.id);
+      if (editingId === entry.id) {
+        form?.reset();
+        stopEditing();
+      }
       refresh();
       if (status) status.textContent = entry.id + ' removed. ' + entries.length + ' review rows remain.';
     });
-    li.append(heading,claimText,evidence,reason,remove);
+    li.append(heading,claimText,evidence,reason,edit,remove);
     return li;
   });
   records.replaceChildren(...items);
-  download.disabled = clear.disabled = entries.length === 0;
+  download.disabled = entries.length === 0;
+  // Clear must remain available to erase unfinished fields even before a row is added.
+  clear.disabled = false;
 }
-if (form && fields && source && claim && passage && verdict && note && status && records && download && clear) {
+if (form && fields && source && claim && passage && verdict && note && status && records && download && clear && save && cancel) {
   // With JavaScript disabled or failed, the form remains disabled and cannot
   // submit personal text via its default GET request.
+  form.addEventListener('reset', () => {
+    stopEditing();
+    status.textContent = 'Current fields cleared; saved review rows are unchanged.';
+  });
+  cancel.addEventListener('click', () => {
+    form.reset();
+    status.textContent = 'Editing cancelled. Your original review row is unchanged.';
+    source.focus();
+  });
   form.addEventListener('submit', event => {
     event.preventDefault();
     try {
-      if (entries.length >= 30) throw new Error('You have reached the 30-row limit. Download or remove rows first.');
+      if (entries.length >= 30 && !editingId)
+        throw new Error('You have reached the 30-row limit. Download or remove rows first.');
+      const revised = Boolean(editingId);
+      const ordinal = revised ? Number(editingId!.slice(1)) : nextId;
       const entry = makeLedgerEntry({
         source: source.value, claim: claim.value, passage: passage.value,
         verdict: verdict.value as LedgerVerdict, note: note.value,
-      }, nextId);
-      entries = [...entries, entry];
-      nextId++;
+      }, ordinal);
+      entries = revised ? replaceLedgerEntry(entries, entry) : [...entries, entry];
+      if (!revised) nextId++;
       form.reset();
       refresh();
-      status.textContent = entry.id + ' added. ' + entries.length + ' human-reviewed claim(s) ready for export.';
+      status.textContent = entry.id + (revised ? ' updated.' : ' added.') + ' ' +
+        entries.length + ' human-reviewed claim(s) ready for export.';
       source.focus();
     } catch (error) {
-      status.textContent = error instanceof Error ? error.message : 'The entry could not be added.';
+      status.textContent = error instanceof Error ? error.message : 'The entry could not be saved.';
     }
   });
   clear.addEventListener('click', () => {
     entries = [];
+    nextId = 1;
+    form.reset();
     refresh();
-    status.textContent = 'All review rows cleared. Nothing was sent or saved online.';
+    status.textContent = 'All rows and unfinished input fields cleared. Nothing was sent or saved online.';
   });
   download.addEventListener('click', () => {
     try {
@@ -79,7 +125,7 @@ if (form && fields && source && claim && passage && verdict && note && status &&
       link.href = url; link.download = 'guidehollow-source-claim-ledger.tsv';
       link.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      status.textContent = entries.length + ' human review rows exported as TSV. This is not an AI truth score.';
+      status.textContent = 'Download requested for ' + entries.length + ' human review rows. Check your browser downloads; this page cannot confirm the file was saved. This is not an AI truth score.';
     } catch (error) {
       status.textContent = error instanceof Error ? error.message : 'Export failed.';
     }
