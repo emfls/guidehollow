@@ -52,6 +52,6 @@ test('about and editorial-policy pages disclose both the origin and limits of ac
 test('the public evidence link is included in the article reference register and historical model results are not invented',()=>{
   const register=JSON.parse(guide.match(/^sources: (\[.*\])$/m)?.[1]||'[]');
   assert(register.some(x=>x.url==='https://github.com/emfls/guidehollow/actions/runs/41540809663'));
-  assert(guide.includes('The run\\'s success was observed in deployment logs'));
+  assert(guide.includes("The run's success was observed in deployment logs"));
   assert(guide.includes('It does not measure an AI model'));
 });
