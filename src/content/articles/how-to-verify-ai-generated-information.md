@@ -5,7 +5,7 @@ slug: "how-to-verify-ai-generated-information"
 category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-02"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
