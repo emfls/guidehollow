@@ -26,10 +26,17 @@ export function makeLedgerEntry(input: LedgerInput, ordinal: number): LedgerEntr
   }
   return {id:'R'+String(ordinal).padStart(3,'0'),source,claim,passage,verdict:input.verdict,note};
 }
+export function replaceLedgerEntry(entries: LedgerEntry[], revised: LedgerEntry): LedgerEntry[] {
+  const at = entries.findIndex(item => item.id === revised.id);
+  if (at === -1) throw new Error('The review row no longer exists.');
+  if (entries.some((item,index) => index !== at && item.id === revised.id))
+    throw new Error('Duplicate review IDs are not allowed.');
+  return entries.map((item,index) => index === at ? revised : item);
+}
 function safeTsvCell(input: string): string {
   // Escape delimiters and line breaks before constructing rows; never let a
   // user-supplied tab or newline create an extra record or column.
-  const value = input.replace(/\r\n?/g,'\n').replace(/[\t\n\u2028\u2029]/g, char => char === '\t' ? '\\t' : '\\n')
+  const value = input.replace(/\\/g,'\\\\').replace(/\r\n?/g,'\n').replace(/[\t\n\u2028\u2029]/g, char => char === '\t' ? '\\t' : '\\n')
     .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,'').trim();
   // Some spreadsheets evaluate formulas in imported cells. Treat all fields
   // as untrusted text, including quoted/whitespace-prefixed formula strings.

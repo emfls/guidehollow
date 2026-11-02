@@ -74,7 +74,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
           <label for="personal-note">Why you chose that verdict (required)
             <textarea id="personal-note" name="note" required maxlength="3000" rows="3" placeholder="Explain which condition, exception, number, or missing evidence affects your conclusion."></textarea>
           </label>
-          <div class="tool-actions"><button class="primary" type="submit">Add reviewed claim</button><button type="reset">Clear current fields</button></div>
+          <div class="tool-actions"><button class="primary" id="personal-ledger-save" type="submit">Add reviewed claim</button><button type="reset">Clear current fields</button><button type="button" id="personal-ledger-cancel-edit" disabled>Cancel edit</button></div>
         </fieldset>
       </form>
       <section class="tool-output" aria-labelledby="personal-ledger-results-title">
@@ -82,12 +82,12 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
         <p id="personal-ledger-status" class="tool-status" role="status" aria-live="polite">The manual worksheet requires JavaScript. No information is submitted.</p>
         <ol id="personal-ledger-entries" class="personal-ledger-entries"></ol>
         <div class="tool-actions"><button type="button" id="personal-ledger-download" disabled>Download my TSV</button><button type="button" id="personal-ledger-clear" disabled>Clear all reviews</button></div>
-        <p class="tool-footnote">Maximum 30 reviews per page session. No auto-save or account sync. Download the TSV before leaving. Do not enter private or confidential data on a shared device. Spreadsheet formula-like text is exported as text, and tabs/newlines are escaped so source content cannot create extra audit rows.</p>
+        <p class="tool-footnote">Maximum 30 reviews per page session. Select Edit beside a review to correct it without losing its reference ID; Cancel edit preserves the original row. Clear all reviews also erases unfinished form fields. The download button requests a file but cannot confirm your browser saved it. No auto-save or account sync. Download the TSV before leaving. Do not enter private or confidential data on a shared device. Spreadsheet formula-like text is exported as text. Tabs, newlines and backslashes are escaped so source content cannot create extra audit rows and each original escape is distinguishable.</p>
       </section>
     </div>
     <div class="prose info-content">
       <h3>A one-minute source check you can reproduce</h3>
-      <p>In the published <a href="/examples/claim-boundary-source-notes.txt">fictional garden notes</a>, the meeting location is explicitly unconfirmed. Enter the claim “The meeting is confirmed at North Greenhouse,” identify the fictional notes as your source, choose <strong>UNSUPPORTED</strong>, and explain that the notes do not establish the named venue. Do not label it CONTRADICTED unless you have a source passage that directly rules out that venue.</p>
+      <p>In the published <a href="/examples/claim-boundary-source-notes.txt">fictional garden notes</a>, the meeting location is explicitly unconfirmed. Enter the narrower claim “The meeting will be held at North Greenhouse,” identify the fictional notes as your source, choose <strong>UNSUPPORTED</strong>, and explain that the notes do not establish the named venue. The source rules out treating any location as <em>confirmed</em>, but does not establish which location will eventually be chosen. If you instead claim “The meeting location has already been confirmed,” mark it <strong>CONTRADICTED</strong>: the notes explicitly say the location is not confirmed.</p>
       <p>For a different claim, “Offline mode was approved,” the fictional release note says it <em>has not been approved</em>. Record that exact passage and choose <strong>CONTRADICTED</strong>. Add both rows, export, and check the two judgments and reasons in the resulting TSV. This is a manual traceability exercise, not evidence that a model has verified your claims.</p>
     </div>
   </section>
