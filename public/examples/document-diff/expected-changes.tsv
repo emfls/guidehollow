@@ -1,0 +1,8 @@
+SectionID	ChangeType	OLDClause	NEWClause	ReviewQuestion
+S1	UNCHANGED	Pilot covers registered neighborhood groups.	Pilot covers registered neighborhood groups.	Was this section intentionally left unchanged?
+S2	MODIFIED	Request at least 7 calendar days before pickup.	Request at least 3 calendar days before pickup.	Who authorized the shorter booking window?
+S3	MODIFIED	$100 refundable deposit.	$150 refundable deposit.	Who approved the new deposit amount?
+S4	REMOVED_FROM_TEXT	$10 per day.		Was this clause removed intentionally and does it exist elsewhere?
+S5	UNCHANGED	Report missing cables to the coordinator.	Report missing cables to the coordinator.	Does the unchanged instruction remain operational?
+S6	MODIFIED	Two staff members must check the kit.	One staff member must check the kit.	Is a one-person check authorized?
+S7	ADDED		Representative must show photo ID.	How should photo ID be verified and protected?
