@@ -85,7 +85,31 @@ for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
   assert(await stat(path.join(root,url.pathname,'index.html')).catch(()=>null),`Sitemap route missing: ${url.pathname}`);
 }
 assert((await readFile(path.join(root,'robots.txt'),'utf8')).includes('https://guidehollow.com/sitemap.xml'));
-assert.equal(((await readFile(path.join(root,'rss.xml'),'utf8')).match(/<item>/g)||[]).length,publicArticles.length);
+// Cross-check feed modification dates against visible article metadata, JSON-LD
+// and the sitemap. An unchanged URL/GUID must not conceal a more recent update.
+const feed = await readFile(path.join(root,'rss.xml'),'utf8');
+assert(feed.includes('xmlns:dcterms="http://purl.org/dc/terms/"'),'RSS must declare the modification-date namespace');
+const feedItems = [...feed.matchAll(/<item>(.*?)<\\/item>/gs)].map(match => match[1]);
+assert.equal(feedItems.length, publicArticles.length, 'RSS must include every published article exactly once');
+const rssUpdateDates = [];
+for (const entry of publicArticles) {
+  const fullUrl = site.url + entry.url;
+  const matching = feedItems.filter(item => item.includes(`<guid isPermaLink="true">${fullUrl}</guid>`));
+  assert.equal(matching.length, 1, `${entry.url}: stable RSS identifier must appear exactly once`);
+  const item = matching[0];
+  assert(item.includes(`<link>${fullUrl}</link>`), `${entry.url}: feed URL and stable GUID must agree`);
+  const page = await readFile(path.join(root,entry.url,'index.html'),'utf8');
+  const schema = JSON.parse(page.match(/<script type="application\\/ld\\+json">(.*?)<\\/script>/s)?.[1] ?? '{}');
+  const article = schema['@graph']?.find(value => value['@type'] === 'BlogPosting');
+  assert(article, `${entry.url}: published article JSON-LD must exist`);
+  const published = item.match(/<pubDate>(.*?)<\\/pubDate>/)?.[1];
+  const modified = item.match(/<dcterms:modified>(.*?)<\\/dcterms:modified>/)?.[1];
+  assert.equal(new Date(published).toISOString(), article.datePublished, `${entry.url}: RSS original published date must match page metadata`);
+  assert.equal(modified, article.dateModified, `${entry.url}: RSS modification date must match page metadata`);
+  assert(sitemap.includes(`<loc>${fullUrl}</loc><lastmod>${modified.slice(0,10)}</lastmod>`),`${entry.url}: sitemap lastmod must match real article update`);
+  rssUpdateDates.push(new Date(modified).getTime());
+}
+assert(rssUpdateDates.every((date,index) => index === 0 || rssUpdateDates[index-1] >= date), 'RSS must show the most recently updated articles first');
 console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
