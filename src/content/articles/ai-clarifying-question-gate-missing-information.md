@@ -5,8 +5,8 @@ slug: "ai-clarifying-question-gate-missing-information"
 category: "prompts"
 tags: ["clarifying-questions", "prompt-engineering", "missing-information", "ai-response-quality", "decision-gates"]
 publishedDate: "2026-11-01"
-updatedDate: "2026-11-01"
-sources: [{"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/prompt-engineering"}, {"title": "ai.google.dev — reference", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}, {"title": "platform.claude.com — reference", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"OpenAI API: Prompt engineering","url":"https://developers.openai.com/api/docs/guides/prompt-engineering"},{"title":"Google AI for Developers: Prompt design strategies","url":"https://ai.google.dev/gemini-api/docs/prompting-strategies"},{"title":"Claude Developer Docs: Prompting best practices","url":"https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -231,6 +231,9 @@ If you compare revised prompts, hold the case inputs constant, note the model/pr
 A one-question gate is useful because it protects both **accuracy and momentum**: the assistant stops when the task truly lacks a foundation and continues when it has enough to produce a faithful result. The gate needs periodic evaluation against realistic inputs, not just a longer instruction paragraph.
 
 ## Official references and limits
+
+**Source-to-claim boundary (reviewed November 2, 2026):** The OpenAI, Google, and Anthropic pages describe prompt-writing techniques and examples. None defines or verifies this article's specific one-question routing rule. The eight case labels and the Python routing logic are GuideHollow's own teaching fixtures, so readers should test any chosen model separately rather than treating vendor guidance as a test result.
+
 
 - [OpenAI — Prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering): precise instructions, boundaries, and representative tests.
 - [Google AI for Developers — Prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies): clear requests, structured context, and iterative refinement.
