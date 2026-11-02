@@ -64,7 +64,7 @@ for (const file of htmlFiles) {
         const image = new URL(article.image);
         assert.equal(image.origin,site.url,`${relative}: article image must be local original evidence`);
         assert(!image.pathname.includes('social'),`${relative}: do not use generic social artwork`);
-        assert(await stat(path.join(root,image.pathname)).catch(()=>null),`${relative}: article schema image file must exist`);
+        assert(files.includes(path.join(root,image.pathname)),`${relative}: article schema image file must exist`);
         assert(html.includes(`src="${image.pathname}"`),`${relative}: schema image must be visible within the article`);
       }
     }
