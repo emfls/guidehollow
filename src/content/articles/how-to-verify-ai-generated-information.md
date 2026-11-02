@@ -5,7 +5,7 @@ slug: "how-to-verify-ai-generated-information"
 category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-02"
 sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -17,6 +17,13 @@ featured: false
 To verify an AI answer, break it into specific claims, find independent evidence for each important one, and record what the evidence supports. Asking the same assistant “are you sure?” is a request for another answer, not independent verification.
 
 OpenAI's guidance warns that generated responses can include incorrect facts and invented references. The practical response is to make the evidence visible before relying on a conclusion.
+
+
+## Turn verified claims into a reusable evidence register
+
+The original claim exercises in this guide help you practice identifying unsupported details. For a source you are permitted to use, the <a href="/tools/claim-checker/">Source Claim Verifier</a> also includes a **manual claim ledger**: enter the exact statement, source label, a supporting or contradicting passage where one exists, your own verdict (SUPPORTED, CONTRADICTED or UNSUPPORTED), and your reasoning. Download your rows as a TSV that you can review before publishing.
+
+This tool **does not fact-check a source automatically**, verify the source's authenticity, or claim that a human label is the truth. The value is traceability: when a source changes, you can revisit the specific statement and passage, rather than treating a polished answer as evidence. For an unsupported claim, record the precise information that is missing; do not invent a quotation just to fill a cell. Use only information you are authorized to handle, and avoid personal information on shared devices.
 
 ## Create a small claim ledger
 
