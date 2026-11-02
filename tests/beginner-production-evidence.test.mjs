@@ -31,7 +31,7 @@ test('published production evidence is precisely scoped to checker code, includi
   assert(guide.includes('not every URL'));
   assert(guide.includes('not establish AdSense approval'));
   assert(guide.includes('does not measure an AI model'));
-  assert(guide.includes('interactions'));
+  assert(guide.includes('interactive controls'));
 });
 
 test('about and editorial-policy pages disclose both the origin and limits of actual first-party work',()=>{
