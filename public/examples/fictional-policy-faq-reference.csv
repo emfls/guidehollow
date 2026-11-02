@@ -1,0 +1,12 @@
+QuestionID,Question,SourceIDs,Status,ReferenceAnswer
+Q1,Who can borrow a kit?,S1,ANSWERED,Only registered community groups may borrow kits.
+Q2,How early should we book?,S2,ANSWERED,Submit the request at least 3 calendar days before pickup.
+Q3,When is pickup available?,S3,ANSWERED,Tuesday through Friday from 10:00 to 16:00.
+Q4,How long is the standard loan?,S4,ANSWERED,7 calendar days from pickup; an exact return time is not established.
+Q5,How many kits can a group borrow?,S5,ANSWERED,Up to 2 kits may be checked out at a time.
+Q6,May the group renew?,S6,ANSWERED,One additional 7-calendar-day renewal only if no other group has a confirmed reservation AND the request is made at least 1 calendar day before scheduled return.
+Q7,What is the fee for one kit 5 days late?,S7,ANSWERED,5 times $5 is $25 before the cap; one kit is charged $20 after the per-kit cap.
+Q8,What if a cable is missing?,S8,PARTIAL,Report missing cables to the coordinator; replacement fee is not specified.
+Q9,Can volunteers repair damaged kits?,S9,ANSWERED,No; refer damaged kits to the coordinator.
+Q10,What is the holiday schedule?,,NOT_SPECIFIED,Not specified in the supplied policy; ask the policy owner.
+Q11,Is photo ID required?,,NOT_SPECIFIED,Not specified in the supplied policy; ask the policy owner.
