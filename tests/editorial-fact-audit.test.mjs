@@ -24,7 +24,7 @@ test('every published article has a parseable HTTPS source register', async () =
 
 test('fictional deduplication fixture and both described mutations reconcile independently', async () => {
   const content = await readFile(new URL('audit-ai-csv-duplicate-removal-without-losing-rows.md', articleRoot), 'utf8');
-  const csv = content.match(/\`\`\`javascript\n(OrderID,Region,OrderDate,Amount\n[\s\S]*?)\`\`\`/)?.[1];
+  const csv = content.match(/\`\`\`(?:csv|javascript)\n(OrderID,Region,OrderDate,Amount\n[\s\S]*?)\`\`\`/)?.[1];
   assert(csv, 'Original CSV must be in the published article');
   const records = csv.trim().split(/\r?\n/).slice(1).map(line => {
     const [id,region,date,amount] = line.split(',');
