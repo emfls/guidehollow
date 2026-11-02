@@ -1,4 +1,4 @@
-import { xmlEscape } from './xml';
+import { xmlEscape } from './xml.ts';
 
 /** Reader-facing RSS metadata. Stable publication dates and URLs are never rewritten. */
 export interface FeedEntry {
