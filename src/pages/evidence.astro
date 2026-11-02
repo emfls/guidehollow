@@ -25,6 +25,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-json-fidelity"><span class="mono muted">10 /</span> JSON source-fidelity audit</a></li>
         <li><a href="#evidence-pdf-ocr"><span class="mono muted">11 /</span> Selectable PDF vs. image-only scan</a></li>
         <li><a href="#evidence-csv-source-integrity"><span class="mono muted">12 /</span> Original CSV audit fixtures</a></li>
+        <li><a href="#evidence-injection"><span class="mono muted">13 /</span> Prompt-injection boundary drill</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -141,6 +142,15 @@ import Base from '../layouts/Base.astro';
       <li><strong>Try a failure:</strong> in a disposable copy of the duplicates file, change O-102's second amount from 80 to 81. It should no longer be safe to remove a same-ID row without reconciliation. In the monthly file, shift R-10 from October 31 at 23:59 to November 1 at 00:00; the expected October Paid total falls from 295 to <strong>270</strong>.</li>
     </ol>
     <p><strong>Scope:</strong> these are complete editor-created input records, and the described sums, row counts, flags and boundary changes are independently checked in automated tests. We have <strong>not</strong> tested a live AI model, an Excel spreadsheet session, a Google Sheets session, or a merchant's actual orders. Real financial records require an approved source, a defined business timezone and human review.</p>
+
+    <h2 id="evidence-injection">13. Do source instructions belong to the task or the assistant?</h2>
+    <p><strong>Question:</strong> can a reader distinguish genuine document requirements, attempts to redirect an AI assistant, and quotations describing those attempts? The ten original, fictional cases have <strong>3 task-data examples, 5 embedded directives, and 2 quoted examples</strong>. The cases deliberately include imperatives that are ordinary policy language, as well as a quote that looks dangerous out of context.</p>
+    <ol>
+      <li><a href="/examples/prompt-injection-boundary-cases.tsv">Download the ten-case worksheet (TSV)</a>. Read the original authorized task and source excerpt for T01–T10 without looking at the labels.</li>
+      <li>Mark each as TASK_DATA, EMBEDDED_DIRECTIVE, or QUOTED_EXAMPLE. Then open the <a href="/examples/prompt-injection-boundary-answer-key.tsv">separate editorial answer key (TSV)</a> to inspect the rationale and safe review action.</li>
+      <li><strong>Try a counterexample:</strong> replace T03's web-page command to rank a product with “Product A offers CSV export.” This becomes a source claim to verify, not an instruction to the assistant. Compare the result with the <a href="/guides/spot-prompt-injection-in-documents/">full trust-boundary guide</a>.</li>
+    </ol>
+    <p><strong>Scope:</strong> these are original fictional review exercises, not logged live attacks, exploit attempts, proof of successful defenses, or a security evaluation of any product. The repository's regression test verifies case IDs and reference labels only; it cannot validate an AI model's behavior or a human reviewer's security judgment.</p>
 
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
