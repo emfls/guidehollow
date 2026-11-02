@@ -6,7 +6,7 @@ category: "guides"
 tags: ["ai", "policy-faq", "document-workflow", "source-verification", "knowledge-base"]
 publishedDate: "2026-10-28"
 updatedDate: "2026-11-02"
-sources: [{"title": "OpenAI Help Center: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "OpenAI Help Center: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}, {"title": "Microsoft Learn: Choose the best Document Intelligence model", "url": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0"}]
+sources: [{"title": "OpenAI Help Center: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "OpenAI Help Center: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}, {"title": "Microsoft Learn: Document layout analysis", "url": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -33,6 +33,8 @@ OpenAI's [prompting guidance](https://help.openai.com/en/articles/10032626-promp
 
 ## Step 1: Try a complete, fictional policy
 
+[Download the exact nine-section source text](/examples/fictional-policy-faq-source.txt) before reviewing the answer map. This is the same fictional source printed below, with a clear teaching-data header. No document upload or AI account is required to read it.
+
 Copy this teaching fixture. The section labels S1 through S9 are stable identifiers for the exercise, not real page citations.
 
 ```plain
@@ -52,6 +54,8 @@ S9 | Repairs | Volunteers must not repair damaged kits; refer them to the coordi
 Similarly, S7 has both a per-day fee and a cap. An answer that mentions only $5 per day can overstate what the fictional policy would charge for a late kit.
 
 ## Step 2: Make an answer map before writing sentences
+
+[Download the eleven-question reference map as CSV](/examples/fictional-policy-faq-reference.csv). Its `QuestionID`, `SourceIDs`, `Status`, and `ReferenceAnswer` columns let you compare every proposed answer against its precise fictional source section. To prevent answer-key leakage into your first attempt, read the source TXT and draft your own eleven answers **before opening the reference CSV**.
 
 Here are eleven reasonable questions for the fictional lending desk. The first nine have at least a partially supported answer. The final two are not answered by any section.
 
@@ -152,7 +156,7 @@ For this example the control totals are:
 - **2 unanswered questions**, Q10 and Q11.
 - **Every source section cited** at least once in the answer map.
 
-We checked those numbers using a local Python standard-library test. The same test confirmed the late-fee calculation: **5 × $5 = $25**, then the cap reduces the fee to **$20**. This validates the teaching fixture, not a generative AI model.
+We checked those numbers using a local Python standard-library test. The same test confirmed the late-fee calculation: **5 × $5 = $25**, then the cap reduces the fee to **$20**. A separate [public source-to-answer integrity test](https://github.com/emfls/guidehollow/blob/main/tests/policy-faq-reproducibility.test.mjs) compares the downloadable nine-section text with this article, validates all eleven CSV rows, and checks that S6's two renewal conditions survive in the answer key. This validates fictional teaching data, not a generative AI model.
 
 Do not treat “all sections cited” as complete proof. One source section can contain several different requirements. Section S6 illustrates that problem: citing S6 is not enough unless the FAQ preserves both prerequisites.
 
@@ -205,7 +209,7 @@ The responsible policy owner should resolve material ambiguity about payments, d
 
 If a new policy replaces the old one, check each FAQ entry against the new text. Do not simply ask AI to "update everything" and assume old claims still apply.
 
-If the document includes forms, scanned pages, or tables, review extraction quality before drafting. [Microsoft's document analysis guidance](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0) distinguishes plain text extraction from layout-aware handling of structured content. A polished answer is never proof that the underlying document was completely read.
+If the document includes forms, scanned pages, or tables, review extraction quality before drafting. [Microsoft's layout-analysis documentation](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0) describes the layout model's text, paragraphs, and table extraction. This is documentation for an **optional Microsoft cloud API**, not a method we ran and not a required step for this downloadable TXT exercise. Readers should check tool authorization and data handling before submitting actual organizational policies. A polished answer is never proof that the underlying document was completely read.
 
 ## Prepublication checklist
 
@@ -224,8 +228,8 @@ If the document includes forms, scanned pages, or tables, review extraction qual
 
 - [OpenAI Help — Prompt engineering best practices for ChatGPT](https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt). Clear task instructions and iterative refinement.
 - [OpenAI Help — Does ChatGPT tell the truth?](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth). Factual uncertainty, invented citations, and critical review.
-- [Microsoft Learn — Choose the best Document Intelligence model](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/choose-model-feature?view=doc-intel-4.0.0). Text versus structured-layout processing.
+- [Microsoft Learn — Document layout analysis](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0). Describes text, paragraph and table extraction in the documented cloud service; no model execution is claimed.
 
-**Source refresh (November 2, 2026):** The primary sources were rechecked for their titles and destinations. The Microsoft Learn document-model page can display an authorization notice in some contexts; its topic reference does not constitute a live test of that service.
+**Source refresh (November 2, 2026):** The Microsoft Learn source now links directly to its layout-analysis reference. It explains text, paragraph and table extraction, though the Learn page may also display an authorization banner depending on the viewer. The publicly readable technical description is not evidence of a live model execution or of permission to process private documents.
 
 **What was tested:** This guide uses an original fictional fixture. A local Python script checked the nine source IDs, eleven question IDs, nine supported and two unsupported answers, full section coverage, and the capped $20 late-fee example. No live AI service, lending organization, or document-upload benchmark was tested.
