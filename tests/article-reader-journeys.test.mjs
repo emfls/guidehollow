@@ -19,7 +19,7 @@ test('Search article separates research from account deletion claims',()=>{
  const article=read('how-to-use-chatgpt-search');
  assert.match(article,/does not confirm whether any specific file exists/);
  assert.match(article,/file-upload diagnostics/);
- assert.match(article,/updatedDate: "2026-10-24"/);
+ assert.match(article,/updatedDate: "2026-11-02"/);
 });
 
 test('AI spreadsheet guide uses a first-party worked formula audit without claiming native execution',()=>{

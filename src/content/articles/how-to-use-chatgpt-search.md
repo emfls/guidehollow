@@ -5,8 +5,8 @@ slug: "how-to-use-chatgpt-search"
 category: "ai-tools"
 tags: ["chatgpt", "research", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
-sources: [{"title": "OpenAI: Searching the web with ChatGPT", "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"OpenAI: Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"},{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"OpenAI Help Center: Using Library to manage files in ChatGPT","url":"https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt"},{"title":"OpenAI Help Center: Getting started with Space in ChatGPT","url":"https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -24,7 +24,7 @@ Choose a question with a clear owner and scope. “How does everything about fil
 
 Before searching, write down what you need to establish: the relevant feature, the current rule, any exception, and what remains unknown. Stop when you have adequate primary evidence. More generated explanation is not automatically more evidence.
 
-This guide was checked against official documentation on October 23, 2026. The worked source check below includes one signed-in ChatGPT web search. It is not a controlled ranking experiment or a guarantee of access in every workspace.
+The original documented ChatGPT Search exercise was performed on October 23, 2026, and its source and scope were reviewed again on November 2, 2026. This article preserves the historic response as recorded; a newer help page or interface must not be presented as something the earlier run observed. It is not a controlled ranking experiment or a guarantee of access in every workspace.
 
 ## Find the Search option
 
@@ -88,6 +88,12 @@ We opened that original page and inspected **“How do I delete a saved file?”
 [Download the concise evidence record](/examples/chatgpt-search-evidence.json). The important result is the match between a specific claim and a specific original passage. A general chat-deletion article alone would not settle the Library-copy question.
 
 **Practical next check:** the [official Library article](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) distinguishes deleting a conversation from deleting a file that remains in Library. Open the section headed “How do I delete a saved file?” and follow its current instructions if you intend to remove a file. A source link does not confirm whether any specific file exists in your account or whether you have deleted it. If an upload itself fails, use the [file-upload diagnostics](/troubleshooting/chatgpt-file-upload-problems/) instead of treating the saved-file question as an upload failure.
+
+### Current account check: Library or Space
+
+The original October 23 research example deliberately asked about **Library**. OpenAI's [current Library instructions](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) say that for accounts with access to **Space**, Space replaces Library. If your account shows Space rather than Library, use the [official Space guide](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt) to find saved files instead of hunting for a missing Library tab. Projects remain a separate feature.
+
+**Do not confuse a document's instructions with a completed account action.** The recorded search established a documented separation between a conversation and a separately saved file. It did not show that a particular file was saved, that anyone opened a Library or Space panel in the reader's account, that a deletion occurred, or that a provider's retention period had ended. Current account controls and workspace policy must be checked before making any specific claim.
 
 This one observation establishes neither search ranking quality nor every retention detail. Read the current page for exceptions and connected-service behavior, and keep account-specific deletion actions separate from documentation research.
 
