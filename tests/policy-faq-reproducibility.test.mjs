@@ -10,7 +10,7 @@ const library=read('src/pages/evidence.astro');
 const officialUrl='https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0';
 
 test('downloadable fictional policy is a byte-faithful copy of all nine source sections',()=>{
-  const embedded=article.match(/```plain\n(S1 \\| Eligibility \\|[\s\S]*?)\n```/);
+  const embedded=article.match(/```plain\n(S1 [|] Eligibility [|][\s\S]*?)\n```/);
   assert(embedded,'The full policy source must remain visible in the guide');
   assert.equal(source.split('\n\n').slice(1).join('\n\n').trim(),embedded[1].trim(),'Article and downloadable source text drifted');
   const lines=embedded[1].split('\n');
