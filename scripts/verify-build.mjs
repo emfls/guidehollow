@@ -151,7 +151,7 @@ recentDates.forEach((date,index)=>{
 // static HTML, including when scripts or the grading CSV request fail.
 const publicClaimNotes = await readFile(path.join(root,'examples/claim-boundary-source-notes.txt'),'utf8');
 const claimVerifierHtml = await readFile(path.join(root,'tools/claim-checker/index.html'),'utf8');
-const embeddedClaimNotes = claimVerifierHtml.match(/<pre[^>]*id="claim-source-notes"[^>]*>([\\s\\S]*?)<\\/pre>/)?.[1];
+const embeddedClaimNotes = claimVerifierHtml.match(/<pre[^>]*id="claim-source-notes"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
 assert(embeddedClaimNotes,'Original fictional claim notes must be present in static HTML without any fetch');
 assert(!embeddedClaimNotes.includes('Loading the original fictional notes'),'Do not leave a script-dependent loading placeholder');
 for (const sourceFact of [
