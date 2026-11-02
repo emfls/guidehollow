@@ -5,8 +5,8 @@ slug: "chatgpt-search-vs-deep-research-vs-standard-chat"
 category: "ai-tools"
 tags: ["chatgpt", "chatgpt-search", "deep-research", "ai-research", "source-verification", "ai-tools"]
 publishedDate: "2026-10-29"
-updatedDate: "2026-10-29"
-sources: [{"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt"}, {"title": "help.openai.com — reference", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"OpenAI Help Center: Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"},{"title":"OpenAI Help Center: Deep research in ChatGPT","url":"https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt"},{"title":"OpenAI Help Center: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -18,7 +18,7 @@ The answer depends on **the evidence the decision requires**. Ordinary chat is u
 
 This guide uses a fictional nonprofit evaluating online appointment-booking software. It gives a practical selection method, documented starting steps, example requests, a comparable review worksheet, and a source-audit exercise. It does **not** represent any live AI benchmark or account test.
 
-*Product guidance reviewed against OpenAI's official documentation on October 26, 2026. Screens, entitlements, and limits can change.*
+*Product guidance reviewed against OpenAI's official documentation on November 2, 2026. Screens, entitlements, and limits can change.*
 
 ## First define the question the tool must answer
 
@@ -175,6 +175,8 @@ OpenAI's Search documentation lists availability across Free, Go, Plus, Pro, Bus
 
 Avoid hard-coding a monthly task quota or local subscription price from this guide. Before relying on the feature, check its presence and remaining use in **your own account** and consult the official help pages. If a tool is missing, verify the intended workspace, current usage, app version, and administrator settings.
 
+OpenAI's Deep Research documentation distinguishes enabled data sources from account permissions. It describes reading available connected-app sources for research, not using app write actions to change those sources. A research report or suggested action is not evidence that an external account was changed.
+
 An authorized connected app does not grant unrestricted access to all documents. Product research involving confidential customer or employee material should be approved under the organization's data-handling policies. Start experiments with synthetic inputs where possible.
 
 ## Make the final choice
@@ -187,8 +189,11 @@ Use the least complex mode that can deliver sufficient, reviewable evidence for 
 
 ## Official sources and verification statement
 
+**Source-to-claim boundary:** OpenAI's Search help documents search entry points and linked-source review. Its Deep Research help documents planning, supported data sources, and account-dependent access. The truthfulness help notes model error risks. These are provider-described workflows and limits, not a comparative speed, success-rate, or vendor-selection benchmark; the nonprofit example and decision rubric are GuideHollow's own illustrations.
+
+
 - [OpenAI Help: Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) — tools, availability, and source-review guidance.
 - [OpenAI Help: Deep research in ChatGPT](https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt) — workflow, research plan, sources, and limits.
 - [OpenAI Help: Does ChatGPT tell the truth?](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth) — accuracy limitations and verification.
 
-**Documentation checked October 26, 2026.** The example, prompts, worksheet, and decision matrix were written for this tutorial. No real account, vendor, model performance, user-interface screenshot, or publication was tested for this article.
+**Documentation checked November 2, 2026.** The example, prompts, worksheet, and decision matrix were written for this tutorial. No real account, vendor, model performance, user-interface screenshot, or publication was tested for this article.
