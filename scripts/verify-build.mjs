@@ -54,6 +54,19 @@ for (const file of htmlFiles) {
       assert.equal(article.author.name,'GuideHollow Editorial',`${relative}: honest attribution`);
       assert(html.includes(`datetime="${article.datePublished}"`) && html.includes(`datetime="${article.dateModified}"`),`${relative}: schema dates match displayed dates`);
       assert.equal(article.mainEntityOfPage,current.href);
+      // Google recommends article imagery be representative of the page.
+      // Do not claim the sitewide brand card as the article's own image.
+      assert.notEqual(article.image, site.url + '/social.png', `${relative}: a generic brand card is not article imagery`);
+      assert(!html.includes('<meta property="og:image"'), `${relative}: article social preview should not advertise a generic brand image`);
+      assert(!html.includes('<meta name="twitter:image"'), `${relative}: article Twitter preview should not advertise a generic brand image`);
+      assert(html.includes('<meta name="twitter:card" content="summary"'), `${relative}: text-only articles need an honest summary card`);
+      if (article.image) {
+        const image = new URL(article.image);
+        assert.equal(image.origin,site.url,`${relative}: article image must be local original evidence`);
+        assert(!image.pathname.includes('social'),`${relative}: do not use generic social artwork`);
+        assert(files.includes(path.join(root,image.pathname)),`${relative}: article schema image file must exist`);
+        assert(html.includes(`src="${image.pathname}"`),`${relative}: schema image must be visible within the article`);
+      }
     }
   });
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
@@ -85,6 +98,9 @@ for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
   assert(await stat(path.join(root,url.pathname,'index.html')).catch(()=>null),`Sitemap route missing: ${url.pathname}`);
 }
 assert((await readFile(path.join(root,'robots.txt'),'utf8')).includes('https://guidehollow.com/sitemap.xml'));
+const homepage = await readFile(path.join(root,'index.html'),'utf8');
+assert(homepage.includes('<meta property="og:image" content="https://guidehollow.com/social.png"'), 'Homepage may keep a clearly branded social preview');
+assert(homepage.includes('<meta name="twitter:card" content="summary_large_image"'), 'Homepage image card remains visible');
 // Cross-check feed modification dates against visible article metadata, JSON-LD
 // and the sitemap. An unchanged URL/GUID must not conceal a more recent update.
 const feed = await readFile(path.join(root,'rss.xml'),'utf8');
