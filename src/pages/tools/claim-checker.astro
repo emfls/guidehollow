@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+// @ts-expect-error This Node-only import is executed during Astro static generation; this browser-focused project does not ship Node types.
 import { readFileSync } from 'node:fs';
 // Render the unchanged public source record at build time: readers must be
 // able to inspect it without JavaScript or a second network request.
