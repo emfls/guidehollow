@@ -1,0 +1,6 @@
+S1 | Scope | Pilot covers registered neighborhood groups.
+S2 | Booking window | Request at least 3 calendar days before pickup.
+S3 | Deposit | $150 refundable deposit.
+S5 | Replacement | Report missing cables to the coordinator.
+S6 | Kit check | One staff member must check the kit.
+S7 | Pickup ID | Representative must show photo ID.

@@ -1,0 +1,6 @@
+S1 | Scope | Pilot covers registered neighborhood groups.
+S2 | Booking window | Request at least 7 calendar days before pickup.
+S3 | Deposit | $100 refundable deposit.
+S4 | Late return | $10 per day.
+S5 | Replacement | Report missing cables to the coordinator.
+S6 | Kit check | Two staff members must check the kit.

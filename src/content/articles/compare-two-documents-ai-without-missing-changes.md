@@ -60,6 +60,8 @@ S7 | Pickup ID | Representative must show photo ID.
 
 Try finding every modification, deletion, addition and unchanged section yourself before looking at the answer. In particular, distinguish **“removed from the new document”** from **“the underlying policy was formally repealed.”** Only the former is demonstrated by these texts.
 
+**Start with complete source files:** [Download OLD v1 (TXT)](/examples/document-diff/old-v1.txt) and [NEW v2 (TXT)](/examples/document-diff/new-v2.txt). Both exactly reproduce the six-line blocks above. Try classifying all seven IDs before opening the [separate seven-row editorial answer register (TSV)](/examples/document-diff/expected-changes.tsv). Keeping the answer key separate makes the task a genuine self-check instead of an answer to copy.
+
 ## Step 3: Check your answer against the evidence
 
 The exercise has **five changes**: three modified sections, one section removed from the text, and one added section. Two sections are unchanged.
@@ -125,6 +127,22 @@ The comparison direction matters. A clause appearing only in OLD is **removed fr
 Even if the AI gives the correct total number of changes, you still must review each individual excerpt. Five reported differences are not necessarily the *right* five differences.
 
 ## Step 5: Verify the count without AI
+
+### Run an independent offline section comparison
+
+If you have Node.js installed, save the [standalone section-ID comparison script](/examples/document-diff/section-diff.mjs) in the same directory as both source TXT downloads. The script uses no additional packages or AI API and sends nothing to a server. In that directory run:
+
+~~~bash
+node section-diff.mjs old-v1.txt new-v2.txt
+~~~
+
+It should report **OLD=6 NEW=6 UNIQUE=7**, then **MODIFIED=3 REMOVED_FROM_TEXT=1 ADDED=1 UNCHANGED=2** and each section classification. Check the output against the separate answer register. Our [public automated tests](https://github.com/emfls/guidehollow/blob/main/tests/document-section-diff.test.mjs) check these outputs, the downloadable source texts and rejection of malformed or duplicate IDs.
+
+**Deliberate failure:** add a second S3 line to a copy of NEW. The script must stop with a duplicate-ID error, rather than silently discarding a potentially conflicting rule. Then delete the S4 line from a copy of OLD and compare again: the removed-clause warning disappears because neither supplied file contains S4. That failure illustrates why you must preserve and inspect the *authoritative* earlier document.
+
+**Limitations:** this checks only uniquely identified plain-text sections, including changes to their headings and text. It cannot recover content missing from both files, detect reordered paragraphs, compare tables or layout, determine which document was approved, or prove any rule was formally repealed. It is not a live AI model test or an executed Word/Google Docs comparison. An UNCHANGED label means the supplied text matches, not that a policy is legally in force.
+
+
 
 The union of section IDs is S1 through S7. The control totals are:
 
