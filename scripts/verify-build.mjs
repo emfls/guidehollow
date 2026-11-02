@@ -111,6 +111,26 @@ for (const entry of publicArticles) {
 const rssUpdateDates = feedItems.map(item => new Date(item.match(/<dcterms:modified>(.*?)<\/dcterms:modified>/)?.[1]).getTime());
 assert(rssUpdateDates.every(Number.isFinite),'Every feed item needs a valid update date');
 assert(rssUpdateDates.every((date,index) => index === 0 || rssUpdateDates[index-1] >= date), 'RSS must show the most recently updated articles first');
+
+// Homepage's recent-reading list must show the exact same genuine activity
+// as the RSS feed, without changing underlying publication or update metadata.
+const homeHtml = await readFile(path.join(root,'index.html'),'utf8');
+const activitySection = homeHtml.match(/<section[^>]*aria-labelledby="recent-activity-title"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+assert(activitySection, 'Homepage needs a clearly labeled recent editorial activity section');
+const homepageLatest = [...activitySection.matchAll(/<h3><a href="(\/(?:guides|ai-tools|prompts|troubleshooting)\/[^"]+)"[^>]*>/g)].map(match => match[1]);
+const rssLatest = feedItems.slice(0,5).map(item => {
+  const link = item.match(/<link>(.*?)<\/link>/)?.[1];
+  assert(link, 'RSS feed item must contain a canonical article URL');
+  return new URL(link).pathname;
+});
+assert.deepEqual(homepageLatest,rssLatest,'Homepage must show the five most recently revised or published articles as ordered in RSS');
+const recentDates = [...activitySection.matchAll(/<time datetime="([^"]+)"/g)].map(match=>match[1]);
+assert.equal(recentDates.length,5,'Recent homepage articles must show explicit published or revised dates');
+recentDates.forEach((date,index)=>{
+  const rssModified = rssUpdateDates[index];
+  assert.equal(new Date(date).getTime(),rssModified,'Visible homepage activity time must match article revision time');
+});
+
 console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
