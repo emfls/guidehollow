@@ -5,8 +5,8 @@ slug: "what-is-generative-ai"
 category: "guides"
 tags: ["ai-basics", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
-sources: [{"title": "Google Machine Learning Crash Course: Introduction to LLMs", "url": "https://developers.google.com/machine-learning/crash-course/llm"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+updatedDate: "2026-11-03"
+sources: [{"title":"Google Machine Learning Crash Course: Introduction to LLMs","url":"https://developers.google.com/machine-learning/crash-course/llm"},{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"GuideHollow: November 2, 2026 deployment and production HTTP verification run","url":"https://github.com/emfls/guidehollow/actions/runs/41540809663"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -45,30 +45,45 @@ If the same group asks whether the garden is open next Saturday, these purchase 
 
 **Practice:** a draft says “The garden is open Saturday, supplies cost $36 including delivery, and everyone gets free seeds.” Which parts are supported? The arithmetic supports a $36 supplies subtotal only. Opening hours, delivery cost, and free seeds remain unsupported. A correct number does not validate the surrounding sentence.
 
-## An original 22-claim source check: generation is not verification
+## A real example: a fluent claim versus a production check
 
-Here is a small audit you can **repeat without a ChatGPT account**. We wrote three fictional sets of notes—a garden plan, a software release note and a proposed event—and then wrote 22 statements that a confident assistant might include. The real task is to decide whether the supplied information supports each statement. You are checking evidence discipline, **not** measuring a model.
+Here is a piece of evidence from **this website**, rather than another fictional example. A model can write “the website is online and all pages work” without ever connecting to the internet. Such an answer is a drafted statement. It is not a measurement.
 
-**Download the [exact fictional source notes](/examples/claim-boundary-source-notes.txt) and [22-case claim ledger with the editorial answer key](/examples/claim-boundary-audit.csv).** The notes are published separately from the answers so you can try the exercise without seeing the labels first.
+GuideHollow's public GitHub Pages deployment on **November 2, 2026 at 22:52 UTC** included a separate, read-only HTTP verification run. The [actual GitHub Actions run and deploy job logs](https://github.com/emfls/guidehollow/actions/runs/41540809663) recorded:
 
-Classify a statement as **SUPPORTED** when the notes establish it, **CONTRADICTED** when the notes say otherwise, and **UNSUPPORTED** when the notes leave it unknown. “Unsupported” does not mean “false”: it means you are not entitled to assert the claim from this particular source.
+- **16 of 16 designated URL checks passed on their first attempt.** These were chosen reviewer entry points, not every URL on the website.
+- The checks required an expected HTTP **200** for the known pages or assets, plus an expected HTTP **404** for one deliberately nonexistent URL. A 404 on that negative-control path was a *pass*, not a broken published page.
+- The checks also inspected selected HTML and text invariants, including canonical addresses, indexability, the contact route, the sitemap, and published evidence downloads.
 
-| Proposed statement | Expected status | Why |
+The script and exact target list are available in the [public read-only checker source](https://github.com/emfls/guidehollow/blob/main/scripts/verify-public-readiness.mjs). The run's success was observed in deployment logs; it was **not** reported by a generative AI assistant asking itself whether the site worked.
+
+### Four sentences, four evidence limits
+
+| Proposed sentence | What the recorded evidence actually supports | Responsible wording |
 | --- | --- | --- |
-| G09: The listed supplies subtotal is $36 | SUPPORTED | Three bags at $8 plus two trays at $6 yields $36 |
-| G10: The $36 includes delivery | UNSUPPORTED | Neither the delivery charge nor its inclusion is specified |
-| R02: Offline mode is approved | CONTRADICTED | The release note explicitly calls it an unapproved proposal |
-| E05: The event is next Saturday | CONTRADICTED | The event notes explicitly say no date was chosen |
+| “The site is online.” | The designated endpoints responded correctly **from a GitHub runner at that time**. | “The monitored public endpoints passed the recorded HTTP checks.” |
+| “Every GuideHollow page works.” | Only 16 selected URL checks were executed; one was an expected 404. | “The test did not cover every page or every interactive control.” |
+| “The site's tools work in all browsers.” | HTTP responses and static markup checks do not establish that form inputs, copy buttons, and downloads work across devices. | “Interaction and cross-browser behavior require separate tests.” |
+| “Google has approved the site for AdSense.” | A GitHub Pages deployment log is not a decision from Google. | “The run does not establish AdSense approval, index coverage, or ranking.” |
 
-The original reference set contains **12 supported, 6 contradicted and 4 unsupported statements**. Those numbers are a count of our *editor-written cases*, not a count of model errors. The public automated [fixture test](https://github.com/emfls/guidehollow/blob/main/tests/claim-boundary-audit.test.mjs) independently confirms the 22 rows, the answer-key coverage and the $36 arithmetic; the editorial decisions themselves are explained beside the source statements.
+This is a narrow but real observation: **we inspected an actual production deployment result**, with a link to the run, the checker code, and its reported limits. It does not measure an AI model's accuracy or establish that a human visitor in another location received the same response.
 
-### Try a change that should not change the answer
+### Reproduce a smaller independent check
 
-Change the price of a bag from $8 to $9 in your own copy of the source. The subtotal becomes **3 × 9 + 2 × 6 = $39**. The garden's meeting time and still-unknown location do **not** change. A response that updates the cost but also invents a confirmed venue has failed a different requirement entirely.
+You do not need an AI account to inspect the distinction between an assertion and a result.
 
-This illustrates the critical difference: a generative assistant can suggest language, a source can establish a factual boundary, and arithmetic can verify a number. None of those substitutes for the others. For an interactive numerical audit using a separate eight-row dataset, try the [weighted-average workbench](/tools/weighted-price-checker/).
+1. Open the [GuideHollow homepage](https://guidehollow.com/) in your browser. Can you read the main content and open the navigation? This tests your current connection to that page, not everybody's.
+2. Open the public [robots.txt](https://guidehollow.com/robots.txt). Does it identify the site sitemap? This is evidence about the site's published crawl instructions, **not** proof that Google indexed a URL.
+3. Open the [fictional source-verification notes](/examples/claim-boundary-source-notes.txt). Are the garden, software release and event notes readable? This only checks that this educational file was served.
+4. Open an intentionally invalid [example missing page](https://guidehollow.com/__guidehollow_public_smoke_missing_page__/). A not-found result is expected. Do not count it as a failed working guide.
 
-**Limits of the exercise:** the meeting, release and event are fictional; we did not submit the 22 cases to an AI service or infer any vendor's accuracy rate. The value is a public input and answer key you can use to check your own results.
+Record the **time, URL, observed result, and limit** in your notes. If you cannot load a resource, report that observation rather than changing a historical run to “failed.” Network conditions and deployments change.
+
+### What this teaches about generative AI
+
+Text generation, real HTTP retrieval, and verification are distinct operations. A chatbot can *propose* a health-check checklist, write code that may perform one, or summarize a log provided to it. Only execution against actual endpoints creates an observation of those endpoints; even then, you need a scope and a timestamp. A single successful technical check does not prove business effectiveness, regulatory compliance, or the accuracy of unrelated AI-generated prose.
+
+For a separate beginner exercise in reasoning from fictional documents, try the [22-case supported/contradicted/unknown source quiz](/tools/claim-checker/). That original teaching dataset is fully downloadable, but it is not a live model benchmark and is intentionally different from the production run above.
 
 ## Choose your first task
 
