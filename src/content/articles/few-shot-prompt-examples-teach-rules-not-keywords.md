@@ -5,8 +5,8 @@ slug: "few-shot-prompt-examples-teach-rules-not-keywords"
 category: "prompts"
 tags: ["few-shot-prompting", "contrastive-examples", "prompt-examples", "prompt-testing", "classification"]
 publishedDate: "2026-10-30"
-updatedDate: "2026-10-30"
-sources: [{"title": "developers.openai.com — reference", "url": "https://developers.openai.com/api/docs/guides/prompt-engineering"}, {"title": "ai.google.dev — reference", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}, {"title": "platform.claude.com — reference", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}, {"title": "docs.python.org — reference", "url": "https://docs.python.org/3/library/collections.html#collections.Counter"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"OpenAI API: Prompt engineering","url":"https://developers.openai.com/api/docs/guides/prompt-engineering"},{"title":"Google AI for Developers: Prompt design strategies","url":"https://ai.google.dev/gemini-api/docs/prompting-strategies"},{"title":"Claude Developer Docs: Prompting best practices","url":"https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"},{"title":"Python documentation: collections.Counter","url":"https://docs.python.org/3/library/collections.html#collections.Counter"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -251,6 +251,9 @@ Change a small part of the prompt, version it, and rerun previous test inputs al
 Few-shot examples are **task specifications by demonstration**, not evidence that an AI system is reliable. A small, varied set that teaches meaningful differences is usually a better starting point than a large collection of repetitive samples.
 
 ## Official sources and limitations
+
+**What each source establishes (reviewed November 2, 2026):** The OpenAI, Google, and Anthropic documents support using clear, varied, consistently formatted examples. The Python documentation describes the `collections.Counter` utility used for label-count inspection. None of those publications verifies the eight fictional feedback examples or their reference labels; the category boundaries and holdout cases are editorial decisions.
+
 
 - [OpenAI — Prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering): few-shot examples and their diversity.
 - [Google AI for Developers — Prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies): formatting consistency and example variety.
