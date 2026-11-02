@@ -75,7 +75,7 @@ You do not need an AI account to inspect the distinction between an assertion an
 1. Open the [GuideHollow homepage](https://guidehollow.com/) in your browser. Can you read the main content and open the navigation? This tests your current connection to that page, not everybody's.
 2. Open the public [robots.txt](https://guidehollow.com/robots.txt). Does it identify the site sitemap? This is evidence about the site's published crawl instructions, **not** proof that Google indexed a URL.
 3. Open the [fictional source-verification notes](/examples/claim-boundary-source-notes.txt). Are the garden, software release and event notes readable? This only checks that this educational file was served.
-4. Open an intentionally invalid [example missing page](https://guidehollow.com/__guidehollow_public_smoke_missing_page__/). A not-found result is expected. Do not count it as a failed working guide.
+4. To test a missing route, manually type `https://guidehollow.com/__guidehollow_public_smoke_missing_page__/` into your browser's address bar. This intentionally invalid URL is printed as text, not a navigable link to a broken page. A not-found result is expected. Do not count it as a failed working guide.
 
 Record the **time, URL, observed result, and limit** in your notes. If you cannot load a resource, report that observation rather than changing a historical run to “failed.” Network conditions and deployments change.
 
