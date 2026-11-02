@@ -5,8 +5,8 @@ slug: "audit-ai-monthly-totals-with-timestamps"
 category: "guides"
 tags: ["ai", "excel", "google-sheets", "monthly-reporting", "sumifs", "datetime", "csv", "data-validation"]
 publishedDate: "2026-11-01"
-updatedDate: "2026-11-01"
-sources: [{"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/date-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/functions/time-function"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3238496?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3092969?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093056?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3256550?hl=en"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"Microsoft Support: SUMIFS function","url":"https://support.microsoft.com/en-us/excel/functions/sumifs-function"},{"title":"Microsoft Support: DATE function","url":"https://support.microsoft.com/en-us/excel/functions/date-function"},{"title":"Microsoft Support: TIME function","url":"https://support.microsoft.com/en-us/excel/functions/time-function"},{"title":"Google Docs Editors Help: SUMIFS function","url":"https://support.google.com/docs/answer/3238496?hl=en"},{"title":"Google Docs Editors Help: DATE","url":"https://support.google.com/docs/answer/3092969?hl=en"},{"title":"Google Docs Editors Help: TIME","url":"https://support.google.com/docs/answer/3093056?hl=en"},{"title":"Google Docs Editors Help: COUNTIFS","url":"https://support.google.com/docs/answer/3256550?hl=en"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -32,9 +32,9 @@ The Amount column is numeric and uses fictional units, not a confirmed currency.
 
 ## Copy the ten-row CSV into a disposable sheet
 
-Save the following UTF-8 text as **monthly-orders.csv**. Put the data in a new workbook, with the first row as a header. The input should occupy **A1:D11**.
+[Download the original ten-row fictional CSV](/examples/monthly-timestamp-orders-fictional.csv), or save the identical UTF-8 text below as **monthly-orders.csv**. Import it into a disposable workbook, with the first row as a header. This is invented source data, not a real sales export. The input should occupy **A1:D11**.
 
-```javascript
+```csv
 RecordID,Timestamp,Amount,Status
 R-01,2026-09-30 23:59,70,Paid
 R-02,2026-10-01 00:00,100,Paid
@@ -216,6 +216,10 @@ Actual calculations for this article were executed in Python, not Excel or Googl
 - [ ] Zero Amount is retained as a valid qualifying value.
 - [ ] Inclusive October 31 and inclusive November 1 traps produce 190 and 495.
 - [ ] Both negative tests produce expected response or rejection.
+
+## File integrity and independent verification
+
+The [downloadable source CSV](/examples/monthly-timestamp-orders-fictional.csv) must match the original CSV code block above, including identifiers, timestamps or dates, status labels, numeric zeros, and every row. The site's automated build compares the file with the article text and checks the stated row counts and arithmetic. Do not upload actual customer data to reproduce this exercise. A matching local CSV does not prove an AI model, Microsoft Excel, or Google Sheets was executed.
 
 ## Official sources and testing scope
 
