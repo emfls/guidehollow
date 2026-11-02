@@ -16,7 +16,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
     <h2>What makes this different from asking an AI to check itself</h2>
     <p>We supply the source, the claim, the reference answer, and the exact reason for that answer. You can independently read the fictional records before checking the published key. An AI assistant does not judge your choices and nothing in the quiz suggests a model was benchmarked.</p>
     <p><strong>SUPPORTED</strong> means the evidence establishes the claim. <strong>CONTRADICTED</strong> means it says something inconsistent. <strong>UNSUPPORTED</strong> means the claim is not established either way. Missing evidence is not proof that a statement is false.</p>
-    <p>Start with five cases to see the pattern; select all 22 when ready. The exercise is based on the same public <a href="/examples/claim-boundary-source-notes.txt">source notes</a> and <a href="/examples/claim-boundary-audit.csv">complete answer-key CSV</a> used in our <a href="/evidence/">Evidence Library</a>. The data is fictional and was created for teaching, not from real users or a live AI experiment.</p>
+    <p>Start with five cases to see the pattern; select all 22 when ready. If you have already reviewed the evidence and just need a record, <a href="#manual-claim-ledger">skip to the manual claim ledger</a> instead of completing the quiz. The exercise is based on the same public <a href="/examples/claim-boundary-source-notes.txt">source notes</a> and <a href="/examples/claim-boundary-audit.csv">complete answer-key CSV</a> used in our <a href="/evidence/">Evidence Library</a>. The data is fictional and was created for teaching, not from real users or a live AI experiment.</p>
   </section>
   <div class="tool-workspace">
     <section class="tool-form" aria-labelledby="source-notes-title">
@@ -48,7 +48,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
     </section>
   </div>
 
-  <section class="section" aria-labelledby="personal-ledger-title">
+  <section class="section" id="manual-claim-ledger" aria-labelledby="personal-ledger-title">
     <header class="section-heading"><div><p class="eyebrow mint">/ your_own_source_review</p><h2 id="personal-ledger-title">Build a claim ledger from your own text</h2></div></header>
     <p>Use this as a <strong>manual source-review worksheet</strong> after the fictional quiz. Paste a claim, identify the document you checked, record the exact supporting or contradicting passage, and choose your own verdict. Add multiple rows and download one TSV audit register. This does <strong>not</strong> check whether your source is genuine or whether your verdict is correct. No AI account or server upload is involved.</p>
     <div class="tool-workspace">

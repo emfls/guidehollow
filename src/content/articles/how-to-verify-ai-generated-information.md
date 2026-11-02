@@ -5,7 +5,7 @@ slug: "how-to-verify-ai-generated-information"
 category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-03"
 sources: [{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"Google Search Central: Introduction to robots.txt","url":"https://developers.google.com/search/docs/crawling-indexing/robots/intro"},{"title":"Google Search Central: Block Search indexing with noindex","url":"https://developers.google.com/search/docs/crawling-indexing/block-indexing"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -21,7 +21,7 @@ OpenAI's guidance warns that generated responses can include incorrect facts and
 
 ## Turn verified claims into a reusable evidence register
 
-The original claim exercises in this guide help you practice identifying unsupported details. For a source you are permitted to use, the <a href="/tools/claim-checker/">Source Claim Verifier</a> also includes a **manual claim ledger**: enter the exact statement, source label, a supporting or contradicting passage where one exists, your own verdict (SUPPORTED, CONTRADICTED or UNSUPPORTED), and your reasoning. Download your rows as a TSV that you can review before publishing.
+The original claim exercises in this guide help you practice identifying unsupported details. For a source you are permitted to use, the <a href="/tools/claim-checker/#manual-claim-ledger">Source Claim Verifier</a> also includes a **manual claim ledger**: enter the exact statement, source label, a supporting or contradicting passage where one exists, your own verdict (SUPPORTED, CONTRADICTED or UNSUPPORTED), and your reasoning. Download your rows as a TSV that you can review before publishing.
 
 This tool **does not fact-check a source automatically**, verify the source's authenticity, or claim that a human label is the truth. The value is traceability: when a source changes, you can revisit the specific statement and passage, rather than treating a polished answer as evidence. For an unsupported claim, record the precise information that is missing; do not invent a quotation just to fill a cell. Use only information you are authorized to handle, and avoid personal information on shared devices.
 
