@@ -6,7 +6,7 @@ category: "guides"
 tags: ["verification", "research", "ai-basics"]
 publishedDate: "2026-10-23"
 updatedDate: "2026-11-02"
-sources: [{"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
+sources: [{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"Google Search Central: Introduction to robots.txt","url":"https://developers.google.com/search/docs/crawling-indexing/robots/intro"},{"title":"Google Search Central: Block Search indexing with noindex","url":"https://developers.google.com/search/docs/crawling-indexing/block-indexing"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -119,7 +119,7 @@ On October 24, 2026, we read two Google Search Central documents and checked the
 
 A corrected conclusion is: **robots.txt controls crawling, and is not a reliable way to exclude a web page URL from Google Search. For Google to process a page's noindex rule, it must be able to crawl the page. These sources do not establish when a particular URL will disappear.**
 
-[Download the completed claim ledger](/examples/verification-ledger-robots.json), including the relevant sections and short supporting excerpts. We did not change a website's settings or run an indexing experiment. This example verifies documentation claims, not the current status of any URL. Notice that the third claim stays unresolved even after finding a relevant official source.
+[Download the completed claim ledger](/examples/verification-ledger-robots.json), including the relevant sections and short supporting excerpts. We did not change a website's settings or run an indexing experiment. This example verifies documentation claims, not the current status of any URL. Notice that the third claim stays unresolved even after finding a relevant official source. The [Google robots.txt guide](https://developers.google.com/search/docs/crawling-indexing/robots/intro) and [noindex guide](https://developers.google.com/search/docs/crawling-indexing/block-indexing) were rechecked against the stated distinctions on November 2, 2026. They now also appear in this article's **References and source documents** section so a reader does not have to search the middle of the article to locate the underlying authority. This refresh does not establish whether Googlebot has crawled or indexed a particular website.
 
 ## When sources disagree or are missing
 
