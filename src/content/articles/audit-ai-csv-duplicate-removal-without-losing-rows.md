@@ -5,8 +5,8 @@ slug: "audit-ai-csv-duplicate-removal-without-losing-rows"
 category: "guides"
 tags: ["ai", "csv", "data-cleaning", "spreadsheets", "excel", "google-sheets", "deduplication", "data-validation"]
 publishedDate: "2026-10-29"
-updatedDate: "2026-10-29"
-sources: [{"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-gb/excel/functions/countifs-function"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/get-started/use-the-countif-function-in-microsoft-excel"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files"}, {"title": "support.microsoft.com — reference", "url": "https://support.microsoft.com/en-us/excel/keep-or-remove-duplicate-rows-power-query"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3256550?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/3093480?hl=en"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/6325535?hl=en-2"}, {"title": "support.google.com — reference", "url": "https://support.google.com/docs/answer/12236443?hl=en"}]
+updatedDate: "2026-11-02"
+sources: [{"title":"Microsoft Support: COUNTIFS function","url":"https://support.microsoft.com/en-gb/excel/functions/countifs-function"},{"title":"Microsoft Support: Use the COUNTIF function in Microsoft Excel","url":"https://support.microsoft.com/en-us/excel/get-started/use-the-countif-function-in-microsoft-excel"},{"title":"Microsoft Support: Import or export text (.txt or .csv) files","url":"https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files"},{"title":"Microsoft Support: Keep or remove duplicate rows (Power Query)","url":"https://support.microsoft.com/en-us/excel/keep-or-remove-duplicate-rows-power-query"},{"title":"Google Docs Editors Help: COUNTIFS","url":"https://support.google.com/docs/answer/3256550?hl=en"},{"title":"Google Docs Editors Help: COUNTIF","url":"https://support.google.com/docs/answer/3093480?hl=en"},{"title":"Google Docs Editors Help: Split text, remove duplicates, or trim whitespace","url":"https://support.google.com/docs/answer/6325535?hl=en-2"},{"title":"Google Docs Editors Help: Learn how to optimize your data ingestion","url":"https://support.google.com/docs/answer/12236443?hl=en"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -22,9 +22,9 @@ This guide shows a safer workflow: ask AI to **propose** a cleaning rule, check 
 
 ## Start with a fixed test CSV
 
-Save the following as **sample-orders.csv**, using UTF-8 text. It contains one header and nine data rows. Columns A through D are OrderID, Region, OrderDate, and Amount.
+[Download the original nine-row fictional CSV](/examples/csv-duplicate-orders-fictional.csv), or save the identical text below as **sample-orders.csv** using UTF-8 encoding. The downloadable file has one header and exactly nine data rows; it is an editorial teaching fixture, not customer information. Columns A through D are OrderID, Region, OrderDate, and Amount.
 
-```javascript
+```csv
 OrderID,Region,OrderDate,Amount
 O-101,North,2026-10-01,120
 O-102,South,2026-10-01,80
@@ -187,6 +187,10 @@ For both applications, prefer flags and a reviewed output copy over immediate de
 - [ ] The eight retained rows total 410, including 125 still held.
 - [ ] Negative tests A and B reproduce the stated counts.
 - [ ] The reviewer records the removed row, comparison rule, and evidence for any later exception resolution.
+
+## File integrity and independent verification
+
+The [downloadable source CSV](/examples/csv-duplicate-orders-fictional.csv) must match the original CSV code block above, including identifiers, timestamps or dates, status labels, numeric zeros, and every row. The site's automated build compares the file with the article text and checks the stated row counts and arithmetic. Do not upload actual customer data to reproduce this exercise. A matching local CSV does not prove an AI model, Microsoft Excel, or Google Sheets was executed.
 
 ## Official sources and testing limitations
 
