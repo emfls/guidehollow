@@ -40,6 +40,12 @@ test('original six-case worksheet is a complete independent artifact with differ
   assert(privacy.includes('**Case S04:**'));
   assert(privacy.includes('**Case S05:**'));
   assert(privacy.includes('**Case S06:**'));
+  assert(privacy.includes('/examples/space-sharing-permissions-practice.tsv'));
+  assert(privacy.includes('separate [editorial answer key and reasoning]'));
+  assert(privacy.includes('Your private chats and Memory are not automatically shared'));
+  assert(privacy.includes('their settings'));
+  assert(privacy.includes('not used for model training by default'));
+  assert(privacy.includes('https://help.openai.com/en/articles/20001544-chatgpt-space-sharing-data-and-controls'));
 });
 
 test('Projects remains distinct from Space permissions after the dated factual update',()=>{
