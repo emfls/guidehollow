@@ -147,6 +147,24 @@ recentDates.forEach((date,index)=>{
   assert.equal(new Date(date).getTime(),rssModified,'Visible homepage activity time must match article revision time');
 });
 
+// The claim-verifier source notes must remain readable from the generated
+// static HTML, including when scripts or the grading CSV request fail.
+const publicClaimNotes = await readFile(path.join(root,'examples/claim-boundary-source-notes.txt'),'utf8');
+const claimVerifierHtml = await readFile(path.join(root,'tools/claim-checker/index.html'),'utf8');
+const embeddedClaimNotes = claimVerifierHtml.match(/<pre[^>]*id="claim-source-notes"[^>]*>([\\s\\S]*?)<\\/pre>/)?.[1];
+assert(embeddedClaimNotes,'Original fictional claim notes must be present in static HTML without any fetch');
+assert(!embeddedClaimNotes.includes('Loading the original fictional notes'),'Do not leave a script-dependent loading placeholder');
+for (const sourceFact of [
+  'FICTIONAL TEACHING DATA',
+  'The meeting location is not confirmed.',
+  'Offline mode is a proposal and has not been approved.',
+  'The room was suggested but has not been reserved.',
+]) {
+  assert(publicClaimNotes.includes(sourceFact),'Published original notes missing source fact');
+  assert(embeddedClaimNotes.includes(sourceFact),'Build did not include the exact source fact in the readable no-JavaScript panel');
+}
+assert(claimVerifierHtml.includes('The original source notes above remain readable without JavaScript'),'No-JavaScript reader guidance missing');
+
 console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
