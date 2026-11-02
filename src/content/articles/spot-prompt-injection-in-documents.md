@@ -5,7 +5,7 @@ slug: "spot-prompt-injection-in-documents"
 category: "guides"
 tags: ["ai-security", "prompt-injection", "document-review"]
 publishedDate: "2026-10-24"
-updatedDate: "2026-10-24"
+updatedDate: "2026-11-02"
 sources: [{"title": "OWASP: LLM01:2025 Prompt Injection", "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"}, {"title": "OpenAI: Understanding prompt injections: a frontier security challenge", "url": "https://openai.com/index/prompt-injections/"}, {"title": "OpenAI: Designing AI agents to resist prompt injection", "url": "https://openai.com/index/designing-agents-to-resist-prompt-injection/"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -175,6 +175,22 @@ The OWASP guidance explicitly warns that there is no established foolproof promp
 That is why a safer system layers controls: narrow task scope, access limits, trusted action checks, input/output validation, independent review, and monitoring appropriate to the risk. OpenAI's [March 2026 security analysis](https://openai.com/index/designing-agents-to-resist-prompt-injection/) also argues for constraining the consequences of a successful manipulation rather than relying only on detecting malicious text.
 
 For an ordinary reader, these layers can be simple: do the first pass without connected tools, compare the extracted facts with the original, and avoid granting permissions the task does not need. For teams building AI workflows, deterministic approval gates and separation of duties matter more than a magic phrase in a prompt.
+
+## Practice ten trust-boundary decisions with source-first evidence
+
+[Download the original ten-case worksheet](/examples/prompt-injection-boundary-cases.tsv) and decide what each excerpt means *before* opening the [separate editorial answer key](/examples/prompt-injection-boundary-answer-key.tsv). Each tab-separated row gives you the authorized task, the source type and the passage that the assistant would encounter. All ten passages are fictional, independently written teaching data; no private files, real emails, connected agents or third-party websites were used.
+
+For each row, choose one of three labels:
+
+- **TASK_DATA:** words relevant to the requested extraction, such as a borrower being instructed to report a missing cable. They are document content, not a new instruction to the AI.
+- **EMBEDDED_DIRECTIVE:** lower-trust source text that tries to change what the assistant says or does, such as overruling approval status or directing an unrelated file transfer.
+- **QUOTED_EXAMPLE:** instruction-like words explicitly quoted for study, rather than a request to obey them. An apparent keyword match alone does not prove an active attack.
+
+The editorial reference has **3 TASK_DATA, 5 EMBEDDED_DIRECTIVE and 2 QUOTED_EXAMPLE cases**. Check three contrasting items first: T01 is a normal handbook deadline; T02 is a meeting note attempting to change an approved deliverable; T05 is an attack phrase discussed as a training example. The label describes how to handle the passage *in the stated task context*, not a verified claim about the author's motive.
+
+**Mutation test:** take T03, remove its command to automated readers and replace it with only “Product A offers CSV export.” The revised excerpt is ordinary **TASK_DATA** (a feature claim still requiring verification), not an instruction to rank Product A. Conversely, changing T09's return-policy sentence to tell an assistant to conceal the 30-day limit crosses the boundary into **EMBEDDED_DIRECTIVE**. This prevents a superficial rule that treats every imperative as malicious while ignoring subtle attempts to steer the answer.
+
+The public [Evidence Library](/evidence/#evidence-injection) includes the download links and an ordered review method. A [source-to-key regression test](https://github.com/emfls/guidehollow/blob/main/tests/prompt-injection-boundary-fixture.test.mjs) checks the ten IDs, label counts, and file links. These checks validate the **editorial worksheet's consistency**, not a live AI product's resistance to injection or the security of an agent with tool access.
 
 ## Do a five-minute tabletop rehearsal
 
