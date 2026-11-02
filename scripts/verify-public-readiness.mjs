@@ -85,16 +85,16 @@ export async function retrySmokeCheck({get=fetch, attempts=4, pause=async ms => 
   if (!Number.isSafeInteger(attempts) || attempts < 1 || attempts > 10) throw new Error('invalid retry count');
   let pending = [...reviewerPaths];
   let succeeded = [];
+  let lastFailures = [];
   for (let round=1;round<=attempts;round++) {
     const outcomes = await checkLiveSite({get,paths:pending});
     succeeded.push(...outcomes.filter(item=>item.passed));
-    pending = outcomes.filter(item=>!item.passed).map(item=>item.path);
+    lastFailures = outcomes.filter(item=>!item.passed);
+    pending = lastFailures.map(item=>item.path);
     if (!pending.length) return {passed:true,rounds:round,results:succeeded};
     if (round<attempts) await pause(intervalMs);
   }
-  const failures = await checkLiveSite({get,paths:[]});
-  void failures; // final state remains the most recent failed result below
-  return {passed:false,rounds:attempts,results:succeeded,failedPaths:pending};
+  return {passed:false,rounds:attempts,results:succeeded,failedPaths:pending,failures:lastFailures};
 }
 
 export async function main() {
@@ -107,7 +107,7 @@ export async function main() {
     'Successful routes: '+result.results.length+'/'+reviewerPaths.length,
     'Attempts: '+result.rounds,
     '',
-    ...(result.failedPaths||[]).map(path=>'- FAILED: '+path),
+    ...(result.failures||[]).map(item=>'- FAILED: '+item.path+' — '+item.detail),
   ].join('\n') + '\n';
   process.stdout.write(summary);
   if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
