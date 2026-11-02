@@ -1,0 +1,7 @@
+CaseID	FictionalAction	ExpectedExposure	Why	ReaderPreflight
+S01	Attach an internal file directly to a shared Space page	PAGE_VIEWERS	An uploaded page attachment follows the page access rules	Remove the attachment or limit effective page access
+S02	Place a link to a separately restricted document on a shared Space page	SOURCE_PERMISSIONS_STAY	Sharing a page does not itself grant access to the linked original	Check the original file permissions separately
+S03	Link to a restricted report without copying its contents	SOURCE_PERMISSIONS_STAY	A link is a pointer and does not alter source access	Verify the linked source independently
+S04	Copy confidential lines from a restricted report into a shared page	PAGE_VIEWERS	People who can read the page can read its copied text without original-file permission	Remove sensitive copied text before sharing
+S05	Move a private draft below a page shared with a team	INHERITED_ACCESS	The new parent can grant access to a moved page	Review permissions of the new parent and space
+S06	Remove a direct page invitation while the same reader retains parent access	INHERITED_ACCESS	Removing direct access does not revoke an independent inherited grant	Change the parent or space grant where necessary

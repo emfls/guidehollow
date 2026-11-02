@@ -22,7 +22,7 @@ test('upload guidance distinguishes rate, storage, Library and Space without des
 
 test('project guide preserves memory, shared access and saved-file deletion boundaries', () => {
   const article=readArticle('chatgpt-projects-recurring-work-setup');
-  assert.match(article,/updatedDate: "2026-11-02"/);
+  assert.match(article,/updatedDate: "2026-11-03"/);
   assert.match(article,/change the mode later from \*\*Project settings → Memory\*\*/);
   assert.match(article,/may take a few hours to apply/);
   assert.match(article,/Shared projects automatically use project-only memory and cannot be switched to default/);
