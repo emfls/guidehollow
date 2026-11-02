@@ -5,6 +5,7 @@ interface ArticleActivity {
   data: {
     title: string;
     slug: string;
+    category: string;
     publishedDate: Date;
     updatedDate: Date;
   };
@@ -18,7 +19,7 @@ export function latestArticleActivity<T extends ArticleActivity>(articles: reado
   return [...articles].sort((a,b) =>
     b.data.updatedDate.getTime() - a.data.updatedDate.getTime()
     || b.data.publishedDate.getTime() - a.data.publishedDate.getTime()
-    || a.data.title.localeCompare(b.data.title)
-    || a.data.slug.localeCompare(b.data.slug)
+    // Match RSS's stable public-URL tie-breaker exactly.
+    || (`/${a.data.category}/${a.data.slug}/`).localeCompare(`/${b.data.category}/${b.data.slug}/`)
   );
 }
