@@ -5,8 +5,8 @@ slug: "ai-privacy-basics"
 category: "guides"
 tags: ["privacy", "ai-basics", "chatgpt"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-01"
-sources: [{"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "GitHub General Privacy Statement", "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"}]
+updatedDate: "2026-11-03"
+sources: [{"title":"OpenAI: Data controls in ChatGPT","url":"https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"},{"title":"GitHub General Privacy Statement","url":"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"},{"title":"OpenAI Help Center: Getting started with Space in ChatGPT","url":"https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -97,6 +97,36 @@ The result retains the document, dependency, and delivery route. It has no custo
 ### A second check: indirect identifiers
 
 Try this fictional note: “The only weekend technician at the North branch asked for the same signed form.” For this tone-editing task, remove the role, schedule, and branch together. Keeping them after replacing the person's name does not establish anonymity. If the work requires such details, use the organization's approved handling process rather than treating this exercise as clearance to upload them.
+
+## A more dangerous privacy mistake: sharing a page is not sharing a file link
+
+Removing names from a prompt does not resolve every disclosure risk. In a collaborative ChatGPT **Space**, readers may gain access through a direct page invitation, its parent page, or a shared space. The official [Getting started with Space in ChatGPT](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt) explains that Space replaces Library for accounts with access to Space, while **Projects remain separate**. This section describes documented permissions reviewed on November 3, 2026, not a live test in anyone's account.
+
+**Three different objects have different access rules:**
+
+| You put this on a shared Space page | What the official documentation supports | Your check before sharing |
+| --- | --- | --- |
+| A file uploaded **into the page** | The uploaded file follows the page's permissions; people who can access the page can access that uploaded file. | Inspect page access, any shared parent and the space; remove attachments that the audience should not receive. |
+| A **link** to a separately stored file, including a connected-service file | Sharing the page does **not automatically grant** access to the original file. Its own source permissions still apply. | Verify the linked file separately. Do not assume the link is accessible merely because the page is. |
+| A copied **quotation or summary** from a restricted document | People who can read the shared page can read the copied text **even if they cannot open the original file**. | Remove confidential copied passages. Restricting the source document afterward does not erase text that was already copied to the page. |
+
+### A six-case permission drill you can audit
+
+Download the [original six-case Space sharing review worksheet](/examples/space-sharing-permissions-cases.tsv). It contains imaginary actions and **editor-written expected exposure classifications**, not simulated or observed ChatGPT actions. Compare the cases with the table above before reading the expected labels.
+
+**Case S03:** a coordinator links to a restricted report from a shared page. The link alone does not extend the report's original permissions. **Case S04:** the same coordinator pastes two confidential lines from that report into the page body. The *copied text*, unlike the link, is readable by the page audience. Even if the original file stays inaccessible, the copied lines have been disclosed to page readers.
+
+**Case S05:** a private draft page is moved below a parent page already shared with a team. Access can change through the new parent. **Case S06:** deleting a person's direct page invitation may not revoke access they still inherit from the parent or space. The effective access grant matters more than whether an individual invitation appears in the list.
+
+### Pre-share access review
+
+1. **Identify the object:** conversation, Project, Space page, file attachment, linked source, or copied excerpt.
+2. **Identify effective readers:** direct invitees, readers through a parent page, and readers of the shared space. Do not infer access from the page title.
+3. **Check every material form:** page text, subpages, uploaded attachments, links to separately stored files, and copied summaries.
+4. **Use the right removal control:** removing a page invite is insufficient when a parent still grants access; changing a source file's access does not retract copied page text.
+5. **Verify in the intended account:** inspect current sharing options without posting confidential page URLs in a public ticket. Record what you actually observed, not the result you hoped for.
+
+This is particularly important for a workgroup preparing a public update from restricted source material: an AI-generated summary pasted into a widely shared page is a **new disclosed copy**, not a private pointer back to the restricted original. Where permissions are unclear, keep the material in the approved restricted workspace and consult the responsible administrator.
 
 ## Understand what a setting changes
 
