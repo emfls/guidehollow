@@ -24,6 +24,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-notebook-packet"><span class="mono muted">09 /</span> Notebook source packet</a></li>
         <li><a href="#evidence-json-fidelity"><span class="mono muted">10 /</span> JSON source-fidelity audit</a></li>
         <li><a href="#evidence-pdf-ocr"><span class="mono muted">11 /</span> Selectable PDF vs. image-only scan</a></li>
+        <li><a href="#evidence-csv-source-integrity"><span class="mono muted">12 /</span> Original CSV audit fixtures</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -128,6 +129,15 @@ import Base from '../layouts/Base.astro';
       <li>Inspect the <a href="/examples/pdf-ocr-fixtures/manifest.json">generated-file manifest</a> for the reproducible expected values. In our local PyMuPDF 1.26.7 check, the selectable file yielded <strong>263 characters</strong>, and the raster-only file <strong>0 characters</strong> without OCR.</li>
     </ol>
     <p><strong>Scope:</strong> the source PDFs were generated from a <a href="https://github.com/emfls/guidehollow/blob/main/scripts/generate-pdf-ocr-fixtures.mjs">public dependency-free Node script</a>. These results compare ordinary local PDF text extraction only. They do not measure OCR quality, AI model performance, customer documents, or ChatGPT/Adobe/Google Drive uploads.</p>
+
+    <h2 id="evidence-csv-source-integrity">12. Download the complete CSV—then make one row fail</h2>
+    <p><strong>Question:</strong> can an AI-assisted spreadsheet workflow reconcile the <em>same source file</em> that its tutorial describes? Two original fictional CSV inputs are now directly downloadable, not only shown as copyable code snippets. The site checks that each downloaded file is byte-for-byte consistent with the article's published source block and that the fixed totals are reproducible.</p>
+    <ol>
+      <li><a href="/examples/csv-duplicate-orders-fictional.csv">Download nine fictional order records</a> for the <a href="/guides/audit-ai-csv-duplicate-removal-without-losing-rows/">duplicate-removal guide</a>. The raw Amount sum is <strong>490</strong>. One repeated O-102 row worth 80 may be excluded after checking its four fields; the retained eight rows sum to <strong>410</strong>. A conflicting O-103 ID and a missing ID still require review.</li>
+      <li><a href="/examples/monthly-timestamp-orders-fictional.csv">Download ten fictional timestamped orders</a> for the <a href="/guides/audit-ai-monthly-totals-with-timestamps/">monthly-boundary guide</a>. October records with Status Paid total <strong>295</strong>, when using the half-open date interval from October 1 to November 1. A flawed upper boundary at October 31 midnight gives <strong>190</strong>, missing later October 31 Paid records.</li>
+      <li><strong>Try a failure:</strong> in a disposable copy of the duplicates file, change O-102's second amount from 80 to 81. It should no longer be safe to remove a same-ID row without reconciliation. In the monthly file, shift R-10 from October 31 at 23:59 to November 1 at 00:00; the expected October Paid total falls from 295 to <strong>270</strong>.</li>
+    </ol>
+    <p><strong>Scope:</strong> these are complete editor-created input records, and the described sums, row counts, flags and boundary changes are independently checked in automated tests. We have <strong>not</strong> tested a live AI model, an Excel spreadsheet session, a Google Sheets session, or a merchant's actual orders. Real financial records require an approved source, a defined business timezone and human review.</p>
 
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
