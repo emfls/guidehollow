@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 // able to inspect it without JavaScript or a second network request.
 const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-notes.txt','utf8');
 ---
-<Base title="Source Claim Verifier: 22 Evidence Checks" description="Practice distinguishing supported, contradicted, and unsupported claims using 22 original fictional examples. Get immediate source-based feedback without sending any inputs to AI." breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:'Source Claim Verifier',url:'/tools/claim-checker/'}]}>
+<Base title="Source Claim Verifier: 22 Evidence Checks" description="Practice 22 source-fidelity cases, then build and download your own human-reviewed claim ledger without sharing source text with a server." breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:'Source Claim Verifier',url:'/tools/claim-checker/'}]}>
   <header class="page-heading">
     <p class="eyebrow mint">/ tools / verify</p>
     <h1>Does the source actually support that claim?</h1>
@@ -47,6 +47,51 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
       <div id="claim-audit-results" class="claim-audit-feedback" aria-live="polite"></div>
     </section>
   </div>
+
+  <section class="section" aria-labelledby="personal-ledger-title">
+    <header class="section-heading"><div><p class="eyebrow mint">/ your_own_source_review</p><h2 id="personal-ledger-title">Build a claim ledger from your own text</h2></div></header>
+    <p>Use this as a <strong>manual source-review worksheet</strong> after the fictional quiz. Paste a claim, identify the document you checked, record the exact supporting or contradicting passage, and choose your own verdict. Add multiple rows and download one TSV audit register. This does <strong>not</strong> check whether your source is genuine or whether your verdict is correct. No AI account or server upload is involved.</p>
+    <div class="tool-workspace">
+      <form id="personal-claim-form" class="tool-form">
+        <fieldset disabled aria-label="Manual claim review fields">
+          <label for="personal-source">Source title or reference (required)
+            <input id="personal-source" name="source" required maxlength="500" placeholder="For example: approved meeting notes, section 2" />
+          </label>
+          <label for="personal-claim">Claim to check (required)
+            <textarea id="personal-claim" name="claim" required maxlength="2000" rows="2" placeholder="For example: The venue is confirmed."></textarea>
+          </label>
+          <label for="personal-passage">Exact passage from the source (required for supported/contradicted)
+            <textarea id="personal-passage" name="passage" maxlength="3000" rows="3" placeholder="Paste the exact wording you inspected; leave blank only if the source does not address the claim."></textarea>
+          </label>
+          <label for="personal-verdict">Your review verdict (required)
+            <select id="personal-verdict" name="verdict" required>
+              <option value="">Choose a verdict</option>
+              <option value="SUPPORTED">SUPPORTED — supported by the source</option>
+              <option value="CONTRADICTED">CONTRADICTED — inconsistent with the source</option>
+              <option value="UNSUPPORTED">UNSUPPORTED — not established either way</option>
+            </select>
+          </label>
+          <label for="personal-note">Why you chose that verdict (required)
+            <textarea id="personal-note" name="note" required maxlength="3000" rows="3" placeholder="Explain which condition, exception, number, or missing evidence affects your conclusion."></textarea>
+          </label>
+          <div class="tool-actions"><button class="primary" type="submit">Add reviewed claim</button><button type="reset">Clear current fields</button></div>
+        </fieldset>
+      </form>
+      <section class="tool-output" aria-labelledby="personal-ledger-results-title">
+        <h3 id="personal-ledger-results-title">Your local review register</h3>
+        <p id="personal-ledger-status" class="tool-status" role="status" aria-live="polite">The manual worksheet requires JavaScript. No information is submitted.</p>
+        <ol id="personal-ledger-entries" class="personal-ledger-entries"></ol>
+        <div class="tool-actions"><button type="button" id="personal-ledger-download" disabled>Download my TSV</button><button type="button" id="personal-ledger-clear" disabled>Clear all reviews</button></div>
+        <p class="tool-footnote">Maximum 30 reviews per page session. No auto-save or account sync. Download the TSV before leaving. Do not enter private or confidential data on a shared device. Spreadsheet formula-like text is exported as text, and tabs/newlines are escaped so source content cannot create extra audit rows.</p>
+      </section>
+    </div>
+    <div class="prose info-content">
+      <h3>A one-minute source check you can reproduce</h3>
+      <p>In the published <a href="/examples/claim-boundary-source-notes.txt">fictional garden notes</a>, the meeting location is explicitly unconfirmed. Enter the claim “The meeting is confirmed at North Greenhouse,” identify the fictional notes as your source, choose <strong>UNSUPPORTED</strong>, and explain that the notes do not establish the named venue. Do not label it CONTRADICTED unless you have a source passage that directly rules out that venue.</p>
+      <p>For a different claim, “Offline mode was approved,” the fictional release note says it <em>has not been approved</em>. Record that exact passage and choose <strong>CONTRADICTED</strong>. Add both rows, export, and check the two judgments and reasons in the resulting TSV. This is a manual traceability exercise, not evidence that a model has verified your claims.</p>
+    </div>
+  </section>
+  <noscript><p>The personal review form is disabled without JavaScript so it cannot accidentally send notes in a GET request. You can still write a manual table with Source, Claim, Exact Passage, Verdict, and Reason and save it privately.</p></noscript>
   <noscript><p>The original source notes above remain readable without JavaScript. Automatic questions and scoring require JavaScript; download the <a href="/examples/claim-boundary-audit.csv">22-case answer key</a> to compare claims manually. You can also <a href="/examples/claim-boundary-source-notes.txt">open the source notes as text</a>.</p></noscript>
   <section class="section prose info-content">
     <h2>Try the verification without a loading indicator</h2>
@@ -79,5 +124,5 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
     .claim-audit-feedback li{margin-bottom:.7rem}
     #claim-audit-length{display:block;width:100%;margin-top:.5rem;padding:.6rem}
   </style>
-  <script>import '../../scripts/claim-checker';</script>
+  <script>import '../../scripts/claim-checker'; import '../../scripts/custom-claim-ledger';</script>
 </Base>
