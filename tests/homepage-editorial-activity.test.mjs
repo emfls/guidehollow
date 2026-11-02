@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { activityIsRevision, latestArticleActivity } from '../src/lib/editorial-activity.ts';
 
-function article(title, published, updated, slug=title.toLowerCase().replaceAll(/\W+/g,'-')) {
-  return {data:{title,slug,publishedDate:new Date(published),updatedDate:new Date(updated)}};
+function article(title, published, updated, slug=title.toLowerCase().replaceAll(/\W+/g,'-'), category='guides') {
+  return {data:{title,slug,category,publishedDate:new Date(published),updatedDate:new Date(updated)}};
 }
 
 test('a material correction to an older guide ranks above a newer unmodified article', () => {
@@ -28,6 +28,9 @@ test('ties sort by original publication date then title and stable slug', () => 
   assert.deepEqual(latestArticleActivity([older,newer,titleA]),[newer,titleA,older]);
   assert.equal(latestArticleActivity([]).length,0);
   assert.equal(activityIsRevision(article('Same day','2026-11-02','2026-11-02')),false);
+  const a=article('Accidentally Pasted an API Key','2026-10-31','2026-11-02','api-key-pasted','troubleshooting');
+  const b=article('ChatGPT Projects','2026-10-31','2026-11-02','chatgpt-projects','ai-tools');
+  assert.deepEqual(latestArticleActivity([a,b]),[b,a], 'Same-day revisions must use canonical URL ordering, not article title order');
 });
 
 test('homepage recent articles visibly distinguish Updated vs Published with real machine-readable dates', () => {
