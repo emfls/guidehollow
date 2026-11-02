@@ -7,4 +7,4 @@ export async function publishedArticles() {
 }
 export const readingTime = (post: Article) => Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220));
 export const displayDate = (date: Date) => date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
-export const xmlEscape = (text: string) => text.replace(/[<>&"']/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' }[c]!));
+export { xmlEscape } from './xml';
