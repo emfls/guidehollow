@@ -95,13 +95,12 @@ function evaluate(event: SubmitEvent) {
 async function init() {
   if (!form || !questions || !status || !feedback || !choice || !submit || !reset || !sourcePanel) return;
   try {
-    const [rowsResponse,notesResponse] = await Promise.all([
-      fetch('/examples/claim-boundary-audit.csv',{cache:'no-cache'}),
-      fetch('/examples/claim-boundary-source-notes.txt',{cache:'no-cache'}),
-    ]);
-    if (!rowsResponse.ok || !notesResponse.ok) throw new Error('The public source files could not be loaded.');
+    // The source notes are already rendered into HTML from the original public
+    // file during the static build. Only the grading cases require a fetch.
+    // Never replace readable original notes with a loading placeholder or error.
+    const rowsResponse = await fetch('/examples/claim-boundary-audit.csv',{cache:'no-cache'});
+    if (!rowsResponse.ok) throw new Error('The public answer-key CSV could not be loaded.');
     allCases = parseClaimCases(await rowsResponse.text());
-    sourcePanel.textContent = await notesResponse.text();
     submit.disabled = false;
     reset.disabled = false;
     choice.disabled = false;
@@ -111,7 +110,7 @@ async function init() {
     reset.addEventListener('click',render);
     render();
   } catch {
-    status.textContent = 'Interactive cases could not be loaded. Use the original downloadable CSV and source notes linked below to review the exercise manually.';
+    status.textContent = 'Automatic grading is unavailable. The original source notes above are still readable. Open the downloadable answer-key CSV to review the fictional cases manually.';
   }
 }
 void init();
