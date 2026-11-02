@@ -6,8 +6,8 @@ const path='/examples/space-sharing-permissions-practice.tsv';
 const keyPath='/examples/space-sharing-permissions-cases.tsv';
 
 test('blind six-case worksheet contains exact original scenarios and absolutely no answer or reason columns',()=>{
-  const practice=load('public'+path).trimEnd().split(/\r?\n/).map(line=>line.split('\t'));
-  const answers=load('public'+keyPath).trimEnd().split(/\r?\n/).map(line=>line.split('\t'));
+  const practice=load('public'+path).replace(/\r?\n$/, '').split(/\r?\n/).map(line=>line.split('\t'));
+  const answers=load('public'+keyPath).replace(/\r?\n$/, '').split(/\r?\n/).map(line=>line.split('\t'));
   assert.deepEqual(practice[0],['CaseID','FictionalAction','YourVerdict','YourReason','YourPreShareCheck']);
   assert.deepEqual(answers[0],['CaseID','FictionalAction','ExpectedExposure','Why','ReaderPreflight']);
   assert.equal(practice.length,7);
