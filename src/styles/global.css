@@ -54,3 +54,14 @@
 .evidence-jumps a:hover{text-decoration:underline}
 .evidence-jumps .mono{font-size:.72rem}
 @media(max-width:650px){.evidence-jumps ol{grid-template-columns:1fr}}
+
+/* Data-audit result tables: avoid grid min-content expansion and allow readers
+   on small screens to reach every column with mouse, touch or keyboard. */
+.tool-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tool-form,.tool-output{min-width:0}
+.audit-table-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;margin:.8rem 0 1.4rem;border:1px solid var(--line);border-radius:6px}
+.audit-table-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.audit-table-scroll table{border-collapse:collapse;width:max-content;min-width:100%;font-size:.83rem}
+.audit-table-scroll th,.audit-table-scroll td{padding:.55rem .65rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere;max-width:22rem}
+.audit-table-scroll th{font-weight:650;white-space:nowrap}
+@media(max-width:800px){.tool-workspace{grid-template-columns:minmax(0,1fr)}}

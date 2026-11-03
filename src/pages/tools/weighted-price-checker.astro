@@ -26,7 +26,7 @@ L-108,Store,2,20`;
       <label for="weighted-price-csv">CSV input — LineID, Channel, Units, UnitPrice
         <textarea id="weighted-price-csv" rows="12" maxlength="50000" spellcheck="false" aria-describedby="csv-help">{fixture}</textarea>
       </label>
-      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices must be nonnegative with no more than two decimal places (for example, 0.10 or 12.35); units must be nonnegative whole numbers. To prevent misleading displayed totals, inputs or totals beyond the workbench's safe two-decimal precision range are rejected. Empty prices and blank CSV records between populated records are rejected, not treated as zero or silently skipped. Trailing empty lines are allowed. Maximum 500 rows. <strong>Changing the CSV clears the previous calculation immediately; run the audit again to view current totals.</strong></p>
+      <p id="csv-help" class="tool-footnote">Edit the fictional fixture or paste your own small, authorized sample. Prices must be nonnegative with no more than two decimal places (for example, 0.10 or 12.35); units must be nonnegative whole numbers. To prevent misleading displayed totals, inputs or totals beyond the workbench's safe two-decimal precision range are rejected. Empty prices and blank CSV records between populated records are rejected, not treated as zero or silently skipped. Trailing empty lines are allowed. Maximum 500 rows. <strong>Changing the CSV clears the previous calculation immediately; run the audit again to view current totals.</strong> Restoring the example asks for confirmation before replacing a nonempty, changed CSV.</p>
       <div class="tool-actions">
         <button type="submit" class="primary" id="calculate-weighted-price" disabled>Calculate and audit</button>
         <button type="button" id="reset-weighted-price" disabled>Restore sample</button>
@@ -38,6 +38,7 @@ L-108,Store,2,20`;
       <h2 id="audit-title">Your audit results</h2>
       <p id="weighted-price-summary">Calculation not run yet.</p>
       <div id="weighted-price-results" aria-live="polite"></div>
+      <p class="tool-footnote">Both result tables are keyboard-focusable scroll regions. On a narrow screen, move to the table region and scroll horizontally to inspect every column; the input and column headers remain unchanged.</p>
       <p class="tool-footnote">Input prices and row/channel totals are calculated in exact integer hundredths; weighted averages are divided only after the integer totals are checked. Numbers are displayed to two decimal places, so a weighted average may be rounded for presentation. This utility does not model refunds, taxes, currencies or returns. For accounting-grade precision, reproduce the formula in an approved system.</p>
     </section>
   </div>
@@ -79,13 +80,19 @@ L-108,Store,2,20`;
       const strong = document.createElement('strong'); strong.textContent = name + ': ';
       p.append(strong, document.createTextNode(value)); container.append(p);
     };
-    const makeTable = (headers: string[], values: (string | number)[][]) => {
+    const makeTable = (labelledBy: string, headers: string[], values: (string | number)[][]) => {
+      const region = document.createElement('div');
+      region.className = 'audit-table-scroll';
+      region.tabIndex = 0;
+      region.setAttribute('role', 'region');
+      region.setAttribute('aria-labelledby', labelledBy);
       const table = document.createElement('table');
       const thead = table.createTHead(); const headerRow = thead.insertRow();
       for (const heading of headers) { const th = document.createElement('th'); th.scope='col'; th.textContent=heading; headerRow.append(th); }
       const tbody = table.createTBody();
       for (const row of values) { const tr=tbody.insertRow(); for (const value of row) { const td=tr.insertCell(); td.textContent=String(value); } }
-      return table;
+      region.append(table);
+      return region;
     };
     // Results describe the CSV at calculation time, not whatever the visitor
     // types afterward. Clear immediately on any edit instead of leaving a stale
@@ -105,16 +112,21 @@ L-108,Store,2,20`;
         add(result,'Mean of listed prices (different metric)',fmt(a.simplePriceMean));
         add(result,'Zero-unit lines',a.zeroUnitLines.join(', ') || 'none');
         add(result,'Numeric zero-price lines',a.zeroPriceLines.join(', ') || 'none');
-        const ch = document.createElement('h3'); ch.textContent = 'Channel reconciliation'; result.append(ch);
-        result.append(makeTable(['Channel','Units','Revenue','Revenue / unit'],a.channels.map(c=>[c.channel,c.units,fmt(c.revenue),c.weightedPrice===null?'N/A':fmt(c.weightedPrice)])));
-        const line = document.createElement('h3'); line.textContent = 'Row-level calculation'; result.append(line);
-        result.append(makeTable(['Line ID','Channel','Units','Unit price','Revenue'],a.rows.map(r=>[r.lineId,r.channel,r.units,fmt(r.unitPrice),fmt(r.revenue)])));
+        const ch = document.createElement('h3'); ch.id = 'weighted-price-channel-heading'; ch.textContent = 'Channel reconciliation'; result.append(ch);
+        result.append(makeTable(ch.id,['Channel','Units','Revenue','Revenue / unit'],a.channels.map(c=>[c.channel,c.units,fmt(c.revenue),c.weightedPrice===null?'N/A':fmt(c.weightedPrice)])));
+        const line = document.createElement('h3'); line.id = 'weighted-price-row-heading'; line.textContent = 'Row-level calculation'; result.append(line);
+        result.append(makeTable(line.id,['Line ID','Channel','Units','Unit price','Revenue'],a.rows.map(r=>[r.lineId,r.channel,r.units,fmt(r.unitPrice),fmt(r.revenue)])));
       } catch (e) {
         status.textContent = e instanceof Error ? e.message : 'Input could not be validated.';
         summary.textContent = 'No result: correct the input and try again.';
       }
     });
     restore.addEventListener('click', () => {
+      if (input.value.trim() && input.value !== original &&
+          !window.confirm('Restore the fictional sample? This replaces your current CSV text. Copy it to a safe location first if you need to keep it.')) {
+        status.textContent = 'Restore cancelled. Your CSV input and any current audit results are unchanged.';
+        return;
+      }
       input.value = original; status.textContent = 'Original fictional sample restored. Calculate to audit it.';
       summary.textContent = 'Calculation not run yet.'; result.replaceChildren();
     });
