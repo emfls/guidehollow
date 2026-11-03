@@ -25,11 +25,21 @@ export function readableSearchText(raw: string): string {
 
 const WORDS = /[\p{L}\p{N}]+/gu;
 
-/** Treat hyphens and slashes as separators; never match "AI" inside "email". */
+// Question scaffolding is not a document topic. A reader asking "why can't I
+// upload my files?" should find an upload guide even if the guide never says
+// "my". Keep technical tokens (API, PDF, OCR, CSV, JSON) as required terms.
+const QUESTION_FILLERS = new Set([
+  'a','about','an','and','are','can','could','did','do','does','for','from',
+  'how','i','in','is','it','me','my','not','of','on','or','our','please',
+  'should','the','this','to','was','were','what','when','where','who','why',
+  'will','with','would','you','your',
+]);
+
+/** Treat punctuation as separators; ignore question scaffolding, not technical content. */
 export function searchTerms(value: string): string[] {
   const words = value.normalize('NFKC').toLocaleLowerCase('en-US').match(WORDS) ?? [];
-  // Ignore single-letter fragments such as "s" from contractions.
-  return [...new Set(words.filter(word => word.length >= 2 || /^\d+$/.test(word)))];
+  return [...new Set(words.filter(word =>
+    (word.length >= 2 || /^\d+$/.test(word)) && !QUESTION_FILLERS.has(word)))];
 }
 
 function tokens(value: string): string[] {
@@ -38,7 +48,17 @@ function tokens(value: string): string[] {
 function matchesWord(word: string, term: string): boolean {
   // Prefix match only for substantial terms: "prompt" finds "prompting",
   // but "AI" must be a complete word, not a substring of "paid".
-  return word === term || (term.length >= 4 && word.startsWith(term));
+  if (word === term || (term.length >= 4 && word.startsWith(term))) return true;
+  // Handle a few transparent inflections in reader questions: "uploads"
+  // finds "upload", "uploaded" finds "upload", "policies" finds "policy".
+  // Require exact stem matches to avoid broad, unrelated substring hits.
+  if (term.length < 5) return false;
+  const stems: string[] = [];
+  if (term.endsWith('ies')) stems.push(term.slice(0, -3) + 'y');
+  if (term.endsWith('ing')) stems.push(term.slice(0, -3));
+  if (term.endsWith('ed')) stems.push(term.slice(0, -2));
+  if (term.endsWith('s') && !term.endsWith('ss')) stems.push(term.slice(0, -1));
+  return stems.some(stem => stem.length >= 4 && word === stem);
 }
 function matchesTerm(words: string[], term: string): boolean {
   return words.some(word => matchesWord(word, term));
