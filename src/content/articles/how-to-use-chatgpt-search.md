@@ -5,7 +5,7 @@ slug: "how-to-use-chatgpt-search"
 category: "ai-tools"
 tags: ["chatgpt", "research", "verification"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-03"
 sources: [{"title":"OpenAI: Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"},{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"OpenAI Help Center: Using Library to manage files in ChatGPT","url":"https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt"},{"title":"OpenAI Help Center: Getting started with Space in ChatGPT","url":"https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -92,6 +92,8 @@ We opened that original page and inspected **“How do I delete a saved file?”
 ### Current account check: Library or Space
 
 The original October 23 research example deliberately asked about **Library**. OpenAI's [current Library instructions](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) say that for accounts with access to **Space**, Space replaces Library. If your account shows Space rather than Library, use the [official Space guide](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt) to find saved files instead of hunting for a missing Library tab. Projects remain a separate feature.
+
+**Missing file is a different question from deleting a file.** The current official Library and Space guidance also says that files created or uploaded **inside a locked chat** may be hidden from the ordinary saved-file view. To inspect them, open the **originating locked chat** through **Projects → Locked chats** with the existing PIN or supported device authentication. **Do not reset the PIN to test visibility:** the [Library guide](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) warns that a reset permanently deletes files protected only by the previous PIN. Files uploaded in Temporary Chats are not separately saved to Library. For a full non-destructive diagnostic, see the [missing-file checklist](/troubleshooting/chatgpt-file-upload-problems/#uploaded-a-file-but-cannot-find-it-check-visibility-before-making-a-destructive-change). These are newly checked November 3, 2026 official instructions, **not part of the original October 23 ChatGPT Search session**.
 
 **Do not confuse a document's instructions with a completed account action.** The recorded search established a documented separation between a conversation and a separately saved file. It did not show that a particular file was saved, that anyone opened a Library or Space panel in the reader's account, that a deletion occurred, or that a provider's retention period had ended. Current account controls and workspace policy must be checked before making any specific claim.
 

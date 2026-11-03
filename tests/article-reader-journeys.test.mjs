@@ -12,14 +12,14 @@ test('upload help distinguishes Library storage from rate limits and avoids dest
  assert.match(article,/Deleting a conversation alone does \*\*not\*\* delete a separate file/);
  assert.match(article,/help\.openai\.com\/en\/articles\/20001052-using-library-to-manage-files-in-chatgpt/);
  assert.match(article,/Do not remove irreplaceable files/);
- assert.match(article,/updatedDate: "2026-11-02"/);
+ assert.match(article,/updatedDate: "2026-11-03"/);
 });
 
 test('Search article separates research from account deletion claims',()=>{
  const article=read('how-to-use-chatgpt-search');
  assert.match(article,/does not confirm whether any specific file exists/);
  assert.match(article,/file-upload diagnostics/);
- assert.match(article,/updatedDate: "2026-11-02"/);
+ assert.match(article,/updatedDate: "2026-11-03"/);
 });
 
 test('AI spreadsheet guide uses a first-party worked formula audit without claiming native execution',()=>{

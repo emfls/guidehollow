@@ -67,7 +67,7 @@ test('the two corrected guides disclose current scope and preserve truthful date
   assert(verify.includes('Google Search Central: Introduction to robots.txt'));
   assert(verify.includes('Google Search Central: Block Search indexing with noindex'));
   assert(verify.includes('November 2, 2026'));
-  assert(search.includes('updatedDate: "2026-11-02"'));
+  assert(search.includes('updatedDate: "2026-11-03"'));
   assert(search.includes('Space replaces Library'));
   assert(search.includes('Projects remain a separate feature'));
   assert(search.includes('did not show that a particular file was saved'));

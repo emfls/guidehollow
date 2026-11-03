@@ -1,11 +1,11 @@
 ---
 title: "ChatGPT File Upload Problems: A Diagnostic Checklist"
-description: "Separate file compatibility, upload limits, service incidents, and network failures before retrying a ChatGPT attachment or sharing diagnostic information."
+description: "Diagnose ChatGPT upload failures, missing saved files, Library versus Space access, and locked-chat file visibility without deleting the original."
 slug: "chatgpt-file-upload-problems"
 category: "troubleshooting"
 tags: ["chatgpt", "documents", "troubleshooting"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-03"
 sources: [{"title": "OpenAI: Uploading files and audio to ChatGPT", "url": "https://help.openai.com/en/articles/8555545-uploading-files-and-audio-to-chatgpt"}, {"title": "OpenAI: Using Library to manage files in ChatGPT", "url": "https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt"}, {"title": "OpenAI: Getting started with Space in ChatGPT", "url": "https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}, {"title": "OpenAI: Network recommendations for ChatGPT errors on web and apps", "url": "https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -16,7 +16,7 @@ featured: false
 
 An upload problem can happen before attachment, during transfer, or after a file appears attached but its content is not interpreted as expected. Those are different problems. Record what you can observe before changing the file, browser, or account.
 
-This checklist was initially drafted against official documentation on October 23, 2026, then refreshed against the current OpenAI upload and saved-file help pages on November 2, 2026. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
+This checklist was initially drafted against official documentation on October 23, 2026, refreshed for upload and storage guidance on November 2, and checked against the official saved-file visibility and locked-chat instructions on November 3, 2026. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
 
 ## Record a minimal diagnostic note
 
@@ -70,6 +70,42 @@ An **upload-rate limit** counts attachment attempts over a time window; **saved-
 A storage display does **not** tell you how much of a rolling upload-rate allowance remains. If you recently reached the rate limit, deleting files does not establish that the rate limit has reset. If saved storage is the actual problem, review which files are no longer needed before taking any removal action. Deleting a conversation alone does **not** delete a separate file that remains saved in Library or Space; those are distinct objects. Files stored only in an individual Project may follow separate project deletion rules. Files connected from a third-party provider should be managed according to that provider's permissions.
 
 Do not remove irreplaceable files to troubleshoot an unclear message. First record whether the error mentions a retry time, a per-file size limit, or saved storage; then make the least destructive change consistent with that evidence.
+
+## Uploaded a file but cannot find it? Check visibility before making a destructive change
+
+An upload that completed and a **saved file that is currently hidden** are not the same problem. A missing item in one view does not establish that the file was deleted, that storage is full, or that the upload failed.
+
+OpenAI's [Library documentation](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) and [Space documentation](https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt) were checked on November 3, 2026 for the following branches. These are **documented product behaviors**, not findings from our access to an account.
+
+| What you actually see | First non-destructive check | Do not conclude |
+| --- | --- | --- |
+| The sidebar shows **Library**, not Space | Use Library's file search and filters in the **same signed-in account and workspace** where you uploaded it. OpenAI documents Library for Free, Go, Plus and other eligible accounts. | That a Space tab must appear on every account. |
+| The sidebar shows **Space**, not Library | Use Space's **All → Your items**, **Pages**, or the relevant shared space. Space creation and editing is documented for eligible Pro, Business and Enterprise accounts, subject to administrator settings. | That Projects have been removed, or that switching plans is necessary to retrieve an existing file. |
+| A file from a **locked conversation** is absent from Library or Space | Open its **originating locked chat** via **Projects → Locked chats**, using the **existing PIN or supported device authentication**. Protected chat files are hidden from the file browser while locked; another locked chat cannot open them. | That the file was lost or that you should reset the PIN. |
+| A file was attached in **Temporary Chat** | Check the original conversation context and the official Temporary Chat rules. The Library guide says files uploaded in Temporary Chats are **not saved** to the account's Library. | That the absence of a saved copy proves a normal upload error. |
+| A file came from **Google Drive or another connected source** | Check that you can still open the original in the connected service with the correct permissions. A link does not transfer source ownership or access rights. | That deleting a ChatGPT copy deletes the original provider file, or vice versa. |
+| You can read a Space page on **mobile** but cannot edit it | Where Space is available, open the page on the web or ChatGPT desktop app with edit permission. The current Space guide says mobile supports finding, reading, and sharing pages, **not editing them**. | That a read-only mobile editor is evidence of a corrupt file or an upload limit. |
+
+### Critical: PIN reset is not a harmless file-recovery shortcut
+
+The official [Library guide](https://help.openai.com/en/articles/20001052-using-library-to-manage-files-in-chatgpt) states that **resetting an account PIN permanently deletes files protected only by the previous PIN**; OpenAI Support cannot recover those deleted files. If your missing file may belong to a locked conversation, **do not reset the PIN as a troubleshooting experiment**. Use the existing authentication route if available. If you cannot unlock it, avoid destructive changes and consult authorized support about the documented limits.
+
+A file saved separately in Library or Space is also distinct from an attachment that exists only in a Project or a file linked from a connected service. Preserve the original, identify its actual storage location and ownership, and check access without moving or deleting the item.
+
+### A one-minute missing-file diagnostic record
+
+```text
+Date and time checked:
+Signed-in account / workspace (no private identifiers in shared notes):
+Original source: normal chat / locked chat / temporary chat / Project / connected file
+Library or Space shown in this account:
+Client: web / desktop app / mobile
+Expected filename or type (redacted if needed):
+First non-destructive check and actual observation:
+Still unknown:
+```
+
+If you are investigating a citation or a conversation about a saved file rather than an upload error, the [ChatGPT Search source-checking guide](/ai-tools/how-to-use-chatgpt-search/) explains why reading documentation does not confirm an account action. For sensitive or irreplaceable files, report the uncertainty rather than promising recovery.
 
 ## Choose the right branch before contacting support
 
