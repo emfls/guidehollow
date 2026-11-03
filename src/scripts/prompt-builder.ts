@@ -10,6 +10,11 @@ const download = document.querySelector<HTMLButtonElement>('#download-prompt')!;
 // A generated prompt may be edited freely. If the source fields change after
 // generation, retain the visitor's draft without allowing an outdated export.
 let outputIsCurrent = false;
+let outputEdited = false;
+function hasUnfinishedWork(): boolean {
+  return [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input,textarea')]
+    .some(field => Boolean(field.value.trim())) || Boolean(output.value.trim());
+}
 function updateExportActions() {
   const enabled = outputIsCurrent && !output.disabled && output.value.trim().length > 0;
   copy.disabled = !enabled;
@@ -35,9 +40,15 @@ form.addEventListener('submit', event => {
       constraints: String(values.get('constraints') ?? ''),
       format: String(values.get('format') ?? ''),
     });
+    if (outputEdited && output.value.trim() && output.value !== generated &&
+        !window.confirm('Rebuilding will replace your edited prompt draft. Copy or download the current wording first if needed. Continue?')) {
+      status.textContent = 'Rebuild cancelled. Your edited draft has not been replaced.';
+      return;
+    }
     output.value = generated;
     output.disabled = false;
     outputIsCurrent = true;
+    outputEdited = false;
     updateExportActions();
     status.textContent = 'Prompt ready. You can edit the generated draft before copying or downloading.';
     copyStatus.textContent = '';
@@ -50,6 +61,7 @@ form.addEventListener('submit', event => {
 });
 
 output.addEventListener('input', () => {
+  outputEdited = true;
   updateExportActions();
   copyStatus.textContent = '';
   status.textContent = outputIsCurrent
@@ -57,10 +69,17 @@ output.addEventListener('input', () => {
     : 'Your edited draft remains visible, but the source inputs changed. Build again before exporting.';
 });
 
-form.addEventListener('reset', () => {
+form.addEventListener('reset', event => {
+  if (hasUnfinishedWork() &&
+      !window.confirm('Reset will clear all prompt fields and the current draft. Copy or download anything important first. Continue?')) {
+    event.preventDefault();
+    status.textContent = 'Reset cancelled. Your source fields and edited draft are unchanged.';
+    return;
+  }
   output.value = '';
   output.disabled = true;
   outputIsCurrent = false;
+  outputEdited = false;
   updateExportActions();
   status.textContent = 'Inputs and prompt cleared.';
   copyStatus.textContent = '';
