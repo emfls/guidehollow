@@ -50,7 +50,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
 
   <section class="section" id="manual-claim-ledger" aria-labelledby="personal-ledger-title">
     <header class="section-heading"><div><p class="eyebrow mint">/ your_own_source_review</p><h2 id="personal-ledger-title">Build a claim ledger from your own text</h2></div></header>
-    <p>Use this as a <strong>manual source-review worksheet</strong> after the fictional quiz. Paste a claim, identify the document you checked, record the exact supporting or contradicting passage, and choose your own verdict. Add multiple rows and download one TSV audit register. This does <strong>not</strong> check whether your source is genuine or whether your verdict is correct. No AI account or server upload is involved.</p>
+    <p>Use this as a <strong>manual source-review worksheet</strong> after the fictional quiz. Paste a claim, identify the document you checked, record the exact supporting or contradicting passage, and choose your own verdict. Add multiple rows, download one TSV audit register, and re-import that file later to continue your review. This does <strong>not</strong> check whether your source is genuine or whether your verdict is correct. No AI account or server upload is involved.</p>
     <div class="tool-workspace">
       <form id="personal-claim-form" class="tool-form">
         <fieldset disabled aria-label="Manual claim review fields">
@@ -82,7 +82,14 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
         <p id="personal-ledger-status" class="tool-status" role="status" aria-live="polite">The manual worksheet requires JavaScript. No information is submitted.</p>
         <ol id="personal-ledger-entries" class="personal-ledger-entries"></ol>
         <div class="tool-actions"><button type="button" id="personal-ledger-download" disabled>Download my TSV</button><button type="button" id="personal-ledger-clear" disabled>Clear all reviews</button></div>
-        <p class="tool-footnote">Maximum 30 reviews per page session. Select Edit beside a review to correct it without losing its reference ID; Cancel edit preserves the original row. Clear all reviews also erases unfinished form fields. The download button requests a file but cannot confirm your browser saved it. No auto-save or account sync. Download the TSV before leaving. Do not enter private or confidential data on a shared device. Spreadsheet formula-like text is exported as text. Tabs, newlines and backslashes are escaped so source content cannot create extra audit rows and each original escape is distinguishable.</p>
+        <div class="tool-actions">
+          <label for="personal-ledger-import-file">Resume from your previous GuideHollow TSV export
+            <input id="personal-ledger-import-file" type="file" accept=".tsv,text/tab-separated-values,text/plain" aria-describedby="personal-ledger-import-help" disabled />
+          </label>
+          <button type="button" id="personal-ledger-import" disabled>Import and replace current reviews</button>
+        </div>
+        <p id="personal-ledger-import-help" class="tool-footnote">Select a TSV downloaded from this tool—not an arbitrary spreadsheet. The file is read only in this browser tab, never sent to GuideHollow. Its six columns and up to 30 rows are validated before any replacement. If you have unsaved work, you must confirm before it is replaced. Download your current TSV first. Formula-looking spreadsheet text is restored from the exported safety prefix; a new export applies protection again.</p>
+        <p class="tool-footnote">Maximum 30 reviews per page session. Resume from a previously downloaded TSV using the local import control. Select Edit beside a review to correct it without losing its reference ID; Cancel edit preserves the original row. Clear all reviews also erases unfinished form fields. The download button requests a file but cannot confirm your browser saved it. No auto-save or account sync. Download the TSV before leaving. Do not enter private or confidential data on a shared device. Spreadsheet formula-like text is exported as text. Tabs, newlines and backslashes are escaped so source content cannot create extra audit rows and each original escape is distinguishable.</p>
       </section>
     </div>
     <div class="prose info-content">
