@@ -52,3 +52,53 @@ export function exportClaimLedger(entries: LedgerEntry[]): string {
   });
   return '\uFEFF' + [fields.join('\t'), ...rows].join('\r\n') + '\r\n';
 }
+
+
+/** Read only this tool's own six-column TSV export. No network or persistent storage. */
+export function importClaimLedgerTsv(input: string): LedgerEntry[] {
+  if (!input.trim()) throw new Error('Choose a nonempty GuideHollow claim-ledger TSV file.');
+  if (input.length > 320000) throw new Error('The TSV file exceeds the 320,000-character safety limit.');
+  const normalized = input.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n');
+  if (normalized.includes('\r')) throw new Error('Unexpected line ending in TSV.');
+  const lines = normalized.split('\n');
+  if (lines.at(-1) === '') lines.pop();
+  const header = 'ReviewID\tSourceLabel\tClaim\tExactSourcePassage\tHumanVerdict\tReviewReason';
+  if (lines[0] !== header) throw new Error('Not a GuideHollow claim-ledger export: six-column header is missing.');
+  if (lines.length < 2) throw new Error('The TSV has no reviewed claims.');
+  if (lines.length > 31) throw new Error('The worksheet supports up to 30 claims.');
+  const seen = new Set<string>();
+  const decodeCell = (value: string): string => {
+    // A formula-looking field is prefixed by one apostrophe during export.
+    // Remove only that guard. If the original text started with an apostrophe
+    // it is accurately restored because export prepended a separate one.
+    const safe = /^'[\s"']*[=+\-@]/.test(value) ? value.slice(1) : value;
+    let result = '';
+    for (let i = 0; i < safe.length; i++) {
+      if (safe[i] !== '\\') { result += safe[i]; continue; }
+      const next = safe[++i];
+      if (next === '\\') result += '\\';
+      else if (next === 'n') result += '\n';
+      else if (next === 't') result += '\t';
+      else throw new Error('TSV has an unsupported escape; use the original GuideHollow download.');
+    }
+    return result;
+  };
+  return lines.slice(1).map((line,index) => {
+    const rowNumber = index + 2;
+    const cells = line.split('\t');
+    if (cells.length !== 6) throw new Error('TSV row '+rowNumber+' must contain exactly six columns.');
+    const [id,source,claim,passage,verdict,note] = cells;
+    if (!/^R(?:\d{3}|\d{4})$/.test(id) || id === 'R000' || id === 'R0000') {
+      throw new Error('TSV row '+rowNumber+' has an invalid review ID.');
+    }
+    if (seen.has(id)) throw new Error('TSV row '+rowNumber+' duplicates review ID '+id+'.');
+    seen.add(id);
+    const ordinal = Number(id.slice(1));
+    const entry = makeLedgerEntry({
+      source:decodeCell(source),claim:decodeCell(claim),
+      passage:decodeCell(passage),verdict:verdict as LedgerVerdict,note:decodeCell(note),
+    },ordinal);
+    if (entry.id !== id) throw new Error('TSV row '+rowNumber+' has a noncanonical review ID.');
+    return entry;
+  });
+}
