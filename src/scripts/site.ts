@@ -12,7 +12,17 @@ if (menu && mainNav) {
   document.documentElement.classList.add('has-mobile-menu');
 }
 document.addEventListener('keydown', event => {
-  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); const input = document.querySelector<HTMLInputElement>('input[type="search"]'); if (input) input.focus(); else window.location.assign('/search/'); }
+  // Never steal a keyboard command from an editor. Navigating to /search/
+  // while writing a private worksheet or a prompt discards unsaved content.
+  const target = event.target as Element | null;
+  const typing = target && typeof target.closest === 'function' &&
+    target.closest('input,textarea,select,[contenteditable="true"],[contenteditable=""],[role="textbox"]');
+  if (!event.defaultPrevented && !event.isComposing && !event.altKey && !event.shiftKey &&
+      (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k' && !typing) {
+    event.preventDefault();
+    const input = document.querySelector<HTMLInputElement>('input[type="search"]');
+    if (input) input.focus(); else window.location.assign('/search/');
+  }
   if (event.key === 'Escape' && menu && mainNav) { menu.setAttribute('aria-expanded', 'false'); mainNav.classList.remove('is-open'); }
 });
 const themeToggle = document.querySelector<HTMLButtonElement>('#theme-toggle');

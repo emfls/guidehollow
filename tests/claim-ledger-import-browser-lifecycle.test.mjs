@@ -75,7 +75,7 @@ function createInteractiveLedger(confirmFn=()=>true) {
   const js=ts.transpileModule(script,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
   vm.runInNewContext(js,sandbox,{filename:'compiled-local-ledger.js'});
   return {
-    form,fields,source,claim,passage,verdict,note,save,cancel,download,records,status,importFile,importButton,
+    form,fields,source,claim,passage,verdict,note,save,cancel,download,clear,records,status,importFile,importButton,
     get confirmations(){return confirmations;},get downloads(){return downloads;},
     selectFile(file){importFile.files=[file];importFile.value='nonempty';importFile.events.change();},
     clickImport(){return importButton.events.click();},
@@ -172,4 +172,75 @@ test('the asynchronous file chooser rejects a stale selection and blocks duplica
   await env.clickImport();
   assert.equal(env.records.children.length,1);
   assert.equal(env.records.children[0].children[0].textContent,'R003 · CONTRADICTED');
+});
+
+
+test('destructive clear requires approval and does not erase a stored row or unfinished draft when cancelled',()=>{
+  let approve=false;
+  const env=createInteractiveLedger(()=>approve);
+  env.submit(base);
+  env.source.value='Work in progress';
+  env.claim.value='Unsaved claim';
+  env.clear.events.click();
+  assert.equal(env.confirmations,1);
+  assert.equal(env.records.children.length,1);
+  assert.equal(env.source.value,'Work in progress');
+  assert.equal(env.claim.value,'Unsaved claim');
+  assert.match(env.status.textContent,/Clear cancelled/);
+  approve=true;
+  env.clear.events.click();
+  assert.equal(env.confirmations,2);
+  assert.equal(env.records.children.length,0);
+  assert.equal(env.source.value,'');
+  assert.equal(env.claim.value,'');
+  assert.match(env.status.textContent,/All rows and unfinished input fields cleared/);
+});
+
+test('editing another review does not silently destroy an unfinished form draft',()=>{
+  let approve=false;
+  const env=createInteractiveLedger(()=>approve);
+  env.submit(base);
+  env.source.value='Unfinished source';
+  env.claim.value='Draft to preserve';
+  const edit=env.records.children[0].children[4];
+  assert.equal(edit.textContent,'Edit R001');
+  edit.events.click();
+  assert.equal(env.confirmations,1);
+  assert.equal(env.source.value,'Unfinished source');
+  assert.equal(env.claim.value,'Draft to preserve');
+  assert.equal(env.save.textContent,'Add reviewed claim');
+  assert.equal(env.records.children[0].children[0].textContent,'R001 · CONTRADICTED');
+  approve=true;
+  edit.events.click();
+  assert.equal(env.confirmations,2);
+  assert.equal(env.source.value,base.source);
+  assert.equal(env.claim.value,base.claim);
+  assert.equal(env.save.textContent,'Save revised claim R001');
+});
+
+test('removing one reviewed claim requires consent and preserves the form draft if refused',()=>{
+  let approve=false;
+  const env=createInteractiveLedger(()=>approve);
+  env.submit(base);
+  env.source.value='Draft source';
+  const remove=env.records.children[0].children[5];
+  assert.equal(remove.textContent,'Remove R001');
+  remove.events.click();
+  assert.equal(env.confirmations,1);
+  assert.equal(env.records.children.length,1);
+  assert.equal(env.source.value,'Draft source');
+  assert.match(env.status.textContent,/Removal cancelled/);
+  approve=true;
+  remove.events.click();
+  assert.equal(env.confirmations,2);
+  assert.equal(env.records.children.length,0);
+  assert.equal(env.source.value,'Draft source','Unrelated unfinished form fields remain untouched');
+  assert.match(env.status.textContent,/R001 removed/);
+});
+
+test('empty worksheet may be cleared without nuisance confirmation',()=>{
+  const env=createInteractiveLedger(()=>false);
+  env.clear.events.click();
+  assert.equal(env.confirmations,0);
+  assert.match(env.status.textContent,/All rows and unfinished input fields cleared/);
 });

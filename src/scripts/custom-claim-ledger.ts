@@ -19,6 +19,11 @@ let entries: LedgerEntry[] = [];
 let nextId = 1;
 let editingId: string | null = null;
 let readingImport = false;
+// A temporary draft is not part of the downloaded TSV until the visitor saves
+// it as a row. Every action that would replace it must ask before proceeding.
+function hasUnfinishedFormInput(): boolean {
+  return [source,claim,passage,note].some(field => Boolean(field?.value.trim())) || Boolean(verdict?.value);
+}
 function stopEditing() {
   editingId = null;
   if (save) save.textContent = 'Add reviewed claim';
@@ -46,6 +51,11 @@ function refresh() {
     edit.setAttribute('aria-label', 'Edit reviewed claim ' + entry.id);
     edit.addEventListener('click', () => {
       if (!form || !source || !claim || !passage || !verdict || !note || !save || !cancel || !status) return;
+      if (editingId !== entry.id && hasUnfinishedFormInput() &&
+          !window.confirm('Opening '+entry.id+' will replace the unfinished review fields. Save the draft as a row first, or select OK to discard it.')) {
+        status.textContent = 'Edit cancelled. Your unfinished fields and saved review rows are unchanged.';
+        return;
+      }
       source.value = entry.source;
       claim.value = entry.claim;
       passage.value = entry.passage;
@@ -62,6 +72,10 @@ function refresh() {
     remove.textContent = 'Remove ' + entry.id;
     remove.setAttribute('aria-label', 'Remove reviewed claim ' + entry.id);
     remove.addEventListener('click', () => {
+      if (!window.confirm('Remove '+entry.id+' from this browser session? Download your current TSV first if you need a copy.')) {
+        if (status) status.textContent = 'Removal cancelled. '+entry.id+' and your unfinished fields are unchanged.';
+        return;
+      }
       entries = entries.filter(item => item.id !== entry.id);
       if (editingId === entry.id) {
         form?.reset();
@@ -113,6 +127,11 @@ if (form && fields && source && claim && passage && verdict && note && status &&
     }
   });
   clear.addEventListener('click', () => {
+    if ((entries.length > 0 || hasUnfinishedFormInput()) &&
+        !window.confirm('Clear all '+entries.length+' saved review rows and unfinished fields? This cannot be undone in the page. Download your TSV first if you need to keep them.')) {
+      status.textContent = 'Clear cancelled. Your review rows and unfinished fields are unchanged.';
+      return;
+    }
     entries = [];
     nextId = 1;
     form.reset();
@@ -156,7 +175,7 @@ if (form && fields && source && claim && passage && verdict && note && status &&
       }
       const restored = importClaimLedgerTsv(tsv);
       // Parse/validate first and get explicit approval before replacing any work.
-      const dirty = entries.length > 0 || [source,claim,passage,note].some(field => field.value.trim()) || Boolean(verdict.value);
+      const dirty = entries.length > 0 || hasUnfinishedFormInput();
       if (dirty && !window.confirm('Replace all current review rows and unfinished form input with the selected TSV? Download your current rows first if needed.')) {
         status.textContent = 'Import cancelled. Current review rows and input are unchanged.';
         return;

@@ -22,7 +22,7 @@ test('theme labels describe the next action under explicit and system preference
 function createScriptEnvironment() {
   const classes = new Set();
   const root={dataset:{},classList:{add:(name)=>classes.add(name)}};
-  let toggleClick,systemChange;
+  let toggleClick,systemChange,keydown;
   const attrs=new Map();
   const toggle={
     title:'',
@@ -38,13 +38,16 @@ function createScriptEnvironment() {
   };
   const range={selected:null,selectNodeContents(node){this.selected=node;}};
   let clipboardDenied=true;
+  let hasSearch=false;
+  const searchInput={focused:false,focus(){this.focused=true;}};
+  const redirects=[];
   const clipboardText=[];
   const timers=new Map();let timerId=0;
   const fakeDocument={
     documentElement:root,
-    querySelector:(selector)=>selector==='#theme-toggle'?toggle:null,
+    querySelector:(selector)=>selector==='#theme-toggle'?toggle:selector==='input[type="search"]'&&hasSearch?searchInput:null,
     querySelectorAll:()=>[],
-    addEventListener:()=>{},
+    addEventListener:(name,fn)=>{if(name==='keydown')keydown=fn;},
     createRange:()=>range,
   };
   const sandbox={
@@ -54,7 +57,7 @@ function createScriptEnvironment() {
       return {effectiveTheme,oppositeTheme,themeActionLabel};
     },
     document:fakeDocument,
-    window:{matchMedia:()=>system,getSelection:()=>selection},
+    window:{matchMedia:()=>system,getSelection:()=>selection,location:{assign:href=>redirects.push(href)}},
     navigator:{clipboard:{writeText:async(text)=>{
       if(clipboardDenied)throw new Error('NotAllowedError');
       clipboardText.push(text);
@@ -72,7 +75,20 @@ function createScriptEnvironment() {
     clickTheme:()=>toggleClick?.(),
     changeSystem:()=>systemChange?.(),
     allowClipboard:()=>{clipboardDenied=false;},
-    copyText:sandbox.exports.copyText,
+    copyText:sandbox.exports.copyText,redirects,searchInput,
+    setHasSearch:v=>{hasSearch=v;},
+    pressKey:options=>{
+      let prevented=false;
+      const event={
+        key:'k',ctrlKey:true,metaKey:false,altKey:false,shiftKey:false,
+        defaultPrevented:false,isComposing:false,
+        target:{closest:()=>null},
+        preventDefault(){prevented=true;},
+        ...options,
+      };
+      keydown(event);
+      return prevented;
+    },
   };
 }
 
@@ -126,4 +142,32 @@ test('disabled JavaScript does not leave an inert theme button visible',()=>{
   assert(layout.includes('<kbd>Ctrl/⌘ K</kbd>'));
   assert(layout.includes('id="theme-toggle"'));
   assert(!layout.includes('has-theme-control'),'Server HTML must not advertise a theme interaction before JS wires it');
+});
+
+
+test('Ctrl/Command+K cannot navigate away while typing in unsaved review fields or prompt editors',()=>{
+  const env=createScriptEnvironment();
+  for(const selector of ['textarea','input','select','[contenteditable="true"]','[role="textbox"]']){
+    const wasPrevented=env.pressKey({target:{closest:()=>selector}});
+    assert.equal(wasPrevented,false,'Do not intercept browser editing shortcut in '+selector);
+    assert.deepEqual(env.redirects,[],'Typing must not navigate away to Search');
+  }
+  assert.equal(env.pressKey({target:{closest:()=>null},isComposing:true}),false);
+  assert.equal(env.pressKey({target:{closest:()=>null},altKey:true}),false);
+  assert.equal(env.pressKey({target:{closest:()=>null},defaultPrevented:true}),false);
+  assert.equal(env.pressKey({target:{closest:()=>null},shiftKey:true}),false);
+  assert.equal(env.pressKey({target:{closest:()=>null},key:'v'}),false);
+  assert.deepEqual(env.redirects,[]);
+});
+
+test('normal Ctrl/Command+K still opens Search outside editor fields',()=>{
+  const env=createScriptEnvironment();
+  assert.equal(env.pressKey({target:{closest:()=>null}}),true);
+  assert.deepEqual(env.redirects,['/search/']);
+  assert.equal(env.pressKey({ctrlKey:false,metaKey:true,target:{closest:()=>null}}),true);
+  assert.deepEqual(env.redirects,['/search/','/search/']);
+  env.setHasSearch(true);
+  assert.equal(env.pressKey({target:{closest:()=>null}}),true);
+  assert.equal(env.searchInput.focused,true);
+  assert.deepEqual(env.redirects,['/search/','/search/'],'Focus current-page Search rather than navigate unnecessarily');
 });
