@@ -18,6 +18,7 @@ const importButton = document.querySelector<HTMLButtonElement>('#personal-ledger
 let entries: LedgerEntry[] = [];
 let nextId = 1;
 let editingId: string | null = null;
+let readingImport = false;
 function stopEditing() {
   editingId = null;
   if (save) save.textContent = 'Add reviewed claim';
@@ -133,14 +134,18 @@ if (form && fields && source && claim && passage && verdict && note && status &&
     }
   });
   importFile.addEventListener('change', () => {
-    importButton.disabled = !importFile.files?.length;
+    importButton.disabled = readingImport || !importFile.files?.length;
   });
   importButton.addEventListener('click', async () => {
+    // Prevent two pending reads from racing to overwrite the same register.
+    if (readingImport) return;
     const selectedFile = importFile.files?.[0];
     if (!selectedFile) {
       status.textContent = 'Choose a previously downloaded GuideHollow TSV before importing.';
       return;
     }
+    readingImport = true;
+    importButton.disabled = true;
     try {
       if (selectedFile.size > 640000) throw new Error('The TSV file is too large for this local worksheet.');
       // File.text() reads a selected local file; it makes no server request.
@@ -166,9 +171,17 @@ if (form && fields && source && claim && passage && verdict && note && status &&
       source.focus();
     } catch (error) {
       status.textContent = error instanceof Error ? error.message : 'TSV import failed. Your existing reviews are unchanged.';
+    } finally {
+      readingImport = false;
+      importButton.disabled = !importFile.files?.length;
     }
   });
   fields.disabled = false;
+  // The file input is intentionally inert in HTML until this local-only
+  // handler has been wired. Without this line every Import button remains
+  // unreachable, even though its listener and parser are installed.
+  importFile.disabled = false;
+  importButton.disabled = true;
   refresh();
   status.textContent = 'Your entries stay on this device until you download or leave the page. No automatic verdicts.';
 }
