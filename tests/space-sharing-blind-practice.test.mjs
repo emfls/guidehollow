@@ -35,7 +35,12 @@ test('all reader entry points lead to the blind exercise first, with an explicit
   assert(privacy.includes('**Try a blind review before looking at the answers.**'));
   assert(evidence.includes('six-case blank permission worksheet'));
   assert(evidence.includes('The cases are fictional'));
-  assert(!evidence.includes('id="evidence-space-new"'),'Do not introduce a thin standalone evidence category');
+  assert(evidence.includes('id="evidence-space-permissions"'));
+  assert(evidence.includes('14. Does a shared Space page expose the same information as a linked source file?'));
+  assert(evidence.includes('The task is a <strong>human permissions review</strong>'));
+  assert(privacy.includes('/evidence/#evidence-space-permissions'));
+  assert(project.includes('/evidence/#evidence-space-permissions'));
+  assert(evidence.indexOf(path) < evidence.indexOf(keyPath));
 });
 
 test('the sharing section separates page permissions, copied personal context, user Memory and user training preferences',()=>{
