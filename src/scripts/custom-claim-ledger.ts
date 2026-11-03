@@ -1,4 +1,4 @@
-import { exportClaimLedger, makeLedgerEntry, replaceLedgerEntry, type LedgerEntry, type LedgerVerdict } from '../lib/claim-ledger';
+import { exportClaimLedger, importClaimLedgerTsv, makeLedgerEntry, replaceLedgerEntry, type LedgerEntry, type LedgerVerdict } from '../lib/claim-ledger';
 
 const form = document.querySelector<HTMLFormElement>('#personal-claim-form');
 const fields = form?.querySelector<HTMLFieldSetElement>('fieldset');
@@ -13,6 +13,8 @@ const download = document.querySelector<HTMLButtonElement>('#personal-ledger-dow
 const clear = document.querySelector<HTMLButtonElement>('#personal-ledger-clear');
 const save = form?.querySelector<HTMLButtonElement>('#personal-ledger-save');
 const cancel = form?.querySelector<HTMLButtonElement>('#personal-ledger-cancel-edit');
+const importFile = document.querySelector<HTMLInputElement>('#personal-ledger-import-file');
+const importButton = document.querySelector<HTMLButtonElement>('#personal-ledger-import');
 let entries: LedgerEntry[] = [];
 let nextId = 1;
 let editingId: string | null = null;
@@ -75,7 +77,7 @@ function refresh() {
   // Clear must remain available to erase unfinished fields even before a row is added.
   clear.disabled = false;
 }
-if (form && fields && source && claim && passage && verdict && note && status && records && download && clear && save && cancel) {
+if (form && fields && source && claim && passage && verdict && note && status && records && download && clear && save && cancel && importFile && importButton) {
   // With JavaScript disabled or failed, the form remains disabled and cannot
   // submit personal text via its default GET request.
   form.addEventListener('reset', () => {
@@ -128,6 +130,42 @@ if (form && fields && source && claim && passage && verdict && note && status &&
       status.textContent = 'Download requested for ' + entries.length + ' human review rows. Check your browser downloads; this page cannot confirm the file was saved. This is not an AI truth score.';
     } catch (error) {
       status.textContent = error instanceof Error ? error.message : 'Export failed.';
+    }
+  });
+  importFile.addEventListener('change', () => {
+    importButton.disabled = !importFile.files?.length;
+  });
+  importButton.addEventListener('click', async () => {
+    const selectedFile = importFile.files?.[0];
+    if (!selectedFile) {
+      status.textContent = 'Choose a previously downloaded GuideHollow TSV before importing.';
+      return;
+    }
+    try {
+      if (selectedFile.size > 640000) throw new Error('The TSV file is too large for this local worksheet.');
+      // File.text() reads a selected local file; it makes no server request.
+      const tsv = await selectedFile.text();
+      if (importFile.files?.[0] !== selectedFile) {
+        status.textContent = 'File selection changed. Select Import again.';
+        return;
+      }
+      const restored = importClaimLedgerTsv(tsv);
+      // Parse/validate first and get explicit approval before replacing any work.
+      const dirty = entries.length > 0 || [source,claim,passage,note].some(field => field.value.trim()) || Boolean(verdict.value);
+      if (dirty && !window.confirm('Replace all current review rows and unfinished form input with the selected TSV? Download your current rows first if needed.')) {
+        status.textContent = 'Import cancelled. Current review rows and input are unchanged.';
+        return;
+      }
+      entries = restored;
+      nextId = Math.max(...entries.map(entry => Number(entry.id.slice(1)))) + 1;
+      form.reset();
+      refresh();
+      importFile.value = '';
+      importButton.disabled = true;
+      status.textContent = entries.length + ' reviewed claim(s) restored locally. Check the imported text and verdicts before continuing. No file was uploaded or saved online.';
+      source.focus();
+    } catch (error) {
+      status.textContent = error instanceof Error ? error.message : 'TSV import failed. Your existing reviews are unchanged.';
     }
   });
   fields.disabled = false;
