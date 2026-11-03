@@ -76,7 +76,7 @@ test('production weighted-price script renders both real reconciled tables insid
   assert.equal(env.restore.disabled,false);
   env.calculateNow();
   assert.match(env.summary.textContent,/8 rows · 27 units · 530.00 revenue · 19.63 revenue per unit/);
-  assert.equal(env.result.children.length,6,'three summaries plus two headings and two scroll regions, as actual DOM children');
+  assert.equal(env.result.children.length,7,'three summaries plus two headings and two scroll regions, as actual DOM children');
   const regions=env.result.children.filter(node=>node.className==='audit-table-scroll');
   assert.equal(regions.length,2);
   const headings=env.result.children.filter(node=>node.tagName==='h3');
