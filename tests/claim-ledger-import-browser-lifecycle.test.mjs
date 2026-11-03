@@ -57,6 +57,7 @@ function createInteractiveLedger(confirmFn=()=>true) {
   let confirmations=0, downloads=0;
   const sandbox={
     exports:{},
+    Error,
     require(name){
       assert.equal(name,'../lib/claim-ledger');
       return {makeLedgerEntry,replaceLedgerEntry,exportClaimLedger,importClaimLedgerTsv};
@@ -74,7 +75,7 @@ function createInteractiveLedger(confirmFn=()=>true) {
   const js=ts.transpileModule(script,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
   vm.runInNewContext(js,sandbox,{filename:'compiled-local-ledger.js'});
   return {
-    form,fields,source,claim,passage,verdict,note,save,cancel,records,status,importFile,importButton,
+    form,fields,source,claim,passage,verdict,note,save,cancel,download,records,status,importFile,importButton,
     get confirmations(){return confirmations;},get downloads(){return downloads;},
     selectFile(file){importFile.files=[file];importFile.value='nonempty';importFile.events.change();},
     clickImport(){return importButton.events.click();},
