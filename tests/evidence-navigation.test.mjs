@@ -15,7 +15,7 @@ test('evidence index offers fourteen useful links and one limitations anchor wit
   assert.equal(links.filter(id=>id!=='evidence-limitations').length,14);
   for(const id of links) assert(html.includes('id="'+id+'"'),id+' must target an existing heading');
   const ids=[...html.matchAll(/id="(evidence-[^"]+)"/g)].map(x=>x[1]);
-  assert.deepEqual(ids.sort(),links.sort(),'No duplicated or unlinked exercise headings');
+  assert.deepEqual(ids.slice().sort(),links.slice().sort(),'No duplicated or unlinked exercise headings');
   assert.match(nav,/Read the evidence limits and review scope/);
   assert.match(nav,/Pick an original exercise by task/);
   const exerciseHeads=[...html.matchAll(/<h2 id="(evidence-[^"]+)">(\d+)\. /g)].map(m=>({id:m[1],index:Number(m[2])}));
