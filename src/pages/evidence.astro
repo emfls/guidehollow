@@ -28,6 +28,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-injection"><span class="mono muted">13 /</span> Prompt-injection boundary drill</a></li>
         <li><a href="#evidence-space-permissions"><span class="mono muted">14 /</span> Space sharing permissions</a></li>
         <li><a href="#evidence-meeting-actions"><span class="mono muted">15 /</span> Approved meeting actions versus draft proposals</a></li>
+        <li><a href="#evidence-requirements-traceability"><span class="mono muted">16 /</span> Requirements scope and source integrity</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -183,6 +184,16 @@ import Base from '../layouts/Base.astro';
       <li>Use the <a href="/guides/extract-meeting-action-items-with-ai/">complete action-extraction guide</a> to rebuild a four-row tracker. Then change just the storage-condition line or the follow-up meeting date and observe which statements should <em>not</em> change.</li>
     </ol>
     <p><strong>Scope:</strong> the <a href="https://github.com/emfls/guidehollow/blob/main/tests/meeting-action-audit.test.mjs">published integrity test</a> checks that identifiers, labels, source references and the article links remain internally consistent. It does <em>not</em> represent a live AI model test, assess real work meetings, or establish that a human audit is infallible.</p>
+
+    <h2 id="evidence-requirements-traceability">16. Does a requirement really come from the approved source?</h2>
+    <p><strong>Question:</strong> can a requirements table distinguish six approved statements from a proposed SMS reminder, an unresolved approval owner, and an explicit payment exclusion? The original nine-line volunteer-signup brief is completely fictional. Unlike a generic screenshot, the exercise supplies a <strong>versioned source, a reviewed register, a faulty register and an executable offline checker</strong>.</p>
+    <ol>
+      <li><a href="/examples/requirements-traceability/project-brief-v1.txt">Download the versioned source brief (TXT)</a> and inspect B1–B9 before seeing the expected treatment.</li>
+      <li><a href="/examples/requirements-traceability/faulty-register.tsv">Review the intentionally flawed register (TSV)</a>. Look for a misquoted viewport width, a proposed feature mislabeled as approved, a missing open question, and a requirement interpretation that invents an email.</li>
+      <li><a href="/examples/requirements-traceability/reviewed-register.tsv">Compare with the nine-row editorial reference (TSV)</a> to see the source authority preserved.</li>
+      <li><a href="/examples/requirements-traceability/audit.mjs">Run the offline Node.js audit</a> on either TSV. It checks source IDs, exact quotations and status labels. The faulty file must return three detectable problems; its invented confirmation email remains a <strong>separate human-review finding</strong>.</li>
+    </ol>
+    <p><strong>Important limitation:</strong> a matching quotation and a clean automated audit do not prove the associated written requirement is accurate. The <a href="/guides/ai-project-brief-requirements-traceability-matrix/">step-by-step requirements guide</a> demonstrates a deliberate interpretation change that this checker cannot detect. These examples are editor-written, not measured AI outputs, client requirements, or certified engineering reviews. The <a href="https://github.com/emfls/guidehollow/blob/main/tests/requirements-traceability-audit.test.mjs">published fixture tests</a> establish internal consistency only.</p>
 
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
