@@ -1,0 +1,13 @@
+CaseID	ExpectedLabel	Reason
+C01	REQUEST	Directly asks for a change now.
+C02	IDEA	Suggests possible future value without an immediate request.
+C03	STATUS	Explicitly reports a shipped feature.
+C04	UNCLEAR	Only names a feature without an intent.
+C05	REQUEST	Expresses a concrete current need with a time frame.
+C06	IDEA	Invites exploration rather than implementation.
+C07	STATUS	Reports current availability.
+C08	UNCLEAR	A bare problem phrase does not identify the action or state.
+C09	IDEA	Polite wording does not turn future consideration into an immediate implementation request.
+C10	REQUEST	The explicit current need dominates a casual opening phrase containing maybe.
+C11	STATUS	Please note introduces a report of current availability rather than a feature request.
+C12	UNCLEAR	Please plus a feature noun is not enough to establish the intended action.
