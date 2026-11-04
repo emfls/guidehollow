@@ -40,8 +40,8 @@ test('review text gets an optional native leave guard, without auto-saving or up
   assert(script.includes("window.addEventListener('beforeunload', event => {"));
   assert(script.includes('if (!hasReviewWork()) return;'));
   assert(script.includes("event.preventDefault();\n    event.returnValue = '';"));
-  assert(!/\\b(?:localStorage|sessionStorage|sendBeacon)\\b/.test(script));
-  assert(!/\\bfetch\\s*\\(/.test(script));
+  assert(!/\b(?:localStorage|sessionStorage|sendBeacon)\b/.test(script));
+  assert(!/\bfetch\s*\(/.test(script));
   assert(page.includes('saved rows only'));
   assert(page.includes('some browsers suppress that warning'));
   assert(privacy.includes('the browser may show a native leave warning'));
