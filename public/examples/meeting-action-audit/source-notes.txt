@@ -1,0 +1,30 @@
+FICTIONAL LIBRARY EQUIPMENT-LOAN PILOT — SOURCE PACK v1
+This is an original, editor-written learning exercise. It is not a real meeting transcript.
+All names, quantities, dates, and currency-like amounts are invented.
+
+DOCUMENT A — PROPOSAL / DRAFT AGENDA (NOT APPROVED)
+[D01] The draft proposed leasing two printers for the pilot.
+[D02] The draft suggested opening on November 10, 2026.
+[D03] Devan offered to discuss possible weekend coverage.
+
+DOCUMENT B — APPROVED MINUTES, dated November 3, 2026
+Use these approved statements rather than the earlier proposal when they conflict.
+[M01] The committee approved an equipment-loan pilot limited to 12 existing laptop chargers. It did not approve leasing printers.
+[M02] Mira was assigned to draft checkout instructions by November 9, 2026.
+[M03] Jo was assigned to inventory the 12 existing chargers by November 6, 2026.
+[M04] If facilities confirms that lockable storage is available, Lena will schedule volunteer orientation. No orientation date was selected. The condition is not yet met.
+[M05] The pilot opening date is still undecided. The suggested November 10 opening date was not approved.
+[M06] Devan offered to help with weekend coverage. No person was assigned to weekend coverage.
+[M07] The committee deferred all equipment purchases. A possible 420-credit expense was mentioned as an estimate, not approved as a budget.
+[M08] A follow-up committee meeting was scheduled for Friday, November 13, 2026 at 3:00 p.m. This meeting date is not a blanket deadline for other tasks.
+[M09] The group adopted a task to review draft signage before the pilot opens. No owner or due date was assigned to signage review.
+[M10] The facilities team has not named anyone responsible for obtaining storage confirmation.
+
+AUTHOR'S REVIEW RULES
+- Extract only what the approved minutes authorize or explicitly state.
+- An offer, suggestion, cost estimate, or draft agenda item is not an approved action.
+- An action can be approved while its owner or date remains unspecified.
+- Keep the storage condition attached to Lena's scheduling action.
+- A meeting date is not automatically a deadline for every task.
+- Do not convert a relative deadline into a different calendar date.
+- Use the separate answer key only after completing the blind worksheet.
