@@ -1,11 +1,11 @@
 ---
 title: "ChatGPT Search vs Deep Research vs Standard Chat: A Practical Decision Guide"
-description: "Choose ChatGPT chat, Search, or Deep Research with a decision table, setup guidance, source-checking examples, and a reusable verification rubric."
+description: "Choose standard ChatGPT, Search, or Deep Research by evidence need. Run a 12-claim original source audit to separate supported, contradicted, and unproven claims."
 slug: "chatgpt-search-vs-deep-research-vs-standard-chat"
 category: "ai-tools"
 tags: ["chatgpt", "chatgpt-search", "deep-research", "ai-research", "source-verification", "ai-tools"]
 publishedDate: "2026-10-29"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-04"
 sources: [{"title":"OpenAI Help Center: Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"},{"title":"OpenAI Help Center: Deep research in ChatGPT","url":"https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt"},{"title":"OpenAI Help Center: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -161,6 +161,61 @@ The first claim is **supported by the supplied fictional note**. The second and 
 
 This exercise checks whether a claim follows from stated evidence. It does not test ChatGPT Search, Deep Research, an actual scheduling vendor, or a paid subscription.
 
+## Download and audit twelve claims against a versioned source packet
+
+The three Cedar Appointments claims above illustrate the reasoning but do not give you enough material to practice a full comparison. A more useful test has **multiple source documents, a superseded edition, a gap in the evidence, and a separate answer key**. GuideHollow's original fictional Cedar packet does exactly that. Cedar is not a real product and these notes are not commercial documentation.
+
+### Step A: Read the source packet before any AI answer
+
+- [Booking notes, with retired and current versions (TXT)](/examples/research-source-audit/booking-versions.txt) — the old edition described instant confirmation, but the current edition makes requests pending until coordinator approval. The date and supersession status are part of the evidence.
+- [Shared-device and administrative note (TXT)](/examples/research-source-audit/shared-device-admin.txt) — a ten-minute inactivity sign-out is documented; device history, downloaded files and shared-login safeguards are not established.
+- [Fictional trial and pricing terms (TXT)](/examples/research-source-audit/trial-and-pricing.txt) — a limited 14-day pilot, explicit absence of a permanent free tier, and quote-based pricing without a published per-seat rate.
+
+Do not skim a heading and assume it proves the whole claim. A note about **signing out an inactive session** does not establish **deleting locally downloaded files**; documentation that does not state a certification cannot be used to claim the vendor is noncompliant.
+
+### Step B: Classify the questions without looking at the answers
+
+Download the [12-claim practice sheet (TSV)](/examples/research-source-audit/practice.tsv) and the [blank prediction worksheet (TSV)](/examples/research-source-audit/predictions-template.tsv). For each claim, enter exactly one uppercase status:
+
+- `SUPPORTED`: the **current, applicable** source directly supports the claim, including its relevant conditions.
+- `CONTRADICTED`: the current source explicitly conflicts with the claim. Do not cite superseded guidance to overturn the current statement.
+- `NOT_ESTABLISHED`: no included current source establishes the claim or its negation. Missing proof of a feature, price or certification is **not** evidence of its absence.
+
+The 12 editorial judgments comprise four supported claims, three contradicted claims and five unestablished claims. Those counts describe our invented source packet, not a model accuracy distribution. To keep your first attempt independent, download the [editorial answer key (TSV)](/examples/research-source-audit/answer-key.tsv) only **after** recording your labels. It names the exact source IDs and gives a reason for each status.
+
+### Step C: Score your own results with a local, inspectable checker
+
+Download the [offline Node.js grader](/examples/research-source-audit/grade.mjs) into the same folder as the practice sheet, answer key and your filled worksheet. Run:
+
+```bash
+node grade.mjs predictions-template.tsv
+```
+
+The blank worksheet deliberately contains `PENDING` for every case, so an unchanged worksheet yields twelve `INVALID_FORMAT` results. Replace all of those with your reviewed labels before interpreting a score.
+
+To validate the checker independently, download the [editor-written sample predictions](/examples/research-source-audit/example-predictions.tsv) and run:
+
+```bash
+node grade.mjs example-predictions.tsv
+```
+
+The sample deliberately yields **9 matching labels, 2 wrong valid labels, and 1 invalid-format answer**. No generative AI system produced these sample labels; they are designed to demonstrate the three result types. The script uses Node.js built-in filesystem functions and makes no API or network calls. It compares a worksheet with our fictional editorial answer key; it cannot browse vendors, judge a live model answer or authorize procurement.
+
+### Step D: Turn the source results into a defensible next action
+
+| Nonprofit criterion | What this fictional packet can establish | What still needs proof or a demo |
+| --- | --- | --- |
+| Staff approval before confirmation | The **current** booking note supports a pending-until-approved flow; retired instant-confirmation wording is superseded | Test the complete workflow in a real account before purchasing any actual product |
+| Shared-device safety | The note states a ten-minute inactivity sign-out | Whether downloads, browser history, or shared-logins expose client information |
+| Exportable booking records | Coordinator CSV exports include approved records and exclude pending requests | Whether the organization needs pending-request exports and the actual data format |
+| Administrative roles | Read-only staff cannot export; admins can revoke sessions | Whether the role separation works as intended in the target deployment |
+| Price and compliance | Fictional pilot limit and no-permanent-free-tier terms are documented | Obtain a written price quote and jurisdiction-specific compliance review; do not invent a certificate |
+
+**Decision from this packet:** It is sufficient to prepare a **vendor demonstration checklist**, not to select a product, certify a security claim or predict pricing. Do not convert `NOT_ESTABLISHED` into `CONTRADICTED` simply to complete a comparative spreadsheet.
+
+**How the three ChatGPT workflows differ here:** Standard chat can organize the three source files and the question sheet without outside facts. Search can investigate an individual current claim *about a real vendor*, with a directly inspected page. Deep Research can assemble a fair multi-vendor investigation using identical criteria and current sources. Neither Search nor Deep Research magically resolves a question that the available evidence does not answer. Test each source and its effective date independently.
+
+The [published fixture regression tests](https://github.com/emfls/guidehollow/blob/main/tests/research-source-audit.test.mjs) confirm that all twelve claims have a reference status and that cited source IDs actually exist in the three documents. These are **editorial fixture consistency checks**, not a live research experiment, provider accuracy benchmark, security assessment or real purchasing recommendation.
 ## Source checking before publication or a decision
 
 For each consequential fact, open the cited page and look for its supporting sentence. Confirm the feature name, relevant conditions, location, plan, and date. An updated documentation page may supersede an old feature announcement. An undated page cannot on its own establish the exact date a policy changed.
@@ -196,4 +251,4 @@ Use the least complex mode that can deliver sufficient, reviewable evidence for 
 - [OpenAI Help: Deep research in ChatGPT](https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt) — workflow, research plan, sources, and limits.
 - [OpenAI Help: Does ChatGPT tell the truth?](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth) — accuracy limitations and verification.
 
-**Documentation checked November 2, 2026.** The example, prompts, worksheet, and decision matrix were written for this tutorial. No real account, vendor, model performance, user-interface screenshot, or publication was tested for this article.
+**Documentation checked November 2, 2026; original teaching exercise added November 4, 2026.** The fictional product notes, prompts, rubric and decision matrix were written for this tutorial. The new twelve-claim source packet, editorial answer key and offline grader are independently checked in repository tests. No new review of changing product features is implied by the article edit; check the latest official help for current entitlement details. No real account, vendor, model-performance comparison, product security assessment or user-interface screenshot was tested for this article.
