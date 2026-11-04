@@ -16,7 +16,7 @@ featured: false
 
 An upload problem can happen before attachment, during transfer, or after a file appears attached but its content is not interpreted as expected. Those are different problems. Record what you can observe before changing the file, browser, or account.
 
-This checklist was initially drafted against official documentation on October 23, 2026, refreshed for upload and storage guidance on November 2, and checked against the official saved-file visibility and locked-chat instructions on November 3, 2026. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
+This checklist was initially drafted against official documentation on October 23, 2026, refreshed for upload and storage guidance on November 2, and checked against the official saved-file visibility and locked-chat instructions on November 3. On November 4 we added a reproducible first-party PDF comparison; this did not involve a ChatGPT account upload or repeat the product-documentation review. It is a diagnostic workflow, not a claim that GuideHollow reproduced every error or tested a personal account. Limits and interface labels can change.
 
 ## Record a minimal diagnostic note
 
