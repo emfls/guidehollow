@@ -66,5 +66,6 @@ jobs:
       - name: Fetch source for read-only public verification
         uses: actions/checkout@v6
       - name: Check AdSense reviewer pages, ownership and public evidence
-        continue-on-error: true
         run: node scripts/verify-public-readiness.mjs
+      - name: Verify every published article, sitemap URL and original evidence download
+        run: node scripts/verify-public-coverage.mjs
