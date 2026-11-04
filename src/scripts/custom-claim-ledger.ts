@@ -24,6 +24,9 @@ let readingImport = false;
 function hasUnfinishedFormInput(): boolean {
   return [source,claim,passage,note].some(field => Boolean(field?.value.trim())) || Boolean(verdict?.value);
 }
+function hasReviewWork(): boolean {
+  return entries.length > 0 || hasUnfinishedFormInput();
+}
 function stopEditing() {
   editingId = null;
   if (save) save.textContent = 'Add reviewed claim';
@@ -139,6 +142,14 @@ if (form && fields && source && claim && passage && verdict && note && status &&
     status.textContent = 'All rows and unfinished input fields cleared. Nothing was sent or saved online.';
   });
   download.addEventListener('click', () => {
+    // Exporting the saved register must not look like saving an unfinished
+    // Add/Edit form. Warn before issuing a file missing those unsaved changes.
+    if (hasUnfinishedFormInput() && !window.confirm(
+      'The TSV contains only saved review rows. Unsaved changes in the current form will NOT be included. Save this row first, or choose OK to download saved rows only.'
+    )) {
+      status.textContent = 'Download cancelled. Your unfinished form and saved review rows are unchanged.';
+      return;
+    }
     try {
       const text = exportClaimLedger(entries);
       const blob = new Blob([text], {type:'text/tab-separated-values;charset=utf-8'});
@@ -194,6 +205,14 @@ if (form && fields && source && claim && passage && verdict && note && status &&
       readingImport = false;
       importButton.disabled = !importFile.files?.length;
     }
+  });
+  // A browser may display a native leave warning after a user gesture.
+  // We cannot guarantee it (mobile browsers may suppress it), and we never
+  // persist personal review text behind the visitor's back.
+  window.addEventListener?.('beforeunload', event => {
+    if (!hasReviewWork()) return;
+    event.preventDefault();
+    event.returnValue = '';
   });
   fields.disabled = false;
   // The file input is intentionally inert in HTML until this local-only
