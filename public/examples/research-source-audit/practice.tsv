@@ -1,0 +1,13 @@
+ClaimID	ClaimToAudit
+C01	A coordinator must approve a booking request before it is confirmed.
+C02	All new booking requests are confirmed immediately on submission.
+C03	Coordinator CSV export covers approved bookings but excludes pending requests.
+C04	Read-only staff can export individual booking records.
+C05	The app signs out an inactive authenticated session after 10 minutes.
+C06	Sign-out automatically erases browser history and downloaded files from a shared device.
+C07	The pilot accepts up to 30 submitted booking requests during a 14-day period.
+C08	Cedar offers a permanent free plan.
+C09	Cedar has a verified healthcare compliance certification.
+C10	All paid plans include automatic SMS reminders.
+C11	Staff permission boundaries are preserved when coworkers share one login.
+C12	The standard plan costs $12 per seat per month.
