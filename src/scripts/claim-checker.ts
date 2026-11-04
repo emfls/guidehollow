@@ -9,6 +9,9 @@ const choice = document.querySelector<HTMLSelectElement>('#claim-audit-length');
 const submit = document.querySelector<HTMLButtonElement>('#claim-audit-submit');
 const reset = document.querySelector<HTMLButtonElement>('#claim-audit-reset');
 let allCases: ClaimCase[] = [];
+// One ephemeral set of answers per case ID. Switching between the five-case
+// practice set and all 22 must not silently discard work already selected.
+const savedAnswers = new Map<string, ClaimVerdict>();
 const labelByScenario = {GARDEN:'Community garden notes',RELEASE:'Software release notes',EVENT:'Proposed event notes'};
 const readable = {SUPPORTED:'Supported by the notes',CONTRADICTED:'Contradicted by the notes',UNSUPPORTED:'Not established by the notes'};
 
@@ -30,6 +33,7 @@ function makeQuestion(item: ClaimCase): HTMLElement {
     input.name = item.id;
     input.id = 'answer-' + item.id + '-' + verdict.toLowerCase();
     input.value = verdict;
+    input.checked = savedAnswers.get(item.id) === verdict;
     input.setAttribute('aria-label', item.id + ': ' + readable[verdict]);
     label.htmlFor = input.id;
     label.append(input, document.createTextNode(' ' + readable[verdict]));
@@ -37,6 +41,13 @@ function makeQuestion(item: ClaimCase): HTMLElement {
   }
   fieldset.append(answers);
   return fieldset;
+}
+function rememberVisibleAnswers(): void {
+  // The old question elements still exist when a selection-change handler
+  // fires. Capture them before the questions are replaced with the new set.
+  for (const input of questions?.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked') ?? []) {
+    if (VERDICTS.includes(input.value as ClaimVerdict)) savedAnswers.set(input.name, input.value as ClaimVerdict);
+  }
 }
 function selected(): ClaimCase[] {
   return choice?.value === 'all' ? allCases : allCases.filter(item => PRACTICE_IDS.some(id => id === item.id));
@@ -51,8 +62,9 @@ function updateSelectionCount() {
   status.textContent = answered + ' of ' + total + ' claims answered. ' +
     (answered === total ? 'All choices are selected; you can now check your answers.' : 'Read the source and select one verdict for each claim before grading.');
 }
-function render() {
+function render(preserveVisible = true) {
   if (!questions || !feedback || !status) return;
+  if (preserveVisible) rememberVisibleAnswers();
   const rows = selected();
   questions.replaceChildren(...rows.map(makeQuestion));
   feedback.replaceChildren();
@@ -104,10 +116,23 @@ async function init() {
     submit.disabled = false;
     reset.disabled = false;
     choice.disabled = false;
-    choice.addEventListener('change', render);
-    form.addEventListener('change', updateSelectionCount);
+    choice.addEventListener('change', () => render());
+    form.addEventListener('change', () => {
+      rememberVisibleAnswers();
+      updateSelectionCount();
+    });
     form.addEventListener('submit', evaluate);
-    reset.addEventListener('click',render);
+    reset.addEventListener('click', () => {
+      rememberVisibleAnswers();
+      if (savedAnswers.size > 0 && !window.confirm(
+        'Clear all ' + savedAnswers.size + ' selected answer(s), including those in the other practice set? This cannot be undone in the current tab.'
+      )) {
+        status.textContent = 'Reset cancelled. Your selected answers and feedback are unchanged.';
+        return;
+      }
+      savedAnswers.clear();
+      render(false);
+    });
     render();
   } catch {
     status.textContent = 'Automatic grading is unavailable. The original source notes above are still readable. Open the downloadable answer-key CSV to review the fictional cases manually.';

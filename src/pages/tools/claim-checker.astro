@@ -16,7 +16,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
     <h2>What makes this different from asking an AI to check itself</h2>
     <p>We supply the source, the claim, the reference answer, and the exact reason for that answer. You can independently read the fictional records before checking the published key. An AI assistant does not judge your choices and nothing in the quiz suggests a model was benchmarked.</p>
     <p><strong>SUPPORTED</strong> means the evidence establishes the claim. <strong>CONTRADICTED</strong> means it says something inconsistent. <strong>UNSUPPORTED</strong> means the claim is not established either way. Missing evidence is not proof that a statement is false.</p>
-    <p>Start with five cases to see the pattern; select all 22 when ready. If you have already reviewed the evidence and just need a record, <a href="#manual-claim-ledger">skip to the manual claim ledger</a> instead of completing the quiz. The exercise is based on the same public <a href="/examples/claim-boundary-source-notes.txt">source notes</a> and <a href="/examples/claim-boundary-audit.csv">complete answer-key CSV</a> used in our <a href="/evidence/">Evidence Library</a>. The data is fictional and was created for teaching, not from real users or a live AI experiment.</p>
+    <p>Start with five cases to see the pattern; select all 22 when ready. Your selected answers stay in this browser tab when you switch between the five-case set and all 22. “Try again” clears answers in both sets only after you confirm. Nothing is saved online or restored after a reload. If you have already reviewed the evidence and just need a record, <a href="#manual-claim-ledger">skip to the manual claim ledger</a> instead of completing the quiz. The exercise is based on the same public <a href="/examples/claim-boundary-source-notes.txt">source notes</a> and <a href="/examples/claim-boundary-audit.csv">complete answer-key CSV</a> used in our <a href="/evidence/">Evidence Library</a>. The data is fictional and was created for teaching, not from real users or a live AI experiment.</p>
   </section>
   <div class="tool-workspace">
     <section class="tool-form" aria-labelledby="source-notes-title">
@@ -40,7 +40,7 @@ const originalSourceNotes = readFileSync('public/examples/claim-boundary-source-
         </div>
         <div class="tool-actions">
           <button class="primary" id="claim-audit-submit" type="submit" disabled>Check my source-reading answers</button>
-          <button type="button" id="claim-audit-reset" disabled>Try again</button>
+          <button type="button" id="claim-audit-reset" disabled>Try again — clear answers</button>
         </div>
       </form>
       <p id="claim-audit-status" class="tool-status" role="status" aria-live="polite">Loading the editorial case set.</p>
