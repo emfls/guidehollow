@@ -1,0 +1,16 @@
+FICTIONAL CEDAR APPOINTMENTS — PRODUCT FEATURE NOTES
+Original GuideHollow teaching fixture; this vendor and all policy statements are invented.
+DO NOT use as evidence for any real booking product.
+
+RETIRED EDITION — 2026-07-01 — SUPERSEDED, NOT CURRENT
+[V1-01] In the retired pilot, booking requests were automatically confirmed on submission.
+[V1-02] This edition was replaced by the 2026-10-01 feature note. Do not cite V1-01 as current functionality.
+
+CURRENT EDITION — 2026-10-01 — USE FOR THIS EXERCISE
+[B01] A new booking request is recorded as pending until a coordinator approves it. It is not confirmed at submission.
+[B02] A confirmation notice appears only after coordinator approval.
+[B03] Coordinators can export approved booking records as CSV; pending requests are excluded.
+[B04] Read-only staff can see aggregate appointment counts, but cannot export booking records.
+[B05] This feature note does not specify SMS reminders or integrations.
+
+Interpret exact sentences; do not infer deployment results from a fictional publication.
