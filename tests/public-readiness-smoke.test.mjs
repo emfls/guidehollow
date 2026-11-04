@@ -74,7 +74,8 @@ test('uncorrected failures remain visible without changing deployment workflow s
   assert.deepEqual(result.failedPaths,['/ads.txt']);
   const workflow=readFileSync(new URL('../.github/workflows/deploy.yml',import.meta.url),'utf8');
   assert.match(workflow,/Check AdSense reviewer pages, ownership and public evidence/);
-  assert.match(workflow,/continue-on-error: true/);
+  assert.doesNotMatch(workflow,/continue-on-error: true/,'Postdeploy checks must not be marked successful when the public site is broken');
+  assert.match(workflow,/run: node scripts\/verify-public-coverage\.mjs/);
   assert.match(workflow,/run: node scripts\/verify-public-readiness\.mjs/);
   assert.match(workflow,/Deploy to GitHub Pages[\s\S]*?uses: actions\/deploy-pages@v4/);
   assert(!workflow.includes('workflow_dispatch:\n    inputs:\n      publish'));
