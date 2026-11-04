@@ -1,0 +1,16 @@
+CaseID	EditorialTreatment	SourceIDs	CorrectedStatement	EditorialReason
+C01	KEEP	M01	The approved pilot covers 12 existing laptop chargers.	The approved scope explicitly names existing chargers.
+C02	REMOVE	D01,M01	REMOVE FROM APPROVED SUMMARY	Only the superseded draft proposed printers; M01 explicitly rejects that lease.
+C03	KEEP	M02	Mira was assigned to draft checkout instructions by November 9, 2026.	Both owner and exact calendar deadline are recorded.
+C04	KEEP	M03	Jo was assigned to inventory 12 existing chargers by November 6, 2026.	The source gives a specific task, owner, quantity and deadline.
+C05	REWRITE	M04	If facilities confirms lockable storage, Lena will schedule orientation; no date was selected.	The candidate invents a calendar date, drops the prerequisite and changes scheduling into holding training.
+C06	REMOVE	D03,M06	REMOVE FROM APPROVED ACTIONS	An offer to discuss coverage does not establish an assignment.
+C07	REMOVE	D02,M05	REMOVE CONFIRMED LAUNCH DATE	The only date was a proposal; opening remains undecided.
+C08	REMOVE	M07	REMOVE APPROVED-BUDGET CLAIM	A hypothetical cost estimate was not purchase authorization or an approved budget.
+C09	KEEP	M08	A follow-up committee meeting is set for Friday, November 13, 2026 at 3:00 p.m.	This is a scheduled meeting, not a due date for all action items.
+C10	REWRITE	M09	Review draft signage before opening; owner and due date not specified.	The group adopted the task but did not assign it to Jo.
+C11	KEEP	M04	If lockable storage is confirmed, Lena will schedule orientation; date not specified.	The condition, owner, action verb and unknown date remain intact.
+C12	REMOVE	M10	STORAGE-CONFIRMATION OWNER NOT SPECIFIED	No one was named to obtain facilities confirmation; Mira owns a different task.
+C13	KEEP	M09	Review draft signage before opening; owner and due date not specified.	The task is approved despite missing assignment details.
+C14	REWRITE	M03	Jo was assigned to inventory 12 existing chargers by November 6, 2026.	Replacing an explicit absolute date with next Friday introduces ambiguity.
+C15	REMOVE	D01,M01	REMOVE PRINTER-LEASE APPROVAL CLAIM	The rejected draft proposal never became an approved lease.
