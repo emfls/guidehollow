@@ -4,23 +4,23 @@ import { readFileSync } from 'node:fs';
 
 const read = path => readFileSync(new URL('../'+path,import.meta.url),'utf8');
 
-test('evidence index offers eighteen useful links and one limitations anchor with unique targets', () => {
+test('evidence index offers nineteen useful links and one limitations anchor with unique targets', () => {
   const html=read('src/pages/evidence.astro');
   const nav=html.match(/<nav class="evidence-jumps"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
   assert(nav,'Evidence library must have navigable quick links');
   assert.match(html,/aria-label="Choose an evidence exercise"/);
   const links=[...nav.matchAll(/href="#([^"]+)"/g)].map(x=>x[1]);
-  assert.equal(links.length,19,'Eighteen exercise links and a limitations link');
+  assert.equal(links.length,20,'Nineteen exercise links and a limitations link');
   assert.equal(new Set(links).size,links.length,'Jump targets must be distinct');
-  assert.equal(links.filter(id=>id!=='evidence-limitations').length,18);
+  assert.equal(links.filter(id=>id!=='evidence-limitations').length,19);
   for(const id of links) assert(html.includes('id="'+id+'"'),id+' must target an existing heading');
   const ids=[...html.matchAll(/id="(evidence-[^"]+)"/g)].map(x=>x[1]);
   assert.deepEqual(ids.slice().sort(),links.slice().sort(),'No duplicated or unlinked exercise headings');
   assert.match(nav,/Read the evidence limits and review scope/);
   assert.match(nav,/Pick an original exercise by task/);
   const exerciseHeads=[...html.matchAll(/<h2 id="(evidence-[^"]+)">(\d+)\. /g)].map(m=>({id:m[1],index:Number(m[2])}));
-  assert.equal(exerciseHeads.length,18,'Every original exercise has a numbered h2 and a distinct anchor');
-  assert.deepEqual(exerciseHeads.map(x=>x.index),Array.from({length:18},(_,i)=>i+1),'Sections must follow the quick-link order');
+  assert.equal(exerciseHeads.length,19,'Every original exercise has a numbered h2 and a distinct anchor');
+  assert.deepEqual(exerciseHeads.map(x=>x.index),Array.from({length:19},(_,i)=>i+1),'Sections must follow the quick-link order');
   assert.deepEqual(exerciseHeads.map(x=>x.id),links.filter(x=>x!=='evidence-limitations'),'The visible navigation follows all exercises in reading order');
   assert(!html.includes('<h3>Privacy permission drill: classify before revealing the answer</h3>'),'The permissions drill may no longer be hidden under an unrelated SEO example');
 });
