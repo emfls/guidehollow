@@ -37,7 +37,7 @@ test('review text gets an optional native leave guard, without auto-saving or up
   const privacy=read('src/pages/privacy-policy.astro');
   assert(script.includes('function hasReviewWork(): boolean'));
   assert(script.includes('return entries.length > 0 || hasUnfinishedFormInput();'));
-  assert(script.includes("window.addEventListener('beforeunload', event => {"));
+  assert(script.includes("window.addEventListener?.('beforeunload', event => {"));
   assert(script.includes('if (!hasReviewWork()) return;'));
   assert(script.includes("event.preventDefault();\n    event.returnValue = '';"));
   assert(!/\b(?:localStorage|sessionStorage|sendBeacon)\b/.test(script));
