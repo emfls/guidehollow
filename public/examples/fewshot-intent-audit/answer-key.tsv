@@ -1,0 +1,13 @@
+CaseID	ExpectedLabel	Reason
+C01	REQUEST	Directly asks to add a duplicate-filter feature.
+C02	IDEA	Suggests exploring a possible change in the future.
+C03	STATUS	Explicitly reports that a feature is currently enabled.
+C04	UNCLEAR	An isolated noun phrase and punctuation do not specify a request.
+C05	REQUEST	States a concrete current requirement even without please.
+C06	IDEA	Mentions a future roadmap rather than requesting immediate implementation.
+C07	STATUS	Reports the feature has shipped in a named build.
+C08	UNCLEAR	The phrase gives no explicit intent, action, or status.
+C09	REQUEST	The immediate need dominates the introductory maybe.
+C10	IDEA	Please does not turn a request for future consideration into a direct implementation request.
+C11	STATUS	Please note introduces a statement of present availability, not a change request.
+C12	UNCLEAR	Please plus a feature name does not establish the action or state.

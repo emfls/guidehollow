@@ -5,7 +5,7 @@ slug: "few-shot-prompt-examples-teach-rules-not-keywords"
 category: "prompts"
 tags: ["few-shot-prompting", "contrastive-examples", "prompt-examples", "prompt-testing", "classification"]
 publishedDate: "2026-10-30"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-04"
 sources: [{"title":"OpenAI API: Prompt engineering","url":"https://developers.openai.com/api/docs/guides/prompt-engineering"},{"title":"Google AI for Developers: Prompt design strategies","url":"https://ai.google.dev/gemini-api/docs/prompting-strategies"},{"title":"Claude Developer Docs: Prompting best practices","url":"https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"},{"title":"Python documentation: collections.Counter","url":"https://docs.python.org/3/library/collections.html#collections.Counter"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -201,6 +201,19 @@ print("PASS: no exact input appears in both sets")
 
 This only validates fixture structure. It does not determine whether the labels are semantically correct or whether two different sentences express the same underlying request. The [Python Counter documentation](https://docs.python.org/3/library/collections.html#collections.Counter) explains the counting utility used here.
 
+### Original 12-case blind test: grade your own output without an API
+
+The eight held-out messages printed above already show their answers. They are useful demonstrations, **not a blind test for anyone who has read the table**. To test a prompt without seeing the reference judgments first, GuideHollow publishes a **different 12-message set**. None of those twelve texts appears in the eight teaching examples or the eight-row table above. Each label appears three times in its separate editorial reference key.
+
+1. [Download the 12 new questions (TSV)](/examples/fewshot-intent-audit/blind-test.tsv) and [the prediction template (TSV)](/examples/fewshot-intent-audit/predictions-template.tsv). Both are free of reference labels. The prediction template starts with `PENDING` in every output cell.
+2. Run the complete prompt above on **each message separately**, replacing `[NEW MESSAGE]` with that exact message. Put the complete returned text into the corresponding `ModelOutput` field in a local copy of the template. Keep the original case IDs and order. If the output is malformed, preserve it rather than silently converting it to a label.
+3. Download the [offline Node.js grader](/examples/fewshot-intent-audit/grade.mjs) and [separate editorial reference key](/examples/fewshot-intent-audit/answer-key.tsv) into **the same folder** as your completed TSV. With Node.js installed, run `node grade.mjs predictions-template.tsv` from that folder. The script uses only built-in filesystem functions; it does not connect to an API or transmit your text.
+4. Inspect the per-case status: `MATCH` means an exact one-token label agrees with the editorial key; `WRONG_LABEL` is a different *valid* category; `INVALID_FORMAT` means the response was not exactly one of the four uppercase labels. The latter can reveal formatting problems even when the meaning sounds correct.
+
+If you want to check the grader *without running any model*, download the separate [editor-created example responses](/examples/fewshot-intent-audit/example-outputs.tsv) and run `node grade.mjs example-outputs.tsv`. This intentionally imperfect sample should produce **10 exact matches, 1 wrong valid label, and 1 invalid format**. Those counts come from fictional editor-written responses, **not ChatGPT results**. Open the sample responses only after your independent attempt if you want to keep the exercise blind.
+
+**Why this test adds something beyond a tutorial:** the four additional challenge cases deliberately break shortcut associations involving words such as “please” and “maybe.” The offline script checks exact response shape and reference labels separately. A label match is still only agreement with a small fictional editorial policy, not proof of real-world intent recognition. Keep model name, date, settings, raw responses and reviewer disagreements if you actually conduct a model test. After using the key to tune your prompt, this set is no longer an unseen final evaluation.
+
 ## Step 6: Run held-out cases and keep raw results
 
 To evaluate a model, submit each held-out message as `NEW INPUT`. Record the full raw output, prompt version, model/product and relevant settings, expected label, actual label, and any reviewer disagreement.
@@ -260,4 +273,4 @@ Few-shot examples are **task specifications by demonstration**, not evidence tha
 - [Anthropic — Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices): relevant, varied, separated examples.
 - [Python — collections.Counter](https://docs.python.org/3/library/collections.html#collections.Counter): label-count inspection.
 
-**Verification scope:** All messages and expected labels are fictional teaching data. We executed only the local dataset-shape checks, not live model runs. No observed model accuracy, production outcome, real support case, public publication, or deployed page is claimed. Any organization must define its own labeling policy, review ambiguous records, and validate model behavior before operational use.
+**Verification scope:** All messages, expected labels, and deliberately flawed example responses are fictional teaching data. The local dataset-shape audit and the 12-case offline grader are checked against the repository's published reference files; no live model runs were performed. The 10/12 example agreement is an editor-written fixture outcome, not observed model accuracy. The exercise does not establish performance on real feedback or production readiness. Any organization must define its own labeling policy, review ambiguous records, and validate actual model behavior before operational use.

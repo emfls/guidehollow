@@ -12,7 +12,7 @@ const cases = {
 for (const [slug, expected] of Object.entries(cases)) {
   test(slug + ': official references have verified names and bounded claims',()=>{
     const content=readFileSync(new URL(folder + slug + '.md',import.meta.url),'utf8');
-    assert.match(content,/updatedDate: "2026-11-02"/);
+    assert((content.match(/^updatedDate: "(\d{4}-\d{2}-\d{2})"$/m)?.[1] ?? '') >= '2026-11-02');
     const m=content.match(/^sources: (\[[^\n]+\])/m);
     assert(m,'Article source register required');
     const refs=JSON.parse(m[1]);

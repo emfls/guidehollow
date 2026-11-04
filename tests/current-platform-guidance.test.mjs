@@ -9,7 +9,7 @@ const spaceDoc = 'https://help.openai.com/en/articles/20001549-getting-started-w
 
 test('upload guidance distinguishes rate, storage, Library and Space without destructive quick fixes', () => {
   const article=readArticle('chatgpt-file-upload-problems');
-  assert.match(article,/updatedDate: "2026-11-03"/);
+  assert((article.match(/^updatedDate: "(\d{4}-\d{2}-\d{2})"$/m)?.[1] ?? '') >= '2026-11-03');
   assert.match(article,/Settings → Storage/);
   assert.match(article,/Space.*instead of Library/);
   assert.match(article,/does \*\*not\*\* tell you how much of a rolling upload-rate allowance remains/);

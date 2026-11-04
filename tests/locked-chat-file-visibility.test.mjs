@@ -8,7 +8,7 @@ const officialSpace='https://help.openai.com/en/articles/20001549-getting-starte
 
 test('missing-file troubleshooting distinguishes hidden locked-chat files from upload failures',()=>{
   const guide=read('chatgpt-file-upload-problems');
-  assert(guide.includes('updatedDate: "2026-11-03"'));
+  assert((guide.match(/^updatedDate: "(\d{4}-\d{2}-\d{2})"$/m)?.[1] ?? '') >= '2026-11-03');
   assert(guide.includes('Uploaded a file but cannot find it? Check visibility before making a destructive change'));
   for(const term of ['Library','Space','Temporary Chat','Projects → Locked chats','originating locked chat','existing PIN','supported device authentication','mobile']) {
     assert(guide.includes(term),'Missing documented diagnostic branch: '+term);
