@@ -128,7 +128,7 @@ test('editing answers invalidates any previous scoring while keeping other answe
   env.grade();
   assert.equal(env.feedback.children.length,3);
   assert.match(env.status.textContent,/5\/5 labels matched/);
-  env.select('G04','UNSUPPORTED');
+  env.select('G04','SUPPORTED');
   assert.equal(env.feedback.children.length,0,'A changed answer removes stale scoring');
   assert.equal(env.currentChoices().G06,cases.find(x=>x.id==='G06').expected);
   env.grade();
@@ -136,7 +136,7 @@ test('editing answers invalidates any previous scoring while keeping other answe
   env.switchTo('all');
   assert.equal(env.feedback.children.length,0);
   env.switchTo('sample');
-  assert.equal(env.currentChoices().G04,'UNSUPPORTED','Changed answers must stay changed across set switches');
+  assert.equal(env.currentChoices().G04,'SUPPORTED','Changed answers must stay changed across set switches');
 });
 
 test('Try again cancel preserves all answers and scored explanations; confirmed reset clears hidden answers too',async()=>{
