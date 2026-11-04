@@ -1,0 +1,9 @@
+CaseID	SourceID	Action	Owner	DueDate
+C01	A01	Draft the two-page flyer	Mira	2026-11-02
+C01	A02	Proofread the two-page flyer	Jo	2026-11-03
+C02	A01	Draft the two-page flyer	not specified	not specified
+C02	A02	Proofread the two-page flyer	not specified	not specified
+C03	A02	Draft the two-page flyer	Jo	not specified
+C04	NONE	ASK_FOR_NOTES	not specified	not specified
+C05	A21	Post the community event schedule	Hana	2027-02-04
+C06	NONE	REJECT_INPUT	not specified	not specified

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "description": "Original fictional cases for isolated reusable-template preflight and local review. No observed AI outputs.",
+  "cases": [
+    {
+      "id": "C01",
+      "name": "Fully assigned flyer work",
+      "audience": "Community program coordinator",
+      "referenceDate": "2026-10-23",
+      "notes": "D01 | APPROVED DECISION | Create a two-page volunteer flyer.\nA01 | APPROVED ACTION | Draft the two-page flyer | Owner: Mira | Due: 2026-11-02\nA02 | APPROVED ACTION | Proofread the two-page flyer | Owner: Jo | Due: 2026-11-03"
+    },
+    {
+      "id": "C02",
+      "name": "Same work, no owners or due dates",
+      "audience": "Community program coordinator",
+      "referenceDate": "2026-11-04",
+      "notes": "D01 | APPROVED DECISION | Create a two-page volunteer flyer.\nA01 | APPROVED ACTION | Draft the two-page flyer | Owner: not specified | Due: not specified\nA02 | APPROVED ACTION | Proofread the two-page flyer | Owner: not specified | Due: not specified"
+    },
+    {
+      "id": "C03",
+      "name": "Superseded booklet proposal",
+      "audience": "Community program coordinator",
+      "referenceDate": "2026-11-04",
+      "notes": "P01 | DRAFT PROPOSAL | Create a six-page booklet; Mira would draft it by 2026-11-01.\nX01 | REJECTED | The booklet proposal and its proposed deadline were rejected.\nD01 | APPROVED DECISION | Create a two-page volunteer flyer instead.\nA02 | APPROVED ACTION | Draft the two-page flyer | Owner: Jo | Due: not specified"
+    },
+    {
+      "id": "C04",
+      "name": "No source notes",
+      "audience": "Community program coordinator",
+      "referenceDate": "2026-11-04",
+      "notes": ""
+    },
+    {
+      "id": "C05",
+      "name": "Different project and reference date",
+      "audience": "Neighborhood events editor",
+      "referenceDate": "2027-02-02",
+      "notes": "D21 | APPROVED DECISION | Publish the spring community events schedule.\nA21 | APPROVED ACTION | Post the community event schedule | Owner: Hana | Due: 2027-02-04\nP22 | PROPOSED | Add automatic text reminders in a later release."
+    },
+    {
+      "id": "C06",
+      "name": "Missing required audience",
+      "audience": "",
+      "referenceDate": "2026-11-04",
+      "notes": "D01 | APPROVED DECISION | Create a two-page volunteer flyer."
+    }
+  ]
+}
