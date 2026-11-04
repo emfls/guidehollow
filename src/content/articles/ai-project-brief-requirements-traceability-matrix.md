@@ -5,8 +5,8 @@ slug: "ai-project-brief-requirements-traceability-matrix"
 category: "guides"
 tags: ["ai", "project-brief", "requirements", "traceability", "workflows", "source-verification"]
 publishedDate: "2026-10-30"
-updatedDate: "2026-10-30"
-sources: [{"title": "www.nasa.gov — reference", "url": "https://www.nasa.gov/reference/6-2-requirements-management/"}, {"title": "www.nasa.gov — reference", "url": "https://www.nasa.gov/reference/system-engineering-handbook-appendix/"}, {"title": "www.atlassian.com — reference", "url": "https://www.atlassian.com/work-management/project-management/requirements-gathering"}, {"title": "www.atlassian.com — reference", "url": "https://www.atlassian.com/work-management/project-management/acceptance-criteria"}, {"title": "www.atlassian.com — reference", "url": "https://www.atlassian.com/agile/project-management/user-stories"}]
+updatedDate: "2026-11-04"
+sources: [{"title": "NASA: 6.2 Requirements Management", "url": "https://www.nasa.gov/reference/6-2-requirements-management/"}, {"title": "NASA: Systems Engineering Handbook Appendix", "url": "https://www.nasa.gov/reference/system-engineering-handbook-appendix/"}, {"title": "Atlassian: What Is Requirements Gathering?", "url": "https://www.atlassian.com/work-management/project-management/requirements-gathering"}, {"title": "Atlassian: Acceptance Criteria", "url": "https://www.atlassian.com/work-management/project-management/acceptance-criteria"}, {"title": "Atlassian: User Stories", "url": "https://www.atlassian.com/agile/project-management/user-stories"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -150,6 +150,40 @@ These results verify our manually constructed editorial fixture. They do **not**
 
 On a larger project, a simple count is necessary but insufficient. One sentence could contain multiple obligations, and a feature could appear in several source sections. After counting, inspect the actual wording and relationships.
 
+## Reproduce the nine-line audit with downloadable files
+
+The tables above can now be **checked outside this article**, including a deliberately flawed extraction. All four resources are first-party files containing an invented volunteer-signup project brief—not confidential company records or actual model responses.
+
+1. [Download the original, versioned project brief](/examples/requirements-traceability/project-brief-v1.txt). Its exact source sentences are labeled B1–B9.
+2. [Download the reviewed nine-row register (TSV)](/examples/requirements-traceability/reviewed-register.tsv). Every row keeps its source ID, authority status, **verbatim source quotation**, and a separate human-written working interpretation. The reference is an editorial judgment, not a stakeholder approval.
+3. [Download the intentionally faulty eight-row register (TSV)](/examples/requirements-traceability/faulty-register.tsv). Before comparing the files, try to find all its errors. One important error is intentionally **not detectable** by the automatic checker.
+4. [Download the offline source-audit script (Node.js)](/examples/requirements-traceability/audit.mjs) into the same local folder as the source and registers. Node.js is required, but no packages, login, network connection or paid AI service are needed.
+
+From that folder, run:
+
+```bash
+node audit.mjs reviewed-register.tsv
+node audit.mjs faulty-register.tsv
+```
+
+The first invocation should report **PASS** and exit with code 0. The second should report **FAIL** and exit with code 2, with these three source-integrity problems:
+
+| Fault | What the checker detects | Why it matters |
+| --- | --- | --- |
+| B6 changes the quoted viewport width from 768 px to 780 px | `QUOTE_MISMATCH` | A supposed source quotation no longer matches the frozen original. |
+| B7 labels the unapproved SMS reminder `APPROVED` | `STATUS_MISMATCH` | A proposal has been promoted into scope without a decision. |
+| B8 is missing entirely | `MISSING_ID` | The unresolved approval-owner question vanished from the handoff. |
+
+**Fourth problem — the checker cannot detect it:** the faulty register's B3 row accurately quotes the requirement to *display* a confirmation code, but its separate `WorkingInterpretation` claims the system will **send a confirmation email**. The source says nothing about email delivery. Because the checker only validates ID coverage, exact authority labels and quoted source sentences, this invented feature slips through. **A passing automated audit is not a semantic approval.** Read every interpretation against its linked sentence before creating tickets.
+
+### Try two mutations that separate mechanical checking from real review
+
+**Source quotation drift:** In your local copy of the reviewed register, change only the B5 `SourceQuote` from “24 hours” to “48 hours.” The script should flag B5 as `QUOTE_MISMATCH`. Restore it before the next test.
+
+**Interpretation drift:** Keep B5's original quotation unchanged, but change its `WorkingInterpretation` to “Allow shift changes until 48 hours before start.” The script will still report PASS, because it does not judge the meaning of prose. Your human review must reject the edited interpretation. This counterexample is why **traceability alone is not correctness**.
+
+The [published regression checks](https://github.com/emfls/guidehollow/blob/main/tests/requirements-traceability-audit.test.mjs) verify the original lines, example error detections and CLI results. They do not establish the factual validity of real-world requirements, AI model behavior, or professional requirements-management certification.
+
 ## Step 7: Convert verification ideas into reviewed acceptance criteria
 
 A traceability matrix describes where a requirement comes from. An acceptance criterion describes an agreed condition that demonstrates a user-facing requirement is met. Those are related but not identical artifacts.
@@ -222,4 +256,4 @@ AI can reduce transcription and formatting effort, but a clean table is **not pr
 - [Atlassian — Acceptance Criteria](https://www.atlassian.com/work-management/project-management/acceptance-criteria). How acceptance criteria support a shared and testable understanding of a requirement.
 - [Atlassian — User Stories](https://www.atlassian.com/agile/project-management/user-stories). The distinction between user intent, conversations, and agreed conditions of completion.
 
-**What we actually tested:** The nine fictional brief statements were parsed in a local Python standard-library test. The expected distribution—6 approved, 1 proposed, 1 open, 1 excluded—and the six-ID approved mapping were independently asserted. No live AI extraction test, NASA process certification, Jira or Microsoft project-tool execution, or actual client requirements review was performed.
+**What we actually tested:** The original nine fictional brief statements were checked locally for structure and their intended distribution (6 approved, 1 proposed, 1 open, 1 excluded). The downloadable Node.js audit now independently checks source-ID coverage, unchanged status labels and exact quotations, with negative fixtures and a deliberate example of an error it cannot catch. The editor-written working interpretations still require human semantic review. No live AI extraction test, NASA process certification, Jira or Microsoft project-tool execution, or actual client requirements review was performed.

@@ -1,0 +1,10 @@
+SourceID	DeclaredStatus	SourceQuote	WorkingInterpretation
+B1	APPROVED	The volunteer signup form requires name, email address, and selected shift.	Signup requires name, email address, and selected shift.
+B2	APPROVED	The form lists available shifts for the next 14 calendar days.	Show shifts for the next 14 calendar days; inclusivity and timezone remain unconfirmed.
+B3	APPROVED	Successful submission displays a confirmation code.	Show a confirmation code after successful submission; no email is specified.
+B4	APPROVED	Coordinators can export approved signups as CSV.	Allow coordinators to export approved signups as CSV; format details remain unconfirmed.
+B5	APPROVED	A volunteer may change their selected shift until 24 hours before the shift begins.	Allow volunteers to change their selected shift until 24 hours before shift start; exact cutoff instant is unclear.
+B6	APPROVED	The form must support 375 px and 768 px viewport widths.	Support both 375 px and 768 px viewport widths; no design system is specified.
+B7	PROPOSED	An SMS reminder 2 hours before a shift was suggested but not approved.	SMS reminders are suggested only; seek a scope decision before implementation.
+B8	OPEN	Who approves new signups has not been decided.	Approval ownership remains undecided; do not assign it to coordinators by inference.
+B9	EXCLUDED	Online payments are excluded from the current release.	Online payments are explicitly excluded from this release.

@@ -1,0 +1,13 @@
+FICTIONAL VOLUNTEER SHIFT SIGNUP — PROJECT BRIEF v1
+Original editor-written learning fixture. NOT a real client specification or approval record.
+Status labels belong to this invented source; only APPROVED rows enter the approved requirements table.
+
+B1 | APPROVED | The volunteer signup form requires name, email address, and selected shift.
+B2 | APPROVED | The form lists available shifts for the next 14 calendar days.
+B3 | APPROVED | Successful submission displays a confirmation code.
+B4 | APPROVED | Coordinators can export approved signups as CSV.
+B5 | APPROVED | A volunteer may change their selected shift until 24 hours before the shift begins.
+B6 | APPROVED | The form must support 375 px and 768 px viewport widths.
+B7 | PROPOSED | An SMS reminder 2 hours before a shift was suggested but not approved.
+B8 | OPEN | Who approves new signups has not been decided.
+B9 | EXCLUDED | Online payments are excluded from the current release.
