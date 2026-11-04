@@ -209,7 +209,7 @@ if (form && fields && source && claim && passage && verdict && note && status &&
   // A browser may display a native leave warning after a user gesture.
   // We cannot guarantee it (mobile browsers may suppress it), and we never
   // persist personal review text behind the visitor's back.
-  window.addEventListener('beforeunload', event => {
+  window.addEventListener?.('beforeunload', event => {
     if (!hasReviewWork()) return;
     event.preventDefault();
     event.returnValue = '';
