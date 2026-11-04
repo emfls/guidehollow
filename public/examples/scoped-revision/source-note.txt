@@ -1,0 +1,8 @@
+FICTIONAL SUPPORT NOTE — source-only teaching fixture
+A customer cannot open the report download link.
+They have tried twice. The note does not provide
+an error code or a browser version. No repair,
+refund, or delivery promise has been confirmed.
+
+This is invented for GuideHollow's source-bound revision exercise.
+No actual customer, AI experiment, or support case is represented.
