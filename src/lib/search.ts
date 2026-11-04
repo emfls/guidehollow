@@ -25,6 +25,23 @@ export function readableSearchText(raw: string): string {
 
 const WORDS = /[\p{L}\p{N}]+/gu;
 
+// Match only known names already covered by published GuideHollow articles.
+// These are alternate *spellings* of the same name, not fuzzy synonyms:
+// the query "chat gpt" must not fail on a guide that writes "ChatGPT".
+// Never collapse generic punctuation in API-key, PDF/OCR or CSV/JSON.
+const NAME_SPELLINGS: readonly [RegExp, string][] = [
+  [/\bchat[\s._/-]+gpt\b/g, 'chatgpt'],
+  [/\bopen[\s._/-]+ai\b/g, 'openai'],
+  [/\bnotebook[\s._/-]+lm\b/g, 'notebooklm'],
+  [/\be[\s._/-]+mail\b/g, 'email'],
+];
+
+function normalizedQuery(value: string): string {
+  let result = value.normalize('NFKC').toLocaleLowerCase('en-US');
+  for (const [spelling,canonical] of NAME_SPELLINGS) result = result.replace(spelling,canonical);
+  return result;
+}
+
 // Question scaffolding is not a document topic. A reader asking "why can't I
 // upload my files?" should find an upload guide even if the guide never says
 // "my". Keep technical tokens (API, PDF, OCR, CSV, JSON) as required terms.
@@ -37,7 +54,7 @@ const QUESTION_FILLERS = new Set([
 
 /** Treat punctuation as separators; ignore question scaffolding, not technical content. */
 export function searchTerms(value: string): string[] {
-  const words = value.normalize('NFKC').toLocaleLowerCase('en-US').match(WORDS) ?? [];
+  const words = normalizedQuery(value).match(WORDS) ?? [];
   return [...new Set(words.filter(word =>
     (word.length >= 2 || /^\d+$/.test(word)) && !QUESTION_FILLERS.has(word)))];
 }
