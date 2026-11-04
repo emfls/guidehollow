@@ -29,6 +29,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-space-permissions"><span class="mono muted">14 /</span> Space sharing permissions</a></li>
         <li><a href="#evidence-meeting-actions"><span class="mono muted">15 /</span> Approved meeting actions versus draft proposals</a></li>
         <li><a href="#evidence-requirements-traceability"><span class="mono muted">16 /</span> Requirements scope and source integrity</a></li>
+        <li><a href="#evidence-scoped-revision"><span class="mono muted">17 /</span> Frozen-text versus edit-scope drift</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -195,6 +196,15 @@ import Base from '../layouts/Base.astro';
     </ol>
     <p><strong>Important limitation:</strong> a matching quotation and a clean automated audit do not prove the associated written requirement is accurate. The <a href="/guides/ai-project-brief-requirements-traceability-matrix/">step-by-step requirements guide</a> demonstrates a deliberate interpretation change that this checker cannot detect. These examples are editor-written, not measured AI outputs, client requirements, or certified engineering reviews. The <a href="https://github.com/emfls/guidehollow/blob/main/tests/requirements-traceability-audit.test.mjs">published fixture tests</a> establish internal consistency only.</p>
 
+    <h2 id="evidence-scoped-revision">17. Does a requested one-line revision silently change an approved answer?</h2>
+    <p><strong>Question:</strong> can a reader preserve already approved text exactly while rewriting only the questions in the third line—and still catch meaning errors that automated comparisons miss? These <strong>seven original, fictional downloadable resources</strong> keep the source, approval baseline and candidate revisions separate. The baseline is not a real customer record or AI model result.</p>
+    <ol>
+      <li><a href="/examples/scoped-revision/source-note.txt">Read the fictional source note</a> and <a href="/examples/scoped-revision/approved-answer.txt">the approved answer</a>. The first two bullets must not change.</li>
+      <li><a href="/examples/scoped-revision/replacement-questions.txt">Download the one-line replacement</a> and <a href="/examples/scoped-revision/scoped-edit.mjs">the offline Node.js workbench</a>. Run the <code>assemble</code> command described in the <a href="/prompts/revise-one-ai-answer-section-without-changing-approved-text/">complete guide</a>.</li>
+      <li><a href="/examples/scoped-revision/reference-revised.txt">Compare the human-written reference</a> with the generated result, then run the <code>check</code> command against the <a href="/examples/scoped-revision/overreach-revised.txt">frozen-text drift example</a>. It must fail even though the new wording is a harmless-looking contraction.</li>
+      <li>Finally, run the same checker against the <a href="/examples/scoped-revision/unsupported-revised.txt">unsupported-error-code example</a>. It intentionally <strong>passes literal checks</strong>, although it invents an E42 error absent from the source. Reject it after human review.</li>
+    </ol>
+    <p><strong>Scope and limitation:</strong> the checker compares literal protected lines and minimal formatting. It does not detect unsupported claims, authenticate approvals, edit real documents, or test an AI model. The <a href="https://github.com/emfls/guidehollow/blob/main/tests/scoped-edit-workbench.test.mjs">published regression tests</a> independently exercise this exact distinction.</p>
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
     <p>We have not independently repeated every historic ChatGPT run, tested every spreadsheet product version, or proven a universal AI performance claim. The purpose of these exercises is to help readers <strong>detect mistakes themselves</strong>, not to make a small example look like large-scale research.</p>

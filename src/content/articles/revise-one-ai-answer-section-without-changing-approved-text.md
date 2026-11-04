@@ -1,11 +1,11 @@
 ---
 title: "How to Revise One Section of an AI Answer Without Changing Approved Text"
-description: "Revise only one section of an AI answer while preserving approved text exactly. Includes a copyable revision prompt, reference output, Python check, and limits."
+description: "Revise one AI answer section without changing approved lines. Copy the prompt, use an offline patch tool, and inspect errors that literal checks miss."
 slug: "revise-one-ai-answer-section-without-changing-approved-text"
 category: "prompts"
 tags: ["prompt-engineering", "scoped-revision", "ai-quality", "output-control", "validation"]
 publishedDate: "2026-10-29"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-04"
 sources: [{"title":"OpenAI API: Prompt engineering","url":"https://developers.openai.com/api/docs/guides/prompt-engineering"},{"title":"OpenAI API: Evaluation best practices","url":"https://developers.openai.com/api/docs/guides/evaluation-best-practices"},{"title":"Python documentation: Built-in types — str.splitlines","url":"https://docs.python.org/3/library/stdtypes.html#str.splitlines"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -157,6 +157,38 @@ assert_scoped_edit(approved, revised)
 
 The script checks line count, labels, frozen content, and question-mark count. It does not check whether the new questions are relevant, whether the original approved bullets are factually correct, or whether a browser/version answer is obtainable. Those require human review. For exact file-level validation, also consider newline style, Unicode normalization, and whitespace handling; `splitlines()` intentionally abstracts away line separators.
 
+### Download and test a complete offline scoped-revision workbench
+
+The Python example above checks strings supplied inside the script. These **seven original, downloadable local files** let you check the same approval boundary on real files without an AI account or a private customer record:
+
+- [Fictional source note (TXT)](/examples/scoped-revision/source-note.txt) — the only factual basis for the exercise.
+- [Approved three-bullet baseline (TXT)](/examples/scoped-revision/approved-answer.txt) — the frozen original.
+- [Replacement questions only (TXT)](/examples/scoped-revision/replacement-questions.txt) — new text for the third bullet, without the label.
+- [Valid reference answer (TXT)](/examples/scoped-revision/reference-revised.txt) — a human-written complete revision.
+- [Overreach example (TXT)](/examples/scoped-revision/overreach-revised.txt) — subtly changes a frozen word.
+- [Unsupported-question example (TXT)](/examples/scoped-revision/unsupported-revised.txt) — contains a made-up error code while preserving the frozen lines.
+- [Offline Node.js patch workbench](/examples/scoped-revision/scoped-edit.mjs) — assembles or checks the revision using only built-in functions, without packages, network access or an AI model.
+
+Download all files to one local folder. Run the following commands there:
+
+```bash
+node scoped-edit.mjs assemble approved-answer.txt replacement-questions.txt > my-revision.txt
+node scoped-edit.mjs check approved-answer.txt my-revision.txt
+node scoped-edit.mjs check approved-answer.txt overreach-revised.txt
+node scoped-edit.mjs check approved-answer.txt unsupported-revised.txt
+```
+
+The **assemble** command copies the approved first two lines directly from the saved file and appends only the replacement under the existing third label. It preserves the baseline's final LF newline and rejects multiline replacement text or a replacement with anything other than two question marks. In this path the AI never has to retype the protected content.
+
+| Checked file | Mechanical result | Editorial conclusion |
+| --- | --- | --- |
+| `my-revision.txt` | **PASS** | The two questions still need a human source check. |
+| `overreach-revised.txt` | **FAIL: FROZEN_TEXT_DRIFT** | A contraction from “cannot” to “can't” violates the exact approval boundary. |
+| `unsupported-revised.txt` | **PASS** | **Reject despite PASS:** the source does not establish an E42 error or that a repair happened. |
+
+**Why the last PASS matters:** literal comparison can protect exact approved wording, labels and output shape. It cannot determine whether the new question asserts a fact, subtly suggests an answer or uses an unsupported diagnosis. Read the [original source note](/examples/scoped-revision/source-note.txt) before accepting an edited reply. A correct two-question count is not a semantic validation.
+
+The local checker deliberately expects LF line endings rather than silently normalizing line separators; it is not a full editor, security boundary, or substitute for permissions and human approval. For real work, retain the original and the reviewer decision in an appropriate controlled system. [Published regression tests](https://github.com/emfls/guidehollow/blob/main/tests/scoped-edit-workbench.test.mjs) verify the successful patch, frozen-text drift, and the semantic blind spot. No live AI model revision is claimed.
 ## Step 7: Handle conflicts without silently rewriting approved text
 
 Suppose the new request says, “Change the Missing details bullet to say the download works now.” The original source has no confirmation of a fix. A responsible assistant should flag the contradiction rather than slipping a false claim into an approved record.
@@ -218,4 +250,4 @@ This workflow is especially useful for regulated wording, approved customer repl
 - [OpenAI: Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices) — task-specific quality checks and human review.
 - [Python documentation: str.splitlines](https://docs.python.org/3/library/stdtypes.html#str.splitlines) — behavior of the line-splitting method used in the local check.
 
-**Verification scope:** The guide's source notes and reference answer are fictional and editorially authored. The short Python comparison was executed locally on those strings, including one deliberately failing mutation. No AI-model revision run, cross-model reliability test, real customer support resolution, or production deployment is claimed.
+**Verification scope:** The source note, approved answer, replacement and flawed examples are fictional and editorially authored. The Python comparison and the downloadable Node.js assembler are independently checked in regression tests, including frozen-text drift and a semantically unsupported answer that passes literal validation. No AI-model revision run, cross-model reliability test, actual customer support resolution, external write operation or use in an organization's approval workflow is claimed.

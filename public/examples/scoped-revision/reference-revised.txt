@@ -1,0 +1,3 @@
+- Problem: The customer cannot open the report download link.
+- Confirmed facts: They tried twice; the note provides no error code or browser version.
+- Missing details: What error code appears? Which browser and version are you using?
