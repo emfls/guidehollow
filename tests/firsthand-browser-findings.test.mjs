@@ -28,7 +28,9 @@ test('a partially answered real-browser exercise should never display a misleadi
   const client = await readFile(new URL('../src/scripts/claim-checker.ts', import.meta.url), 'utf8');
   assert(client.includes('if (result.answered !== result.total)'));
   assert(client.includes('Select a verdict for every claim before grading.'));
-  assert(client.includes("form.addEventListener('change', updateSelectionCount)"));
+  assert(client.includes("form.addEventListener('change', () => {"));
+  assert(client.includes('rememberVisibleAnswers();'));
+  assert(client.includes('updateSelectionCount();'));
   assert(client.includes("input.setAttribute('aria-label', item.id + ': ' + readable[verdict])"));
   assert(client.includes("label.htmlFor = input.id"));
   const cases = parseClaimCases(await readFile(dataUrl, 'utf8'))
@@ -67,8 +69,10 @@ test('published post-fix five-answer browser observation matches the real scorin
 });
 test('editing a checked verdict clears stale scoring output before another grade', async () => {
   const script=await readFile(new URL('../src/scripts/claim-checker.ts',import.meta.url),'utf8');
-  const update=script.split('function updateSelectionCount() {')[1]?.split('function render() {')[0] ?? '';
+  const update=script.split('function updateSelectionCount() {')[1]?.split('function render(')[0] ?? '';
   assert(update.includes('feedback?.replaceChildren()'),'Old results should not remain visible after editing a choice');
-  assert(script.includes("form.addEventListener('change', updateSelectionCount)"));
+  assert(script.includes("form.addEventListener('change', () => {"));
+  assert(script.includes('rememberVisibleAnswers();'));
+  assert(script.includes('updateSelectionCount();'));
   assert(script.includes("if (result.answered !== result.total)"));
 });
