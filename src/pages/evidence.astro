@@ -31,6 +31,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-requirements-traceability"><span class="mono muted">16 /</span> Requirements scope and source integrity</a></li>
         <li><a href="#evidence-scoped-revision"><span class="mono muted">17 /</span> Frozen-text versus edit-scope drift</a></li>
         <li><a href="#evidence-reusable-template"><span class="mono muted">18 /</span> Reusable-template cross-case leakage</a></li>
+        <li><a href="#evidence-research-source-audit"><span class="mono muted">19 /</span> Supported vs. contradicted vs. unproven research claims</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -215,6 +216,15 @@ import Base from '../layouts/Base.astro';
       <li>Read the <a href="/prompts/how-to-build-reusable-prompt-templates/">full reusable-prompt guide</a> before testing any model. Record raw model answers separately; transcription into a worksheet and human review are still required.</li>
     </ol>
     <p><strong>Limits:</strong> cases, action references and faulty examples are editorially constructed fictional data. Local rendering and worksheet comparison are not observed AI model outputs, a production benchmark or proof that every incorrect interpretation can be caught.</p>
+    <h2 id="evidence-research-source-audit">19. When a citation is real but the conclusion is wrong</h2>
+    <p><strong>Question:</strong> can a research summary distinguish a currently supported feature, a directly contradicted claim and an unanswered question? An original <strong>three-document fictional booking-product packet</strong> contains twelve claims and a superseded guide that intentionally disagrees with its replacement. None of this is real vendor documentation or an observed ChatGPT Search or Deep Research result.</p>
+    <ol>
+      <li>Read the <a href="/examples/research-source-audit/booking-versions.txt">retired/current booking notes</a>, <a href="/examples/research-source-audit/shared-device-admin.txt">shared-device and roles note</a>, and <a href="/examples/research-source-audit/trial-and-pricing.txt">trial and pricing note</a>. Check publication status and exact passage IDs rather than relying on a feature name.</li>
+      <li>Try the <a href="/examples/research-source-audit/practice.tsv">12-claim blind worksheet</a> and <a href="/examples/research-source-audit/predictions-template.tsv">unlabeled prediction sheet</a>. Classify each claim as SUPPORTED, CONTRADICTED, or NOT_ESTABLISHED before reading the <a href="/examples/research-source-audit/answer-key.tsv">separate evidence-linked editorial key</a>.</li>
+      <li>Run the <a href="/examples/research-source-audit/grade.mjs">offline Node.js grader</a> with your saved results. The <a href="/examples/research-source-audit/example-predictions.tsv">editor-written imperfect answers</a> give 9 exact matches, 2 wrong judgments and 1 invalid format; this is not a measured model score.</li>
+      <li>Use the <a href="/ai-tools/chatgpt-search-vs-deep-research-vs-standard-chat/">full research-mode guide</a> to turn these findings into a demo checklist rather than choosing a winner based on missing evidence.</li>
+    </ol>
+    <p><strong>Scope:</strong> source-ID integrity and grading are reproducible. The truth of a real vendor feature, browser-security behavior, compliance status, or AI research accuracy is not established by these invented examples. Absence of documentation means NOT_ESTABLISHED, not necessarily CONTRADICTED.</p>
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
     <p>We have not independently repeated every historic ChatGPT run, tested every spreadsheet product version, or proven a universal AI performance claim. The purpose of these exercises is to help readers <strong>detect mistakes themselves</strong>, not to make a small example look like large-scale research.</p>
