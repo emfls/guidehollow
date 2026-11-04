@@ -1,0 +1,13 @@
+ClaimID	Judgment	EvidenceIDs	Reason
+C01	SUPPORTED	B01,B02	The current version requires coordinator approval before confirmation.
+C02	CONTRADICTED	B01,V1-01,V1-02	The current version explicitly says pending; an earlier superseded edition does not override it.
+C03	SUPPORTED	B03	The current feature note states both the included and excluded CSV record statuses.
+C04	CONTRADICTED	B04	The current feature note explicitly bars read-only staff from exports.
+C05	SUPPORTED	S01	The shared-device note states an inactivity timeout of 10 minutes.
+C06	NOT_ESTABLISHED	S02	The note leaves browser history and local downloads unresolved; sign-out alone does not establish erasure.
+C07	SUPPORTED	T01	The pilot duration and limit are stated for submitted booking requests.
+C08	CONTRADICTED	T02	The terms explicitly rule out a permanent free tier.
+C09	NOT_ESTABLISHED	T04	A certification is not documented; absence of evidence is not evidence of noncompliance.
+C10	NOT_ESTABLISHED	B05,T05	Neither note establishes an SMS entitlement across paid plans.
+C11	NOT_ESTABLISHED	S04	Role behavior under a shared login is explicitly unspecified.
+C12	NOT_ESTABLISHED	T03	The terms require a quote and do not supply a per-seat amount.

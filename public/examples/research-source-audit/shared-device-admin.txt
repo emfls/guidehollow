@@ -1,0 +1,8 @@
+FICTIONAL CEDAR APPOINTMENTS — SHARED DEVICE AND ROLES NOTE
+Original GuideHollow teaching fixture, dated 2026-10-02. Not a product test or real security certification.
+
+[S01] An authenticated user session ends after 10 minutes of inactivity.
+[S02] The note does not establish whether browser history, downloads or locally saved copies are automatically erased when a session ends.
+[S03] An administrator can revoke a particular active session using the Admin Console.
+[S04] This note does not specify whether staff roles stay separated if coworkers use the same login.
+[S05] An inactivity sign-out is not equivalent to a test of confidentiality on a shared physical device.
