@@ -5,7 +5,7 @@ slug: "extract-meeting-action-items-with-ai"
 category: "guides"
 tags: ["productivity", "verification", "prompting"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-24"
+updatedDate: "2026-11-04"
 sources: [{"title": "OpenAI: Prompt engineering best practices for ChatGPT", "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -95,6 +95,37 @@ Do not convert this to “Lena will hold training next week.” The approved act
 Do not calculate the deadline from the day you happen to run the prompt. Preserve the original wording until its reference date and intended meaning are confirmed. Comparing printers also does not approve a purchase or establish a budget.
 
 These three reference results were written for teaching; they are not observed model outputs. For repeatable prompt testing across normal, sparse, and conflicting inputs, use the separate [template testing guide](/prompts/how-to-build-reusable-prompt-templates/). This article focuses on interpreting meeting commitments before putting them into a tracker.
+
+## A 15-claim audit with downloadable original notes
+
+The examples above show the principle. This second exercise asks you to **apply it to a complete, conflicting source packet**, rather than trust a polished answer. The fictional library committee has two records: an earlier unapproved draft agenda and later approved minutes. Both contain believable dates and names. Only one controls the final tracker.
+
+1. [Download the complete fictional source notes](/examples/meeting-action-audit/source-notes.txt) and read **Document A** and **Document B**. Each statement has a stable ID such as `D01` (draft) or `M04` (approved).
+2. [Download the 15-case blank practice sheet (TSV)](/examples/meeting-action-audit/practice.tsv). For each candidate, choose **KEEP** if supported as written, **REWRITE** if it contains a usable idea but loses a material detail, or **REMOVE** if it should not be represented as an approved claim. Add a short source ID and reason in your own copy.
+3. Finish all 15 judgments *before* opening the [separate editorial answer key (TSV)](/examples/meeting-action-audit/answer-key.tsv). The key includes the original source IDs, a usable replacement or removal instruction, and the explanation for each decision. Compare the reasoning, not merely the label.
+
+This is a **blind editorial source-reading exercise**. It does not contact ChatGPT, grade a real model, or claim to measure AI reliability. A row that mentions a real-sounding date is not necessarily an approved deadline.
+
+### From the approved record to an action tracker
+
+The approved minutes support these four action rows (two unconditional tasks, one conditional task, and one task without an owner). Reconstruct them yourself before comparing:
+
+| Action | Owner | Date or condition | Approved source |
+| --- | --- | --- | --- |
+| Draft checkout instructions | Mira | Due November 9, 2026 | M02 |
+| Inventory 12 existing chargers | Jo | Due November 6, 2026 | M03 |
+| Schedule volunteer orientation | Lena | **Only if lockable storage is confirmed**; date not specified | M04 |
+| Review draft signage | not specified | Before opening; calendar deadline not specified | M09 |
+
+The approved **decision** is a pilot for 12 existing chargers (M01), not a printer lease. A follow-up committee meeting on November 13 (M08) is a **scheduled event**, not a due date you can paste onto every task. The **open questions** include the opening date (M05), weekend staffing (M06), who will obtain storage confirmation (M10), and who owns signage review (M09). Keeping those questions separate is a useful output, not an admission that the summary failed.
+
+### Two changes that reveal a bad extraction rule
+
+**Mutation A — condition versus completion:** Make a private copy of M04 and change only “The condition is not yet met” to “Facilities confirmed lockable storage.” Lena may now proceed to **schedule** orientation. This still does not mean orientation already happened, nor does it authorize inventing a calendar date. A response that says training was completed or held next week fails the source check.
+
+**Mutation B — meeting date versus task due date:** Move only the follow-up meeting in M08 from November 13 to November 20. The deadlines in M02 and M03 **must not change**. If an output automatically moves Jo's November 6 inventory deadline, it has mistakenly treated the committee meeting as the source of every deadline.
+
+The published editorial key contains **6 KEEP, 3 REWRITE, and 6 REMOVE** decisions. Those counts are checks on this particular invented exercise, not statistics about real model performance. The separately published [fixture integrity test](https://github.com/emfls/guidehollow/blob/main/tests/meeting-action-audit.test.mjs) verifies that the source IDs, blind worksheet and answer key remain aligned; it cannot prove that a human's interpretation of real meeting notes is correct.
 
 ## Five checks before you share the result
 
