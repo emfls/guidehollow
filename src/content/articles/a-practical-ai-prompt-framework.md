@@ -5,7 +5,7 @@ slug: "a-practical-ai-prompt-framework"
 category: "prompts"
 tags: ["prompting", "workflows"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-04"
 sources: [{"title": "Google: Prompt design strategies", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -95,6 +95,39 @@ Three questions for the next volunteer:
 **Check each part of the framework:** Goal is met because the handoff identifies the next decisions. Inputs are preserved: two volunteers, a suggested room, an existing draft, and no approved date. Boundaries are respected because no booking, owner, or deadline is invented. Output is a four-column table and three questions, within 300 words.
 
 A table that labels the room “reserved” fails even if the other rows are correct. A table that calls every item “unknown” also fails: it discards the confirmed volunteer count and the existence of the draft. Compare meaning, not identical wording.
+
+## Stress-test the four sections against conflicting source material
+
+The single-event example above is intentionally short. To test whether your framework survives conflicting records, use the [original two-document library pilot packet](/examples/meeting-action-audit/source-notes.txt). It contains a draft proposal and approved meeting minutes with different dates, an unapproved expense estimate, an unassigned responsibility, and a conditional action.
+
+Build a new prompt using these exact four sections:
+
+```text
+GOAL
+Prepare a handoff for the person maintaining the library pilot action tracker.
+
+INPUTS
+Use the attached fictional source packet. Document A is an unapproved
+proposal. Document B contains the approved minutes, tagged M01–M10.
+
+BOUNDARIES
+Extract an approved decision only if Document B supports it.
+Do not carry dates or printer-lease ideas from Document A into the tracker.
+Preserve the condition on M04; do not turn scheduling into completion.
+Keep unassigned owners and undetermined opening dates unresolved.
+Do not infer a task deadline from the follow-up meeting date.
+
+OUTPUT
+1. One-sentence scope of the approved pilot.
+2. A table: Action | Owner | Due date/condition | Source ID.
+3. Three unresolved questions, labeled as questions rather than tasks.
+```
+
+**Expected editorial checks:** the scope is 12 *existing chargers*, not printers; Mira's and Jo's deadlines remain November 9 and November 6; Lena's work depends on facilities approval and has no due date; signage review has no assigned owner. If the output claims that 420 credits was approved, or converts the November 13 follow-up meeting into everyone's deadline, it fails even if the table looks professional.
+
+To check a draft on a row-by-row basis, complete the [15-claim blind worksheet](/examples/meeting-action-audit/practice.tsv) before revealing its [separate editorial answer key](/examples/meeting-action-audit/answer-key.tsv). The [meeting-action extraction guide](/guides/extract-meeting-action-items-with-ai/) provides the reconstructed tracker and two counterfactual tests.
+
+This is an editor-created source packet and reference output, not a record of a live AI system following the prompt. Your actual model output should be saved and compared with the original notes before making any claim about its reliability.
 
 ## Review the framework in reverse
 

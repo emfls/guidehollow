@@ -27,6 +27,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#evidence-csv-source-integrity"><span class="mono muted">12 /</span> Original CSV audit fixtures</a></li>
         <li><a href="#evidence-injection"><span class="mono muted">13 /</span> Prompt-injection boundary drill</a></li>
         <li><a href="#evidence-space-permissions"><span class="mono muted">14 /</span> Space sharing permissions</a></li>
+        <li><a href="#evidence-meeting-actions"><span class="mono muted">15 /</span> Approved meeting actions versus draft proposals</a></li>
       </ol>
       <p class="small"><a href="#evidence-limitations">Read the evidence limits and review scope</a> before interpreting an example as a real-world performance claim.</p>
     </nav>
@@ -168,6 +169,16 @@ import Base from '../layouts/Base.astro';
     </ol>
     <p><strong>Try a counterexample:</strong> in your own copy of S04, replace the copied confidential text with a plain link to the restricted document. Re-evaluate the result, but keep the original source's permissions unchanged. Then consider S06: removing a person's individual invitation does not necessarily remove a separate permission inherited from a shared parent.</p>
     <p><strong>Provenance and limits:</strong> the two worksheets use six identical, deliberately invented scenarios. <a href="https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt">OpenAI's Space overview</a> and <a href="https://help.openai.com/en/articles/20001544-chatgpt-space-sharing-data-and-controls">Space sharing and data controls</a> describe the product boundaries. They do not prove any particular collaborator's access, Memory or training settings. The <a href="https://github.com/emfls/guidehollow/blob/main/tests/space-sharing-blind-practice.test.mjs">public regression test</a> verifies that the practice worksheet contains no answer labels and that all six question statements match the answer key.</p>
+
+    <h2 id="evidence-meeting-actions">15. A convincing action item can still be unapproved</h2>
+    <p><strong>Question:</strong> can a reader build a reliable action tracker when an earlier draft agenda mentions believable names, deadlines and costs that were never approved? Our <strong>original fictional two-document exercise</strong> contains 3 proposal lines and 10 approved meeting statements. A separate 15-case audit tests whether each draft claim should be kept, rewritten or excluded. No real people, meeting records or business figures were used.</p>
+    <ol>
+      <li><a href="/examples/meeting-action-audit/source-notes.txt">Read the complete numbered source notes (TXT)</a>. Compare unapproved <code>D</code> lines with the final <code>M</code> minutes.</li>
+      <li><a href="/examples/meeting-action-audit/practice.tsv">Download the blind 15-case practice sheet (TSV)</a>. Classify each candidate as KEEP, REWRITE or REMOVE and note which source line decides it. The worksheet deliberately contains no verdict labels.</li>
+      <li><a href="/examples/meeting-action-audit/answer-key.tsv">Open the separate editorial answer key (TSV)</a> only after classifying. It contains <strong>6 KEEP, 3 REWRITE, and 6 REMOVE</strong> outcomes, a source-ID pointer and a reason for each.</li>
+      <li>Use the <a href="/guides/extract-meeting-action-items-with-ai/">complete action-extraction guide</a> to rebuild a four-row tracker. Then change just the storage-condition line or the follow-up meeting date and observe which statements should <em>not</em> change.</li>
+    </ol>
+    <p><strong>Scope:</strong> the <a href="https://github.com/emfls/guidehollow/blob/main/tests/meeting-action-audit.test.mjs">published integrity test</a> checks that identifiers, labels, source references and the article links remain internally consistent. It does <em>not</em> represent a live AI model test, assess real work meetings, or establish that a human audit is infallible.</p>
 
     <h2 id="evidence-limitations">What we checked, and what remains unproven</h2>
     <p>Our <a href="/editorial-policy/">editorial policy</a> distinguishes checked calculations, source comparisons, fabricated examples and recorded model responses. The <a href="https://github.com/emfls/guidehollow/blob/main/docs/editorial-fact-check-2026-11-01.md">31-article audit register</a> describes the scope of our November 1 review and its unresolved limitations. The related <a href="https://github.com/emfls/guidehollow/blob/main/tests/editorial-fact-audit.test.mjs">test file</a> independently recalculates example figures and verifies that published articles have structured source references.</p>
