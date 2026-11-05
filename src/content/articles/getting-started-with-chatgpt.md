@@ -5,7 +5,7 @@ slug: "getting-started-with-chatgpt"
 category: "ai-tools"
 tags: ["chatgpt", "getting-started", "privacy"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-01"
+updatedDate: "2026-11-05"
 sources: [{"title": "OpenAI: The ChatGPT home page", "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page"}, {"title": "OpenAI: Data controls in ChatGPT", "url": "https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt"}, {"title": "OpenAI: Does ChatGPT tell the truth?", "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -112,7 +112,7 @@ The recorded two-turn example above is only one past response. For a different t
 
 If you try the same cases in your own ChatGPT account, save its raw answers. Compare the claims with the source notes, not with an assistant's opinion of its own work. The downloadable answers are editor-written teaching references, not ChatGPT predictions or a measured model benchmark.
 
-A useful first-session habit is to record one **success**, one **unsupported addition** and one **unanswered question**. You learn more from a concrete correction than from asking whether the product is generally accurate. This extra exercise is optional; you can read the files without signing in.
+A useful first-session habit is to record **what succeeded**, **any unsupported additions** and **any unanswered questions**. You learn more from a concrete correction than from asking whether the product is generally accurate. This extra exercise is optional; you can read the files without signing in.
 
 ## Distinguish the text task from optional features
 
