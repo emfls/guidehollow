@@ -1,0 +1,18 @@
+{
+  "scenario": "FICTIONAL-STAGING-01",
+  "throughEvent": "E03",
+  "requestedDisposition": "READY_FOR_OWNER_REVIEW",
+  "checks": {
+    "issuerRevocation": null,
+    "workloadRestoration": null,
+    "usageReview": null,
+    "chatHandling": "E03",
+    "savedFileHandling": null,
+    "shareHandling": null,
+    "prevention": null
+  },
+  "assertions": {
+    "unauthorizedUse": "UNKNOWN",
+    "allCopiesErased": "UNKNOWN"
+  }
+}
