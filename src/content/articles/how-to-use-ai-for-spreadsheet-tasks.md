@@ -118,6 +118,8 @@ Text that looks like a number may not behave as expected. Hidden filters and dup
 
 Check relative and absolute references before copying a formula. Inspect the first, middle, and last copied cells. A formula that works once can shift to the wrong range after being filled down.
 
+If you need to check a processed list against its original, our [browser-based CSV comparison tool](https://excel.guidehollow.com/tools/csv-compare/) compares two UTF-8 CSV files using one shared key, such as an order ID, and an optional amount column. The interface is in Korean; try its built-in sample first. It highlights missing or added keys, amount differences, and duplicate keys requiring review. It does not verify every cell or establish that a spreadsheet formula or payment is correct.
+
 ## If it returns an error or an unexpected total
 
 Read the exact error and compare the function syntax with your app's official documentation. Check separators, range sizes, data types, and the actual contents of criteria cells. Reduce the problem back to the four-row example before making a more complex formula.
