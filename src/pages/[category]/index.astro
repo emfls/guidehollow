@@ -37,6 +37,7 @@ const tasks: Record<string, [string, string, string][]> = {
     ['chatgpt-file-upload-problems', 'Isolate an upload failure without sharing private files', 'Distinguish limits, file formats, network problems and missing document content.'],
     ['how-to-handle-ai-context-limits', 'Recover context without losing approved facts', 'Use a checked handoff rather than trusting an increasingly long conversation.'],
     ['api-key-pasted-into-chatgpt-incident-response', 'Practice a credential-exposure response without handling real keys', 'Audit ten fictional incident events and distinguish issuer revocation, restored workloads, saved copies and unsupported closure claims.'],
+    ['chatgpt-shared-links-audit-revoke-access', 'Audit a ChatGPT share before trusting or revoking a URL', 'Inspect 14 synthetic URL patterns and eight deletion cases; distinguish link access from copies saved by recipients.'],
   ],
 };
 const routes = (tasks[category.slug] ?? []).flatMap(([slug, task, result]) => {
