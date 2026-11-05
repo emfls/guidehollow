@@ -72,7 +72,7 @@ export function gradeWorksheet(inputs,worksheet) {
 
 function main() {
   const mode=process.argv[2],file=process.argv[3];
-  if(!['scan','grade'].includes(mode)||process.argv.length!==5){
+  if(!['scan','grade'].includes(mode)||process.argv.length!==4){
     process.stderr.write('Usage: node link-shape-audit.mjs scan synthetic-links.tsv\n');
     process.stderr.write('   or: node link-shape-audit.mjs grade your-worksheet.tsv\n');
     process.exitCode=1;return;
