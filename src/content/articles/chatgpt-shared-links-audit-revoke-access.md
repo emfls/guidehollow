@@ -1,11 +1,11 @@
 ---
 title: "ChatGPT Shared Links: How to Check Access and Revoke a Link Safely"
-description: "Audit ChatGPT shared conversation and task links, check who can see them, revoke access safely, and understand what deletion cannot undo."
+description: "Audit ChatGPT shared conversation and task links, check access and separate copies, and practice with an offline synthetic-link audit and eight revocation cases."
 slug: "chatgpt-shared-links-audit-revoke-access"
 category: "troubleshooting"
 tags: ["chatgpt", "shared-links", "privacy", "access-control"]
 publishedDate: "2026-10-30"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-05"
 sources: [{"title": "OpenAI Help Center: Sharing conversations and scheduled tasks in ChatGPT", "url": "https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt"}, {"title": "OpenAI Help Center: Managing data, sharing, and privacy in ChatGPT Business", "url": "https://help.openai.com/en/articles/8798634-managing-data-sharing-and-privacy-in-chatgpt-business"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -14,7 +14,7 @@ featured: false
 
 A ChatGPT sharing link is easy to forward and easy to forget. If you have shared a conversation and now worry that someone else can read it, the appropriate response is not to guess whether deleting the original chat, changing a privacy setting, or sending an updated link will fix the problem. First identify what was shared, where the link was created, and what deleting that particular link can actually accomplish.
 
-This is a practical access review for ChatGPT conversations and scheduled tasks. It uses official OpenAI guidance checked on October 26 and rechecked on November 2, 2026. The steps describe documented functionality, not a claim that GuideHollow accessed a reader's account or performed live experiments with private conversations.
+This is a practical access review for ChatGPT conversations and scheduled tasks. Its product-specific claims were checked against OpenAI's official sharing and Business documentation on November 5, 2026. The original exercise below uses **invented URLs and situations only**: GuideHollow did not open readers' links, inspect private accounts or run any live account-sharing experiments.
 
 ## Step 1: Identify the thing that was shared
 
@@ -134,6 +134,58 @@ OpenAI documents two canonical patterns: conversation links begin with `https://
 
 For internal incident notes, record the content type and what you saw in the first-party link manager rather than pasting sensitive link URLs into a public ticket. This is a documentation-based procedure, **not** a live test of an account, scheduled task, or third-party recipient.
 
+## Inspect synthetic links without clicking them
+
+Even before you review the content of a share, a malicious URL can mislead you about its destination. OpenAI documents two first-party URL prefixes: `https://chatgpt.com/share/` for conversations and `https://chatgpt.com/s/` for scheduled tasks. An address that contains `chatgpt.com` as part of a **different hostname** is not a ChatGPT share. A correct-looking prefix is also not evidence that the destination is still accessible, authentic, or safe to open.
+
+To make this check reproducible, we created an original **14-case offline exercise**, without real shared-link IDs, requests to the web, cookies or account credentials. The local script uses JavaScript's URL parser and never opens a link.
+
+- [Download 14 synthetic link examples (TSV)](/examples/shared-link-audit/synthetic-links.tsv) — four canonical-looking conversation/task shapes and ten deliberately suspicious or unsupported forms.
+- [Download a blank classification worksheet (TSV)](/examples/shared-link-audit/classification-worksheet.tsv) — choose `CONVERSATION_PATTERN`, `TASK_PATTERN`, or `REJECT` for each case.
+- [Download the editorial reference key (TSV)](/examples/shared-link-audit/answer-key.tsv) — each reference names the strict pattern result and precise rejection reason.
+- [Download intentionally flawed example answers (TSV)](/examples/shared-link-audit/flawed-worksheet.tsv) — editor-written, not a recorded AI output; includes two unsafe false positives and two malformed labels.
+- [Download the offline URL-shape checker (Node.js)](/examples/shared-link-audit/link-shape-audit.mjs) — inspects the local text only and makes no HTTP requests.
+
+Place the files in one local folder and run:
+
+```bash
+node link-shape-audit.mjs scan synthetic-links.tsv
+node link-shape-audit.mjs grade flawed-worksheet.tsv
+node link-shape-audit.mjs grade classification-worksheet.tsv
+```
+
+The first command should report **4 recognized shapes and 10 rejected shapes**. The deliberately flawed worksheet should produce **10 matches, 2 wrong valid labels, and 2 invalid-format labels**. An untouched blank worksheet contains `UNREVIEWED` in every row, so all 14 entries should initially be marked invalid; replace those values after making your own judgments.
+
+Examples of why literal substring matching is unsafe:
+
+| Synthetic pattern | What the local checker establishes | What it cannot establish |
+| --- | --- | --- |
+| `https://chatgpt.com/share/fictional-conversation-01` | The structure matches the documented conversation prefix | That a real conversation exists or its content is safe |
+| `https://chatgpt.com/s/fictional-task-02` | The structure matches the documented scheduled-task prefix | That it belongs to a particular creator, plan or audience |
+| `https://chatgpt.com.evil.example/share/...` | The hostname is different and must be rejected | The owner's identity or intent |
+| `https://chatgpt.com@not-chatgpt.example/share/...` | The hostname is not `chatgpt.com` and the user-information syntax is suspicious | Whether a third-party page is malicious in every possible case |
+
+The tool is **deliberately strict**, rejecting query strings, fragments, nonstandard ports and extra path segments. That is a conservative *training convention*, not a claim that every legitimate ChatGPT link forever has no optional URL parameter. It does not follow redirects, authenticate a sender, establish workspace eligibility or determine whether a shared link has been revoked. Do not enter real sensitive share URLs into a public issue, paste them into a third-party checker, or trust an otherwise unfamiliar link just because a local shape test passes.
+
+## Eight share-revocation situations worth reviewing separately
+
+[Download the eight-case sharing lifecycle table (TSV)](/examples/shared-link-audit/lifecycle-boundaries.tsv) for a compact source-based audit worksheet. It maps the **observed action** to the **next required check** and the inference that action does *not* justify. These rows are original editorial teaching scenarios built from the official rules; they are not records of reader accounts.
+
+| Scenario | Appropriate follow-up | Common but unsupported conclusion |
+| --- | --- | --- |
+| Delete one personal conversation link | Confirm that link in the creator's Shared links manager | Every recipient-owned continuation or screenshot vanished |
+| Delete the original chat containing an associated shared task | Find and remove the **separate task share link** | The task link was also removed |
+| Delete an original scheduled task | Confirm the original task's share link is gone | Recipients' separately scheduled copies disappeared |
+| Lock a conversation | Remove any previously shared link independently | Locking instantly revoked the old snapshot |
+| Inspect a personal account data export | Check **Shared links → Manage** for scheduled-task URLs too | The export alone exhaustively lists every shared task link |
+
+Two account-specific boundaries also matter. A **Business** shared link is restricted to the originating workspace, but that restriction does not prove private conversations are visible to all coworkers or that a recipient did not retain a separate copy. The official documentation says Business does not offer the same workspace-wide disable-sharing control available to eligible Enterprise or Edu administrators. <strong>Do not instruct a Business member to look for an Enterprise-only sharing toggle.</strong>
+
+A personal account export can include conversation-sharing metadata in `shared_conversations.json`, but the official sharing documentation says it currently **does not include shared scheduled-task links or saved task snapshots**. That is why an apparently empty export is not an all-clear for task links. For eligible scheduled tasks, sharing may also involve connected-app or workspace permissions that are independent of the link's shape. Handle the originating account's actual UI and permissions separately.
+
+These distinctions apply to **future access through the original URL**, not to every historical copy. If you need a defensible access review, document the link's owner, share type, workspace, scope, exact removal action and remaining uncertainty; avoid copying private link URLs or content into the report.
+
+The [published regression checks](https://github.com/emfls/guidehollow/blob/main/tests/shared-link-safety-audit.test.mjs) recompute the 14 URL-shape judgments and verify the exercise data without opening any URL. They do not test OpenAI's live UI, certify a link's safety, or prove that a recipient has no saved copies.
 ## Step 7: Verify the action without spreading the URL
 
 Return to **Shared links → Manage** and confirm that the intended record is no longer listed. If organizational policy permits, open the old link in a browser session without privileged access and observe the outcome. Do not recruit a new outside tester or post the URL to a public troubleshooting forum.
@@ -172,5 +224,7 @@ Where the product supports sharing one response, determine whether that is narro
 
 ## Official sources
 
-- [OpenAI: Sharing conversations and scheduled tasks in ChatGPT](https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt)
-- [OpenAI: Managing data, sharing, and privacy in ChatGPT Business](https://help.openai.com/en/articles/8798634-managing-data-sharing-and-privacy-in-chatgpt-business)
+- [OpenAI: Sharing conversations and scheduled tasks in ChatGPT](https://help.openai.com/en/articles/7925741-sharing-conversations-and-scheduled-tasks-in-chatgpt) — personal and workspace share access, snapshots, scheduled-task copies, deletion controls, export limitations and canonical link patterns.
+- [OpenAI: Managing data, sharing, and privacy in ChatGPT Business](https://help.openai.com/en/articles/8798634-managing-data-sharing-and-privacy-in-chatgpt-business) — workspace-only sharing, recipient copies and Business-versus-Enterprise admin-control differences.
+
+**Source review and test disclosure (November 5, 2026):** Both official help pages were checked when adding this exercise. The 14 URLs and eight scenarios are synthetic editor-written cases. The Node.js script checks URL structure and the published editorial sample; it does not open links, measure ChatGPT product behavior or establish whether any link is live, trusted, accessible or revoked. Account-level permission and deletion outcomes require an authorized person to verify their own account settings.
