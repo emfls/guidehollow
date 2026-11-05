@@ -66,7 +66,8 @@ test('PDF and security guides show current downloadable primary evidence, not fa
   const security=readFileSync(path.join(root,'src/content/articles/api-key-pasted-into-chatgpt-incident-response.md'),'utf8');
   assert.match(security,/Space \*\*replaces Library\*\*/);
   assert.match(security,/Do not instruct a Space user/);
-  assert.match(security,/updatedDate: "2026-11-02"/);
+  const securityUpdated=security.match(/updatedDate: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  assert(securityUpdated && securityUpdated >= '2026-11-02', 'Security guidance must not regress to an older review date');
   const library=readFileSync(path.join(root,'src/pages/evidence.astro'),'utf8');
   assert.match(library,/evidence-pdf-ocr/);
   assert(library.includes('/examples/pdf-ocr-fixtures/fictional-expense-selectable-text.pdf'));
