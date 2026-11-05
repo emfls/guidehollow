@@ -2,6 +2,8 @@
 
 작성 및 1차 실발행: 2026-10-23 KST
 
+**현재 운영 기준(2026-10-27):** 09:17 / 15:17 / 21:17 KST, 하루 최대 3편, 슬롯별 60분 허용 창이다. 아래 1차 테스트와 과거 사전 조건은 역사 기록이다. 현재 외부 트리거 설계·권한·남은 위험은 [독립 트리거 검토](independent-publisher-trigger-audit.ko.md)를 따른다. 예약 등록/실행은 별도 승인 대상이다.
+
 ## 등록부와 대기열
 
 - [통합 원고 대기열](https://app.notion.com/p/9bae0ba5be6b4abf961b84d10724761f) · data source `b788e982-fc20-4df0-9f1b-8ff2a19f271d`
@@ -40,18 +42,17 @@
 4. `QUEUE_EMPTY`, `ALREADY_STAGED_TODAY`, `NOT_DUE`는 새 글이 없는 정상 실행 결과이며 발행 성공을 뜻하지 않음.
 5. 배포에 실패하면 **발행완료 표시를 금지**하고 Actions 로그와 GitHub/main ledger 및 실제 URL, Notion `발행중` 상태를 비교 후 복구. 같은 원고를 새로 복제해 중복 게시하지 않음.
 
-## cron-job.org 예약 설정 — 현재 미설정
+## cron-job.org 예약 설정 — 비활성 설계
 
 GitHub 본문/Notion에 민감 토큰을 기재하지 말 것. 예약 작업이 실제로 등록·성공하기 전에는 자동 발행이 가동된 것으로 보고하지 말 것.
 
-- 잡 이름: `GuideHollow daily Notion publishing`
-- 시간대: `Asia/Seoul` (cron-job.org에서 설정)
-- 권장 기본 시각(미확정): 매일 21:30 KST, 5필드 cron `30 21 * * *`
-- 방법: POST `https://api.github.com/repos/emfls/guidehollow/actions/workflows/notion-daily-publisher.yml/dispatches`
-- Body: `{"ref":"main"}`
-- Headers: `Accept: application/vnd.github+json`; `Content-Type: application/json`; `Authorization: Bearer <GUIDEHOLLOW_ONLY_FINE_GRAINED_PAT>`.
-- GitHub fine-grained PAT 범위: 저장소 `emfls/guidehollow`만, Repository permission `Actions: Read and write`; 만료 및 갱신 알림 필수.
-- 호출 성공 HTTP 204는 Actions 실행 접수일 뿐, 글 배포 성공이 아님. GitHub Actions 및 실제 사이트와 Notion 세 곳을 대조.
+기존 21:30 / 슬롯 없는 요청 안내는 폐기한다. 그 요청은 다른 빈 슬롯을 사용할 수 있다. [비활성 3개 설정 예시](examples/cron-job-org-main.disabled.json)를 참조한다. 현재 계정의 작업 등록 상태를 확인하거나 변경한 것은 아니다.
+
+- 시간대 `Asia/Seoul`, 매일 09:17 / 15:17 / 21:17에 각각 `morning` / `afternoon` / `evening`을 지정한다.
+- POST 대상은 기존 `notion-daily-publisher.yml/dispatches`, body 예시는 `{"ref":"main","inputs":{"slot":"morning"}}`. `slot` 생략 또는 `manual` 금지.
+- GitHub fine-grained PAT의 저장소는 `emfls/guidehollow`만, 권한은 `Actions: Read and write`. 이 권한은 특정 workflow만으로 한정되지 않는다는 위험이 있다.
+- 예시에는 인증값이 없다. 토큰 발급·등록·작업 활성화·실제 테스트 실행은 하지 않는다.
+- HTTP 접수 성공과 실제 발행 성공을 구분하고 timeout은 접수 여부 불명으로 수동 검토한다. 자세한 보안·복구·알림 경계는 위 검토 문서를 따른다.
 
 ## 실패 및 보안 원칙
 

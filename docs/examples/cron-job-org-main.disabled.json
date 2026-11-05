@@ -1,0 +1,50 @@
+[
+  {
+    "job": {
+      "title": "GuideHollow Main morning",
+      "enabled": false,
+      "url": "https://api.github.com/repos/emfls/guidehollow/actions/workflows/notion-daily-publisher.yml/dispatches",
+      "requestMethod": 1,
+      "requestTimeout": 30,
+      "saveResponses": false,
+      "redirectSuccess": false,
+      "schedule": {"timezone": "Asia/Seoul", "hours": [9], "minutes": [17], "mdays": [-1], "months": [-1], "wdays": [-1]},
+      "extendedData": {
+        "headers": {"Accept": "application/vnd.github+json", "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28"},
+        "body": "{\"ref\":\"main\",\"inputs\":{\"slot\":\"morning\"}}"
+      }
+    }
+  },
+  {
+    "job": {
+      "title": "GuideHollow Main afternoon",
+      "enabled": false,
+      "url": "https://api.github.com/repos/emfls/guidehollow/actions/workflows/notion-daily-publisher.yml/dispatches",
+      "requestMethod": 1,
+      "requestTimeout": 30,
+      "saveResponses": false,
+      "redirectSuccess": false,
+      "schedule": {"timezone": "Asia/Seoul", "hours": [15], "minutes": [17], "mdays": [-1], "months": [-1], "wdays": [-1]},
+      "extendedData": {
+        "headers": {"Accept": "application/vnd.github+json", "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28"},
+        "body": "{\"ref\":\"main\",\"inputs\":{\"slot\":\"afternoon\"}}"
+      }
+    }
+  },
+  {
+    "job": {
+      "title": "GuideHollow Main evening",
+      "enabled": false,
+      "url": "https://api.github.com/repos/emfls/guidehollow/actions/workflows/notion-daily-publisher.yml/dispatches",
+      "requestMethod": 1,
+      "requestTimeout": 30,
+      "saveResponses": false,
+      "redirectSuccess": false,
+      "schedule": {"timezone": "Asia/Seoul", "hours": [21], "minutes": [17], "mdays": [-1], "months": [-1], "wdays": [-1]},
+      "extendedData": {
+        "headers": {"Accept": "application/vnd.github+json", "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28"},
+        "body": "{\"ref\":\"main\",\"inputs\":{\"slot\":\"evening\"}}"
+      }
+    }
+  }
+]
