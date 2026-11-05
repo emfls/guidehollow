@@ -10,7 +10,8 @@ const sources = text => {
 
 test('sharing guide explicitly separates chat deletion from lingering scheduled task shares', () => {
   const article=read('chatgpt-shared-links-audit-revoke-access');
-  assert.match(article,/updatedDate: "2026-11-02"/);
+  const date=article.match(/updatedDate: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  assert(date && date >= "2026-11-02", "Sharing guide review date may advance but must not regress");
   assert.match(article,/deleting a conversation may leave a shared task link/i);
   assert.match(article,/associated scheduled task is \*\*paused\*\*/i);
   assert.match(article,/shared task link remains available/i);
@@ -31,7 +32,8 @@ test('high-impact article references show publisher and descriptive titles rathe
   const referenceCounts=[2,5,3];
   for(let i=0;i<guides.length;i++){
     const article=read(guides[i]);
-    assert.match(article,/updatedDate: "2026-11-02"/,guides[i]);
+    const updated=article.match(/updatedDate: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+    assert(updated && updated >= "2026-11-02", guides[i]+" review date must not regress");
     const refs=sources(article);
     assert.equal(refs.length,referenceCounts[i],guides[i]);
     const unique=new Set(refs.map(x=>x.url));

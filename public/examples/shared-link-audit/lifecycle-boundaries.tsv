@@ -1,0 +1,9 @@
+CaseID	Surface	ObservedAction	RequiredFollowUp	DoNotConclude
+R01	Personal conversation link	Delete that specific conversation link	Confirm its record is gone in the originating account's Shared links manager	The original conversation and any recipient-owned continuation have been erased
+R02	Personal conversation with associated shared scheduled task	Delete the original conversation	Inspect and remove the separate scheduled-task shared URL	The scheduled-task link was revoked by deleting the conversation
+R03	Personal scheduled task	Delete the original task	Check the associated shared task URL was removed	Copies scheduled earlier in recipients' accounts disappeared
+R04	Business workspace conversation link	Send a link to an outside email address	Verify originating workspace and access scope, and review the actual sharing preview	The entire workspace's private chat history was shared or every screenshot was prevented
+R05	Previously shared conversation	Lock the original chat	Find and revoke any preexisting shared URL separately	Locking retroactively deleted the earlier shared snapshot
+R06	Personal account data export	Inspect shared_conversations.json	Also inspect scheduled-task links in the first-party Shared links manager	Absence of task links in this export proves none exist
+R07	Personal account training setting	Turn off Improve the model for everyone	Independently check existing sharing links in Data controls	Changing training preference revoked existing links
+R08	Previously shared task copied by recipient	Revoke the originating task link	Confirm future URL access is stopped and document recipient-copy uncertainty	An independently scheduled copy in another account has been deleted
