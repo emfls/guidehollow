@@ -29,7 +29,9 @@ Opened `/tools/weighted-price-checker/`, left its eight-row sample unchanged and
 | Zero-unit line | L-106 |
 | Zero-price line | L-107 |
 
-The 999 listed price on L-106 has zero sales units; therefore the simple mean 153.25 is not the revenue-weighted selling price. This is an observed result of the site's browser utility, and can be reconciled independently from the public fixture.
+The 999 listed price on L-106 has zero sales units; therefore the simple mean 153.25 is not the quantity-weighted average selling price. This is an observed result of the site's browser utility, and can be reconciled independently from the public fixture.
+
+Editorial correction — November 5, 2026: the average is weighted by units sold, not revenue. The recorded calculation (530 ÷ 27) and observed results are unchanged.
 
 ## Trial B — Change one quantity
 
