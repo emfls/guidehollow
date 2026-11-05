@@ -120,7 +120,7 @@ test('source-updated article, task path and evidence library link all six files 
   assert.match(article,/updatedDate: "2026-11-05"/);
   assert(article.includes('product-specific claims were checked'));
   assert(article.includes('does not follow redirects'));
-  assert(article.toLowerCase().includes('data export can include conversation-sharing metadata'));
+  assert(article.toLowerCase().includes('personal account export can include conversation-sharing metadata'));
   assert(evidence.includes('id="evidence-shared-link-safety"'));
   assert(category.includes('Audit a ChatGPT share before trusting or revoking a URL'));
   const sources=JSON.parse(article.match(/^sources:\s*(\[.*\])$/m)?.[1]||'null');
