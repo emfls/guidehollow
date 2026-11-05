@@ -1,12 +1,12 @@
 ---
 title: "Accidentally Pasted an API Key into ChatGPT? A Safe Response Checklist"
-description: "Accidentally pasted an API key or password into ChatGPT? Learn how to revoke credentials, check usage, remove copies, and document the incident."
+description: "Respond to an exposed API key in ChatGPT: revoke at the issuer, review copies and logs, and practice a secret-free incident closure audit."
 slug: "api-key-pasted-into-chatgpt-incident-response"
 category: "troubleshooting"
 tags: ["chatgpt", "api-key-security", "credential-exposure", "incident-response"]
 publishedDate: "2026-10-31"
-updatedDate: "2026-11-02"
-sources: [{"title": "OpenAI Help Center: Keeping your OpenAI account secure", "url": "https://help.openai.com/en/articles/8304786-keeping-your-openai-account-secure"}, {"title": "OpenAI Help Center: Best practices for API key safety", "url": "https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety"}, {"title": "OpenAI Help Center: Deleting and archiving chats in ChatGPT", "url": "https://help.openai.com/en/articles/8809935-deleting-and-archiving-chats-in-chatgpt"}, {"title": "OpenAI Help Center: Chat and file retention guidance (URL-derived label)", "url": "https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt"}, {"title": "GitHub Docs: Resolving alerts from secret scanning", "url": "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-secret-scanning-alerts/resolving-alerts"}, {"title": "OpenAI Help Center: Getting started with Space in ChatGPT", "url": "https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
+updatedDate: "2026-11-05"
+sources: [{"title": "OpenAI Help Center: Keeping your OpenAI account secure", "url": "https://help.openai.com/en/articles/8304786-keeping-your-openai-account-secure"}, {"title": "OpenAI Help Center: Best practices for API key safety", "url": "https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety"}, {"title": "OpenAI Help Center: Deleting and archiving chats in ChatGPT", "url": "https://help.openai.com/en/articles/8809935-deleting-and-archiving-chats-in-chatgpt"}, {"title": "OpenAI Help Center: Chat and file retention in ChatGPT", "url": "https://help.openai.com/en/articles/8983778-chat-and-file-retention-in-chatgpt"}, {"title": "GitHub Docs: Resolving alerts from secret scanning", "url": "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-secret-scanning-alerts/resolving-alerts"}, {"title": "OpenAI Help Center: Getting started with Space in ChatGPT", "url": "https://help.openai.com/en/articles/20001549-getting-started-with-space-in-chatgpt"}]
 draft: false
 author: "GuideHollow Editorial"
 featured: false
@@ -16,7 +16,7 @@ You meant to ask an AI assistant why an API request was failing. While pasting t
 
 The priority is to **make a real exposed credential unusable at the issuing service**, not to ask the chatbot to forget it. Then assess what the credential could access, check usage, and handle copies in chats or attached files. A clearly fictional placeholder is different from a production token.
 
-This procedure focuses on credentials entered into ChatGPT, whether issued by OpenAI, GitHub, a database, or another service. Entering a credential does not prove it was publicly disclosed or abused. The guide draws on official OpenAI and GitHub documentation reviewed October 26 and refreshed November 2, 2026, not on a live test of a private account. The exact retention-help URL could not be re-fetched during this update; do not treat that citation as a fresh independent content verification.
+This procedure focuses on credentials entered into ChatGPT, whether issued by OpenAI, GitHub, a database, or another service. Entering a credential does not prove it was publicly disclosed or abused. The guide draws on official OpenAI and GitHub documentation, with OpenAI API-key safety, deletion, and retention guidance rechecked November 5, 2026. The steps and original practice data below are not a live test of a private account or a claim about any real incident.
 
 ## First, classify the secret without copying it again
 
@@ -129,6 +129,45 @@ This does **not** claim the key was made publicly searchable, used by an attacke
 
 The two columns prevent a containment milestone from turning into an unsupported promise. If you have no provider logs, write “not verified,” not “no unauthorized use.”
 
+## Work through an incident-closure gate with fictional records
+
+A common incident-reporting mistake is to collapse several independent outcomes into the sentence “the issue is resolved.” You can rehearse that failure **without using a credential, signing in, testing a provider, or uploading a log**. Our original downloadable exercise models one fictional staging-key incident across ten dated-by-order events.
+
+### Download the source history and four decision records
+
+- [Source event history (TSV)](/examples/credential-incident-drill/source-events.tsv) — ten editor-written event records, E01–E10, with separate domains and evidence notes. They contain **no token values**.
+- [Open-incident ledger (JSON)](/examples/credential-incident-drill/open-ledger.json) — a replacement is deployed and the issuer says the key is revoked, but a separately saved file remains unresolved and sharing review is missing.
+- [Review-ready ledger (JSON)](/examples/credential-incident-drill/review-ledger.json) — each required response track has an evidence reference, but possible unauthorized use and copies outside the reviewed surfaces are still **UNKNOWN**.
+- [Premature closure example (JSON)](/examples/credential-incident-drill/chat-deletion-only.json) — the affected chat has disappeared from the account view, but the supposed closure is not supported.
+- [Unsupported-certainty example (JSON)](/examples/credential-incident-drill/overclaim-ledger.json) — all seven workstreams are addressed, yet the record falsely claims absence of misuse and complete erasure.
+- [Offline Node.js audit script](/examples/credential-incident-drill/closure-audit.mjs) — checks evidence IDs, their order, the response domain, expected milestone status and unsupported certainty using only local files. It contacts **no** security or AI service.
+
+**A deliberate bad first move:** Event E03 shows the fictional user deleting the ChatGPT conversation **before** the provider revocation in E04. This is included to demonstrate a preventable sequencing mistake, not to recommend that order. In a real exposure, prioritize issuer-side containment and any mandatory evidence preservation; chat deletion cannot disable an active key.
+
+Download all six files into one folder and run:
+
+```bash
+node closure-audit.mjs open-ledger.json
+node closure-audit.mjs review-ledger.json
+node closure-audit.mjs chat-deletion-only.json
+node closure-audit.mjs overclaim-ledger.json
+```
+
+The first two commands should report a **consistent** declared disposition and exit successfully. The second means **READY_FOR_OWNER_REVIEW**, not “closed,” “safe,” or “no misuse.” The third and fourth should report **UNSUPPORTED** and exit with code 2, because their requested closure assessment exceeds the available evidence.
+
+| Fictional checkpoint | What is known from its source IDs | What the tool must not conclude |
+| --- | --- | --- |
+| After E03: conversation deleted from view | Only the account-view action is recorded | The key is revoked, the chat has been erased everywhere, or the incident is finished |
+| After E08: issuer revocation and restoration recorded | Those two milestones have distinct evidence IDs; usage review has limits | The saved diagnostic file and shared copies have all been handled |
+| After E10: response tracks reviewed | A responsible human can examine the record for closure | Historical unauthorized use is disproved, every copy was erased, or a legal retention duty has ended |
+
+### Change one evidence reference to expose the failure
+
+Copy the open ledger to a local working file. Change its `savedFileHandling` reference from `E07` to `E09` without advancing `throughEvent` beyond `E08`. The script reports **FUTURE_EVIDENCE**: a future file-handling event cannot justify an earlier status. Restore that value and instead use `E03` as the `issuerRevocation` reference. The script reports **WRONG_DOMAIN** because deleting the chat cannot serve as evidence that the credential issuer revoked a key.
+
+Seven independent tracks are checked: issuer revocation, workload restoration, usage review, chat handling, saved-file handling, sharing review and prevention. An incomplete track keeps the record **OPEN**. A fully referenced result only permits **READY_FOR_OWNER_REVIEW**; human authorization and source verification remain external to the program.
+
+**Scope of proof:** Everything in these six files is editorial fiction. This is a consistency test of a record someone typed, not a way to query or authenticate an issuer dashboard, detect secret leakage, establish absence of misuse or bypass a real incident-response team. It must not be used as an automated authority to close a real incident. The [published source and mutation tests](https://github.com/emfls/guidehollow/blob/main/tests/credential-incident-closure.test.mjs) show the intended results on this fixture.
 ## Copy a minimal incident template
 
 Store this only in an approved, access-controlled incident system. The template deliberately excludes credential values:
