@@ -1,0 +1,11 @@
+EventID	Sequence	Domain	RecordedState	EvidenceSummary
+E01	1	exposure	OBSERVED	A fictional staging credential appeared in a pasted diagnostic note; no value is provided.
+E02	2	ownerIdentification	CONFIRMED	The fictional issuer and authorized owner were identified from an internal record.
+E03	3	chatHandling	REMOVED_FROM_ACCOUNT_VIEW	The fictional user deleted the chat from their account view; server erasure is NOT verified.
+E04	4	issuerRevocation	CONFIRMED	The fictional issuer's credential dashboard displayed revoked; not inferred from chat deletion.
+E05	5	workloadRestoration	VERIFIED	A fictional staging-only test worked with a replacement credential; no credential value recorded.
+E06	6	usageReview	REVIEWED_WITH_LIMITS	Available fictional issuer usage records were reviewed; older logs remain unavailable and misuse is UNKNOWN.
+E07	7	savedFileHandling	PENDING	A separately saved diagnostic file was identified but not yet handled under the retention process.
+E08	8	prevention	VERIFIED	The fictional team checked a redaction preflight and approved its next-use instructions.
+E09	9	savedFileHandling	ADDRESSED	The separately saved file was reviewed and handled under the fictional retention process; universal erasure is not proven.
+E10	10	shareHandling	REVIEWED_WITH_LIMITS	The fictional owner checked available sharing controls and recorded uncertainty about copies made elsewhere.
