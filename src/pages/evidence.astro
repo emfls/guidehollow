@@ -43,7 +43,7 @@ import Base from '../layouts/Base.astro';
     <p>Choose one exercise below. The numbers are intentionally small so a reader can reproduce them without an AI account. We include incorrect or ambiguous conditions because a procedure that works only on perfect inputs is not much of a procedure.</p>
 
     <h2 id="evidence-weighted-price">1. A spreadsheet average that looks right but is wrong</h2>
-    <p><strong>Question:</strong> did a proposed average selling price account for how many units sold at each price? Our original fictional eight-row dataset has 27 units and revenue of 530. The revenue-weighted unit price is <strong>530 ÷ 27 = 19.629629…</strong>, displayed as 19.63. The simple average of the eight listed unit prices is <strong>153.25</strong>, a very different measurement.</p>
+    <p><strong>Question:</strong> did a proposed average selling price account for how many units sold at each price? Our original fictional eight-row dataset has 27 units and revenue of 530. The quantity-weighted average unit price (total revenue divided by total units sold) is <strong>530 ÷ 27 = 19.629629…</strong>, displayed as 19.63. The simple average of the eight listed unit prices is <strong>153.25</strong>, a very different measurement.</p>
     <p><a href="/examples/weighted-price-sample.csv">Download the eight-row sales CSV</a> · <a href="/tools/weighted-price-checker/">Run the independent browser calculator</a> · <a href="/guides/verify-ai-weighted-average-price-spreadsheet/">Read the complete check</a>.</p>
     <ol>
       <li>Paste the CSV into the workbench and check that Web has 7 units and revenue 280, while Store has 20 units and revenue 250.</li>
