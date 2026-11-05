@@ -7,7 +7,7 @@ const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const guide=read('src/content/articles/what-is-generative-ai.md');
 
 test('the introductory article replaces duplicated 22-case content with evidence from a real production check',()=>{
-  assert(guide.includes('updatedDate: "2026-11-03"'));
+  assert(guide.includes('updatedDate: "2026-11-05"'));
   assert(guide.includes('A real example: a fluent claim versus a production check'));
   assert(guide.includes('22:52 UTC'));
   assert(guide.includes('16 of 16 designated URL checks'));

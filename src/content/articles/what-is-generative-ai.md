@@ -5,7 +5,7 @@ slug: "what-is-generative-ai"
 category: "guides"
 tags: ["ai-basics", "getting-started"]
 publishedDate: "2026-10-23"
-updatedDate: "2026-11-03"
+updatedDate: "2026-11-05"
 sources: [{"title":"Google Machine Learning Crash Course: Introduction to LLMs","url":"https://developers.google.com/machine-learning/crash-course/llm"},{"title":"OpenAI: Does ChatGPT tell the truth?","url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth"},{"title":"GuideHollow: November 2, 2026 deployment and production HTTP verification run","url":"https://github.com/emfls/guidehollow/actions/runs/41540809663"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -47,43 +47,11 @@ If the same group asks whether the garden is open next Saturday, these purchase 
 
 ## A real example: a fluent claim versus a production check
 
-Here is a piece of evidence from **this website**, rather than another fictional example. A model can write “the website is online and all pages work” without ever connecting to the internet. Such an answer is a drafted statement. It is not a measurement.
+A model can write “every page works” without opening a website. Our [actual GitHub Actions run and deploy job logs](https://github.com/emfls/guidehollow/actions/runs/41540809663), recorded on **November 2, 2026 at 22:52 UTC**, provide a narrower observation: **16 of 16 designated URL checks passed**. These were **16 selected URL checks**, not every URL. One deliberately missing page was expected to return HTTP 404; that result was a successful check, not a broken published guide.
 
-GuideHollow's public GitHub Pages deployment on **November 2, 2026 at 22:52 UTC** included a separate, read-only HTTP verification run. The [actual GitHub Actions run and deploy job logs](https://github.com/emfls/guidehollow/actions/runs/41540809663) recorded:
+The run's success was observed in deployment logs. It does not measure an AI model's accuracy, test every interactive control, or establish that every visitor can reach the site. It does not establish AdSense approval. The [checker source](https://github.com/emfls/guidehollow/blob/main/scripts/verify-public-readiness.mjs) lists the checks; our [editorial policy](/editorial-policy/) explains the record's scope.
 
-- **16 of 16 designated URL checks passed on their first attempt.** These were chosen reviewer entry points, not every URL on the website.
-- The checks required an expected HTTP **200** for the known pages or assets, plus an expected HTTP **404** for one deliberately nonexistent URL. A 404 on that negative-control path was a *pass*, not a broken published page.
-- The checks also inspected selected HTML and text invariants, including canonical addresses, indexability, the contact route, the sitemap, and published evidence downloads.
-
-The script and exact target list are available in the [public read-only checker source](https://github.com/emfls/guidehollow/blob/main/scripts/verify-public-readiness.mjs). The run's success was observed in deployment logs; it was **not** reported by a generative AI assistant asking itself whether the site worked.
-
-### Four sentences, four evidence limits
-
-| Proposed sentence | What the recorded evidence actually supports | Responsible wording |
-| --- | --- | --- |
-| “The site is online.” | The designated endpoints responded correctly **from a GitHub runner at that time**. | “The monitored public endpoints passed the recorded HTTP checks.” |
-| “Every GuideHollow page works.” | Only 16 selected URL checks were executed; one was an expected 404. | “The test did not cover every page or every interactive control.” |
-| “The site's tools work in all browsers.” | HTTP responses and static markup checks do not establish that form inputs, copy buttons, and downloads work across devices. | “Interaction and cross-browser behavior require separate tests.” |
-| “Google has approved the site for AdSense.” | A GitHub Pages deployment log is not a decision from Google. | “The run does not establish AdSense approval, index coverage, or ranking.” |
-
-This is a narrow but real observation: **we inspected an actual production deployment result**, with a link to the run, the checker code, and its reported limits. It does not measure an AI model's accuracy or establish that a human visitor in another location received the same response.
-
-### Reproduce a smaller independent check
-
-You do not need an AI account to inspect the distinction between an assertion and a result.
-
-1. Open the [GuideHollow homepage](https://guidehollow.com/) in your browser. Can you read the main content and open the navigation? This tests your current connection to that page, not everybody's.
-2. Open the public [robots.txt](https://guidehollow.com/robots.txt). Does it identify the site sitemap? This is evidence about the site's published crawl instructions, **not** proof that Google indexed a URL.
-3. Open the [fictional source-verification notes](/examples/claim-boundary-source-notes.txt). Are the garden, software release and event notes readable? This only checks that this educational file was served.
-4. To test a missing route, manually type `https://guidehollow.com/__guidehollow_public_smoke_missing_page__/` into your browser's address bar. This intentionally invalid URL is printed as text, not a navigable link to a broken page. A not-found result is expected. Do not count it as a failed working guide.
-
-Record the **time, URL, observed result, and limit** in your notes. If you cannot load a resource, report that observation rather than changing a historical run to “failed.” Network conditions and deployments change.
-
-### What this teaches about generative AI
-
-Text generation, real HTTP retrieval, and verification are distinct operations. A chatbot can *propose* a health-check checklist, write code that may perform one, or summarize a log provided to it. Only execution against actual endpoints creates an observation of those endpoints; even then, you need a scope and a timestamp. A single successful technical check does not prove business effectiveness, regulatory compliance, or the accuracy of unrelated AI-generated prose.
-
-For a separate beginner exercise in reasoning from fictional documents, try the [22-case supported/contradicted/unknown source quiz](/tools/claim-checker/). That original teaching dataset is fully downloadable, but it is not a live model benchmark and is intentionally different from the production run above.
+**Try the distinction yourself:** open the [fictional garden source notes](/examples/claim-boundary-source-notes.txt). Record the time, URL, and whether you can read the file. That observation supports “I could open this file at this time,” not “all files always work.” If it fails, record your result without changing the historical record. To practice checking what a source actually says, try the [22-case supported/contradicted/unknown source quiz](/tools/claim-checker/).
 
 ## Choose your first task
 
