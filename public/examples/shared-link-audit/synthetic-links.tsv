@@ -1,0 +1,15 @@
+CaseID	SyntheticURL
+C01	https://chatgpt.com/share/fictional-conversation-01
+C02	https://chatgpt.com/s/fictional-task-02
+C03	http://chatgpt.com/share/fictional-conversation-03
+C04	https://chatgpt.com.evil.example/share/fictional-conversation-04
+C05	https://chatgpt.com@not-chatgpt.example/share/fictional-conversation-05
+C06	https://example.invalid/https://chatgpt.com/share/fictional-conversation-06
+C07	https://sub.chatgpt.com/share/fictional-conversation-07
+C08	https://chatgpt.com/s/
+C09	https://chatgpt.com/share/fictional-conversation-09/extra
+C10	https://chatgpt.com:8443/share/fictional-conversation-10
+C11	https://chatgpt.com/share/fictional-conversation-11?forwarded=yes
+C12	https://chatgpt.com/s/fictional-task-12#preview
+C13	https://chatgpt.com/share/fictional-conversation-13
+C14	https://chatgpt.com/s/fictional-task-14
