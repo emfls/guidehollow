@@ -94,6 +94,22 @@ Consider AI for drafts you can revise, alternative explanations you can compare,
 
 You can also ask for questions rather than answers. “What information is missing from this plan?” may be more helpful than requesting a finished plan from incomplete notes. The assistant's suggestions are still proposals, but they can help expose gaps.
 
+## Practice asking for missing information
+
+A model can turn incomplete notes into questions, but it cannot know the answers unless you supply a source. Try this fictional example:
+
+> Tool-shed cleanup: Sunday morning. Bring work gloves. We will sort donated hand tools and label broken items.
+
+Ask an assistant to list three operational questions that the notes leave unanswered, without inventing times, addresses, or rules. An editor-written reference set is:
+
+1. What are the exact start and end times?
+2. Where should volunteers meet, and how will they access the shed?
+3. Where should broken tools go after they are labeled?
+
+Check each question against the original notes: Sunday morning and work gloves are already stated, while an exact time, meeting place, and disposal process are not. Reject an answer that turns a question into an invented fact, such as “meet at Gate B at 9 a.m.”
+
+This is a fictional practice fixture, not a recorded model test. Different useful questions are possible; the organizer still needs to provide the real answers. Google’s [large language model introduction](https://developers.google.com/machine-learning/crash-course/llm) explains the general technology, not this exercise or its expected answers.
+
 ## Common beginner mistakes
 
 Do not confuse a confident tone with evidence. Do not supply private information just because a task seems ordinary. Do not assume a generated link or quotation exists. Open important sources yourself and confirm what they actually say.
