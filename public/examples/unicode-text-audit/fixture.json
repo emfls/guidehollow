@@ -1,0 +1,11 @@
+{
+  "description": "Original synthetic strings for a Unicode comparison audit. These are teaching examples, not customer records.",
+  "pairs": [
+    {"id": "accent", "left": "caf\u00e9", "right": "cafe\u0301"},
+    {"id": "hangul", "left": "\uac00", "right": "\u1100\u1161"},
+    {"id": "space", "left": "North\u00a0Team", "right": "North Team"},
+    {"id": "compatibility-id", "left": "\u2460", "right": "1"},
+    {"id": "typo-control", "left": "North Team", "right": "Nroth Team"},
+    {"id": "homograph-control", "left": "paypal", "right": "p\u0430ypal"}
+  ]
+}
