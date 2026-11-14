@@ -1,5 +1,5 @@
 {
-  "scope": "Exact matches to a human-reviewed answer key; no semantic fact verification or real Anki import.",
+  "scope": "Exact matches to a editorial answer key; no semantic fact verification or real Anki import.",
   "reviewed": {
     "status": "PASS",
     "rows": 4,

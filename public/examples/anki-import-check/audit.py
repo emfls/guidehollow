@@ -62,7 +62,7 @@ candidate_result = audit(read_csv(root / "candidate.csv"), dict(reviewed))
 assert candidate_result["issues"] == [{"row": 1, "codes": ["ANSWER_MISMATCH"]},
                                      {"row": 5, "codes": ["DUPLICATE_FRONT"]}]
 assert all(path.read_bytes() == data for path, data in original.items())
-print(json.dumps({"scope": "Exact matches to a human-reviewed answer key; no semantic fact verification or real Anki import.",
+print(json.dumps({"scope": "Exact matches to a editorial answer key; no semantic fact verification or real Anki import.",
                   "reviewed": reviewed_result, "candidate": candidate_result, "self_checks": "PASS",
                   "input_bytes_unchanged": True,
                   "input_sha256": {path.name: hashlib.sha256(data).hexdigest() for path, data in original.items()}}, indent=2))
