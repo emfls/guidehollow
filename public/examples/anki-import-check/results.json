@@ -1,0 +1,35 @@
+{
+  "scope": "Exact matches to a human-reviewed answer key; no semantic fact verification or real Anki import.",
+  "reviewed": {
+    "status": "PASS",
+    "rows": 4,
+    "passing_rows": 4,
+    "issues": []
+  },
+  "candidate": {
+    "status": "FAIL",
+    "rows": 5,
+    "passing_rows": 3,
+    "issues": [
+      {
+        "row": 1,
+        "codes": [
+          "ANSWER_MISMATCH"
+        ]
+      },
+      {
+        "row": 5,
+        "codes": [
+          "DUPLICATE_FRONT"
+        ]
+      }
+    ]
+  },
+  "self_checks": "PASS",
+  "input_bytes_unchanged": true,
+  "input_sha256": {
+    "source-notes.txt": "bdda1e24d80a20cc645023cad2a0e3c1f63d72484106b4e8083399d155a4aebb",
+    "reviewed.csv": "b25d96228bcf584bd3e5e2e725f9658f9d1dc7ec6c0f5cba9af76892d43980cd",
+    "candidate.csv": "391437f6d11293b5db8f8b6b215d5aa4b87ceea5c418adc842bcddcc866553a2"
+  }
+}
