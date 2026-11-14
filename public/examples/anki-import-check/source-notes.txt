@@ -1,0 +1,7 @@
+Fictional teaching source: Northbank Makerspace workshop.
+This venue and workshop are invented for the exercise.
+
+Workshop day: Tuesday
+Room: Studio B
+Required item: printed ticket
+Booking keyword (literal): Maker, "Basics"
