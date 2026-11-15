@@ -1,0 +1,8 @@
+{
+  "target_zone": "Asia/Seoul",
+  "events": [
+    {"id": "A", "target_local": "2026-10-26T23:00+09:00"},
+    {"id": "B", "target_local": "2026-11-02T23:00+09:00"},
+    {"id": "C", "target_local": "2026-11-02T11:00+09:00"}
+  ]
+}
