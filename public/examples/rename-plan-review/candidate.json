@@ -1,0 +1,8 @@
+{
+  "renames": [
+    {"id": "A", "source": "scan_001.pdf", "target": "invoice-2026-10.pdf"},
+    {"id": "B", "source": "scan_002.pdf", "target": "INVOICE-2026-10.pdf"},
+    {"id": "C", "source": "notes_draft.txt", "target": "../notes.txt"},
+    {"id": "D", "source": "roster.csv", "target": "staff-list.csv"}
+  ]
+}

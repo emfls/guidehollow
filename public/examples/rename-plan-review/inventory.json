@@ -1,0 +1,9 @@
+{
+  "files": [
+    {"id": "A", "name": "scan_001.pdf", "label": "North October 2026 invoice"},
+    {"id": "B", "name": "scan_002.pdf", "label": "South October 2026 invoice"},
+    {"id": "C", "name": "notes_draft.txt", "label": "Team notes"},
+    {"id": "D", "name": "roster.csv", "label": "Staff roster"},
+    {"id": "KEEP", "name": "summary.txt", "label": "Leave alone"}
+  ]
+}

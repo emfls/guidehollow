@@ -1,0 +1,56 @@
+{
+  "scope": "Fictional manifest-only teaching policy, not a live AI benchmark or proof of filesystem safety or complete portability.",
+  "policy": "ASCII basenames; exact source names and suffixes; casefold collisions; all original names reserved. No chains or swaps.",
+  "python_version": "3.9.6",
+  "batch": {
+    "status": "HOLD",
+    "inventory_count": 5,
+    "proposal_count": 4,
+    "flagged": 3,
+    "clear": 1,
+    "rows": [
+      {
+        "id": "A",
+        "source": "scan_001.pdf",
+        "target": "invoice-2026-10.pdf",
+        "status": "FAIL",
+        "issues": [
+          "TARGET_COLLISION"
+        ]
+      },
+      {
+        "id": "B",
+        "source": "scan_002.pdf",
+        "target": "INVOICE-2026-10.pdf",
+        "status": "FAIL",
+        "issues": [
+          "TARGET_COLLISION"
+        ]
+      },
+      {
+        "id": "C",
+        "source": "notes_draft.txt",
+        "target": "../notes.txt",
+        "status": "FAIL",
+        "issues": [
+          "INVALID_BASENAME"
+        ]
+      },
+      {
+        "id": "D",
+        "source": "roster.csv",
+        "target": "staff-list.csv",
+        "status": "PASS",
+        "issues": []
+      }
+    ]
+  },
+  "self_checks": "PASS",
+  "corrected_in_memory_status": "CLEAR",
+  "input_bytes_unchanged": true,
+  "rename_move_delete_actions": "NOT_RUN",
+  "input_sha256": {
+    "inventory.json": "ea0dbcf5bcdb97f1b92f151c764c92d0cfc7682d9ff46043e138b339affcece6",
+    "candidate.json": "f6d015b11858c9669592a1eb276a7531ed248963fb58966785fe9c7211638a56"
+  }
+}
