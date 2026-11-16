@@ -1,0 +1,5 @@
+case	example_type	alt_text	editorial_note
+A	Constructed teaching example	A registration chart	Too vague for the article's month-comparison task.
+B	Constructed teaching example	Registrations rose every month	Contradicts the fall from 60 in August to 30 in September.
+C	Constructed teaching example	A marketing campaign caused registrations to rise	Unsupported causality: the supplied data contain no campaign information.
+D	Constructed teaching example	Bar chart of fictional workshop registrations from July through October 2026.	Suitable here with an adjacent visible table and trend explanation; not an accessibility certification.

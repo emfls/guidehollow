@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink" width="576pt" height="324pt" viewBox="0 0 576 324" version="1.1" role="img" aria-labelledby="chart-title chart-description">
+ <title id="chart-title">Fictional workshop registrations, 2026</title><desc id="chart-description">Original fictional teaching data. July: 40; August: 60; September: 30; October: 50 registrations. Vertical bars start at zero.</desc><metadata>
+  <rdf:RDF>
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 324  L 576 324  L 576 0  L 0 0  z " style="fill: #ffffff" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 77.03 279.92  L 556.2 279.92  L 556.2 49.48  L 77.03 49.48  z " style="fill: #ffffff" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m8cedf4de80" d="M 0 0  L 0 3.5  " style="stroke: #1f2933; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use xlink:href="#m8cedf4de80" x="136.113995" y="279.92" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="136.113995" y="300.597188" transform="rotate(-0 136.113995 300.597188)">Jul</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m8cedf4de80" x="256.447998" y="279.92" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="256.447998" y="300.597188" transform="rotate(-0 256.447998 300.597188)">Aug</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m8cedf4de80" x="376.782002" y="279.92" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="376.782002" y="300.597188" transform="rotate(-0 376.782002 300.597188)">Sep</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m8cedf4de80" x="497.116005" y="279.92" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="497.116005" y="300.597188" transform="rotate(-0 497.116005 300.597188)">Oct</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 77.03 279.92  L 556.2 279.92  " clip-path="url(#pdb87d0ab8c)" style="fill: none; stroke: #d9e2e7; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="m334c45cd2e" d="M 0 0  L -3.5 0  " style="stroke: #1f2933; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use xlink:href="#m334c45cd2e" x="77.03" y="279.92" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: end" x="70.03" y="286.758594" transform="rotate(-0 70.03 286.758594)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 77.03 214.08  L 556.2 214.08  " clip-path="url(#pdb87d0ab8c)" style="fill: none; stroke: #d9e2e7; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m334c45cd2e" x="77.03" y="214.08" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: end" x="70.03" y="220.918594" transform="rotate(-0 70.03 220.918594)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 77.03 148.24  L 556.2 148.24  " clip-path="url(#pdb87d0ab8c)" style="fill: none; stroke: #d9e2e7; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m334c45cd2e" x="77.03" y="148.24" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: end" x="70.03" y="155.078594" transform="rotate(-0 70.03 155.078594)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 77.03 82.4  L 556.2 82.4  " clip-path="url(#pdb87d0ab8c)" style="fill: none; stroke: #d9e2e7; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m334c45cd2e" x="77.03" y="82.4" style="fill: #1f2933; stroke: #1f2933; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: end" x="70.03" y="89.238594" transform="rotate(-0 70.03 89.238594)">60</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="33.381563" y="164.7" transform="rotate(-90 33.381563 164.7)">Registrations</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 77.03 279.92  L 77.03 49.48  " style="fill: none; stroke: #52616b; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_4">
+    <path d="M 77.03 279.92  L 556.2 279.92  " style="fill: none; stroke: #52616b; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="bar-2026-07">
+    <path d="M 98.810455 279.92  L 173.417536 279.92  L 173.417536 148.24  L 98.810455 148.24  z " clip-path="url(#pdb87d0ab8c)" style="fill: #176b43" />
+   </g>
+   <g id="bar-2026-08">
+    <path d="M 219.144458 279.92  L 293.751539 279.92  L 293.751539 82.4  L 219.144458 82.4  z " clip-path="url(#pdb87d0ab8c)" style="fill: #176b43" />
+   </g>
+   <g id="bar-2026-09">
+    <path d="M 339.478461 279.92  L 414.085542 279.92  L 414.085542 181.16  L 339.478461 181.16  z " clip-path="url(#pdb87d0ab8c)" style="fill: #176b43" />
+   </g>
+   <g id="bar-2026-10">
+    <path d="M 459.812464 279.92  L 534.419545 279.92  L 534.419545 115.32  L 459.812464 115.32  z " clip-path="url(#pdb87d0ab8c)" style="fill: #176b43" />
+   </g>
+   <g id="text_10">
+    <text style="fill: #1f2933; font: 22px 'DejaVu Sans'; text-anchor: middle" x="136.113995" y="137.664688" transform="rotate(-0 136.113995 137.664688)">40</text>
+   </g>
+   <g id="text_11">
+    <text style="fill: #1f2933; font: 22px 'DejaVu Sans'; text-anchor: middle" x="256.447998" y="71.824688" transform="rotate(-0 256.447998 71.824688)">60</text>
+   </g>
+   <g id="text_12">
+    <text style="fill: #1f2933; font: 22px 'DejaVu Sans'; text-anchor: middle" x="376.782002" y="170.584688" transform="rotate(-0 376.782002 170.584688)">30</text>
+   </g>
+   <g id="text_13">
+    <text style="fill: #1f2933; font: 22px 'DejaVu Sans'; text-anchor: middle" x="497.116005" y="104.744687" transform="rotate(-0 497.116005 104.744687)">50</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #1f2933; font: 18px 'DejaVu Sans'; text-anchor: middle" x="316.615" y="33.48" transform="rotate(-0 316.615 33.48)">Fictional workshop registrations, 2026</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pdb87d0ab8c">
+   <rect x="77.03" y="49.48" width="479.17" height="230.44" />
+  </clipPath>
+ </defs>
+</svg>
