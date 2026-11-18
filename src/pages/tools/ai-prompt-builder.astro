@@ -44,6 +44,22 @@ import Base from '../../layouts/Base.astro';
 <h2>What a successful prompt does not prove</h2>
 <p>Clear instructions reduce ambiguity but do not establish factual truth, privacy compliance, or the reliability of a particular model. Never paste private company records, passwords, patient information, or secret tokens without permission. The builder does not transmit the text to our server, but <strong>copying and pasting it into an external AI service is a separate disclosure</strong> governed by that service's controls.</p>
 <p>For a different task, see the <a href="/prompts/how-to-write-better-ai-prompts/">bounded prompting guide</a>. After receiving an answer, try the <a href="/tools/ai-response-checklist/">AI Response Quality Checklist</a>, or use the <a href="/tools/claim-checker/">Source Claim Verifier</a> to practice distinguishing contradicted facts from missing information. The original exercise data and limits are documented in the <a href="/evidence/">Evidence Library</a>.</p>
+<h2>Common prompt-building mistakes and how to fix them</h2>
+<p>Even with a structured five-field layout, three patterns repeatedly cause downstream rewrites. Fixing them before you copy your draft saves multiple turns inside an AI chat window.</p>
+<table><thead><tr><th>Weak field pattern</th><th>Why it fails in practice</th><th>Structured replacement</th></tr></thead><tbody>
+<tr><td>Goal mixes drafting and auditing (&ldquo;summarize and verify everything&rdquo;)</td><td>The assistant prioritizes fluent summary over raising uncertainty flags</td><td>Use two separate passes: first extract raw facts, then verify against notes</td></tr>
+<tr><td>Context leaves implied defaults (&ldquo;use standard team rules&rdquo;)</td><td>An external model cannot inspect internal office standards you did not paste</td><td>Paste the exact 2&ndash;4 governing constraints directly into Context</td></tr>
+<tr><td>Format requests vague tone (&ldquo;make it clean and clear&rdquo;)</td><td>Word count, heading depth, and missing-data markers remain ambiguous</td><td>Specify exact format, word cap, and <code>[TO CONFIRM]</code> fallback syntax</td></tr>
+</tbody></table>
+<h2>Reusable field templates by workplace task</h2>
+<p>Adapt these starting structures for recurring everyday work rather than inventing instructions from scratch every morning:</p>
+<ul>
+<li><strong>Meeting follow-up email:</strong> <em>Goal</em> = Draft a recap from approved minutes under 140 words; <em>Constraints</em> = Preserve owner names, keep unconfirmed dates marked pending, do not propose unapproved budgets; <em>Format</em> = Three bullets for decisions plus a numbered action table.</li>
+<li><strong>Policy FAQ extraction:</strong> <em>Goal</em> = Answer three reader questions strictly from the supplied policy excerpt; <em>Constraints</em> = Quote clause numbers where stated and reply &ldquo;Not addressed in supplied text&rdquo; for missing exceptions; <em>Format</em> = Question heading followed by a two-sentence answer.</li>
+<li><strong>Spreadsheet review note:</strong> <em>Goal</em> = Explain the weighted average formula and flag blank unit prices; <em>Constraints</em> = Distinguish simple mean from total revenue divided by total units; <em>Format</em> = Two-column verification checklist.</li>
+</ul>
+<h2>Quick review before clicking Copy</h2>
+<p>Confirm that zero real API tokens, customer names, phone numbers, or confidential salary rows appear inside your prompt fields before pasting the formatted block into a cloud assistant. When you update any input box after building a draft, notice how the tool automatically locks Copy and Download TXT until you click Build again—preventing stale rules from slipping into your next prompt.</p>
 </section>
 <script>import '../../scripts/prompt-builder';</script>
 </Base>

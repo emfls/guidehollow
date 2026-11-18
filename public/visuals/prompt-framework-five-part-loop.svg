@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Five-part prompt framework loop: Role, Inputs, Constraints, Output format, Verification check</title>
+<desc id="desc">Diagram showing how separating verified inputs from task constraints and expected output schema prevents unsupported assumptions in structured prompts.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Five-part prompt structure: separate inputs from constraints</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">Keep confirmed facts, explicit limits, and inspectable output rules distinct.</text>
+<rect x="44" y="136" width="205" height="236" rx="14" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="64" y="176" fill="#245a45" font-size="21" font-family="Arial,sans-serif" font-weight="700">1. Goal</text>
+<text x="64" y="214" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Single deliverable</text>
+<text x="64" y="242" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Exact audience</text>
+<text x="64" y="294" fill="#245a45" font-size="15" font-family="Arial,sans-serif" font-weight="700">Avoid mixed audits</text>
+<path d="M254 252H276" stroke="#2a7757" stroke-width="4" stroke-linecap="round"/>
+<rect x="280" y="136" width="205" height="236" rx="14" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="300" y="176" fill="#245a45" font-size="21" font-family="Arial,sans-serif" font-weight="700">2. Inputs</text>
+<text x="300" y="214" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Approved source text</text>
+<text x="300" y="242" fill="#304b41" font-size="16" font-family="Arial,sans-serif">No guesses pasted</text>
+<text x="300" y="294" fill="#245a45" font-size="15" font-family="Arial,sans-serif" font-weight="700">Label unknowns</text>
+<path d="M490 252H512" stroke="#2a7757" stroke-width="4" stroke-linecap="round"/>
+<rect x="516" y="136" width="215" height="236" rx="14" fill="#194a3b"/>
+<text x="536" y="176" fill="#ecfff4" font-size="21" font-family="Arial,sans-serif" font-weight="700">3. Boundaries</text>
+<text x="536" y="214" fill="#e2f4e8" font-size="16" font-family="Arial,sans-serif">Do not invent dates</text>
+<text x="536" y="242" fill="#e2f4e8" font-size="16" font-family="Arial,sans-serif">Flag gaps explicitly</text>
+<text x="536" y="294" fill="#c7efa8" font-size="15" font-family="Arial,sans-serif" font-weight="700">[TO CONFIRM] rule</text>
+<path d="M736 252H758" stroke="#2a7757" stroke-width="4" stroke-linecap="round"/>
+<rect x="762" y="136" width="195" height="236" rx="14" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="782" y="176" fill="#245a45" font-size="21" font-family="Arial,sans-serif" font-weight="700">4. Format</text>
+<text x="782" y="214" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Table or JSON keys</text>
+<text x="782" y="242" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Clear length limits</text>
+<text x="782" y="294" fill="#245a45" font-size="15" font-family="Arial,sans-serif" font-weight="700">Easy to diff fast</text>
+<path d="M962 252H984" stroke="#2a7757" stroke-width="4" stroke-linecap="round"/>
+<rect x="988" y="136" width="168" height="236" rx="14" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="1008" y="176" fill="#245a45" font-size="21" font-family="Arial,sans-serif" font-weight="700">5. Check</text>
+<text x="1008" y="214" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Compare vs source</text>
+<text x="1008" y="242" fill="#304b41" font-size="16" font-family="Arial,sans-serif">Test blank fields</text>
+<text x="1008" y="294" fill="#9a452b" font-size="15" font-family="Arial,sans-serif" font-weight="700">Human approval</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Editorial structure diagram illustrating bounded workflow design. Not a claim of automated model compliance.</text>
+</svg>

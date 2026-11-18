@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Three-way triage for wrong AI answers: unsupported claim, contradicted claim, or missing context</title>
+<desc id="desc">Diagnostic classification diagram separating claims that contradict source notes, claims lacking evidence, and prompt ambiguity before deciding how to repair a draft.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Diagnose a wrong answer before rewriting</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">Different errors require different fixes—never ask a model to grade its own answer blindly.</text>
+<rect x="52" y="136" width="335" height="242" rx="16" fill="#fff" stroke="#d4a59a" stroke-width="2"/>
+<text x="76" y="176" fill="#9a452b" font-size="22" font-family="Arial,sans-serif" font-weight="700">Contradicted</text>
+<text x="76" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Conflicts with explicit</text>
+<text x="76" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">date, number, or rule</text>
+<text x="76" y="294" fill="#9a452b" font-size="16" font-family="Arial,sans-serif" font-weight="700">Fix: Replace from source</text>
+<rect x="432" y="136" width="335" height="242" rx="16" fill="#194a3b"/>
+<text x="456" y="176" fill="#ecfff4" font-size="22" font-family="Arial,sans-serif" font-weight="700">Unsupported gap</text>
+<text x="456" y="218" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">Notes stay silent, yet</text>
+<text x="456" y="246" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">draft fills in a guess</text>
+<text x="456" y="294" fill="#c7efa8" font-size="16" font-family="Arial,sans-serif" font-weight="700">Fix: Mark [TO CONFIRM]</text>
+<rect x="812" y="136" width="336" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="836" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">Prompt ambiguity</text>
+<text x="836" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Request lacked scope,</text>
+<text x="836" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">audience, or edge cases</text>
+<text x="836" y="294" fill="#245a45" font-size="16" font-family="Arial,sans-serif" font-weight="700">Fix: Tighten inputs first</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Teaching diagram matching GuideHollow’s 22-case claim-boundary taxonomy (Supported / Contradicted / Unsupported).</text>
+</svg>

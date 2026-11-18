@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Three-step verification workflow for AI web search citations</title>
+<desc id="desc">Workflow diagram showing how to inspect cited URLs directly, distinguish retrieved snippets from official primary rules, and keep private inputs out of web searches.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Checking AI web search answers before acting</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">A citation link shows where a passage came from—not whether it proves the whole claim.</text>
+<rect x="52" y="136" width="335" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="76" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">1. Scrub the query</text>
+<text x="76" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Remove customer names,</text>
+<text x="76" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">account IDs, and tokens</text>
+<text x="76" y="294" fill="#9a452b" font-size="16" font-family="Arial,sans-serif" font-weight="700">Public search sends query text</text>
+<path d="M398 256H422" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="432" y="136" width="335" height="242" rx="16" fill="#194a3b"/>
+<text x="456" y="176" fill="#ecfff4" font-size="22" font-family="Arial,sans-serif" font-weight="700">2. Open primary URLs</text>
+<text x="456" y="218" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">Inspect official Help docs</text>
+<text x="456" y="246" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">and check revision dates</text>
+<text x="456" y="294" fill="#c7efa8" font-size="16" font-family="Arial,sans-serif" font-weight="700">Verify passage, not just link</text>
+<path d="M778 256H802" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="812" y="136" width="336" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="836" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">3. Record gaps</text>
+<text x="836" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Separate confirmed facts</text>
+<text x="836" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">from missing exceptions</text>
+<text x="836" y="294" fill="#245a45" font-size="16" font-family="Arial,sans-serif" font-weight="700">Note plan &amp; region scope</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Original reference-verification diagram. Always verify time-sensitive product documentation at the primary source.</text>
+</svg>

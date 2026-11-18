@@ -11,8 +11,17 @@ test('published article schema only uses real in-article diagrams, not a sitewid
   assert(article.includes('<img src={visual.src} alt={visual.alt}'),'Schema image must correspond to visible article content');
   assert(article.includes("'what-is-generative-ai':"));
   assert(article.includes("'extract-meeting-action-items-with-ai':"));
-  assert.equal((article.match(/src: '\/visuals\//g)||[]).length,2,'Only two original illustrated topics are supplied');
-  for(const file of ['first-ai-task-source-check.svg','meeting-notes-approval-boundary.svg']){
+  assert.equal((article.match(/src: '\/visuals\//g)||[]).length,8,'Eight original illustrated topics are supplied across categories');
+  for(const file of [
+    'first-ai-task-source-check.svg',
+    'meeting-notes-approval-boundary.svg',
+    'prompt-framework-five-part-loop.svg',
+    'better-prompts-before-after-check.svg',
+    'chatgpt-search-source-verification.svg',
+    'getting-started-two-turn-verification.svg',
+    'wrong-answer-three-way-triage.svg',
+    'context-limit-handoff-packet.svg',
+  ]){
     const svg=read('public/visuals/'+file);
     assert.match(svg,/<svg\b/);
     assert(svg.length>600,file+' should contain a meaningful original vector drawing');

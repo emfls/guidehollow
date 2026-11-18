@@ -21,6 +21,36 @@ const visualBySlug: Record<string,{ src:string; alt:string; caption:string }> = 
     alt: 'Approved meeting notes move through three verification questions to a factual action summary, while unapproved suggestions remain excluded.',
     caption: 'A practical boundary: only approved decisions and explicitly assigned tasks enter the action summary. Illustrative process diagram.',
   },
+  'a-practical-ai-prompt-framework': {
+    src: '/visuals/prompt-framework-five-part-loop.svg',
+    alt: 'Five-part prompt diagram separating Goal, Inputs, Boundaries, Format, and Human verification.',
+    caption: 'Keeping verified inputs separate from boundary constraints prevents silent assumptions. Original process diagram.',
+  },
+  'how-to-write-better-ai-prompts': {
+    src: '/visuals/better-prompts-before-after-check.svg',
+    alt: 'Comparison between a vague update request that invites guesses and a bounded instruction with explicit rules.',
+    caption: 'Clear audience limits and explicit negative guards make drafts faster to verify. Original editorial diagram.',
+  },
+  'how-to-use-chatgpt-search': {
+    src: '/visuals/chatgpt-search-source-verification.svg',
+    alt: 'Three-step search audit: remove private identifiers, open cited primary URLs, and log missing exceptions.',
+    caption: 'Inspect the underlying primary page rather than relying solely on summary text. Original verification diagram.',
+  },
+  'getting-started-with-chatgpt': {
+    src: '/visuals/getting-started-two-turn-verification.svg',
+    alt: 'Two-turn workflow showing first draft generation, targeted defect correction, and final diff inspection.',
+    caption: 'Treating Turn 1 as a rough draft for Turn 2 inspection avoids accepting subtle mistakes. Original editorial diagram.',
+  },
+  'why-ai-gives-wrong-answers': {
+    src: '/visuals/wrong-answer-three-way-triage.svg',
+    alt: 'Diagnostic triage separating contradicted claims, unsupported guesses, and prompt ambiguity.',
+    caption: 'Fix contradicted claims from primary sources and label unresolved gaps explicitly. Original teaching diagram.',
+  },
+  'how-to-handle-ai-context-limits': {
+    src: '/visuals/context-limit-handoff-packet.svg',
+    alt: 'Transition from an overloaded conversation to a fresh chat via a human-checked handoff summary.',
+    caption: 'Compact human-checked handoffs preserve core rules when starting a clean session. Original workflow diagram.',
+  },
 };
 const visual = visualBySlug[post.data.slug];
 const { Content, headings } = await render(post);

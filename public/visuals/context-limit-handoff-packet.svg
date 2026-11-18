@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Context-limit handoff packet: freeze confirmed facts before opening a fresh thread</title>
+<desc id="desc">Workflow diagram showing how extracting verified facts, open questions, and exact remaining tasks into a compact handoff keeps long AI projects reliable across context resets.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Clean context handoff: reset without losing verified rules</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">Long chats silently drop earlier constraints—start a fresh session from a checked summary.</text>
+<rect x="52" y="136" width="335" height="242" rx="16" fill="#fff" stroke="#d4a59a" stroke-width="2"/>
+<text x="76" y="176" fill="#9a452b" font-size="22" font-family="Arial,sans-serif" font-weight="700">Overloaded thread</text>
+<text x="76" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Conflicting older drafts</text>
+<text x="76" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">&amp; forgotten early rules</text>
+<text x="76" y="294" fill="#9a452b" font-size="16" font-family="Arial,sans-serif" font-weight="700">Stop adding turns blindly</text>
+<path d="M398 256H422" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="432" y="136" width="335" height="242" rx="16" fill="#194a3b"/>
+<text x="456" y="176" fill="#ecfff4" font-size="22" font-family="Arial,sans-serif" font-weight="700">Compact handoff</text>
+<text x="456" y="218" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">1. Confirmed decisions</text>
+<text x="456" y="246" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">2. Open gaps &amp; limits</text>
+<text x="456" y="294" fill="#c7efa8" font-size="16" font-family="Arial,sans-serif" font-weight="700">Human checks before reuse</text>
+<path d="M778 256H802" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="812" y="136" width="336" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="836" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">Fresh clean chat</text>
+<text x="836" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Paste verified handoff +</text>
+<text x="836" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">single immediate next task</text>
+<text x="836" y="294" fill="#245a45" font-size="16" font-family="Arial,sans-serif" font-weight="700">Higher instruction recall</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Illustrative context-management workflow diagram designed for multi-step drafting and auditing.</text>
+</svg>

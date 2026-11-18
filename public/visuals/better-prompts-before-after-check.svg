@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Comparing a vague prompt with a bounded five-rule prompt</title>
+<desc id="desc">Side-by-side workflow diagram showing why open-ended drafting invites unsupported assumptions while bounded release-note instructions keep outputs inspectable.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Why bounded prompts beat vague requests</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">Replace guesswork with explicit inputs, length constraints, and negative guards.</text>
+<rect x="52" y="134" width="520" height="244" rx="16" fill="#fff" stroke="#d4a59a" stroke-width="2"/>
+<text x="80" y="176" fill="#9a452b" font-size="22" font-family="Arial,sans-serif" font-weight="700">Vague request (high failure risk)</text>
+<text x="80" y="218" fill="#304b41" font-size="18" font-family="Arial,sans-serif">“Write an update email from these release notes.”</text>
+<text x="80" y="264" fill="#557266" font-size="17" font-family="Arial,sans-serif">✕ Invents release dates or rollout guarantees</text>
+<text x="80" y="296" fill="#557266" font-size="17" font-family="Arial,sans-serif">✕ Omits edge-case warnings or limits</text>
+<text x="80" y="328" fill="#557266" font-size="17" font-family="Arial,sans-serif">✕ Requires manual rewriting from scratch</text>
+<rect x="628" y="134" width="520" height="244" rx="16" fill="#194a3b"/>
+<text x="656" y="176" fill="#ecfff4" font-size="22" font-family="Arial,sans-serif" font-weight="700">Bounded instruction (inspectable output)</text>
+<text x="656" y="218" fill="#e2f4e8" font-size="18" font-family="Arial,sans-serif">Goal + supplied notes + 5 checkable output rules</text>
+<text x="656" y="264" fill="#c7efa8" font-size="17" font-family="Arial,sans-serif">✓ Audience and 100-word limit declared up front</text>
+<text x="656" y="296" fill="#c7efa8" font-size="17" font-family="Arial,sans-serif">✓ Explicitly prohibits unstated dates or promises</text>
+<text x="656" y="328" fill="#c7efa8" font-size="17" font-family="Arial,sans-serif">✓ Reviewer can grade 5 criteria in 30 seconds</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Original teaching diagram summarizing the five-criterion release-note exercise in this guide.</text>
+</svg>

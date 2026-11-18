@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Two-turn workflow for checking an introductory AI answer before accepting it</title>
+<desc id="desc">Diagram showing Turn 1 extraction from supplied notes, Turn 2 targeted correction of unsupported details, and final human comparison against the source.</desc>
+<rect width="1200" height="460" rx="24" fill="#edf6f0"/>
+<text x="52" y="64" fill="#173d34" font-size="30" font-family="Arial,sans-serif" font-weight="700">Two-turn verification: draft, inspect, and tighten</text>
+<text x="52" y="98" fill="#47675c" font-size="18" font-family="Arial,sans-serif">When a first draft misses a rule or adds details, use a second targeted pass.</text>
+<rect x="52" y="136" width="335" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="76" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">Turn 1: First pass</text>
+<text x="76" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Supply source snippet &amp;</text>
+<text x="76" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">ask for structured bullets</text>
+<text x="76" y="294" fill="#9a6528" font-size="16" font-family="Arial,sans-serif" font-weight="700">Spot additions or omissions</text>
+<path d="M398 256H422" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="432" y="136" width="335" height="242" rx="16" fill="#194a3b"/>
+<text x="456" y="176" fill="#ecfff4" font-size="22" font-family="Arial,sans-serif" font-weight="700">Turn 2: Correction</text>
+<text x="456" y="218" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">Name the exact defect</text>
+<text x="456" y="246" fill="#e2f4e8" font-size="17" font-family="Arial,sans-serif">and freeze kept details</text>
+<text x="456" y="294" fill="#c7efa8" font-size="16" font-family="Arial,sans-serif" font-weight="700">Do not assume perfection</text>
+<path d="M778 256H802" stroke="#2a7757" stroke-width="5" stroke-linecap="round"/>
+<rect x="812" y="136" width="336" height="242" rx="16" fill="#fff" stroke="#aacbb9" stroke-width="2"/>
+<text x="836" y="176" fill="#245a45" font-size="22" font-family="Arial,sans-serif" font-weight="700">Final diff check</text>
+<text x="836" y="218" fill="#304b41" font-size="17" font-family="Arial,sans-serif">Confirm owners, times,</text>
+<text x="836" y="246" fill="#304b41" font-size="17" font-family="Arial,sans-serif">and open placeholders</text>
+<text x="836" y="294" fill="#245a45" font-size="16" font-family="Arial,sans-serif" font-weight="700">Ready for reader review</text>
+<text x="52" y="424" fill="#557266" font-size="16" font-family="Arial,sans-serif">Illustrative beginner workflow diagram. Check current official vendor controls for workspace and privacy features.</text>
+</svg>

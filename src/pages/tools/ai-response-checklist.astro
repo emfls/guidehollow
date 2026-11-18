@@ -43,6 +43,17 @@ const checks = [
 <p>Change the garden source in your own copy to say the meeting is on Sunday instead of Saturday. The original Saturday claim becomes contradicted, while the notebook reminder and missing venue remain unchanged. Altering the meeting day must not silently alter the cost subtotal. For a longer test with 22 independent fictional claims and their editorial answer key, open the <a href="/tools/claim-checker/">Source Claim Verifier</a>.</p>
 <h2>Limits and privacy</h2>
 <p>Six checked boxes mean only that you indicated completion. The progress bar cannot prove that you opened an official source, understood the numbers or verified a real-world fact. This page stores no checklist history and submits no inputs to a scoring server. See the <a href="/privacy-policy/">privacy notice</a>. For the full claim-by-claim workflow and exact reference-document distinctions, see <a href="/guides/how-to-verify-ai-generated-information/">the fact-checking guide</a> and our <a href="/evidence/">public exercise library</a>.</p>
+<h2>Which check catches which hidden error?</h2>
+<p>Fluency hides errors unevenly: an email can sound polite while dropping an essential disclaimer, and a code snippet can parse cleanly while cutting off midnight sales records. Matching each checklist row to real failure symptoms stops blind trust.</p>
+<table><thead><tr><th>Checklist dimension</th><th>Deceptive symptom in an AI draft</th><th>Concrete verification step</th></tr></thead><tbody>
+<tr><td>1. Facts &amp; numbers</td><td>Clean percentage or grand total constructed from uneven rows</td><td>Recompute totals in the <a href="/tools/weighted-price-checker/">Weighted Average Audit</a> or a local sheet</td></tr>
+<tr><td>2. Open original sources</td><td>Plausible URL or regulatory title supporting a slightly altered claim</td><td>Open the official page, search exact numbers, and confirm publication scope</td></tr>
+<tr><td>3. Date &amp; context</td><td>Deprecated interface button or expired threshold presented as current</td><td>Match the product release date against your current region and plan tier</td></tr>
+<tr><td>4. Privacy &amp; safety</td><td>Example draft still contains real customer IDs or secret keys</td><td>Scrub personal fields first and rotate exposed credentials immediately</td></tr>
+<tr><td>5. Requirements fit</td><td>Draft skipped a mandatory condition, caveat, or <code>[TO CONFIRM]</code> tag</td><td>Compare every bullet against your <a href="/tools/ai-prompt-builder/">original prompt constraints</a></td></tr>
+</tbody></table>
+<h2>Adapting the checklist for high-stakes versus routine work</h2>
+<p>For a low-risk internal brainstorm, a two-minute check of requirements and privacy is usually sufficient. Before publishing customer guidance, submitting financial figures, modifying shared files, or acting on security instructions, pair all six checklist items with direct primary-source verification or our downloadable <a href="/tools/claim-checker/#manual-claim-ledger">manual TSV claim ledger</a> so another reviewer can audit every single decision trail afterward.</p>
 </section>
 <script>
 import { checklistSummary } from '../../lib/tools';
