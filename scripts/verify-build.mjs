@@ -31,10 +31,11 @@ for (const file of htmlFiles) {
   const canonical = html.match(/rel="canonical" href="([^"]+)"/)?.[1];
   if (relative === '404.html') assert(canonical?.startsWith('https://guidehollow.com/404'), '404 canonical must use public domain');
   else assert.equal(canonical,current.href,`${relative}: canonical must match public domain and route`);
-  assert.equal(html.includes('pagead2.googlesyndication.com'),site.ads.servingEnabled && site.ads.consentReady,`${relative}: ad requests must match consent and serving gates`);
-  const publisherMeta = html.match(/name="google-adsense-account" content="([^"]+)"/)?.[1];
-  assert.equal(publisherMeta,site.ads.publisherId || undefined,`${relative}: verification must match the configured publisher`);
   const noindex = html.includes('content="noindex, follow"');
+  assert.equal(html.includes('pagead2.googlesyndication.com'),!noindex && site.ads.servingEnabled && site.ads.consentReady,`${relative}: ad requests must match consent, serving, and indexability gates`);
+  const publisherMeta = html.match(/name="google-adsense-account" content="([^"]+)"/)?.[1];
+  const expectedPublisherMeta = noindex ? undefined : (site.ads.publisherId || undefined);
+  assert.equal(publisherMeta,expectedPublisherMeta,`${relative}: verification must match the configured publisher on indexable routes only`);
   const listed = sitemap.includes(`<loc>${current.href}</loc>`);
   assert.equal(listed,!noindex,`${relative}: sitemap and robots indexing policy must agree`);
   if(relative.startsWith('tags/')) {

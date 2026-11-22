@@ -26,6 +26,9 @@
 .article-visual figcaption{max-width:85ch;padding:.65rem .25rem 0;font-size:.85rem;line-height:1.55;color:var(--muted)}
 /* Guide prose and copyable syntax remain readable on narrow screens. */
 .prose{line-height:1.78}
+/* Prevent native file inputs from pushing 375px mobile toolbars past viewport width. */
+.tool-actions input[type="file"],#personal-ledger-import-file{max-width:100%;width:100%;min-width:0;box-sizing:border-box}
+.tool-actions label{max-width:100%;min-width:0}
 .prose pre{overflow-x:auto}
 .prose pre code{white-space:pre;overflow-wrap:normal;font-size:.88rem}
 .prose table{max-width:100%;-webkit-overflow-scrolling:touch}

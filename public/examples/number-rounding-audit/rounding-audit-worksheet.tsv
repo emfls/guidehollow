@@ -1,0 +1,5 @@
+check_id	claim_in_ai_draft	expected_source_value	failure_mode	corrective_action
+R1	Total shipment weight is 66.36 lb (using 2.2 lb per kg)	66.50 lb (30.165 kg / 0.45359237 exact NIST factor)	Truncated conversion factor (-0.14 lb drift)	Replace 2.2 shortcut with exact 0.45359237 kg per international avoirdupois pound before final rounding
+R2	Sum of individually rounded line weights equals 66.49 lb	66.50 lb from unrounded 30.165 kg total	Intermediate per-row rounding drift (-0.01 lb)	Keep full precision in line conversions and round only the final reported total unless a carrier spec requires per-piece rounding
+R3	Tax total is $39.33 while invoice shows 8.25% of $476.65	$39.32 invoice-level tax vs $39.33 sum-of-lines tax	Undeclared rounding scope ($0.01 split)	Declare whether accounting rules round tax per invoice subtotal or per line item before accepting either figure
+R4	Line 1 weight is 5.4 kg so 12 x 0.450 = 5.40 kg (matches)	5.400 kg exact	Pass (verified against source CSV)	Record verification in audit log and verify unit label (g vs kg)
