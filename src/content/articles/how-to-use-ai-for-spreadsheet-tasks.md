@@ -118,7 +118,7 @@ Text that looks like a number may not behave as expected. Hidden filters and dup
 
 Check relative and absolute references before copying a formula. Inspect the first, middle, and last copied cells. A formula that works once can shift to the wrong range after being filled down.
 
-If you need to check a processed list against its original, our [browser-based CSV comparison tool](https://excel.guidehollow.com/tools/csv-compare/) compares two UTF-8 CSV files using one shared key, such as an order ID, and an optional amount column. The interface is in Korean; try its built-in sample first. It highlights missing or added keys, amount differences, and duplicate keys requiring review. It does not verify every cell or establish that a spreadsheet formula or payment is correct.
+If you need to check processed numeric rows or weighted totals against your original sheet, keep an untouched copy of the source file and verify totals step by step using our [free browser tools](/tools/)—including the [weighted price checker](/tools/weighted-price-checker/) for multi-row cost and quantity checks. Always compare row counts, unique IDs, and aggregate sums before treating a processed export as final, since no single summary check proves that every cell or formula is error-free.
 
 ## If it returns an error or an unexpected total
 
