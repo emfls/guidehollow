@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-label="Workflow diagram illustrating deterministic four-gate auditing of AI-generated iCalendar RRULE strings against RFC 5545 standards.">
+  <rect width="720" height="340" fill="#f8fafc"/>
+  <rect x="16" y="16" width="688" height="308" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="36" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#0f172a">RFC 5545 Calendar Recurrence Audit Pipeline</text>
+  <text x="36" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#64748b">Validating generative RRULE syntax, timezone anchoring, and exception schedules</text>
+  
+  <g transform="translate(36, 95)">
+    <rect width="135" height="180" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect width="135" height="32" rx="6" fill="#f1f5f9"/>
+    <text x="12" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#334155">Gate 1: Syntax</text>
+    <text x="12" y="55" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• FREQ keyword</text>
+    <text x="12" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• INTERVAL &gt; 0</text>
+    <text x="12" y="95" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Valid BYDAY tokens</text>
+    <text x="12" y="115" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• UNTIL vs COUNT</text>
+    <circle cx="67" cy="150" r="14" fill="#059669"/>
+    <path d="M61 150 L65 154 L74 145" fill="none" stroke="#ffffff" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(195, 95)">
+    <rect width="135" height="180" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect width="135" height="32" rx="6" fill="#f1f5f9"/>
+    <text x="12" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#334155">Gate 2: Timezone</text>
+    <text x="12" y="55" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• DTSTART with TZID</text>
+    <text x="12" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• UNTIL in UTC (Z)</text>
+    <text x="12" y="95" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• DST jump test</text>
+    <text x="12" y="115" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• No floating time</text>
+    <circle cx="67" cy="150" r="14" fill="#059669"/>
+    <path d="M61 150 L65 154 L74 145" fill="none" stroke="#ffffff" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(355, 95)">
+    <rect width="135" height="180" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect width="135" height="32" rx="6" fill="#f1f5f9"/>
+    <text x="12" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#334155">Gate 3: Exceptions</text>
+    <text x="12" y="55" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• EXDATE alignment</text>
+    <text x="12" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Holiday checks</text>
+    <text x="12" y="95" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Time matching</text>
+    <text x="12" y="115" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Multi-rule union</text>
+    <circle cx="67" cy="150" r="14" fill="#059669"/>
+    <path d="M61 150 L65 154 L74 145" fill="none" stroke="#ffffff" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(515, 95)">
+    <rect width="135" height="180" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect width="135" height="32" rx="6" fill="#f1f5f9"/>
+    <text x="12" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#334155">Gate 4: Expansion</text>
+    <text x="12" y="55" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• 90-day expansion</text>
+    <text x="12" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Client cross-check</text>
+    <text x="12" y="95" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Google API test</text>
+    <text x="12" y="115" font-family="system-ui, sans-serif" font-size="11" fill="#475569">• Outlook test</text>
+    <circle cx="67" cy="150" r="14" fill="#2563eb"/>
+    <text x="67" y="154" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff">PASS</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M171 185 H195" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <path d="M330 185 H355" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <path d="M490 185 H515" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2 2"/>
+</svg>
