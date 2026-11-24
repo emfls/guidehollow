@@ -1,0 +1,6 @@
+test_case_id,test_description,raw_markdown_cell_content,flaw_type,gfm_compliant_escaped_cell,parser_outcome
+TB-01,"Regex pattern with unescaped alternation","`cat|dog` in column 2","Cell split across columns","`cat\|dog`","Unescaped pipe triggers column shift; shifts subsequent values into nonexistent column."
+TB-02,"Math formula with vertical absolute value","`|x - y| < 0.05`","Delimiter confusion","`\|x - y\| < 0.05`","Parser treats initial pipe as table boundary and corrupts preceding column data."
+TB-03,"Multi-line description with literal newline","Line 1\nLine 2 inside single cell","Premature table termination","Line 1<br>Line 2","Literal newline terminates CommonMark table block; subsequent rows render as raw text."
+TB-04,"Missing colon in alignment row","--- | :-- | ---:","Alignment fallback to default","--- | :--- | ---:","Missing delimiter characters cause strict Markdown linters to reject table syntax."
+TB-05,"Mismatched column count in data row","Col 1 | Col 2","Silent column truncation","Col 1 | Col 2 | [Empty]","Incomplete row creates asymmetric table rendering across HTML table converters."

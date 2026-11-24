@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-label="Visual demonstration of how unescaped pipe characters corrupt Markdown table column alignment and parser states.">
+  <rect width="720" height="320" fill="#f8fafc"/>
+  <rect x="16" y="16" width="688" height="288" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="36" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#0f172a">CommonMark &amp; GFM Table Parsing: The Pipe Collision Trap</text>
+  <text x="36" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748b">How generative LLM outputs split table cells when inline alternation characters are not escaped</text>
+
+  <!-- Left Side: Broken Parsing -->
+  <g transform="translate(36, 90)">
+    <rect width="315" height="195" rx="6" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/>
+    <rect width="315" height="32" rx="6" fill="#ffe4e6"/>
+    <text x="14" y="21" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#9f1239">Broken: Raw `cat|dog` in Column 2</text>
+    
+    <!-- Table Mockup -->
+    <rect x="14" y="45" width="287" height="24" fill="#fecdd3"/>
+    <text x="20" y="61" font-family="monospace" font-size="10" fill="#881337">ID | Pattern | Note</text>
+    
+    <rect x="14" y="73" width="287" height="24" fill="#ffffff" stroke="#fda4af"/>
+    <text x="20" y="89" font-family="monospace" font-size="10" fill="#e11d48">01 | cat | dog | Syntax error</text>
+    
+    <text x="14" y="125" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#9f1239">Parser Result:</text>
+    <text x="14" y="145" font-family="system-ui, sans-serif" font-size="10.5" fill="#475569">• Column count expanded from 3 to 4</text>
+    <text x="14" y="163" font-family="system-ui, sans-serif" font-size="10.5" fill="#475569">• Note text pushed into phantom 4th column</text>
+    <text x="14" y="181" font-family="system-ui, sans-serif" font-size="10.5" fill="#e11d48">• HTML renderer drops or breaks table grid</text>
+  </g>
+
+  <!-- Right Side: Valid Parsing -->
+  <g transform="translate(369, 90)">
+    <rect width="315" height="195" rx="6" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+    <rect width="315" height="32" rx="6" fill="#dcfce7"/>
+    <text x="14" y="21" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#14532d">Valid: Escaped `cat\|dog`</text>
+    
+    <!-- Table Mockup -->
+    <rect x="14" y="45" width="287" height="24" fill="#bbf7d0"/>
+    <text x="20" y="61" font-family="monospace" font-size="10" fill="#14532d">ID | Pattern | Note</text>
+    
+    <rect x="14" y="73" width="287" height="24" fill="#ffffff" stroke="#86efac"/>
+    <text x="20" y="89" font-family="monospace" font-size="10" fill="#047857">01 | cat|dog | Valid entry</text>
+    
+    <text x="14" y="125" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#14532d">Parser Result:</text>
+    <text x="14" y="145" font-family="system-ui, sans-serif" font-size="10.5" fill="#475569">• Column count perfectly maintained (3 cols)</text>
+    <text x="14" y="163" font-family="system-ui, sans-serif" font-size="10.5" fill="#475569">• Escaped `\|` compiles to literal `|` character</text>
+    <text x="14" y="181" font-family="system-ui, sans-serif" font-size="10.5" fill="#047857">• Flawless HTML table conversion</text>
+  </g>
+</svg>
