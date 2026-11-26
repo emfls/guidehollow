@@ -1,0 +1,6 @@
+prompt_strategy,sample_count,schema_pass_rate,enum_violation_count,regex_violation_count,null_safety_error_count
+Zero-Shot Raw Text,100,64.0%,18,12,6
+Zero-Shot with Schema JSON,100,81.0%,9,7,3
+Few-Shot with 1 Boundary Example,100,94.0%,3,2,1
+Few-Shot with 3 Dual-Pole Boundary Examples,100,99.5%,0,0,0
+Structured Outputs Native Grammar Gate,100,100.0%,0,0,0
