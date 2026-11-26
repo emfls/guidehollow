@@ -16,7 +16,7 @@ When software teams connect large language models to backend microservices, data
 
 In high-throughput production workloads, however, naive zero-shot schema prompting routinely breaks down. Models hallucinate informal enum variants (e.g., outputting `"priority": "Urgent"` instead of the required `"CRITICAL"`), omit optional fields instead of setting them to explicit `null` values, invent camelCase keys when the model expects snake_case, and emit malformed regex strings for UUIDs and email addresses. When your backend pipeline calls `model_validate_json()`, Pydantic throws a `ValidationError`, halting asynchronous worker queues.
 
-To achieve near-100% deterministic schema compliance across any API provider, you must construct **dual-pole few-shot boundary prompt templates**. By combining the formal validation principles of [Pydantic v2 Models](https://docs.pydantic.dev/latest/) with the standard definitions of [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12/json-schema-core.html) and leveraging grammar-guided constraining as outlined in the [JSON Schema Validation Guide](https://json-schema.org/draft/2020-12/json-schema-validation.html), you can eliminate validation errors from your automated AI pipelines.
+To make structured extraction reliable across API providers without guessing which edge cases will break downstream parsers, construct **dual-pole few-shot boundary prompt templates** paired with an executable contract smoke test. By combining [Pydantic v2 Models](https://docs.pydantic.dev/latest/) (`ConfigDict(extra="forbid")`), [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12/json-schema-core.html), and [JSON Schema Validation constraints](https://json-schema.org/draft/2020-12/json-schema-validation.html), you can catch enum drift, missing keys, boundary errors, and extra hallucinated fields deterministically before payloads reach production queues.
 
 > **Key takeaways**
 > - Zero-shot schema prompts fail on edge boundaries: models require concrete few-shot examples demonstrating minimum, maximum, empty list, and nullable edge conditions.
@@ -33,26 +33,29 @@ When a language model generates JSON, it predicts subsequent tokens based on sta
 3. **Empty Array vs. Null Ambiguity:** For list fields like `tags: List[str]`, models often output `"tags": null` or omit the field when no tags are detected, violating the schema expectation of an empty list `[]`.
 4. **Regular Expression Pattern Violation:** For formatted identifiers like `task_id: ACT-123`, models frequently generate `TASK_123` or plain `123`.
 
-To quantify these failure rates, we conducted an empirical benchmark across 500 synthetic generation runs evaluating task-tracking payloads. Download the complete [executable Pydantic benchmark (.py)](/examples/pydantic-schema-eval/pydantic-eval-benchmark.py) and the [benchmark results matrix (.csv)](/examples/pydantic-schema-eval/benchmark-results.csv) to test your own validation workflows.
+To verify these edge conditions locally before running any paid model evaluation, download the [executable Pydantic contract smoke-test suite (.py)](/examples/pydantic-schema-eval/pydantic-eval-benchmark.py) and its matching [10-case contract verification matrix (.csv)](/examples/pydantic-schema-eval/benchmark-results.csv). Note that these downloadable artifacts are a deterministic schema contract smoke test—not an empirical LLM benchmark—so teams should run their own blind fixture suite against their exact target model version and decoding settings before quoting pass rates.
 
-The empirical data demonstrates the dramatic impact of prompt architecture on validation reliability:
+The matrix below maps each prompting architecture to the structural guarantees it actually provides:
 
-| Prompting Architecture | Sample Count | Pydantic Pass Rate | Enum Errors | Regex Violations | Missing Key Errors |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **Zero-Shot Raw Text** | 100 | 64.0% | 18 | 12 | 6 |
-| **Zero-Shot with Schema JSON** | 100 | 81.0% | 9 | 7 | 3 |
-| **Few-Shot with 1 Happy-Path Example** | 100 | 94.0% | 3 | 2 | 1 |
-| **Few-Shot with 3 Dual-Pole Boundaries** | 100 | 99.5% | 0 | 0 | 0 |
-| **Native Grammar-Guided Constrained Decoding** | 100 | 100.0% | 0 | 0 | 0 |
+| Prompting Architecture | Syntax / JSON Grammar | Enum & Regex Alignment | Null vs. Empty Array (`[]`) Coverage | Extra-Key & Boundary Protection |
+| :--- | :---: | :---: | :---: | :---: |
+| **Zero-Shot Raw Text** | Unconstrained | Prone to colloquial drift | Often omits keys or emits `null` for lists | Relies entirely on post-parse rejection |
+| **Zero-Shot with Schema JSON** | Schema-described only | Abstract rules, no examples | Frequently confuses optional vs. `null` | Requires validator `extra="forbid"` |
+| **Few-Shot (1 Happy-Path Example)** | Biased toward populated shape | Shows 1 valid token | Blind to `[]` and explicit `null` edges | Weak on min/max open-interval bounds |
+| **Few-Shot (3 Dual-Pole Boundaries)** | Strong pattern imitation | Demonstrates exact tokens & mapping | Explicitly shows `[]` and `null` required keys | Paired with Pydantic v2 `gt`/`lt` + `extra="forbid"` |
+| **Native Grammar-Guided Structured Outputs** | Engine-constrained grammar | Grammar enforces allowed tokens | Grammar enforces required keys & types | Still benefits from few-shot semantic disambiguation |
 
 ## 2. Defining the Target Pydantic v2 Validation Schema
 
-To build an evaluation suite, consider a production task-assignment engine that ingests meeting transcripts and emits structured action items. We define the schema using Pydantic v2:
+To build a strict contract verification suite, consider a production task-assignment engine that ingests meeting transcripts and emits structured action items. Every rule in the Pydantic v2 model below matches the prompt contract and downloadable smoke test character-for-character (`0.1 < estimated_hours < 40.0`, non-null `blocking_tasks` list of `^ACT-\d{3}$` IDs, required `resolution_notes` key allowing explicit `null`, and `ConfigDict(extra="forbid")`):
 
 ```python
 from enum import Enum
-from typing import List, Optional
-from pydantic import BaseModel, Field, EmailStr
+from typing import Annotated, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+
+TASK_ID_PATTERN = r"^ACT-\d{3}$"
+EMAIL_PATTERN = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
 
 class PriorityEnum(str, Enum):
     LOW = "LOW"
@@ -60,47 +63,52 @@ class PriorityEnum(str, Enum):
     HIGH = "HIGH"
     CRITICAL = "CRITICAL"
 
+TaskIdStr = Annotated[str, Field(pattern=TASK_ID_PATTERN)]
+
 class ActionItemModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     task_id: str = Field(
-        ..., 
-        pattern=r"^ACT-\d{3}$", 
+        ...,
+        pattern=TASK_ID_PATTERN,
         description="Unique task identifier in ACT-001 format"
     )
-    assignee_email: EmailStr = Field(
-        ..., 
+    assignee_email: str = Field(
+        ...,
+        pattern=EMAIL_PATTERN,
         description="Corporate email address of assignee"
     )
     description: str = Field(
-        ..., 
-        min_length=10, 
-        max_length=200, 
+        ...,
+        min_length=10,
+        max_length=200,
         description="Concise description of the deliverable"
     )
     priority: PriorityEnum = Field(
-        ..., 
-        description="Triage priority level"
+        ...,
+        description="Exact triage priority level"
     )
     estimated_hours: float = Field(
-        ..., 
-        gt=0.0, 
-        le=40.0, 
-        description="Estimated effort in hours between 0.1 and 40.0"
+        ...,
+        gt=0.1,
+        lt=40.0,
+        description="Estimated effort strictly between 0.1 and 40.0 hours"
     )
-    blocking_tasks: List[str] = Field(
-        default_factory=list, 
-        description="List of prerequisite task IDs, or empty list if none"
+    blocking_tasks: List[TaskIdStr] = Field(
+        ...,
+        description="Required array of ACT-### task IDs; [] if none (null rejected)"
     )
     resolution_notes: Optional[str] = Field(
-        default=None, 
-        description="Optional notes; null if not yet resolved"
+        ...,
+        description="Required key; string when resolved or explicit null if unresolved"
     )
 ```
 
-This model contains every major validation challenge: strict regex formatting (`pattern`), email parsing, string length boundaries (`min_length`/`max_length`), enum validation, numeric range gating (`gt`/`le`), list defaults, and explicit nullability.
+This model tests every critical validation contract: strict regex formatting (`pattern`) on both `task_id` and every element of `blocking_tasks`, string length boundaries (`min_length`/`max_length`), enum membership, open-interval numeric bounds (`gt=0.1` and `lt=40.0`, rejecting `0.1` and `40.0` while accepting interior values), non-nullable required lists (`[]` allowed, `null` rejected), required nullable strings (`null` allowed, missing key rejected), and `extra="forbid"` to block hallucinated fields.
 
 ## 3. Constructing the Dual-Pole Few-Shot Boundary Prompt
 
-The secret to achieving 99.5%+ compliance without fine-tuning is **dual-pole few-shot prompting**. Instead of showing two similar happy-path examples, you must provide three carefully constructed examples:
+Rather than showing two nearly identical happy-path examples, **dual-pole few-shot prompting** demonstrates both ends of the contract alongside semantic disambiguation:
 1. **The Maximum Boundary Example:** Fully populated fields, maximum allowable numbers, multiple list items, non-null optional values.
 2. **The Minimum Boundary Example:** Minimum allowable numbers, empty arrays (`[]`), explicit `null` optional values, edge-case shortest description.
 3. **The Disambiguation Boundary Example:** Natural language that contains misleading colloquial phrasing (e.g., "Urgent priority", "Half a day's work") mapped into the exact schema tokens (`"CRITICAL"`, `4.0`).
@@ -115,9 +123,10 @@ You are an automated task extraction agent. Your job is to extract an action ite
 - "assignee_email": Valid corporate email string
 - "description": String between 10 and 200 characters
 - "priority": Exact enum value: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
-- "estimated_hours": Float strictly between 0.1 and 40.0
-- "blocking_tasks": Array of task_id strings. If no blockers, MUST be []
-- "resolution_notes": String or null. If unresolved, MUST be null
+- "estimated_hours": Float strictly between 0.1 and 40.0 (rejects 0.1 and 40.0; accepts values inside)
+- "blocking_tasks": Required array of ^ACT-\d{3}$ strings. If no blockers, MUST be [] (null is invalid)
+- "resolution_notes": Required key; string or explicit null. Never omit the key.
+- Additional keys: Forbidden (extra fields fail validation)
 
 ### Example 1 (Maximum Populated Case):
 Input: "Sarah (sarah.chen@company.com) needs to migrate the primary auth database under task ACT-882. It is an emergency critical item taking around 35.5 hours, blocked by ACT-104 and ACT-105. She already verified backup snapshots."
@@ -239,7 +248,7 @@ Before wiring an AI prompt into an automated backend consumer, run through this 
 In Pydantic v2, `model_validate_json()` is written in high-performance Rust (`pydantic-core`). It parses the raw JSON string directly into C-level data structures without creating intermediate Python dictionaries, making it between 5x and 10x faster than calling `json.loads()` followed by `model_validate()`. Always use `model_validate_json()` in high-throughput API services.
 
 ### Should I use Native Engine Structured Outputs or Few-Shot Prompting?
-If you are calling modern provider models that support native `response_format={"type": "json_schema"}`, native Structured Outputs guarantees 100% grammar compliance via constrained token sampling at the engine level. However, few-shot boundary prompting remains essential for two reasons: (1) it works across all open-source and proprietary models (Llama 3, Mistral, Command R), and (2) grammar masking only forces syntax—it cannot teach the model *which* enum to choose when human input is ambiguous.
+If you are calling modern provider models that support native `response_format={"type": "json_schema"}`, native Structured Outputs constrains token sampling to match the JSON grammar at decoding time (subject to each provider's supported JSON Schema subset). However, few-shot boundary prompting remains essential for two reasons: (1) it works across open-weight and proprietary models without provider-specific grammar APIs, and (2) grammar masking only constrains syntax—it cannot teach the model *which* enum to choose when human input is ambiguous.
 
 ### How do I handle date-time strings in Pydantic validation?
 Declare the field as `datetime.datetime` in your Pydantic model. Pydantic v2 natively parses ISO 8601 strings (e.g., `"2026-11-26T14:30:00Z"`). In your few-shot prompt, provide an example with the explicit trailing `Z` or timezone offset to ensure the model does not output unanchored local timestamps.

@@ -1,6 +1,11 @@
-prompt_strategy,sample_count,schema_pass_rate,enum_violation_count,regex_violation_count,null_safety_error_count
-Zero-Shot Raw Text,100,64.0%,18,12,6
-Zero-Shot with Schema JSON,100,81.0%,9,7,3
-Few-Shot with 1 Boundary Example,100,94.0%,3,2,1
-Few-Shot with 3 Dual-Pole Boundary Examples,100,99.5%,0,0,0
-Structured Outputs Native Grammar Gate,100,100.0%,0,0,0
+case_id,category,expected_status,rule_verified,input_summary
+TC-01,valid_max,VALID,Max populated payload with 2 blockers and resolution note,"ACT-882, 35.5h, CRITICAL, ['ACT-104','ACT-105'], note string"
+TC-02,valid_min,VALID,Min edge payload with empty list [] and explicit resolution_notes=null,"ACT-003, 0.5h, LOW, [], resolution_notes=null"
+TC-03,valid_inner_bound,VALID,Strict open-interval inner bounds (0.2h and 39.9h),"ACT-409, 39.9h, MEDIUM, [], resolution_notes=null"
+TC-04,reject_lower_bound,INVALID,Rejects estimated_hours == 0.1 (strict gt=0.1 contract),"estimated_hours=0.1"
+TC-05,reject_upper_bound,INVALID,Rejects estimated_hours == 40.0 (strict lt=40.0 contract),"estimated_hours=40.0"
+TC-06,reject_null_list,INVALID,Rejects blocking_tasks=null (must be [] not null),"blocking_tasks=null"
+TC-07,reject_missing_notes_key,INVALID,Rejects omitted resolution_notes key (key required even when null),"resolution_notes omitted"
+TC-08,reject_extra_key,INVALID,Rejects undeclared keys via ConfigDict(extra='forbid'),"unexpected_field='hallucinated'"
+TC-09,reject_bad_blocker_id,INVALID,Rejects blocking_tasks item violating ^ACT-\\d{3}$ pattern,"blocking_tasks=['TASK-104']"
+TC-10,reject_enum_drift,INVALID,Rejects informal/lowercase priority variant,"priority='Urgent'"
