@@ -1,0 +1,200 @@
+---
+import Base from '../../layouts/Base.astro';
+import { cronTool } from '../../lib/tools';
+import { CRON_SEARCH_YEARS } from '../../lib/cron-audit';
+
+const guide = '/guides/verify-ai-cron-schedule-expressions-day-of-week/';
+const presets = [
+  { label: 'CRON-02 · Mondays and the 1st or 15th', expression: '0 9 1,15 * 1', reference: '2028-05-01T00:00:00Z', sunday: 'zero', zone: 'UTC' },
+  { label: 'CRON-01 · Sundays at 04:00 New York time', expression: '0 4 * * 7', reference: '2026-11-27T00:00:00Z', sunday: 'zero-or-seven', zone: 'America/New_York' },
+  { label: 'CRON-03 · Quarter hours through 17:45 UTC', expression: '*/15 9-17 * * *', reference: '2026-11-27T16:59:00Z', sunday: 'zero', zone: 'UTC' },
+];
+const sample = presets[0];
+---
+<Base title={cronTool.title} description={cronTool.description} breadcrumbs={[{name:'Free Tools',url:'/tools/'},{name:cronTool.title,url:cronTool.url}]}>
+  <header class="page-heading">
+    <h1>{cronTool.title}</h1>
+    <p>Preview the next 10 matches for a five-field cron expression. Check where day rules, Sunday numbering, and timezone settings change the schedule.</p>
+  </header>
+
+  <div class="tool-workspace">
+    <form id="cron-audit-form" class="tool-form" autocomplete="off">
+      <noscript><p>Enable JavaScript for the timestamp preview. The <a href="#cron-reference-results">worked examples</a> below are available without scripts.</p></noscript>
+      <fieldset id="cron-controls" disabled>
+        <legend>Schedule settings</legend>
+        <div class="cron-presets">
+          <label for="cron-preset">Fictional preset
+            <select id="cron-preset">
+              {presets.map(preset => <option data-expression={preset.expression} data-reference={preset.reference} data-sunday={preset.sunday} data-zone={preset.zone}>{preset.label}</option>)}
+            </select>
+          </label>
+          <button id="cron-load" type="button">Load preset</button>
+        </div>
+        <label for="cron-expression">Cron expression
+          <input id="cron-expression" type="text" value={sample.expression} maxlength="1024" required spellcheck="false" autocapitalize="off" aria-describedby="cron-fields" />
+          <small id="cron-fields">Minute · hour · day of month · month · day of week</small>
+        </label>
+        <label for="cron-reference">Start after (UTC)
+          <input id="cron-reference" type="text" value={sample.reference} maxlength="30" required spellcheck="false" autocapitalize="off" />
+          <small>Use an ISO timestamp ending in Z. A match at the reference instant is excluded.</small>
+        </label>
+        <button id="cron-now" type="button">Use current time</button>
+        <div class="cron-settings">
+          <label for="cron-day-rule">Day matching
+            <select id="cron-day-rule">
+              <option value="posix">POSIX OR</option>
+              <option value="and">Strict AND</option>
+            </select>
+          </label>
+          <label for="cron-sunday">Sunday numbering
+            <select id="cron-sunday">
+              <option value="zero">0 only (0–6)</option>
+              <option value="zero-or-seven">0 or 7 (0–7)</option>
+            </select>
+          </label>
+        </div>
+        <label for="cron-zone-mode">Schedule timezone
+          <select id="cron-zone-mode">
+            <option value="utc">UTC</option>
+            <option value="local">Browser local timezone</option>
+            <option value="named">Named timezone</option>
+          </select>
+        </label>
+        <label id="cron-zone-label" for="cron-zone" hidden>Timezone name
+          <input id="cron-zone" type="text" maxlength="80" placeholder="America/New_York" spellcheck="false" autocapitalize="off" disabled />
+          <small>Use the scheduler’s IANA timezone, for example Europe/London.</small>
+        </label>
+        <button type="submit" class="primary">Verify schedule</button>
+      </fieldset>
+      <p class="tool-footnote">The verifier processes inputs in this browser tab. It sends no schedule data and runs no jobs.</p>
+    </form>
+
+    <section class="tool-output" aria-labelledby="cron-results-title">
+      <h2 id="cron-results-title">Upcoming matches</h2>
+      <p id="cron-status" class="tool-status" role="status">Verify the loaded preset or enter a schedule.</p>
+      <ul id="cron-warnings"></ul>
+      <div id="cron-table-region" class="audit-table-scroll" role="region" aria-label="Run timestamps" tabindex="0" hidden>
+        <table>
+          <thead><tr><th scope="col">Run</th><th scope="col">UTC instant</th><th scope="col">Schedule clock</th></tr></thead>
+          <tbody id="cron-runs"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="section prose info-content" aria-labelledby="cron-reference-results">
+    <h2 id="cron-reference-results">Reproduce the guide’s results</h2>
+    <p><strong>Day rules.</strong> With the first preset, <code>0 9 1,15 * 1</code> under POSIX OR matches May 1, 8, and 15, 2028 at 09:00 UTC. Strict AND matches May 1 and May 15, then January 1, 2029. A date matching both fields appears once.</p>
+    <p><strong>Sunday and timezone.</strong> The New York preset first matches <code>2026-11-29T04:00:00-05:00</code>, which is <code>2026-11-29T09:00:00Z</code>. Switch the schedule timezone to UTC for a first run at 04:00 UTC. Switch Sunday to <strong>0 only</strong> to reproduce the parser rejection, then replace the final <code>7</code> with <code>0</code>.</p>
+    <p><strong>Closing boundary.</strong> The quarter-hour preset includes 17:00, 17:15, 17:30, and 17:45 UTC before resuming at 09:00 UTC the next day.</p>
+    <p><a href={guide}>Read the full cron audit guide</a> or <a href="/examples/cron-validator-suite/cron-validator-suite.json">download its fictional reference cases</a>.</p>
+    <h2>How to read the preview</h2>
+    <ul>
+      <li><strong>Day matching.</strong> POSIX OR matches the month and day-of-month pair or the weekday when the weekday and either calendar field are restricted. Strict AND requires all calendar fields to match. A bare <code>*</code> is unrestricted. Vixie-style engines can apply the month filter to both branches of the OR.</li>
+      <li><strong>Syntax.</strong> Use numeric values, comma-separated lists, inclusive ascending ranges, or <code>*</code>. Slash steps on ranges or wildcards are accepted with a portability warning. Names, macros, Quartz tokens, seconds fields, and shell commands are outside this preview.</li>
+      <li><strong>Clock changes.</strong> The preview uses the browser’s timezone rules. It skips missing wall-clock times and shows both instants when a clock time repeats. Schedulers can skip, repeat, or compensate differently, so check their documented clock-change policy.</li>
+      <li><strong>Search window.</strong> The preview stops after 10 matches or {CRON_SEARCH_YEARS} years. Compare the timestamps with the target scheduler before deploying.</li>
+    </ul>
+  </section>
+
+  <script>
+    import { auditCron, type CronDayRule, type CronSunday } from '../../lib/cron-audit';
+
+    const form = document.querySelector<HTMLFormElement>('#cron-audit-form')!;
+    const controls = document.querySelector<HTMLFieldSetElement>('#cron-controls')!;
+    const preset = document.querySelector<HTMLSelectElement>('#cron-preset')!;
+    const expression = document.querySelector<HTMLInputElement>('#cron-expression')!;
+    const reference = document.querySelector<HTMLInputElement>('#cron-reference')!;
+    const dayRule = document.querySelector<HTMLSelectElement>('#cron-day-rule')!;
+    const sunday = document.querySelector<HTMLSelectElement>('#cron-sunday')!;
+    const zoneMode = document.querySelector<HTMLSelectElement>('#cron-zone-mode')!;
+    const zoneLabel = document.querySelector<HTMLLabelElement>('#cron-zone-label')!;
+    const zone = document.querySelector<HTMLInputElement>('#cron-zone')!;
+    const status = document.querySelector<HTMLElement>('#cron-status')!;
+    const warnings = document.querySelector<HTMLUListElement>('#cron-warnings')!;
+    const table = document.querySelector<HTMLElement>('#cron-table-region')!;
+    const runs = document.querySelector<HTMLTableSectionElement>('#cron-runs')!;
+
+    function updateZoneInput() {
+      const named = zoneMode.value === 'named';
+      zoneLabel.hidden = !named;
+      zone.disabled = !named;
+      zone.required = named;
+    }
+
+    function clearResults(message: string) {
+      table.hidden = true;
+      runs.replaceChildren();
+      warnings.replaceChildren();
+      status.textContent = message;
+    }
+
+    form.addEventListener('input', event => {
+      if (event.target === preset) return;
+      updateZoneInput();
+      clearResults('Settings changed. Verify again to see current matches.');
+    });
+
+    document.querySelector('#cron-load')!.addEventListener('click', () => {
+      const data = preset.selectedOptions[0].dataset;
+      expression.value = data.expression!;
+      reference.value = data.reference!;
+      sunday.value = data.sunday!;
+      dayRule.value = 'posix';
+      zoneMode.value = data.zone === 'UTC' ? 'utc' : 'named';
+      zone.value = data.zone === 'UTC' ? '' : data.zone!;
+      updateZoneInput();
+      clearResults('Preset loaded. Verify to see its schedule.');
+    });
+
+    document.querySelector('#cron-now')!.addEventListener('click', () => {
+      reference.value = new Date().toISOString();
+      clearResults('Reference updated. Verify again to see current matches.');
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clearResults('');
+      try {
+        const timeZone = zoneMode.value === 'local' ? Intl.DateTimeFormat().resolvedOptions().timeZone
+          : zoneMode.value === 'named' ? zone.value.trim() : 'UTC';
+        const result = auditCron(expression.value, {
+          dayRule: dayRule.value as CronDayRule,
+          sunday: sunday.value as CronSunday,
+          reference: reference.value,
+          timeZone,
+        });
+        for (const { message } of result.warnings) {
+          const item = document.createElement('li');
+          item.textContent = message;
+          warnings.append(item);
+        }
+        result.runs.forEach((run, index) => {
+          const row = runs.insertRow();
+          for (const value of [String(index + 1), run.utc, run.local]) row.insertCell().textContent = value;
+        });
+        table.hidden = result.runs.length === 0;
+        status.textContent = `${result.runs.length} ${result.runs.length === 1 ? 'match' : 'matches'} after ${reference.value.trim()} · ${timeZone} · ${dayRule.selectedOptions[0].text}.`;
+      } catch (error) {
+        clearResults(error instanceof Error ? error.message : 'The schedule could not be verified.');
+      }
+    });
+    updateZoneInput();
+    controls.disabled = false;
+  </script>
+</Base>
+
+<style>
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend { font-weight: 650; margin-bottom: 1rem; }
+  select { display: block; width: 100%; margin-top: .4rem; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line); border-radius: 4px; padding: .65rem .55rem; }
+  input { font-family: var(--mono); }
+  .cron-presets { margin-bottom: 1.2rem; }
+  .cron-presets label { margin-bottom: .5rem; }
+  .cron-settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 0 .75rem; margin-top: 1.2rem; }
+  .tool-form [hidden] { display: none; }
+  #cron-warnings { padding-left: 1.25rem; overflow-wrap: anywhere; }
+  #cron-warnings li { margin: .55rem 0; font-size: .85rem; }
+  #cron-status { overflow-wrap: anywhere; }
+  td { font-family: var(--mono); white-space: nowrap; }
+</style>

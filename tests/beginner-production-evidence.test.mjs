@@ -44,7 +44,7 @@ test('about and editorial-policy pages disclose both the origin and limits of ac
     assert(content.includes('AdSense'));
   }
   assert(policy.includes('Updated November 3, 2026'));
-  assert(about.includes('Four free browser tools for drafting'));
+  assert(about.includes('Five free browser tools for drafting'));
   assert(about.includes('not a visitor study'));
   assert(policy.includes('One path was deliberately nonexistent'));
 });

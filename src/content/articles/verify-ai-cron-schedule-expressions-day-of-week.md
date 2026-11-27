@@ -5,7 +5,7 @@ slug: "verify-ai-cron-schedule-expressions-day-of-week"
 category: "guides"
 tags: ["verification", "automation", "devops"]
 publishedDate: "2026-11-27"
-updatedDate: "2026-11-27"
+updatedDate: "2026-11-28"
 sources: [{"title":"POSIX.1-2017 Programmer's Manual — crontab(1p), input files","url":"https://man7.org/linux/man-pages/man1/crontab.1p.html#INPUT_FILES"},{"title":"Paul Vixie — Vixie cron crontab(5)","url":"https://github.com/vixie/cron/blob/master/crontab.5"},{"title":"OpenBSD — crontab(5)","url":"https://man.openbsd.org/crontab.5"},{"title":"Quartz Scheduler — CronTrigger tutorial","url":"https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html"},{"title":"Amazon EventBridge — cron expressions for scheduled rules","url":"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html#eb-cron-expressions"},{"title":"GitHub Actions — schedule event and timezone","url":"https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule"},{"title":"GitHub Changelog — timezone support for scheduled workflows","url":"https://github.blog/changelog/2026-03-19-github-actions-late-march-2026-updates/"},{"title":"croniter — numeric schedules, timezones, and seconds","url":"https://github.com/pallets-eco/croniter"}]
 draft: false
 author: "GuideHollow Editorial"
@@ -15,6 +15,8 @@ featured: false
 An AI-generated cron expression can pass a parser and still send an invoice on the wrong date. A weekday and a day of the month can combine as a union, a closing-hour range can include four more quarter-hour slots, and a Sunday schedule can shift by five hours if it lands on a scheduler configured for UTC. Start a review with the intended calendar and the scheduler that will read the expression. Record both before checking the characters.
 
 This audit uses five cases with explicit UTC reference instants and IANA timezones. Download the [JSON validator suite](/examples/cron-validator-suite/cron-validator-suite.json) and the [CSV discrepancy matrix](/examples/cron-validator-suite/cron-discrepancy-matrix.csv). The CSV summarizes the scheduling requirement, original input, correction, and first expected run. The JSON also contains the sample runs and rejected inputs used by the Python example. A reference instant is an exclusive lower bound, so a run at the exact instant of the reference belongs to the preceding sample.
+
+Open the [Cron Schedule Verifier](/tools/cron-schedule-verifier/) to load the fictional Sunday, weekday-union, or quarter-hour presets. Compare the next ten timestamps under POSIX OR and strict AND, or switch between UTC and a regional timezone. To reproduce CRON-02, load its preset and verify it twice, changing only the day rule. May 8 at 09:00 UTC appears under OR and drops out under AND.
 
 ## Check the field order and destination
 

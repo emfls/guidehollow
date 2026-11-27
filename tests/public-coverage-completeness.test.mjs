@@ -7,7 +7,7 @@ import {
   checkCompletePublication,retryCompletePublication,
 } from '../scripts/verify-public-coverage.mjs';
 
-const tooling=['/tools/ai-prompt-builder/','/tools/ai-response-checklist/','/tools/weighted-price-checker/','/tools/claim-checker/'];
+const tooling=['/tools/ai-prompt-builder/','/tools/ai-response-checklist/','/tools/weighted-price-checker/','/tools/claim-checker/','/tools/cron-schedule-verifier/'];
 const standard=['/','/guides/','/ai-tools/','/prompts/','/troubleshooting/','/tools/',
   '/about/','/contact/','/privacy-policy/','/terms/','/editorial-policy/','/evidence/',...tooling];
 const sourceTime=new Date('2026-11-04T06:00:00Z');
@@ -59,6 +59,10 @@ test('published article source, sitemap, RSS and search index must agree complet
     sitemap:data['/sitemap.xml'],rss:data['/rss.xml'],index:data['/search-index.json'],
   },manifest),paths);
   assert.equal(sitemapPaths(data['/sitemap.xml']).length,paths.length);
+  assert.throws(()=>verifyInventory({
+    sitemap:data['/sitemap.xml'].replace(loc('/tools/cron-schedule-verifier/'),''),
+    rss:data['/rss.xml'],index:data['/search-index.json'],
+  },manifest),/Sitemap omits published route \/tools\/cron-schedule-verifier\//);
   const lost=manifest.articles.at(-1);
   assert.throws(()=>verifyInventory({
     sitemap:data['/sitemap.xml'].replace(loc(lost),''),

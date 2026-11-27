@@ -96,7 +96,7 @@ test('HTML form is inert without JS, avoids server requests and provides genuine
 test('honest privacy, terms, homepage and search wording describe manual export',()=>{
   const privacy=read('src/pages/privacy-policy.astro');
   const terms=read('src/pages/terms.astro');
-  const search=read('src/pages/search-index.json.ts');
+  const search=read('src/lib/tools.ts');
   const home=read('src/pages/index.astro');
   assert(privacy.includes('manual claim ledger holds user-entered sources'));
   assert(privacy.includes('requesting a TSV download creates a temporary browser file link'));

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { site } from '../src/config.ts';
+import { browserTools } from '../src/lib/tools.ts';
 const root = path.resolve('dist');
 async function walk(dir) { return (await Promise.all((await readdir(dir,{withFileTypes:true})).map(entry => entry.isDirectory() ? walk(path.join(dir,entry.name)) : path.join(dir,entry.name)))).flat(); }
 const files = await walk(root);
@@ -13,7 +14,11 @@ const sitemap = await readFile(path.join(root,'sitemap.xml'),'utf8');
 const search = JSON.parse(await readFile(path.join(root,'search-index.json'),'utf8'));
 const publicArticles = search.filter(entry => !entry.url.startsWith('/tools/'));
 const articlePaths = [];
-assert.equal(search.length-publicArticles.length,4,'All four tools must be searchable');
+assert.deepEqual(
+  search.filter(entry => entry.url.startsWith('/tools/')).map(entry => entry.url).sort(),
+  browserTools.map(tool => tool.url).sort(),
+  'Every registered tool must be searchable',
+);
 assert.equal(new Set(search.map(entry => entry.url)).size,search.length,'Duplicate public article paths');
 assert(!sitemap.includes('/404') && !sitemap.includes('/search/') && !sitemap.includes('/tags/'),'Noindex pages and navigation-only tag archives must be excluded');
 assert.equal((await readdir(root)).includes('ads.txt'),Boolean(site.ads.publisherId),'ads.txt must match publisher configuration');
@@ -166,7 +171,7 @@ for (const sourceFact of [
 }
 assert(claimVerifierHtml.includes('The original source notes above remain readable without JavaScript'),'No-JavaScript reader guidance missing');
 
-console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, 4 tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
+console.log(`Verified ${htmlFiles.length} HTML pages, ${internalLinks} internal links/assets, ${publicArticles.length} articles, ${browserTools.length} tools, metadata, JSON-LD, feeds, sitemap, and advertising gates.`);
 
 const approvedVisualCount = await verifyApprovedVisuals();
 console.log('Verified ' + approvedVisualCount + ' approved Notion figure(s) against SVG bytes and generated HTML.');

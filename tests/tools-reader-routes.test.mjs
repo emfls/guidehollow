@@ -4,18 +4,18 @@ import {readFileSync} from 'node:fs';
 
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 
-test('tool choice directs five real user jobs to four working browser tools without inventing another tool',()=>{
+test('tool choice directs six reader tasks to five browser tools',()=>{
   const category=read('src/pages/[category]/index.astro');
   const picker=category.split('id="tool-picker-heading"')[1]?.split("category.slug === 'tools' && <section class=\"section prose\"")[0] ?? '';
   assert(picker.includes('Choose a check by what you need to finish'));
-  for(const link of ['/tools/ai-prompt-builder/','/tools/ai-response-checklist/','/tools/weighted-price-checker/','/tools/claim-checker/','/tools/claim-checker/#manual-claim-ledger']) {
+  for(const link of ['/tools/ai-prompt-builder/','/tools/ai-response-checklist/','/tools/weighted-price-checker/','/tools/claim-checker/','/tools/claim-checker/#manual-claim-ledger','/tools/cron-schedule-verifier/']) {
     assert(picker.includes('href="'+link+'"'), 'reader route must be independently discoverable: '+link);
   }
   assert(picker.includes('What remains unverified'));
   assert(picker.includes('the browser saved it'));
   assert(picker.includes('27 units')&&picker.includes('530.00')&&picker.includes('19.63'));
   assert(picker.includes('location is already confirmed'));
-  assert.equal((category.match(/class="tool-card"/g)||[]).length,4,'Preserve the four independent tools');
+  assert.equal((category.match(/class="tool-card"/g)||[]).length,5,'Expose five independent tools');
 });
 
 test('the original source notes support the proposed three-way example precisely',()=>{

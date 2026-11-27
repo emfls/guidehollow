@@ -6,8 +6,9 @@ import {join,relative,sep,resolve} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {appendFileSync} from 'node:fs';
 import {site} from '../src/config.ts';
+import {browserTools} from '../src/lib/tools.ts';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
-const TOOLS=['/tools/ai-prompt-builder/','/tools/ai-response-checklist/','/tools/weighted-price-checker/','/tools/claim-checker/'];
+const TOOLS=browserTools.map(tool=>tool.url);
 const REQUIRED=['/','/guides/','/ai-tools/','/prompts/','/troubleshooting/','/tools/','/about/','/contact/','/privacy-policy/','/terms/','/editorial-policy/','/evidence/',...TOOLS];
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function walk(dir) {
@@ -77,7 +78,7 @@ export function verifyInventory({sitemap,rss,index},manifest) {
     throw new Error('Public search index records missing');
   const links=records.map(r=>r.url),expected=[...manifest.articles,...TOOLS].sort();
   if(new Set(links).size!==links.length||JSON.stringify(links.sort())!==JSON.stringify(expected))
-    throw new Error('Public search index differs from published articles and four tools');
+    throw new Error('Public search index differs from published articles and registered tools');
   if(links.some(path=>!set.has(path)))throw new Error('Search entry omitted from sitemap');
   return paths;
 }
