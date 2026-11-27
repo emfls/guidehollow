@@ -202,13 +202,20 @@ def test_ai_completion_stream(ai_raw_json_string):
             "error_type": None
         }
     except ValidationError as err:
+        allowed_fields = set(ActionItemModel.model_fields.keys())
+        allowed_types = {
+            "missing", "string_type", "string_pattern_mismatch", "string_too_short",
+            "enum", "float_parsing", "greater_than", "less_than_equal", "list_type",
+            "value_error", "extra_forbidden"
+        }
         error_details = []
-        for e in err.errors():
+        for e in err.errors(include_url=False, include_input=False):
+            root_field = str(e["loc"][0]) if e.get("loc") else ""
+            err_code = str(e.get("type", "unknown"))
             error_details.append({
-                "field": ".".join(str(loc) for loc in e["loc"]),
-                "msg": e["msg"],
-                "type": e["type"],
-                "input": e.get("input")
+                "field": root_field if root_field in allowed_fields else "<unexpected_field>",
+                "loc_depth": len(e.get("loc", ())),
+                "code": err_code if err_code in allowed_types else "validation_failed"
             })
         return {
             "success": False,
@@ -240,7 +247,7 @@ Before wiring an AI prompt into an automated backend consumer, run through this 
 - [ ] **Gate 2: Null and Empty Array Demonstrations:** Verify that your few-shot examples explicitly include at least one specimen with `[]` and at least one specimen with `null`.
 - [ ] **Gate 3: Negative Fence Stripping:** Ensure your backend ingestion pipeline includes an automated regex stripper for markdown code fences (` ```json `), preventing raw string wrapper crashes.
 - [ ] **Gate 4: Coercion Guard:** Verify that floating point numbers are displayed with explicit decimal points (e.g., `8.0` rather than integer `8`) in few-shot examples to reinforce float typing.
-- [ ] **Gate 5: Automated Fallback Retry:** Implement a programmatic retry loop: if `model_validate_json()` raises a `ValidationError`, feed the exact `err.errors()` list back to the model as an error-correction prompt.
+- [ ] **Gate 5: Sanitized Retry Codes Only:** Implement a bounded retry loop: if `model_validate_json()` raises a `ValidationError`, strip raw `input` values (`err.errors(include_input=False, include_url=False)`) and pass only allowlisted schema locations and error codes—never raw `err.errors()` dictionaries—back to the model.
 
 ## Frequently Asked Questions
 
