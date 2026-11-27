@@ -1,0 +1,236 @@
+{
+  "suite_name": "GuideHollow Cron Expression Verification Suite",
+  "version": "2026.11",
+  "test_cases": [
+    {
+      "id": "CRON-01",
+      "intended_schedule": "Every Sunday at 04:00 in America/New_York",
+      "ai_generated_expression": "0 4 * * 7",
+      "dialect": "Strict POSIX portability vs Vixie cron and OpenBSD",
+      "flaw": "Vixie cron and OpenBSD accept 0 or 7 as Sunday. Strict POSIX and GitHub Actions document numeric weekdays 0-6.",
+      "corrected_schedule": "0 4 * * 0",
+      "reference_time_utc": "2026-11-27T00:00:00Z",
+      "timezone": "America/New_York",
+      "expected_next_timestamp_iso": "2026-11-29T09:00:00Z",
+      "expected_local_timestamp_iso": "2026-11-29T04:00:00-05:00",
+      "comparison_timezone": "UTC",
+      "expected_next_in_comparison_timezone_utc": "2026-11-29T04:00:00Z",
+      "expected_behavior": "Sunday 2026-11-29 04:00 EST (UTC-05:00) is 09:00 UTC. Evaluating the same expression in UTC gives 04:00 UTC.",
+      "risk_severity": "MEDIUM",
+      "checks": [
+        {
+          "id": "posix-original",
+          "mode": "posix",
+          "expression": "0 4 * * 7",
+          "expected_utc": null
+        },
+        {
+          "id": "vixie-original",
+          "mode": "vixie",
+          "expression": "0 4 * * 7",
+          "expected_utc": [
+            "2026-11-29T09:00:00Z"
+          ]
+        },
+        {
+          "id": "posix-new-york",
+          "mode": "posix",
+          "expression": "0 4 * * 0",
+          "expected_utc": [
+            "2026-11-29T09:00:00Z",
+            "2026-12-06T09:00:00Z",
+            "2026-12-13T09:00:00Z",
+            "2026-12-20T09:00:00Z",
+            "2026-12-27T09:00:00Z"
+          ]
+        },
+        {
+          "id": "posix-utc-control",
+          "mode": "posix",
+          "expression": "0 4 * * 0",
+          "timezone": "UTC",
+          "expected_utc": [
+            "2026-11-29T04:00:00Z"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CRON-02",
+      "intended_schedule": "Run at 09:00 UTC only when the 1st or 15th of the month falls on a Monday",
+      "ai_generated_expression": "0 9 1,15 * 1",
+      "dialect": "POSIX and Vixie-style user crontab",
+      "flaw": "With an unrestricted month, both dialects match a union of Mondays and dates 1 and 15.",
+      "corrected_schedule": "0 9 1,15 * * [ \"$(date +\\%u)\" = \"1\" ] && /path/to/job",
+      "reference_time_utc": "2028-05-01T00:00:00Z",
+      "timezone": "UTC",
+      "expected_next_timestamp_iso": "2028-05-01T09:00:00Z",
+      "expected_behavior": "The union runs May 1, 8, 15, 22, and 29, 2028. The guarded job runs May 1 and 15 at 09:00 UTC, once per date.",
+      "risk_severity": "HIGH",
+      "checks": [
+        {
+          "id": "posix-union",
+          "mode": "posix",
+          "expression": "0 9 1,15 * 1",
+          "expected_utc": [
+            "2028-05-01T09:00:00Z",
+            "2028-05-08T09:00:00Z",
+            "2028-05-15T09:00:00Z",
+            "2028-05-22T09:00:00Z",
+            "2028-05-29T09:00:00Z"
+          ]
+        },
+        {
+          "id": "vixie-union",
+          "mode": "vixie",
+          "expression": "0 9 1,15 * 1",
+          "expected_utc": [
+            "2028-05-01T09:00:00Z",
+            "2028-05-08T09:00:00Z",
+            "2028-05-15T09:00:00Z",
+            "2028-05-22T09:00:00Z",
+            "2028-05-29T09:00:00Z"
+          ]
+        },
+        {
+          "id": "guarded-intersection",
+          "mode": "posix",
+          "expression": "0 9 1,15 * *",
+          "guard": "monday",
+          "expected_utc": [
+            "2028-05-01T09:00:00Z",
+            "2028-05-15T09:00:00Z"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CRON-03",
+      "intended_schedule": "Run daily every 15 minutes from 09:00 through 17:45 UTC",
+      "ai_generated_expression": "0 */15 9-17 * *",
+      "dialect": "Vixie-style user crontab with a strict POSIX alternative",
+      "flaw": "The original steps through hours 00 and 15 on days 9-17. Strict POSIX excludes slash steps.",
+      "corrected_schedule": "*/15 9-17 * * *",
+      "posix_equivalent": "0,15,30,45 9-17 * * *",
+      "reference_time_utc": "2026-11-27T16:59:00Z",
+      "timezone": "UTC",
+      "expected_next_timestamp_iso": "2026-11-27T17:00:00Z",
+      "expected_behavior": "The 9-17 hour range includes 17:00, 17:15, 17:30, and 17:45. The next run is 09:00 UTC the following day.",
+      "risk_severity": "HIGH",
+      "checks": [
+        {
+          "id": "vixie-original",
+          "mode": "vixie",
+          "expression": "0 */15 9-17 * *",
+          "expected_utc": [
+            "2026-12-09T00:00:00Z",
+            "2026-12-09T15:00:00Z"
+          ]
+        },
+        {
+          "id": "posix-step-rejected",
+          "mode": "posix",
+          "expression": "*/15 9-17 * * *",
+          "expected_utc": null
+        },
+        {
+          "id": "vixie-quarter-hours",
+          "mode": "vixie",
+          "expression": "*/15 9-17 * * *",
+          "expected_utc": [
+            "2026-11-27T17:00:00Z",
+            "2026-11-27T17:15:00Z",
+            "2026-11-27T17:30:00Z",
+            "2026-11-27T17:45:00Z",
+            "2026-11-28T09:00:00Z"
+          ]
+        },
+        {
+          "id": "posix-quarter-hours",
+          "mode": "posix",
+          "expression": "0,15,30,45 9-17 * * *",
+          "expected_utc": [
+            "2026-11-27T17:00:00Z",
+            "2026-11-27T17:15:00Z",
+            "2026-11-27T17:30:00Z",
+            "2026-11-27T17:45:00Z",
+            "2026-11-28T09:00:00Z"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CRON-04",
+      "intended_schedule": "Run at 00:00 UTC at the start of the month's last calendar day",
+      "ai_generated_expression": "0 0 L * *",
+      "dialect": "POSIX and Vixie-style user crontab",
+      "flaw": "L is invalid in five-field Unix crontab. Quartz and EventBridge support L in day of month with ? in day of week.",
+      "corrected_schedule": "0 0 28-31 * * /usr/bin/env python3 -c 'from datetime import date, timedelta; raise SystemExit((date.today() + timedelta(days=1)).day != 1)' && /path/to/job",
+      "quartz_expression": "0 0 0 L * ?",
+      "eventbridge_expression": "cron(0 0 L * ? *)",
+      "reference_time_utc": "2026-11-27T00:00:00Z",
+      "timezone": "UTC",
+      "expected_next_timestamp_iso": "2026-11-30T00:00:00Z",
+      "expected_behavior": "At 00:00 UTC, the guard invokes the job only if tomorrow is day 1. The first run is November 30, 2026.",
+      "risk_severity": "HIGH",
+      "checks": [
+        {
+          "id": "posix-original",
+          "mode": "posix",
+          "expression": "0 0 L * *",
+          "expected_utc": null
+        },
+        {
+          "id": "vixie-original",
+          "mode": "vixie",
+          "expression": "0 0 L * *",
+          "expected_utc": null
+        },
+        {
+          "id": "guarded-last-day",
+          "mode": "posix",
+          "expression": "0 0 28-31 * *",
+          "guard": "last_day",
+          "expected_utc": [
+            "2026-11-30T00:00:00Z",
+            "2026-12-31T00:00:00Z",
+            "2027-01-31T00:00:00Z",
+            "2027-02-28T00:00:00Z",
+            "2027-03-31T00:00:00Z"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CRON-05",
+      "intended_schedule": "Run every 10 seconds in UTC",
+      "ai_generated_expression": "*/10 * * * * *",
+      "dialect": "Quartz vs EventBridge scheduled rules vs Unix crontab vs GitHub Actions",
+      "flaw": "Quartz and EventBridge require ? in one day field. A Vixie user crontab reads token 6 as command text and a system crontab reads it as username. GitHub Actions expects 5 fields.",
+      "corrected_schedule": "*/10 * * * * ?",
+      "quartz_expression": "*/10 * * * * ?",
+      "reference_time_utc": "2026-11-27T00:00:00Z",
+      "timezone": "UTC",
+      "expected_next_timestamp_iso": "2026-11-27T00:00:10Z",
+      "expected_behavior": "Corrected Quartz schedules every 10 seconds. EventBridge has minute precision and GitHub Actions has a five-minute minimum. The Vixie time fields alone match every ten minutes.",
+      "risk_severity": "HIGH",
+      "checks": [
+        {
+          "id": "unix-expression",
+          "mode": "vixie",
+          "expression": "*/10 * * * * *",
+          "expected_utc": null
+        },
+        {
+          "id": "user-crontab-time-fields",
+          "mode": "vixie",
+          "expression": "*/10 * * * *",
+          "expected_utc": [
+            "2026-11-27T00:10:00Z",
+            "2026-11-27T00:20:00Z"
+          ]
+        }
+      ]
+    }
+  ]
+}
